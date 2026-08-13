@@ -4,9 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nova Hub</title>
+<title>Nova</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+:root {
+    --accent: #8b5cff;
+    --panel: rgba(12, 12, 25, 0.78);
+    --border: rgba(255,255,255,0.10);
+    --text: #ffffff;
+    --muted: #a7a7b5;
+    --font: "Outfit", sans-serif;
+}
 
 * {
     box-sizing: border-box;
@@ -14,551 +24,1019 @@
     padding: 0;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background:
-        radial-gradient(circle at 20% 20%, #29206b, transparent 35%),
-        radial-gradient(circle at 80% 80%, #45106b, transparent 35%),
-        #070712;
-    color: white;
-    min-height: 100vh;
+html, body {
+    width: 100%;
+    height: 100%;
 }
 
-/* Stars */
+body {
+    font-family: var(--font);
+    color: var(--text);
+    overflow: hidden;
 
-body::before {
+    background:
+        radial-gradient(circle at 18% 20%, rgba(75, 44, 160, .55), transparent 34%),
+        radial-gradient(circle at 82% 75%, rgba(120, 20, 150, .38), transparent 35%),
+        #070712;
+}
+
+/* STAR FIELD */
+
+body::before,
+body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background-image:
-        radial-gradient(white 1px, transparent 1px),
-        radial-gradient(white 1px, transparent 1px);
-    background-size: 80px 80px, 130px 130px;
-    background-position: 0 0, 40px 60px;
-    opacity: .2;
     pointer-events: none;
 }
 
-/* Header */
+body::before {
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 1px, transparent 1px);
+    background-size: 90px 90px, 150px 150px;
+    background-position: 10px 20px, 50px 80px;
+    opacity: .25;
+}
 
-header {
+body::after {
+    background:
+        radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.45));
+}
+
+/* MAIN */
+
+#app {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 68px;
+    padding: 13px 8px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+
+    background: rgba(8,8,18,.76);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.4),
+        inset 0 1px rgba(255,255,255,.05);
+
+    z-index: 100;
+}
+
+/* SMALL CLOCK */
+
+.side-time {
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    white-space: nowrap;
+}
+
+/* NAV ITEMS */
+
+.nav-item {
+    position: relative;
+
+    width: 50px;
+    height: 50px;
+
+    border: 0;
+    border-radius: 15px;
+
+    background: transparent;
+    color: #bdbdcc;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    transition:
+        transform .28s cubic-bezier(.2,.8,.2,1),
+        background .25s ease,
+        color .25s ease;
+}
+
+.nav-item:hover {
+    transform: scale(1.13);
+    color: white;
+    background: rgba(139,92,255,.18);
+}
+
+.nav-item.active {
+    color: white;
+    background: rgba(139,92,255,.25);
+}
+
+/* TOOLTIP */
+
+.nav-item::after {
+    content: attr(data-name);
+
+    position: absolute;
+    left: 63px;
+    top: 50%;
+
+    transform: translateY(-50%) translateX(-6px);
+
+    padding: 8px 12px;
+
+    background: rgba(10,10,20,.94);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 9px;
+
+    color: white;
+    font-family: var(--font);
+    font-size: 13px;
+    white-space: nowrap;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease;
+
+    pointer-events: none;
+}
+
+/* DELAYED TOOLTIP */
+
+.nav-item:hover::after {
+    transition-delay: .5s;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* DIVIDER */
+
+.divider {
+    width: 38px;
+    height: 1px;
+    background: rgba(255,255,255,.10);
+    margin: 3px 0;
+}
+
+/* CONTENT */
+
+.content {
+    width: 100%;
+    height: 100%;
+    padding-left: 105px;
     position: relative;
     z-index: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 7%;
-    background: rgba(5,5,15,.8);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid #29293c;
 }
 
-.logo {
-    font-size: 25px;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-
-.logo span {
-    color: #8b5cff;
-}
-
-nav button {
-    background: transparent;
-    border: none;
-    color: #aaa;
-    margin-left: 20px;
-    cursor: pointer;
-    font-size: 15px;
-}
-
-nav button:hover {
-    color: white;
-}
-
-/* Pages */
+/* PAGES */
 
 .page {
-    display: none;
-    position: relative;
-    z-index: 1;
-    padding: 50px 7%;
+    position: absolute;
+    inset: 0;
+
+    padding: 55px 7%;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease,
+        visibility .3s ease;
+
+    overflow-y: auto;
 }
 
 .page.active {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
-/* Home */
+/* HOME */
 
-.hero {
-    text-align: center;
-    padding: 50px 0;
-}
-
-.hero h1 {
-    font-size: 55px;
-    margin-bottom: 15px;
-}
-
-.hero span {
-    color: #8b5cff;
-}
-
-.hero p {
-    color: #aaa;
-}
-
-/* Search */
-
-.search-box {
-    max-width: 650px;
-    margin: 30px auto;
+.home {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-.search-box input {
-    flex: 1;
-    padding: 16px;
-    border-radius: 30px;
-    border: 1px solid #333;
-    background: #11111d;
-    color: white;
-    outline: none;
+.welcome {
+    margin-top: 45px;
+    font-size: clamp(42px, 7vw, 82px);
+    font-weight: 600;
+    letter-spacing: -3px;
 }
 
-.search-box button,
-.action {
-    padding: 14px 22px;
-    border: none;
-    border-radius: 25px;
-    background: #8b5cff;
-    color: white;
-    cursor: pointer;
+.welcome span {
+    color: var(--accent);
+    text-shadow: 0 0 35px rgba(139,92,255,.35);
 }
 
-/* Cards */
+/* CLOCK */
 
-.grid {
+.clock {
+    margin-top: 15px;
+
+    font-size: clamp(55px, 9vw, 105px);
+    font-weight: 400;
+
+    letter-spacing: 3px;
+
+    text-shadow:
+        0 0 30px rgba(255,255,255,.12);
+}
+
+.date {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+/* CARDS */
+
+.cards {
+    width: min(900px, 100%);
+    margin-top: 55px;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    margin-top: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 17px;
 }
 
 .card {
-    padding: 35px 20px;
-    background: rgba(20,20,35,.9);
-    border: 1px solid #29293c;
-    border-radius: 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: .2s;
+    padding: 28px 20px;
+
+    background: rgba(15,15,30,.65);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        background .25s ease;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    border-color: #8b5cff;
+    border-color: rgba(139,92,255,.45);
+    background: rgba(25,20,45,.75);
 }
 
-.card .icon {
-    font-size: 45px;
-    margin-bottom: 15px;
+.card-icon {
+    font-size: 35px;
+    margin-bottom: 13px;
+}
+
+.card h2 {
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .card p {
-    color: #888;
-    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 7px;
 }
 
-/* Browser */
+/* PAGE TITLES */
 
-.browser-bar {
-    display: flex;
-    gap: 8px;
-    margin: 20px 0;
+.page-title {
+    font-size: 42px;
+    margin-bottom: 25px;
 }
 
-.browser-bar button {
-    background: #171725;
-    border: 1px solid #333;
+/* SETTINGS */
+
+.settings-panel {
+    max-width: 700px;
+
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+
+    padding: 25px;
+
+    backdrop-filter: blur(18px);
+}
+
+.setting {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.setting:last-child {
+    border-bottom: none;
+}
+
+.setting h3 {
+    margin-bottom: 7px;
+    font-size: 17px;
+}
+
+.setting p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 13px;
+}
+
+/* SELECT */
+
+select {
+    padding: 11px 14px;
+
+    background: #151522;
     color: white;
-    padding: 10px 14px;
+
+    border: 1px solid #333346;
+    border-radius: 9px;
+
+    font-family: var(--font);
+}
+
+/* COLOR */
+
+input[type="color"] {
+    width: 55px;
+    height: 40px;
+    border: none;
     border-radius: 8px;
+    background: transparent;
     cursor: pointer;
 }
 
-.browser-bar input {
-    flex: 1;
-    background: #11111d;
-    color: white;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 12px;
-}
+/* BUTTON */
 
-.browser-window {
-    background: #0c0c14;
-    border: 1px solid #333;
-    border-radius: 15px;
-    padding: 40px;
-    text-align: center;
-    min-height: 400px;
-}
+button.action {
+    padding: 11px 16px;
 
-.browser-window p {
-    color: #888;
-}
-
-/* Spotify */
-
-.spotify {
-    max-width: 700px;
-    margin: 30px auto;
-}
-
-.spotify iframe {
-    width: 100%;
-    height: 352px;
     border: none;
-    border-radius: 15px;
+    border-radius: 9px;
+
+    background: var(--accent);
+    color: white;
+
+    font-family: var(--font);
+    cursor: pointer;
+
+    transition: transform .2s ease, filter .2s ease;
 }
 
-/* Discord */
-
-.discord {
-    text-align: center;
-    max-width: 600px;
-    margin: 50px auto;
+button.action:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
 }
 
-.discord .big-icon {
-    font-size: 80px;
-    margin-bottom: 20px;
+.panic-status {
+    display: inline-block;
+    margin-left: 12px;
+    color: var(--muted);
+    font-size: 13px;
 }
 
-.discord p {
-    color: #aaa;
-    margin: 15px;
+/* PANIC SCREEN */
+
+#panicScreen {
+    position: fixed;
+    inset: 0;
+
+    background: #000;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 9999;
 }
 
-/* Games */
-
-.game {
-    min-height: 180px;
+#panicScreen.active {
+    display: flex;
 }
 
+#panicScreen span {
+    color: #111;
+    font-size: 1px;
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+
+    .sidebar {
+        left: 8px;
+        width: 58px;
+        padding: 9px 5px;
+    }
+
+    .nav-item {
+        width: 44px;
+        height: 44px;
+        font-size: 21px;
+    }
+
+    .content {
+        padding-left: 78px;
+    }
+
+    .page {
+        padding: 35px 25px;
+    }
+
+    .welcome {
+        margin-top: 25px;
+    }
+
+    .clock {
+        font-size: 48px;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<header>
+<div id="app">
 
-    <div class="logo">
-        NOVA<span>HUB</span>
-    </div>
+    <!-- SIDEBAR -->
 
-    <nav>
+    <aside class="sidebar">
 
-        <button onclick="showPage('home')">
-            Home
-        </button>
-
-        <button onclick="showPage('games')">
-            Games
-        </button>
-
-        <button onclick="showPage('browser')">
-            Browser
-        </button>
-
-        <button onclick="showPage('spotify')">
-            Spotify
-        </button>
-
-        <button onclick="showPage('discord')">
-            Discord
-        </button>
-
-    </nav>
-
-</header>
-
-
-<!-- HOME -->
-
-<section id="home" class="page active">
-
-    <div class="hero">
-
-        <h1>
-            Welcome to <span>Nova</span>
-        </h1>
-
-        <p>
-            Games, music, Discord and more.
-        </p>
-
-        <div class="search-box">
-
-            <input
-                id="homeSearch"
-                placeholder="Search the web..."
-            >
-
-            <button onclick="searchWeb()">
-                Search
-            </button>
-
+        <div class="side-time" id="sideTime">
+            12:00 PM
         </div>
-
-    </div>
-
-
-    <div class="grid">
-
-        <div class="card" onclick="showPage('games')">
-
-            <div class="icon">🎮</div>
-
-            <h2>Games</h2>
-
-            <p>Play browser games.</p>
-
-        </div>
-
-
-        <div class="card" onclick="showPage('browser')">
-
-            <div class="icon">🌐</div>
-
-            <h2>Browser</h2>
-
-            <p>Search the web.</p>
-
-        </div>
-
-
-        <div class="card" onclick="showPage('spotify')">
-
-            <div class="icon">🎵</div>
-
-            <h2>Spotify</h2>
-
-            <p>Listen to music.</p>
-
-        </div>
-
-
-        <div class="card" onclick="showPage('discord')">
-
-            <div class="icon">💬</div>
-
-            <h2>Discord</h2>
-
-            <p>Open your Discord server.</p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- GAMES -->
-
-<section id="games" class="page">
-
-    <h1>🎮 Games</h1>
-
-    <div class="grid">
-
-        <div class="card game">
-
-            <div class="icon">🚀</div>
-
-            <h2>Space Runner</h2>
-
-            <p>Coming soon</p>
-
-        </div>
-
-
-        <div class="card game">
-
-            <div class="icon">👾</div>
-
-            <h2>Pixel Quest</h2>
-
-            <p>Coming soon</p>
-
-        </div>
-
-
-        <div class="card game">
-
-            <div class="icon">🧩</div>
-
-            <h2>Galaxy Blocks</h2>
-
-            <p>Coming soon</p>
-
-        </div>
-
-
-        <div class="card game">
-
-            <div class="icon">🏎️</div>
-
-            <h2>Neon Racer</h2>
-
-            <p>Coming soon</p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- BROWSER -->
-
-<section id="browser" class="page">
-
-    <h1>🌐 Browser</h1>
-
-    <div class="browser-bar">
-
-        <button onclick="history.back()">
-            ←
-        </button>
-
-        <button onclick="history.forward()">
-            →
-        </button>
-
-        <button onclick="location.reload()">
-            ↻
-        </button>
-
-        <input
-            id="browserSearch"
-            placeholder="Search the web..."
-            onkeydown="if(event.key==='Enter') browserSearch()"
-        >
-
-        <button onclick="browserSearch()">
-            Search
-        </button>
-
-    </div>
-
-
-    <div class="browser-window">
-
-        <h2>Nova Search</h2>
-
-        <p>
-            Enter a search above.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- SPOTIFY -->
-
-<section id="spotify" class="page">
-
-    <h1>🎵 Spotify</h1>
-
-    <div class="spotify">
-
-        <iframe
-            src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy">
-        </iframe>
-
-    </div>
-
-</section>
-
-
-<!-- DISCORD -->
-
-<section id="discord" class="page">
-
-    <div class="discord">
-
-        <div class="big-icon">
-            💬
-        </div>
-
-        <h1>Discord</h1>
-
-        <p>
-            Connect your Discord server here.
-        </p>
 
         <button
-            class="action"
-            onclick="window.open('https://discord.com/app','_blank')">
-
-            Open Discord
-
+            class="nav-item active"
+            data-page="home"
+            data-name="Home"
+            onclick="showPage('home', this)">
+            🏠
         </button>
 
-    </div>
+        <button
+            class="nav-item"
+            data-page="games"
+            data-name="Games"
+            onclick="showPage('games', this)">
+            🎮
+        </button>
 
-</section>
+        <button
+            class="nav-item"
+            data-page="spotify"
+            data-name="Spotify"
+            onclick="showPage('spotify', this)">
+            🎵
+        </button>
+
+        <button
+            class="nav-item"
+            data-page="discord"
+            data-name="Discord"
+            onclick="showPage('discord', this)">
+            💬
+        </button>
+
+        <button
+            class="nav-item"
+            data-page="browser"
+            data-name="Browser"
+            onclick="showPage('browser', this)">
+            🌐
+        </button>
+
+        <div class="divider"></div>
+
+        <button
+            class="nav-item"
+            data-page="settings"
+            data-name="Settings"
+            onclick="showPage('settings', this)">
+            ⚙️
+        </button>
+
+    </aside>
+
+
+    <!-- CONTENT -->
+
+    <main class="content">
+
+        <!-- HOME -->
+
+        <section id="home" class="page home active">
+
+            <h1 class="welcome">
+                Welcome to <span>Nova</span>
+            </h1>
+
+            <div class="clock" id="clock">
+                12:00:00 PM
+            </div>
+
+            <div class="date" id="date">
+                Thursday, August 13
+            </div>
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="card-icon">🎮</div>
+                    <h2>Games</h2>
+                    <p>Your game library.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🎵</div>
+                    <h2>Spotify</h2>
+                    <p>Music and playlists.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <h2>Discord</h2>
+                    <p>Your Discord space.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <h2>Browser</h2>
+                    <p>Web tools.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- GAMES -->
+
+        <section id="games" class="page">
+
+            <h1 class="page-title">🎮 Games</h1>
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h2>Space Runner</h2>
+                    <p>Coming soon.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">👾</div>
+                    <h2>Pixel Quest</h2>
+                    <p>Coming soon.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🧩</div>
+                    <h2>Galaxy Blocks</h2>
+                    <p>Coming soon.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SPOTIFY -->
+
+        <section id="spotify" class="page">
+
+            <h1 class="page-title">🎵 Spotify</h1>
+
+            <div class="settings-panel">
+
+                <p style="color:var(--muted);">
+                    Your Spotify player will go here.
+                </p>
+
+                <br>
+
+                <iframe
+                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
+                    width="100%"
+                    height="352"
+                    frameborder="0"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy">
+                </iframe>
+
+            </div>
+
+        </section>
+
+
+        <!-- DISCORD -->
+
+        <section id="discord" class="page">
+
+            <h1 class="page-title">💬 Discord</h1>
+
+            <div class="settings-panel">
+
+                <h2>Discord</h2>
+
+                <br>
+
+                <p>
+                    Your Discord integration can go here.
+                </p>
+
+                <br>
+
+                <button
+                    class="action"
+                    onclick="window.open('https://discord.com/app', '_blank')">
+                    Open Discord
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- BROWSER -->
+
+        <section id="browser" class="page">
+
+            <h1 class="page-title">🌐 Browser</h1>
+
+            <div class="settings-panel">
+
+                <p>
+                    Browser section.
+                </p>
+
+                <br>
+
+                <input
+                    id="searchInput"
+                    style="
+                        width:70%;
+                        padding:12px;
+                        background:#11111d;
+                        color:white;
+                        border:1px solid #333;
+                        border-radius:9px;
+                    "
+                    placeholder="Search the web..."
+                >
+
+                <button
+                    class="action"
+                    onclick="searchWeb()">
+                    Search
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- SETTINGS -->
+
+        <section id="settings" class="page">
+
+            <h1 class="page-title">⚙️ Settings</h1>
+
+            <div class="settings-panel">
+
+                <!-- FONT -->
+
+                <div class="setting">
+
+                    <h3>Font</h3>
+
+                    <p>
+                        Change Nova's typeface.
+                    </p>
+
+                    <select id="fontSelector" onchange="changeFont()">
+
+                        <option value='"Outfit", sans-serif'>
+                            Outfit
+                        </option>
+
+                        <option value='"Space Grotesk", sans-serif'>
+                            Space Grotesk
+                        </option>
+
+                        <option value='"Rajdhani", sans-serif'>
+                            Rajdhani
+                        </option>
+
+                        <option value='Arial, sans-serif'>
+                            Arial
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- BACKGROUND -->
+
+                <div class="setting">
+
+                    <h3>Background Color</h3>
+
+                    <p>
+                        Change Nova's base background color.
+                    </p>
+
+                    <input
+                        type="color"
+                        id="backgroundColor"
+                        value="#070712"
+                        onchange="changeBackground()">
+
+                </div>
+
+
+                <!-- PANIC KEY -->
+
+                <div class="setting">
+
+                    <h3>🚨 Panic Key</h3>
+
+                    <p>
+                        Choose a keyboard key that instantly hides Nova.
+                    </p>
+
+                    <button
+                        class="action"
+                        id="panicButton"
+                        onclick="setPanicKey()">
+                        Set Panic Key
+                    </button>
+
+                    <span
+                        class="panic-status"
+                        id="panicStatus">
+                        Not set
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- PANIC SCREEN -->
+
+<div id="panicScreen">
+
+    <span>Nova</span>
+
+</div>
 
 
 <script>
 
-function showPage(page) {
+/* PAGE SWITCHING */
+
+function showPage(page, button) {
 
     document
-        .querySelectorAll('.page')
-        .forEach(p => p.classList.remove('active'));
+        .querySelectorAll(".page")
+        .forEach(p => p.classList.remove("active"));
 
     document
         .getElementById(page)
-        .classList.add('active');
+        .classList.add("active");
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(b => b.classList.remove("active"));
+
+    if (button) {
+        button.classList.add("active");
+    }
 
 }
 
+
+/* LIVE CLOCK */
+
+function updateClock() {
+
+    const now = new Date();
+
+    const time = now.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit"
+    });
+
+    const sideTime = now.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit"
+    });
+
+    const date = now.toLocaleDateString([], {
+        weekday: "long",
+        month: "long",
+        day: "numeric"
+    });
+
+    document.getElementById("clock").textContent = time;
+    document.getElementById("sideTime").textContent = sideTime;
+    document.getElementById("date").textContent = date;
+
+}
+
+updateClock();
+
+setInterval(updateClock, 1000);
+
+
+/* FONT */
+
+function changeFont() {
+
+    const font =
+        document.getElementById("fontSelector").value;
+
+    document.documentElement.style.setProperty(
+        "--font",
+        font
+    );
+
+    localStorage.setItem("novaFont", font);
+
+}
+
+
+/* BACKGROUND */
+
+function changeBackground() {
+
+    const color =
+        document.getElementById("backgroundColor").value;
+
+    document.body.style.background =
+        "radial-gradient(circle at 18% 20%, rgba(75,44,160,.55), transparent 34%)," +
+        "radial-gradient(circle at 82% 75%, rgba(120,20,150,.38), transparent 35%)," +
+        color;
+
+    localStorage.setItem("novaBackground", color);
+
+}
+
+
+/* LOAD SAVED SETTINGS */
+
+const savedFont =
+    localStorage.getItem("novaFont");
+
+if (savedFont) {
+
+    document.documentElement.style.setProperty(
+        "--font",
+        savedFont
+    );
+
+    document.getElementById("fontSelector").value =
+        savedFont;
+
+}
+
+
+const savedBackground =
+    localStorage.getItem("novaBackground");
+
+if (savedBackground) {
+
+    document.getElementById("backgroundColor").value =
+        savedBackground;
+
+    changeBackground();
+
+}
+
+
+/* PANIC KEY */
+
+let panicKey =
+    localStorage.getItem("novaPanicKey");
+
+let settingPanic = false;
+
+if (panicKey) {
+
+    document.getElementById("panicStatus").textContent =
+        "Key: " + panicKey;
+
+}
+
+
+function setPanicKey() {
+
+    settingPanic = true;
+
+    document.getElementById("panicButton").textContent =
+        "Press a key...";
+
+    document.getElementById("panicStatus").textContent =
+        "Waiting for key";
+
+}
+
+
+/* LISTEN FOR KEY */
+
+document.addEventListener("keydown", function(event) {
+
+    /* SETTING PANIC KEY */
+
+    if (settingPanic) {
+
+        event.preventDefault();
+
+        panicKey = event.key;
+
+        localStorage.setItem(
+            "novaPanicKey",
+            panicKey
+        );
+
+        settingPanic = false;
+
+        document.getElementById("panicButton").textContent =
+            "Set Panic Key";
+
+        document.getElementById("panicStatus").textContent =
+            "Key: " + panicKey;
+
+        return;
+    }
+
+
+    /* PANIC */
+
+    if (
+        panicKey &&
+        event.key.toLowerCase() === panicKey.toLowerCase()
+    ) {
+
+        document
+            .getElementById("panicScreen")
+            .classList.toggle("active");
+
+    }
+
+});
+
+
+/* SEARCH */
 
 function searchWeb() {
 
     const query =
-        document.getElementById('homeSearch').value;
+        document.getElementById("searchInput").value;
 
     if (!query.trim()) return;
 
     window.open(
-        'https://www.google.com/search?q=' +
+        "https://www.google.com/search?q=" +
         encodeURIComponent(query),
-        '_blank'
-    );
-
-}
-
-
-function browserSearch() {
-
-    const query =
-        document.getElementById('browserSearch').value;
-
-    if (!query.trim()) return;
-
-    window.open(
-        'https://www.google.com/search?q=' +
-        encodeURIComponent(query),
-        '_blank'
+        "_blank"
     );
 
 }
