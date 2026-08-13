@@ -6,17 +6,30 @@
 
 <title>Nova</title>
 
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Urbanist:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap');
 
 :root {
     --accent: #8b5cff;
-    --panel: rgba(12, 12, 25, 0.78);
-    --border: rgba(255,255,255,0.10);
+    --accent-rgb: 139,92,255;
+
     --text: #ffffff;
-    --muted: #a7a7b5;
-    --font: "Outfit", sans-serif;
+    --muted: #a9a9b8;
+
+    --font: "Space Grotesk", sans-serif;
+
+    --panel: rgba(10,10,20,.65);
+    --border: rgba(255,255,255,.10);
 }
+
+/* =========================
+   RESET
+========================= */
 
 * {
     box-sizing: border-box;
@@ -24,7 +37,8 @@
     padding: 0;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
 }
@@ -32,107 +46,179 @@ html, body {
 body {
     font-family: var(--font);
     color: var(--text);
+
     overflow: hidden;
 
     background:
-        radial-gradient(circle at 18% 20%, rgba(75, 44, 160, .55), transparent 34%),
-        radial-gradient(circle at 82% 75%, rgba(120, 20, 150, .38), transparent 35%),
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(75,44,160,.55),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 75%,
+            rgba(120,20,150,.38),
+            transparent 35%
+        ),
         #070712;
+
+    transition:
+        background .5s ease,
+        color .3s ease;
 }
 
-/* STAR FIELD */
+/* =========================
+   STAR FIELD
+========================= */
 
 body::before,
 body::after {
+
     content: "";
+
     position: fixed;
+
     inset: 0;
+
     pointer-events: none;
+
+    z-index: -1;
 }
 
 body::before {
+
     background-image:
         radial-gradient(white 1px, transparent 1px),
         radial-gradient(white 1px, transparent 1px);
-    background-size: 90px 90px, 150px 150px;
-    background-position: 10px 20px, 50px 80px;
+
+    background-size:
+        90px 90px,
+        150px 150px;
+
+    background-position:
+        10px 20px,
+        50px 80px;
+
     opacity: .25;
 }
 
 body::after {
+
     background:
-        radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.45));
+        radial-gradient(
+            circle at center,
+            transparent 35%,
+            rgba(0,0,0,.5)
+        );
 }
 
-/* MAIN */
+/* =========================
+   APP
+========================= */
 
 #app {
-    position: relative;
+
     width: 100%;
     height: 100%;
+
+    position: relative;
 }
 
-/* SIDEBAR */
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar {
+
     position: fixed;
+
     left: 18px;
     top: 50%;
+
     transform: translateY(-50%);
 
     width: 68px;
-    padding: 13px 8px;
+
+    padding: 12px 8px;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     gap: 9px;
 
-    background: rgba(8,8,18,.76);
-    border: 1px solid var(--border);
+    background:
+        rgba(8,8,18,.48);
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
     border-radius: 22px;
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
 
     box-shadow:
-        0 20px 50px rgba(0,0,0,.4),
+        0 20px 50px rgba(0,0,0,.35),
         inset 0 1px rgba(255,255,255,.05);
 
     z-index: 100;
+
+    transition:
+        background .4s ease;
 }
 
-/* SMALL CLOCK */
+/* =========================
+   SIDEBAR CLOCK
+========================= */
 
 .side-time {
+
     width: 100%;
+
     text-align: center;
-    font-size: 11px;
+
+    font-size: 10px;
+
     color: var(--muted);
+
     padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
     white-space: nowrap;
 }
 
-/* NAV ITEMS */
+/* =========================
+   NAVIGATION
+========================= */
 
 .nav-item {
+
     position: relative;
 
     width: 50px;
     height: 50px;
 
-    border: 0;
+    border: none;
+
     border-radius: 15px;
 
     background: transparent;
+
     color: #bdbdcc;
 
     display: flex;
-    align-items: center;
-    justify-content: center;
 
-    font-size: 24px;
+    align-items: center;
+
+    justify-content: center;
 
     cursor: pointer;
 
@@ -143,87 +229,166 @@ body::after {
 }
 
 .nav-item:hover {
+
     transform: scale(1.13);
+
     color: white;
-    background: rgba(139,92,255,.18);
+
+    background:
+        rgba(var(--accent-rgb),.18);
 }
 
 .nav-item.active {
+
     color: white;
-    background: rgba(139,92,255,.25);
+
+    background:
+        rgba(var(--accent-rgb),.25);
+
+    box-shadow:
+        inset 0 0 20px rgba(var(--accent-rgb),.05);
 }
 
-/* TOOLTIP */
+/* =========================
+   NAV ICON
+========================= */
+
+.nav-icon {
+
+    width: 25px;
+    height: 25px;
+
+    object-fit: contain;
+
+    transition:
+        transform .28s ease;
+}
+
+.nav-item:hover .nav-icon {
+
+    transform: scale(1.08);
+}
+
+/* =========================
+   HOME ICON
+========================= */
+
+.home-icon {
+
+    font-size: 23px;
+}
+
+/* =========================
+   TOOLTIP
+========================= */
 
 .nav-item::after {
+
     content: attr(data-name);
 
     position: absolute;
+
     left: 63px;
+
     top: 50%;
 
-    transform: translateY(-50%) translateX(-6px);
+    transform:
+        translateY(-50%)
+        translateX(-6px);
 
-    padding: 8px 12px;
+    padding:
+        8px 12px;
 
-    background: rgba(10,10,20,.94);
-    border: 1px solid rgba(255,255,255,.10);
+    background:
+        rgba(8,8,18,.94);
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
     border-radius: 9px;
 
     color: white;
-    font-family: var(--font);
+
     font-size: 13px;
+
     white-space: nowrap;
 
     opacity: 0;
+
     visibility: hidden;
+
+    pointer-events: none;
 
     transition:
         opacity .2s ease,
         transform .2s ease;
-
-    pointer-events: none;
 }
-
-/* DELAYED TOOLTIP */
 
 .nav-item:hover::after {
+
     transition-delay: .5s;
+
     opacity: 1;
+
     visibility: visible;
-    transform: translateY(-50%) translateX(0);
+
+    transform:
+        translateY(-50%)
+        translateX(0);
 }
 
-/* DIVIDER */
+/* =========================
+   DIVIDER
+========================= */
 
 .divider {
+
     width: 38px;
+
     height: 1px;
-    background: rgba(255,255,255,.10);
+
+    background:
+        rgba(255,255,255,.10);
+
     margin: 3px 0;
 }
 
-/* CONTENT */
+/* =========================
+   CONTENT
+========================= */
 
 .content {
+
     width: 100%;
+
     height: 100%;
+
     padding-left: 105px;
+
     position: relative;
+
     z-index: 2;
 }
 
-/* PAGES */
+/* =========================
+   PAGES
+========================= */
 
 .page {
+
     position: absolute;
+
     inset: 0;
 
-    padding: 55px 7%;
+    padding:
+        35px 7%;
 
     opacity: 0;
+
     visibility: hidden;
-    transform: translateY(10px);
+
+    transform:
+        translateY(10px);
 
     transition:
         opacity .3s ease,
@@ -234,71 +399,120 @@ body::after {
 }
 
 .page.active {
+
     opacity: 1;
+
     visibility: visible;
-    transform: translateY(0);
+
+    transform:
+        translateY(0);
 }
 
-/* HOME */
+/* =========================
+   HOME
+========================= */
 
 .home {
+
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     text-align: center;
 }
 
 .welcome {
-    margin-top: 45px;
-    font-size: clamp(42px, 7vw, 82px);
+
+    margin-top: 18px;
+
+    font-size:
+        clamp(40px,6vw,72px);
+
     font-weight: 600;
-    letter-spacing: -3px;
+
+    letter-spacing:
+        -2.5px;
 }
 
 .welcome span {
-    color: var(--accent);
-    text-shadow: 0 0 35px rgba(139,92,255,.35);
-}
 
-/* CLOCK */
-
-.clock {
-    margin-top: 15px;
-
-    font-size: clamp(55px, 9vw, 105px);
-    font-weight: 400;
-
-    letter-spacing: 3px;
+    color:
+        var(--accent);
 
     text-shadow:
-        0 0 30px rgba(255,255,255,.12);
+        0 0 35px
+        rgba(var(--accent-rgb),.35);
+}
+
+/* =========================
+   CLOCK
+========================= */
+
+.clock {
+
+    margin-top: 5px;
+
+    font-size:
+        clamp(46px,7vw,78px);
+
+    font-weight: 400;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 30px
+        rgba(255,255,255,.12);
 }
 
 .date {
-    margin-top: 5px;
-    color: var(--muted);
-    font-size: 15px;
+
+    margin-top: 3px;
+
+    color:
+        var(--muted);
+
+    font-size: 14px;
 }
 
-/* CARDS */
+/* =========================
+   HOME CARDS
+========================= */
 
 .cards {
-    width: min(900px, 100%);
-    margin-top: 55px;
+
+    width:
+        min(900px,100%);
+
+    margin-top: 42px;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(180px,1fr)
+        );
+
     gap: 17px;
 }
 
 .card {
-    padding: 28px 20px;
 
-    background: rgba(15,15,30,.65);
-    border: 1px solid var(--border);
+    padding:
+        28px 20px;
+
+    background:
+        rgba(15,15,30,.58);
+
+    border:
+        1px solid var(--border);
+
     border-radius: 18px;
 
-    backdrop-filter: blur(10px);
+    backdrop-filter:
+        blur(12px);
 
     transition:
         transform .25s ease,
@@ -307,178 +521,567 @@ body::after {
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(139,92,255,.45);
-    background: rgba(25,20,45,.75);
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        rgba(var(--accent-rgb),.45);
+
+    background:
+        rgba(25,20,45,.72);
 }
 
 .card-icon {
-    font-size: 35px;
+
+    font-size: 34px;
+
     margin-bottom: 13px;
 }
 
 .card h2 {
+
     font-size: 18px;
+
     font-weight: 500;
 }
 
 .card p {
-    color: var(--muted);
+
+    color:
+        var(--muted);
+
     font-size: 13px;
+
     margin-top: 7px;
 }
 
-/* PAGE TITLES */
+/* =========================
+   PAGE TITLE
+========================= */
 
 .page-title {
+
     font-size: 42px;
+
     margin-bottom: 25px;
 }
 
-/* SETTINGS */
+/* =========================
+   SETTINGS
+========================= */
 
 .settings-panel {
-    max-width: 700px;
 
-    background: var(--panel);
-    border: 1px solid var(--border);
+    max-width: 750px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
     border-radius: 20px;
 
     padding: 25px;
 
-    backdrop-filter: blur(18px);
+    backdrop-filter:
+        blur(18px);
 }
 
 .setting {
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    padding:
+        20px 0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
 }
 
 .setting:last-child {
+
     border-bottom: none;
 }
 
 .setting h3 {
+
     margin-bottom: 7px;
+
     font-size: 17px;
 }
 
 .setting p {
-    color: var(--muted);
+
+    color:
+        var(--muted);
+
     font-size: 13px;
+
     margin-bottom: 13px;
 }
 
-/* SELECT */
+/* =========================
+   SELECT
+========================= */
 
 select {
-    padding: 11px 14px;
 
-    background: #151522;
-    color: white;
+    padding:
+        11px 14px;
 
-    border: 1px solid #333346;
+    background:
+        #151522;
+
+    color:
+        white;
+
+    border:
+        1px solid #333346;
+
     border-radius: 9px;
 
-    font-family: var(--font);
+    font-family:
+        var(--font);
 }
 
-/* COLOR */
+/* =========================
+   COLOR
+========================= */
 
 input[type="color"] {
+
     width: 55px;
+
     height: 40px;
+
     border: none;
+
     border-radius: 8px;
+
     background: transparent;
+
     cursor: pointer;
 }
 
-/* BUTTON */
+/* =========================
+   BUTTON
+========================= */
 
 button.action {
-    padding: 11px 16px;
+
+    padding:
+        11px 16px;
 
     border: none;
+
     border-radius: 9px;
 
-    background: var(--accent);
-    color: white;
+    background:
+        var(--accent);
 
-    font-family: var(--font);
+    color:
+        white;
+
+    font-family:
+        var(--font);
+
     cursor: pointer;
 
-    transition: transform .2s ease, filter .2s ease;
+    transition:
+        transform .2s ease,
+        filter .2s ease;
 }
 
 button.action:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.12);
+
+    transform:
+        translateY(-2px);
+
+    filter:
+        brightness(1.12);
 }
 
+/* =========================
+   THEME GRID
+========================= */
+
+.theme-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(100px,1fr)
+        );
+
+    gap: 10px;
+}
+
+.theme-button {
+
+    height: 65px;
+
+    border: 2px solid transparent;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    color: white;
+
+    font-family:
+        var(--font);
+
+    transition:
+        transform .2s ease,
+        border .2s ease;
+}
+
+.theme-button:hover {
+
+    transform:
+        translateY(-3px);
+}
+
+.theme-button.selected {
+
+    border-color:
+        white;
+}
+
+/* THEMES */
+
+.theme-purple {
+    background:
+        linear-gradient(135deg,#7b4dff,#b04cff);
+}
+
+.theme-green {
+    background:
+        linear-gradient(135deg,#00a86b,#45e39b);
+}
+
+.theme-blue {
+    background:
+        linear-gradient(135deg,#1677ff,#39c5ff);
+}
+
+.theme-red {
+    background:
+        linear-gradient(135deg,#d92950,#ff704d);
+}
+
+.theme-orange {
+    background:
+        linear-gradient(135deg,#e76f00,#ffbd45);
+}
+
+.theme-pink {
+    background:
+        linear-gradient(135deg,#d84cff,#ff72b7);
+}
+
+.theme-cyan {
+    background:
+        linear-gradient(135deg,#00a6a6,#49efff);
+}
+
+.theme-white {
+    background:
+        linear-gradient(135deg,#aaa,#fff);
+    color: #111;
+}
+
+/* =========================
+   BACKGROUND GRID
+========================= */
+
+.background-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(140px,1fr)
+        );
+
+    gap: 12px;
+}
+
+.background-button {
+
+    height: 90px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    border-radius: 14px;
+
+    color: white;
+
+    font-family:
+        var(--font);
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    position: relative;
+
+    transition:
+        transform .25s ease,
+        border .25s ease;
+}
+
+.background-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(255,255,255,.35);
+}
+
+/* BACKGROUND PRESETS */
+
+.bg-space {
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            #5131a8,
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            #6d1a80,
+            transparent 40%
+        ),
+        #070712;
+}
+
+.bg-deep {
+
+    background:
+        radial-gradient(
+            circle at 70% 30%,
+            #162858,
+            transparent 35%
+        ),
+        #02040c;
+}
+
+.bg-nebula {
+
+    background:
+        radial-gradient(
+            circle at 20% 30%,
+            #812f92,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 70%,
+            #263c99,
+            transparent 40%
+        ),
+        #090614;
+}
+
+.bg-aurora {
+
+    background:
+        linear-gradient(
+            120deg,
+            #061c24,
+            #123e3a,
+            #35144d,
+            #06121c
+        );
+
+    background-size:
+        300% 300%;
+
+    animation:
+        auroraMove 12s ease infinite;
+}
+
+@keyframes auroraMove {
+
+    0% {
+        background-position:
+            0% 50%;
+    }
+
+    50% {
+        background-position:
+            100% 50%;
+    }
+
+    100% {
+        background-position:
+            0% 50%;
+    }
+}
+
+.bg-stars {
+
+    background-color: #05050d;
+
+    background-image:
+        radial-gradient(
+            white 1px,
+            transparent 1px
+        );
+
+    background-size: 35px 35px;
+
+    animation:
+        starsMove 12s linear infinite;
+}
+
+@keyframes starsMove {
+
+    from {
+        background-position:
+            0 0;
+    }
+
+    to {
+        background-position:
+            350px 350px;
+    }
+}
+
+.bg-moving-nebula {
+
+    background:
+        radial-gradient(
+            circle at 20% 50%,
+            #702c9b,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 50%,
+            #214f9c,
+            transparent 35%
+        ),
+        #080611;
+
+    background-size:
+        200% 200%;
+
+    animation:
+        nebulaMove 15s ease-in-out infinite alternate;
+}
+
+@keyframes nebulaMove {
+
+    from {
+        background-position:
+            0% 50%;
+    }
+
+    to {
+        background-position:
+            100% 50%;
+    }
+}
+
+/* =========================
+   PANIC
+========================= */
+
 .panic-status {
+
     display: inline-block;
+
     margin-left: 12px;
-    color: var(--muted);
+
+    color:
+        var(--muted);
+
     font-size: 13px;
 }
 
-/* PANIC SCREEN */
-
 #panicScreen {
+
     position: fixed;
+
     inset: 0;
 
-    background: #000;
+    background:
+        white;
 
     display: none;
+
     align-items: center;
+
     justify-content: center;
 
     z-index: 9999;
 }
 
 #panicScreen.active {
+
     display: flex;
 }
 
 #panicScreen span {
-    color: #111;
+
+    color: white;
+
     font-size: 1px;
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
-@media (max-width: 650px) {
+@media(max-width:650px) {
 
     .sidebar {
+
         left: 8px;
+
         width: 58px;
+
         padding: 9px 5px;
     }
 
     .nav-item {
+
         width: 44px;
+
         height: 44px;
-        font-size: 21px;
     }
 
     .content {
+
         padding-left: 78px;
     }
 
     .page {
-        padding: 35px 25px;
+
+        padding:
+            30px 22px;
     }
 
     .welcome {
-        margin-top: 25px;
+
+        margin-top: 15px;
     }
 
     .clock {
-        font-size: 48px;
+
+        font-size:
+            44px;
     }
 }
+
 </style>
 </head>
 
@@ -486,481 +1089,1086 @@ button.action:hover {
 
 <div id="app">
 
-    <!-- SIDEBAR -->
+<!-- =========================
+     SIDEBAR
+========================= -->
 
-    <aside class="sidebar">
+<aside class="sidebar">
 
-        <div class="side-time" id="sideTime">
-            12:00 PM
+    <div
+        class="side-time"
+        id="sideTime">
+        12:00 PM
+    </div>
+
+
+    <button
+        class="nav-item active"
+        data-name="Home"
+        onclick="showPage('home',this)">
+
+        <span class="home-icon">
+            🏠
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-name="Games"
+        onclick="showPage('games',this)">
+
+        <img
+            class="nav-icon"
+            src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/steam.svg"
+            alt="Games">
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-name="Spotify"
+        onclick="showPage('spotify',this)">
+
+        <img
+            class="nav-icon"
+            src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/spotify.svg"
+            alt="Spotify">
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-name="Discord"
+        onclick="showPage('discord',this)">
+
+        <img
+            class="nav-icon"
+            src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/discord.svg"
+            alt="Discord">
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-name="Browser"
+        onclick="showPage('browser',this)">
+
+        <img
+            class="nav-icon"
+            src="https://www.google.com/favicon.ico"
+            alt="Browser">
+
+    </button>
+
+
+    <div class="divider"></div>
+
+
+    <button
+        class="nav-item"
+        data-name="Settings"
+        onclick="showPage('settings',this)">
+
+        <span class="home-icon">
+            ⚙️
+        </span>
+
+    </button>
+
+</aside>
+
+
+<!-- =========================
+     CONTENT
+========================= -->
+
+<main class="content">
+
+
+<!-- HOME -->
+
+<section
+    id="home"
+    class="page home active">
+
+    <h1 class="welcome">
+        Welcome to
+        <span>Nova</span>
+    </h1>
+
+
+    <div
+        class="clock"
+        id="clock">
+
+        12:00:00 PM
+
+    </div>
+
+
+    <div
+        class="date"
+        id="date">
+
+        Thursday, August 13
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="card-icon">
+                🎮
+            </div>
+
+            <h2>
+                Games
+            </h2>
+
+            <p>
+                Your game library.
+            </p>
+
         </div>
 
-        <button
-            class="nav-item active"
-            data-page="home"
-            data-name="Home"
-            onclick="showPage('home', this)">
-            🏠
-        </button>
 
-        <button
-            class="nav-item"
-            data-page="games"
-            data-name="Games"
-            onclick="showPage('games', this)">
-            🎮
-        </button>
+        <div class="card">
 
-        <button
-            class="nav-item"
-            data-page="spotify"
-            data-name="Spotify"
-            onclick="showPage('spotify', this)">
-            🎵
-        </button>
-
-        <button
-            class="nav-item"
-            data-page="discord"
-            data-name="Discord"
-            onclick="showPage('discord', this)">
-            💬
-        </button>
-
-        <button
-            class="nav-item"
-            data-page="browser"
-            data-name="Browser"
-            onclick="showPage('browser', this)">
-            🌐
-        </button>
-
-        <div class="divider"></div>
-
-        <button
-            class="nav-item"
-            data-page="settings"
-            data-name="Settings"
-            onclick="showPage('settings', this)">
-            ⚙️
-        </button>
-
-    </aside>
-
-
-    <!-- CONTENT -->
-
-    <main class="content">
-
-        <!-- HOME -->
-
-        <section id="home" class="page home active">
-
-            <h1 class="welcome">
-                Welcome to <span>Nova</span>
-            </h1>
-
-            <div class="clock" id="clock">
-                12:00:00 PM
+            <div class="card-icon">
+                🎵
             </div>
 
-            <div class="date" id="date">
-                Thursday, August 13
+            <h2>
+                Spotify
+            </h2>
+
+            <p>
+                Music and playlists.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                💬
             </div>
 
-            <div class="cards">
+            <h2>
+                Discord
+            </h2>
 
-                <div class="card">
-                    <div class="card-icon">🎮</div>
-                    <h2>Games</h2>
-                    <p>Your game library.</p>
-                </div>
+            <p>
+                Your Discord space.
+            </p>
 
-                <div class="card">
-                    <div class="card-icon">🎵</div>
-                    <h2>Spotify</h2>
-                    <p>Music and playlists.</p>
-                </div>
+        </div>
 
-                <div class="card">
-                    <div class="card-icon">💬</div>
-                    <h2>Discord</h2>
-                    <p>Your Discord space.</p>
-                </div>
 
-                <div class="card">
-                    <div class="card-icon">🌐</div>
-                    <h2>Browser</h2>
-                    <p>Web tools.</p>
-                </div>
+        <div class="card">
 
+            <div class="card-icon">
+                🌐
             </div>
 
-        </section>
+            <h2>
+                Browser
+            </h2>
+
+            <p>
+                Web tools.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
 
-        <!-- GAMES -->
+<!-- =========================
+     GAMES
+========================= -->
 
-        <section id="games" class="page">
+<section
+    id="games"
+    class="page">
 
-            <h1 class="page-title">🎮 Games</h1>
+    <h1 class="page-title">
+        🎮 Games
+    </h1>
 
-            <div class="cards">
 
-                <div class="card">
-                    <div class="card-icon">🚀</div>
-                    <h2>Space Runner</h2>
-                    <p>Coming soon.</p>
-                </div>
+    <div class="cards">
 
-                <div class="card">
-                    <div class="card-icon">👾</div>
-                    <h2>Pixel Quest</h2>
-                    <p>Coming soon.</p>
-                </div>
+        <div class="card">
 
-                <div class="card">
-                    <div class="card-icon">🧩</div>
-                    <h2>Galaxy Blocks</h2>
-                    <p>Coming soon.</p>
-                </div>
-
+            <div class="card-icon">
+                🚀
             </div>
 
-        </section>
+            <h2>
+                Space Runner
+            </h2>
+
+            <p>
+                Coming soon.
+            </p>
+
+        </div>
 
 
-        <!-- SPOTIFY -->
+        <div class="card">
 
-        <section id="spotify" class="page">
-
-            <h1 class="page-title">🎵 Spotify</h1>
-
-            <div class="settings-panel">
-
-                <p style="color:var(--muted);">
-                    Your Spotify player will go here.
-                </p>
-
-                <br>
-
-                <iframe
-                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
-                    width="100%"
-                    height="352"
-                    frameborder="0"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy">
-                </iframe>
-
+            <div class="card-icon">
+                👾
             </div>
 
-        </section>
+            <h2>
+                Pixel Quest
+            </h2>
+
+            <p>
+                Coming soon.
+            </p>
+
+        </div>
 
 
-        <!-- DISCORD -->
+        <div class="card">
 
-        <section id="discord" class="page">
+            <div class="card-icon">
+                🧩
+            </div>
 
-            <h1 class="page-title">💬 Discord</h1>
+            <h2>
+                Galaxy Blocks
+            </h2>
 
-            <div class="settings-panel">
+            <p>
+                Coming soon.
+            </p>
 
-                <h2>Discord</h2>
+        </div>
 
-                <br>
+    </div>
 
-                <p>
-                    Your Discord integration can go here.
-                </p>
+</section>
 
-                <br>
+
+<!-- =========================
+     SPOTIFY
+========================= -->
+
+<section
+    id="spotify"
+    class="page">
+
+    <h1 class="page-title">
+        Spotify
+    </h1>
+
+
+    <div class="settings-panel">
+
+        <iframe
+            src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
+            width="100%"
+            height="352"
+            frameborder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy">
+        </iframe>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     DISCORD
+========================= -->
+
+<section
+    id="discord"
+    class="page">
+
+    <h1 class="page-title">
+        Discord
+    </h1>
+
+
+    <div class="settings-panel">
+
+        <h2>
+            Discord
+        </h2>
+
+        <br>
+
+        <p>
+            Connect your Discord server here.
+        </p>
+
+        <br>
+
+        <button
+            class="action"
+            onclick="window.open('https://discord.com/app','_blank')">
+
+            Open Discord
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BROWSER
+========================= -->
+
+<section
+    id="browser"
+    class="page">
+
+    <h1 class="page-title">
+        Browser
+    </h1>
+
+
+    <div class="settings-panel">
+
+        <p>
+            Search the web.
+        </p>
+
+        <br>
+
+        <input
+            id="searchInput"
+            style="
+                width:70%;
+                padding:12px;
+                background:#11111d;
+                color:white;
+                border:1px solid #333;
+                border-radius:9px;
+            "
+            placeholder="Search the web...">
+
+
+        <button
+            class="action"
+            onclick="searchWeb()">
+
+            Search
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<section
+    id="settings"
+    class="page">
+
+    <h1 class="page-title">
+        ⚙️ Settings
+    </h1>
+
+
+    <div class="settings-panel">
+
+
+        <!-- FONT -->
+
+        <div class="setting">
+
+            <h3>
+                Font
+            </h3>
+
+            <p>
+                Change Nova's typeface.
+            </p>
+
+
+            <select
+                id="fontSelector"
+                onchange="changeFont()">
+
+                <option
+                    value='"Space Grotesk",sans-serif'>
+                    Space Grotesk
+                </option>
+
+                <option
+                    value='"Outfit",sans-serif'>
+                    Outfit
+                </option>
+
+                <option
+                    value='"Manrope",sans-serif'>
+                    Manrope
+                </option>
+
+                <option
+                    value='"Urbanist",sans-serif'>
+                    Urbanist
+                </option>
+
+                <option
+                    value='"Sora",sans-serif'>
+                    Sora
+                </option>
+
+                <option
+                    value='"Rajdhani",sans-serif'>
+                    Rajdhani
+                </option>
+
+                <option
+                    value='Arial,sans-serif'>
+                    Arial
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- THEME -->
+
+        <div class="setting">
+
+            <h3>
+                Theme
+            </h3>
+
+            <p>
+                Change Nova's accent color.
+            </p>
+
+
+            <div class="theme-grid">
 
                 <button
-                    class="action"
-                    onclick="window.open('https://discord.com/app', '_blank')">
-                    Open Discord
+                    class="theme-button theme-purple"
+                    onclick="setTheme('#8b5cff','139,92,255')">
+                    Purple
+                </button>
+
+                <button
+                    class="theme-button theme-green"
+                    onclick="setTheme('#19c77a','25,199,122')">
+                    Emerald
+                </button>
+
+                <button
+                    class="theme-button theme-blue"
+                    onclick="setTheme('#238cff','35,140,255')">
+                    Ocean
+                </button>
+
+                <button
+                    class="theme-button theme-red"
+                    onclick="setTheme('#ef3f5f','239,63,95')">
+                    Crimson
+                </button>
+
+                <button
+                    class="theme-button theme-orange"
+                    onclick="setTheme('#ff8a24','255,138,36')">
+                    Amber
+                </button>
+
+                <button
+                    class="theme-button theme-pink"
+                    onclick="setTheme('#f05cff','240,92,255')">
+                    Rose
+                </button>
+
+                <button
+                    class="theme-button theme-cyan"
+                    onclick="setTheme('#20d9e8','32,217,232')">
+                    Cyan
+                </button>
+
+                <button
+                    class="theme-button theme-white"
+                    onclick="setTheme('#ffffff','255,255,255')">
+                    Arctic
                 </button>
 
             </div>
 
-        </section>
+        </div>
 
 
-        <!-- BROWSER -->
+        <!-- CUSTOM COLOR -->
 
-        <section id="browser" class="page">
+        <div class="setting">
 
-            <h1 class="page-title">🌐 Browser</h1>
+            <h3>
+                Custom Accent
+            </h3>
 
-            <div class="settings-panel">
+            <p>
+                Choose your own accent color.
+            </p>
 
-                <p>
-                    Browser section.
-                </p>
 
-                <br>
+            <input
+                type="color"
+                id="accentColor"
+                value="#8b5cff"
+                onchange="customAccent()">
 
-                <input
-                    id="searchInput"
-                    style="
-                        width:70%;
-                        padding:12px;
-                        background:#11111d;
-                        color:white;
-                        border:1px solid #333;
-                        border-radius:9px;
-                    "
-                    placeholder="Search the web..."
-                >
+        </div>
+
+
+        <!-- BACKGROUNDS -->
+
+        <div class="setting">
+
+            <h3>
+                Background
+            </h3>
+
+            <p>
+                Choose a static or animated background.
+            </p>
+
+
+            <div class="background-grid">
+
 
                 <button
-                    class="action"
-                    onclick="searchWeb()">
-                    Search
+                    class="background-button bg-space"
+                    onclick="setBackground('space')">
+
+                    Default Space
+
                 </button>
 
-            </div>
 
-        </section>
+                <button
+                    class="background-button bg-deep"
+                    onclick="setBackground('deep')">
 
+                    Deep Space
 
-        <!-- SETTINGS -->
-
-        <section id="settings" class="page">
-
-            <h1 class="page-title">⚙️ Settings</h1>
-
-            <div class="settings-panel">
-
-                <!-- FONT -->
-
-                <div class="setting">
-
-                    <h3>Font</h3>
-
-                    <p>
-                        Change Nova's typeface.
-                    </p>
-
-                    <select id="fontSelector" onchange="changeFont()">
-
-                        <option value='"Outfit", sans-serif'>
-                            Outfit
-                        </option>
-
-                        <option value='"Space Grotesk", sans-serif'>
-                            Space Grotesk
-                        </option>
-
-                        <option value='"Rajdhani", sans-serif'>
-                            Rajdhani
-                        </option>
-
-                        <option value='Arial, sans-serif'>
-                            Arial
-                        </option>
-
-                    </select>
-
-                </div>
+                </button>
 
 
-                <!-- BACKGROUND -->
+                <button
+                    class="background-button bg-nebula"
+                    onclick="setBackground('nebula')">
 
-                <div class="setting">
+                    Nebula
 
-                    <h3>Background Color</h3>
-
-                    <p>
-                        Change Nova's base background color.
-                    </p>
-
-                    <input
-                        type="color"
-                        id="backgroundColor"
-                        value="#070712"
-                        onchange="changeBackground()">
-
-                </div>
+                </button>
 
 
-                <!-- PANIC KEY -->
+                <button
+                    class="background-button bg-stars"
+                    onclick="setBackground('stars')">
 
-                <div class="setting">
+                    Moving Stars
 
-                    <h3>🚨 Panic Key</h3>
+                </button>
 
-                    <p>
-                        Choose a keyboard key that instantly hides Nova.
-                    </p>
 
-                    <button
-                        class="action"
-                        id="panicButton"
-                        onclick="setPanicKey()">
-                        Set Panic Key
-                    </button>
+                <button
+                    class="background-button bg-moving-nebula"
+                    onclick="setBackground('moving')">
 
-                    <span
-                        class="panic-status"
-                        id="panicStatus">
-                        Not set
-                    </span>
+                    Moving Nebula
 
-                </div>
+                </button>
+
+
+                <button
+                    class="background-button bg-aurora"
+                    onclick="setBackground('aurora')">
+
+                    Aurora
+
+                </button>
+
 
             </div>
 
-        </section>
+        </div>
 
-    </main>
+
+        <!-- CUSTOM BACKGROUND COLOR -->
+
+        <div class="setting">
+
+            <h3>
+                Custom Background Color
+            </h3>
+
+            <p>
+                Choose your own base background.
+            </p>
+
+
+            <input
+                type="color"
+                id="backgroundColor"
+                value="#070712"
+                onchange="customBackground()">
+
+        </div>
+
+
+        <!-- PANIC KEY -->
+
+        <div class="setting">
+
+            <h3>
+                🚨 Panic Key
+            </h3>
+
+            <p>
+                Choose a keyboard key that instantly hides Nova.
+            </p>
+
+
+            <button
+                class="action"
+                id="panicButton"
+                onclick="setPanicKey()">
+
+                Set Panic Key
+
+            </button>
+
+
+            <span
+                class="panic-status"
+                id="panicStatus">
+
+                Not set
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
 
 </div>
 
 
-<!-- PANIC SCREEN -->
+<!-- =========================
+     PANIC SCREEN
+========================= -->
 
 <div id="panicScreen">
 
-    <span>Nova</span>
+    <span>
+        Nova
+    </span>
 
 </div>
 
 
 <script>
 
-/* PAGE SWITCHING */
+/* =========================
+   PAGE SWITCHING
+========================= */
 
-function showPage(page, button) {
+function showPage(page,button) {
 
     document
         .querySelectorAll(".page")
-        .forEach(p => p.classList.remove("active"));
+        .forEach(
+            p => p.classList.remove("active")
+        );
 
     document
         .getElementById(page)
         .classList.add("active");
 
+
     document
         .querySelectorAll(".nav-item")
-        .forEach(b => b.classList.remove("active"));
+        .forEach(
+            b => b.classList.remove("active")
+        );
 
-    if (button) {
+
+    if(button) {
+
         button.classList.add("active");
+
     }
 
 }
 
 
-/* LIVE CLOCK */
+/* =========================
+   LIVE CLOCK
+========================= */
 
 function updateClock() {
 
-    const now = new Date();
+    const now =
+        new Date();
 
-    const time = now.toLocaleTimeString([], {
-        hour: "numeric",
-        minute: "2-digit",
-        second: "2-digit"
-    });
 
-    const sideTime = now.toLocaleTimeString([], {
-        hour: "numeric",
-        minute: "2-digit"
-    });
+    const time =
+        now.toLocaleTimeString(
+            [],
+            {
+                hour: "numeric",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        );
 
-    const date = now.toLocaleDateString([], {
-        weekday: "long",
-        month: "long",
-        day: "numeric"
-    });
 
-    document.getElementById("clock").textContent = time;
-    document.getElementById("sideTime").textContent = sideTime;
-    document.getElementById("date").textContent = date;
+    const sideTime =
+        now.toLocaleTimeString(
+            [],
+            {
+                hour: "numeric",
+                minute: "2-digit"
+            }
+        );
+
+
+    const date =
+        now.toLocaleDateString(
+            [],
+            {
+                weekday: "long",
+                month: "long",
+                day: "numeric"
+            }
+        );
+
+
+    document
+        .getElementById("clock")
+        .textContent =
+        time;
+
+
+    document
+        .getElementById("sideTime")
+        .textContent =
+        sideTime;
+
+
+    document
+        .getElementById("date")
+        .textContent =
+        date;
 
 }
 
+
 updateClock();
 
-setInterval(updateClock, 1000);
+setInterval(
+    updateClock,
+    1000
+);
 
 
-/* FONT */
+/* =========================
+   FONT
+========================= */
 
 function changeFont() {
 
     const font =
-        document.getElementById("fontSelector").value;
+        document
+        .getElementById("fontSelector")
+        .value;
 
-    document.documentElement.style.setProperty(
-        "--font",
-        font
-    );
 
-    localStorage.setItem("novaFont", font);
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--font",
+            font
+        );
+
+
+    localStorage
+        .setItem(
+            "novaFont",
+            font
+        );
 
 }
 
 
-/* BACKGROUND */
+/* =========================
+   THEME
+========================= */
 
-function changeBackground() {
+function setTheme(
+    color,
+    rgb
+) {
 
-    const color =
-        document.getElementById("backgroundColor").value;
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--accent",
+            color
+        );
 
-    document.body.style.background =
-        "radial-gradient(circle at 18% 20%, rgba(75,44,160,.55), transparent 34%)," +
-        "radial-gradient(circle at 82% 75%, rgba(120,20,150,.38), transparent 35%)," +
+
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--accent-rgb",
+            rgb
+        );
+
+
+    document
+        .getElementById("accentColor")
+        .value =
         color;
 
-    localStorage.setItem("novaBackground", color);
+
+    localStorage
+        .setItem(
+            "novaAccent",
+            color
+        );
+
+
+    localStorage
+        .setItem(
+            "novaAccentRGB",
+            rgb
+        );
 
 }
 
 
-/* LOAD SAVED SETTINGS */
+/* =========================
+   CUSTOM ACCENT
+========================= */
 
-const savedFont =
-    localStorage.getItem("novaFont");
+function customAccent() {
 
-if (savedFont) {
+    const color =
+        document
+        .getElementById("accentColor")
+        .value;
 
-    document.documentElement.style.setProperty(
-        "--font",
-        savedFont
+
+    const r =
+        parseInt(
+            color.substring(1,3),
+            16
+        );
+
+    const g =
+        parseInt(
+            color.substring(3,5),
+            16
+        );
+
+    const b =
+        parseInt(
+            color.substring(5,7),
+            16
+        );
+
+
+    setTheme(
+        color,
+        `${r},${g},${b}`
     );
 
-    document.getElementById("fontSelector").value =
-        savedFont;
+}
+
+
+/* =========================
+   BACKGROUNDS
+========================= */
+
+function setBackground(type) {
+
+    const body =
+        document.body;
+
+
+    body.classList.remove(
+        "bg-space",
+        "bg-deep",
+        "bg-nebula",
+        "bg-stars",
+        "bg-moving-nebula",
+        "bg-aurora"
+    );
+
+
+    body.style.background = "";
+
+
+    switch(type) {
+
+        case "space":
+
+            body.style.background =
+                `
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(75,44,160,.55),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 80% 75%,
+                    rgba(120,20,150,.38),
+                    transparent 35%
+                ),
+                #070712
+                `;
+
+            break;
+
+
+        case "deep":
+
+            body.classList.add(
+                "bg-deep"
+            );
+
+            break;
+
+
+        case "nebula":
+
+            body.classList.add(
+                "bg-nebula"
+            );
+
+            break;
+
+
+        case "stars":
+
+            body.classList.add(
+                "bg-stars"
+            );
+
+            break;
+
+
+        case "moving":
+
+            body.classList.add(
+                "bg-moving-nebula"
+            );
+
+            break;
+
+
+        case "aurora":
+
+            body.classList.add(
+                "bg-aurora"
+            );
+
+            break;
+
+    }
+
+
+    localStorage
+        .setItem(
+            "novaBackground",
+            type
+        );
 
 }
 
 
-const savedBackground =
-    localStorage.getItem("novaBackground");
+/* =========================
+   CUSTOM BACKGROUND
+========================= */
 
-if (savedBackground) {
+function customBackground() {
 
-    document.getElementById("backgroundColor").value =
-        savedBackground;
+    const color =
+        document
+        .getElementById("backgroundColor")
+        .value;
 
-    changeBackground();
+
+    document.body.style.background =
+        color;
+
+
+    document.body.className = "";
+
+
+    localStorage
+        .setItem(
+            "novaCustomBackground",
+            color
+        );
 
 }
 
 
-/* PANIC KEY */
+/* =========================
+   PANIC KEY
+========================= */
 
 let panicKey =
-    localStorage.getItem("novaPanicKey");
+    localStorage
+    .getItem(
+        "novaPanicKey"
+    );
 
-let settingPanic = false;
 
-if (panicKey) {
+let settingPanic =
+    false;
 
-    document.getElementById("panicStatus").textContent =
+
+if(panicKey) {
+
+    document
+        .getElementById(
+            "panicStatus"
+        )
+        .textContent =
         "Key: " + panicKey;
 
 }
@@ -968,76 +2176,214 @@ if (panicKey) {
 
 function setPanicKey() {
 
-    settingPanic = true;
+    settingPanic =
+        true;
 
-    document.getElementById("panicButton").textContent =
+
+    document
+        .getElementById(
+            "panicButton"
+        )
+        .textContent =
         "Press a key...";
 
-    document.getElementById("panicStatus").textContent =
+
+    document
+        .getElementById(
+            "panicStatus"
+        )
+        .textContent =
         "Waiting for key";
 
 }
 
 
-/* LISTEN FOR KEY */
+/* =========================
+   KEY LISTENER
+========================= */
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener(
+    "keydown",
+    function(event) {
 
-    /* SETTING PANIC KEY */
 
-    if (settingPanic) {
+        if(settingPanic) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        panicKey = event.key;
 
-        localStorage.setItem(
-            "novaPanicKey",
-            panicKey
-        );
+            panicKey =
+                event.key;
 
-        settingPanic = false;
 
-        document.getElementById("panicButton").textContent =
-            "Set Panic Key";
+            localStorage
+                .setItem(
+                    "novaPanicKey",
+                    panicKey
+                );
 
-        document.getElementById("panicStatus").textContent =
-            "Key: " + panicKey;
 
-        return;
+            settingPanic =
+                false;
+
+
+            document
+                .getElementById(
+                    "panicButton"
+                )
+                .textContent =
+                "Set Panic Key";
+
+
+            document
+                .getElementById(
+                    "panicStatus"
+                )
+                .textContent =
+                "Key: " + panicKey;
+
+
+            return;
+
+        }
+
+
+        if(
+            panicKey &&
+            event.key.toLowerCase() ===
+            panicKey.toLowerCase()
+        ) {
+
+            document
+                .getElementById(
+                    "panicScreen"
+                )
+                .classList
+                .toggle("active");
+
+        }
+
     }
+);
 
 
-    /* PANIC */
-
-    if (
-        panicKey &&
-        event.key.toLowerCase() === panicKey.toLowerCase()
-    ) {
-
-        document
-            .getElementById("panicScreen")
-            .classList.toggle("active");
-
-    }
-
-});
-
-
-/* SEARCH */
+/* =========================
+   SEARCH
+========================= */
 
 function searchWeb() {
 
     const query =
-        document.getElementById("searchInput").value;
+        document
+        .getElementById(
+            "searchInput"
+        )
+        .value;
 
-    if (!query.trim()) return;
+
+    if(!query.trim())
+        return;
+
 
     window.open(
         "https://www.google.com/search?q=" +
         encodeURIComponent(query),
         "_blank"
     );
+
+}
+
+
+/* =========================
+   LOAD SAVED SETTINGS
+========================= */
+
+const savedFont =
+    localStorage
+    .getItem(
+        "novaFont"
+    );
+
+
+if(savedFont) {
+
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--font",
+            savedFont
+        );
+
+
+    document
+        .getElementById(
+            "fontSelector"
+        )
+        .value =
+        savedFont;
+
+}
+
+
+const savedAccent =
+    localStorage
+    .getItem(
+        "novaAccent"
+    );
+
+
+const savedRGB =
+    localStorage
+    .getItem(
+        "novaAccentRGB"
+    );
+
+
+if(
+    savedAccent &&
+    savedRGB
+) {
+
+    setTheme(
+        savedAccent,
+        savedRGB
+    );
+
+}
+
+
+const savedBackground =
+    localStorage
+    .getItem(
+        "novaBackground"
+    );
+
+
+if(savedBackground) {
+
+    setBackground(
+        savedBackground
+    );
+
+}
+
+
+const savedCustomBackground =
+    localStorage
+    .getItem(
+        "novaCustomBackground"
+    );
+
+
+if(savedCustomBackground) {
+
+    document
+        .getElementById(
+            "backgroundColor"
+        )
+        .value =
+        savedCustomBackground;
 
 }
 
