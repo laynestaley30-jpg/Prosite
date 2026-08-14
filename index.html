@@ -252,4 +252,951 @@ body {
 
 .clock {
     margin-top:10px;
-    text-align:center;211
+    text-align:center;
+}
+
+.clock-time {
+    font-size:clamp(30px,4vw,48px);
+    font-weight:500;
+    letter-spacing:-1.5px;
+}
+
+.clock-date {
+    margin-top:1px;
+    font-size:12px;
+    color:var(--muted);
+}
+
+.quick-links {
+    margin-top:40px;
+    width:min(900px,100%);
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:var(--card-gap);
+}
+
+.quick-card {
+    padding:20px;
+    border-radius:19px;
+    background:rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.08);
+    cursor:pointer;
+    transition:.3s ease;
+}
+
+.quick-card:hover {
+    transform:translateY(-4px);
+    background:rgba(255,255,255,.09);
+}
+
+.quick-card h3 {
+    margin:0 0 5px;
+    font-size:16px;
+}
+
+.quick-card p {
+    margin:0;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.overlay {
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(7px);
+    z-index:50;
+}
+
+.overlay.show {
+    display:flex;
+}
+
+.settings {
+    width:min(650px,calc(100% - 30px));
+    max-height:85vh;
+    overflow-y:auto;
+    padding:25px;
+    background:rgba(15,15,27,.95);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:24px;
+}
+
+.settings-header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.settings-header h2 {
+    margin:0;
+}
+
+.close-settings {
+    width:36px;
+    height:36px;
+    border:0;
+    border-radius:10px;
+    background:rgba(255,255,255,.07);
+    color:white;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.setting-section {
+    padding:17px 0;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.setting-section h3 {
+    margin:0 0 13px;
+    font-size:14px;
+}
+
+.setting-row {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin:12px 0;
+}
+
+.setting-row label {
+    color:var(--muted);
+    font-size:13px;
+}
+
+select {
+    min-width:160px;
+    padding:9px 11px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:10px;
+    background:#171722;
+    color:white;
+    font-family:inherit;
+}
+
+input[type=color] {
+    width:55px;
+    height:35px;
+    border:0;
+    background:transparent;
+}
+
+input[type=range] {
+    width:170px;
+    accent-color:var(--theme);
+}
+
+.theme-buttons,
+.background-buttons,
+.layout-buttons {
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.theme-button,
+.background-button,
+.layout-button {
+    padding:9px 13px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:10px;
+    background:rgba(255,255,255,.06);
+    color:white;
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.theme-button:hover,
+.background-button:hover,
+.layout-button:hover {
+    background:rgba(255,255,255,.13);
+}
+
+.panic-button {
+    padding:10px 14px;
+    border:0;
+    border-radius:10px;
+    background:#ef4444;
+    color:white;
+    font-family:inherit;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.panic-status {
+    color:var(--muted);
+    font-size:12px;
+}
+
+body.layout-compact {
+    --sidebar-width:68px;
+    --main-padding:25px;
+    --card-gap:10px;
+}
+
+body.layout-wide {
+    --sidebar-width:88px;
+    --main-padding:65px;
+    --card-gap:20px;
+}
+
+body.layout-centered .main {
+    display:flex;
+    justify-content:center;
+}
+
+body.layout-centered .home {
+    width:min(1050px,100%);
+}
+
+body.layout-minimal .quick-links {
+    display:none;
+}
+
+@media(max-width:700px) {
+    .sidebar {
+        width:67px;
+        margin:9px;
+        height:calc(100% - 18px);
+    }
+
+    .sidebar-button {
+        width:44px;
+        height:44px;
+    }
+
+    .main {
+        padding:25px 18px;
+    }
+
+    .sidebar-button::after {
+        display:none;
+    }
+
+    .quick-links {
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background" id="background"></div>
+
+<div class="app">
+
+<aside class="sidebar">
+
+    <div class="sidebar-time" id="sidebarTime">
+        12:00
+    </div>
+
+    <div class="sidebar-buttons">
+
+        <!-- HOME -->
+        <button
+            class="sidebar-button home-button"
+            data-label="Home"
+            onclick="showHome()">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M12 3.2 3 10.5v9.3c0 .7.5 1.2 1.2 1.2h5.1v-6.2h5.4V21H20c.7 0 1.2-.5 1.2-1.2v-9.3L12 3.2z"/>
+            </svg>
+
+        </button>
+
+
+        <!-- STEAM -->
+        <a
+            href="#"
+            class="sidebar-button logo-button games-button"
+            data-label="Games">
+
+            <img
+                src="steam.png"
+                alt="Steam">
+
+        </a>
+
+
+        <!-- SPOTIFY -->
+        <a
+            href="#"
+            class="sidebar-button logo-button"
+            data-label="Spotify">
+
+            <img
+                src="spotify.png"
+                alt="Spotify">
+
+        </a>
+
+
+        <!-- DISCORD -->
+        <a
+            href="#"
+            class="sidebar-button logo-button"
+            data-label="Discord">
+
+            <img
+                src="discord.png"
+                alt="Discord">
+
+        </a>
+
+
+        <!-- GOOGLE / BROWSER -->
+        <a
+            href="./Browser.html"
+            class="sidebar-button logo-button"
+            data-label="Browser">
+
+            <img
+                src="https://cdn.simpleicons.org/google/4285F4"
+                alt="Google">
+
+        </a>
+
+    </div>
+
+
+    <!-- SETTINGS -->
+    <div class="sidebar-bottom">
+
+        <button
+            class="sidebar-button settings-button"
+            data-label="Settings"
+            onclick="openSettings()">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M19.4 13.5c.1-.5.1-1 0-1.5l2-1.5-2-3.4-2.4 1c-.4-.3-.9-.6-1.4-.8L15.3 4h-4l-.3 2.3c-.5.2-1 .5-1.4.8l-2.4-1-2 3.4 2 1.5c-.1.5-.1 1 0 1.5l-2 1.5 2 3.4 2.4-1c.4.3.9.6 1.4.8l.3 2.3h4l.3-2.3c.5-.2 1-.5 1.4-.8l2.4 1 2-3.4-2-1.5zM13.3 15.3a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+            </svg>
+
+        </button>
+
+    </div>
+
+</aside>
+
+
+<main class="main">
+
+<section class="home">
+
+    <div class="welcome">
+
+        <h1>
+            Welcome to <span>Nova</span>
+        </h1>
+
+        <p>
+            Your personal space on the web.
+        </p>
+
+    </div>
+
+    <div class="clock">
+
+        <div class="clock-time" id="clock">
+            12:00:00
+        </div>
+
+        <div class="clock-date" id="date">
+            Loading date...
+        </div>
+
+    </div>
+
+
+    <div class="quick-links">
+
+        <div
+            class="quick-card"
+            onclick="location.href='./Browser.html'">
+
+            <h3>🌐 Browser</h3>
+
+            <p>
+                Open the Nova browser.
+            </p>
+
+        </div>
+
+        <div class="quick-card">
+            <h3>🎮 Games</h3>
+            <p>Your game hub.</p>
+        </div>
+
+        <div class="quick-card">
+            <h3>🎵 Music</h3>
+            <p>Spotify and music.</p>
+        </div>
+
+        <div class="quick-card">
+            <h3>💬 Social</h3>
+            <p>Discord and more.</p>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+</div>
+
+
+<!-- SETTINGS -->
+
+<div
+    class="overlay"
+    id="settingsOverlay"
+    onclick="closeSettingsOutside(event)">
+
+<div class="settings">
+
+<div class="settings-header">
+
+    <h2>Nova Settings</h2>
+
+    <button
+        class="close-settings"
+        onclick="closeSettings()">
+        ×
+    </button>
+
+</div>
+
+
+<div class="setting-section">
+
+<h3>Font</h3>
+
+<div class="setting-row">
+
+<label>Site font</label>
+
+<select
+    id="fontSelect"
+    onchange="changeFont(this.value)">
+
+<option>Space Grotesk</option>
+<option>Inter</option>
+<option>Poppins</option>
+<option>Montserrat</option>
+<option>Roboto</option>
+<option>Lato</option>
+<option>Orbitron</option>
+<option>Playfair Display</option>
+
+</select>
+
+</div>
+</div>
+
+
+<div class="setting-section">
+
+<h3>Theme</h3>
+
+<div class="theme-buttons">
+
+<button class="theme-button" onclick="setTheme('#8b5cf6','#a78bfa')">Purple</button>
+<button class="theme-button" onclick="setTheme('#3b82f6','#60a5fa')">Blue</button>
+<button class="theme-button" onclick="setTheme('#22c55e','#86efac')">Green</button>
+<button class="theme-button" onclick="setTheme('#ef4444','#f87171')">Red</button>
+<button class="theme-button" onclick="setTheme('#f97316','#fb923c')">Orange</button>
+<button class="theme-button" onclick="setTheme('#ec4899','#f472b6')">Pink</button>
+<button class="theme-button" onclick="setTheme('#06b6d4','#67e8f9')">Cyan</button>
+
+</div>
+</div>
+
+
+<div class="setting-section">
+
+<h3>Custom Color</h3>
+
+<div class="setting-row">
+
+<label>Theme color</label>
+
+<input
+    type="color"
+    id="colorPicker"
+    value="#8b5cf6"
+    onchange="customColor(this.value)">
+
+</div>
+</div>
+
+
+<div class="setting-section">
+
+<h3>Moving Backgrounds</h3>
+
+<div class="background-buttons">
+
+<button class="background-button" onclick="changeBackground('nova')">Nova Purple</button>
+<button class="background-button" onclick="changeBackground('emerald')">Emerald</button>
+<button class="background-button" onclick="changeBackground('ocean')">Ocean</button>
+<button class="background-button" onclick="changeBackground('crimson')">Crimson</button>
+<button class="background-button" onclick="changeBackground('aurora')">Aurora</button>
+<button class="background-button" onclick="changeBackground('dark')">Static Dark</button>
+
+</div>
+</div>
+
+
+<div class="setting-section">
+
+<h3>Layout</h3>
+
+<div class="layout-buttons">
+
+<button class="layout-button" onclick="setLayout('classic')">Classic</button>
+<button class="layout-button" onclick="setLayout('compact')">Compact</button>
+<button class="layout-button" onclick="setLayout('wide')">Wide</button>
+<button class="layout-button" onclick="setLayout('centered')">Centered</button>
+<button class="layout-button" onclick="setLayout('minimal')">Minimal</button>
+
+</div>
+</div>
+
+
+<div class="setting-section">
+
+<h3>Sidebar</h3>
+
+<div class="setting-row">
+
+<label>Transparency</label>
+
+<input
+    type="range"
+    min="20"
+    max="90"
+    value="58"
+    id="transparency"
+    oninput="changeTransparency(this.value)">
+
+</div>
+
+<div class="setting-row">
+
+<label>Blur</label>
+
+<input
+    type="range"
+    min="0"
+    max="35"
+    value="18"
+    id="blur"
+    oninput="changeBlur(this.value)">
+
+</div>
+
+</div>
+
+
+<div class="setting-section">
+
+<h3>Clock</h3>
+
+<div class="setting-row">
+
+<label>24-hour clock</label>
+
+<input
+    type="checkbox"
+    id="twentyFour"
+    onchange="saveClockSettings()">
+
+</div>
+
+<div class="setting-row">
+
+<label>Show seconds</label>
+
+<input
+    type="checkbox"
+    id="showSeconds"
+    checked
+    onchange="saveClockSettings()">
+
+</div>
+
+<div class="setting-row">
+
+<label>Show date</label>
+
+<input
+    type="checkbox"
+    id="showDate"
+    checked
+    onchange="saveClockSettings()">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<script>
+
+function updateClock() {
+
+    const now = new Date();
+
+    const use24 =
+        localStorage.getItem("nova24") === "true";
+
+    const showSeconds =
+        localStorage.getItem("novaSeconds") !== "false";
+
+    const options = {
+        hour:"numeric",
+        minute:"2-digit",
+        hour12:!use24
+    };
+
+    if (showSeconds) {
+        options.second = "2-digit";
+    }
+
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString([],options);
+
+    document.getElementById("sidebarTime").textContent =
+        now.toLocaleTimeString([],{
+            hour:"numeric",
+            minute:"2-digit",
+            hour12:!use24
+        });
+
+    document.getElementById("date").textContent =
+        now.toLocaleDateString([],{
+            weekday:"long",
+            month:"long",
+            day:"numeric",
+            year:"numeric"
+        });
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+
+function openSettings() {
+    document
+        .getElementById("settingsOverlay")
+        .classList.add("show");
+}
+
+function closeSettings() {
+    document
+        .getElementById("settingsOverlay")
+        .classList.remove("show");
+}
+
+function closeSettingsOutside(event) {
+    if (event.target.id === "settingsOverlay") {
+        closeSettings();
+    }
+}
+
+
+function changeFont(font) {
+
+    document.body.style.fontFamily =
+        `"${font}",sans-serif`;
+
+    localStorage.setItem(
+        "novaFont",
+        font
+    );
+}
+
+
+function setTheme(color,light) {
+
+    document.documentElement.style
+        .setProperty("--theme",color);
+
+    document.documentElement.style
+        .setProperty("--theme-light",light);
+
+    localStorage.setItem(
+        "novaTheme",
+        color
+    );
+
+    localStorage.setItem(
+        "novaThemeLight",
+        light
+    );
+
+    document.getElementById(
+        "colorPicker"
+    ).value = color;
+}
+
+
+function customColor(color) {
+    setTheme(color,color);
+}
+
+
+function changeBackground(type) {
+
+    const bg =
+        document.getElementById("background");
+
+    if (type === "nova") {
+
+        bg.style.background =
+        `radial-gradient(circle at 20% 20%,rgba(139,92,246,.35),transparent 35%),
+         radial-gradient(circle at 80% 80%,rgba(76,29,149,.28),transparent 35%),
+         #090912`;
+
+    }
+
+    if (type === "emerald") {
+
+        bg.style.background =
+        `radial-gradient(circle at 20% 20%,rgba(34,197,94,.38),transparent 35%),
+         radial-gradient(circle at 80% 80%,rgba(5,150,105,.30),transparent 35%),
+         #050d0a`;
+
+    }
+
+    if (type === "ocean") {
+
+        bg.style.background =
+        `radial-gradient(circle at 20% 20%,rgba(59,130,246,.40),transparent 35%),
+         radial-gradient(circle at 80% 80%,rgba(6,182,212,.28),transparent 35%),
+         #050b13`;
+
+    }
+
+    if (type === "crimson") {
+
+        bg.style.background =
+        `radial-gradient(circle at 20% 20%,rgba(239,68,68,.40),transparent 35%),
+         radial-gradient(circle at 80% 80%,rgba(190,24,93,.30),transparent 35%),
+         #120607`;
+
+    }
+
+    if (type === "aurora") {
+
+        bg.style.background =
+        `radial-gradient(circle at 15% 20%,rgba(34,197,94,.35),transparent 30%),
+         radial-gradient(circle at 80% 20%,rgba(59,130,246,.35),transparent 30%),
+         radial-gradient(circle at 50% 85%,rgba(168,85,247,.35),transparent 35%),
+         #070b12`;
+
+    }
+
+    if (type === "dark") {
+        bg.style.background = "#08080d";
+    }
+
+    localStorage.setItem(
+        "novaBackground",
+        type
+    );
+}
+
+
+function setLayout(layout) {
+
+    document.body.classList.remove(
+        "layout-compact",
+        "layout-wide",
+        "layout-centered",
+        "layout-minimal"
+    );
+
+    if (layout !== "classic") {
+        document.body.classList.add(
+            "layout-" + layout
+        );
+    }
+
+    localStorage.setItem(
+        "novaLayout",
+        layout
+    );
+}
+
+
+function changeTransparency(value) {
+
+    document.documentElement.style
+        .setProperty(
+            "--sidebar-alpha",
+            Number(value)/100
+        );
+
+    localStorage.setItem(
+        "novaTransparency",
+        value
+    );
+}
+
+
+function changeBlur(value) {
+
+    document.documentElement.style
+        .setProperty(
+            "--blur",
+            value + "px"
+        );
+
+    localStorage.setItem(
+        "novaBlur",
+        value
+    );
+}
+
+
+function saveClockSettings() {
+
+    localStorage.setItem(
+        "nova24",
+        document.getElementById(
+            "twentyFour"
+        ).checked
+    );
+
+    localStorage.setItem(
+        "novaSeconds",
+        document.getElementById(
+            "showSeconds"
+        ).checked
+    );
+
+    localStorage.setItem(
+        "novaDate",
+        document.getElementById(
+            "showDate"
+        ).checked
+    );
+
+    document.getElementById("date")
+        .style.display =
+        document.getElementById(
+            "showDate"
+        ).checked
+        ? "block"
+        : "none";
+
+    updateClock();
+}
+
+
+function showHome() {
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+function loadSettings() {
+
+    const font =
+        localStorage.getItem("novaFont");
+
+    if (font) {
+        changeFont(font);
+        document.getElementById(
+            "fontSelect"
+        ).value = font;
+    }
+
+    const theme =
+        localStorage.getItem("novaTheme");
+
+    const light =
+        localStorage.getItem("novaThemeLight");
+
+    if (theme) {
+        setTheme(theme,light || theme);
+    }
+
+    const background =
+        localStorage.getItem("novaBackground");
+
+    if (background) {
+        changeBackground(background);
+    }
+
+    const layout =
+        localStorage.getItem("novaLayout");
+
+    if (layout) {
+        setLayout(layout);
+    }
+
+    const transparency =
+        localStorage.getItem("novaTransparency");
+
+    if (transparency) {
+        document.getElementById(
+            "transparency"
+        ).value = transparency;
+
+        changeTransparency(transparency);
+    }
+
+    const blur =
+        localStorage.getItem("novaBlur");
+
+    if (blur) {
+        document.getElementById(
+            "blur"
+        ).value = blur;
+
+        changeBlur(blur);
+    }
+
+    document.getElementById(
+        "twentyFour"
+    ).checked =
+        localStorage.getItem(
+            "nova24"
+        ) === "true";
+
+    document.getElementById(
+        "showSeconds"
+    ).checked =
+        localStorage.getItem(
+            "novaSeconds"
+        ) !== "false";
+
+    document.getElementById(
+        "showDate"
+    ).checked =
+        localStorage.getItem(
+            "novaDate"
+        ) !== "false";
+
+    updateClock();
+}
+
+loadSettings();
+
+</script>
+
+</body>
+</html>
