@@ -1,37 +1,43 @@
+
+
+On Thu, Aug 13, 2026 at 7:16 PM The Funni <thefunni11@gmail.com> wrote:
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nova</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Urbanist:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-:root{
-    --accent:#8b5cff;
-    --accent-rgb:139,92,255;
-    --font:"Space Grotesk",sans-serif;
+:root {
+    --accent: #8b5cff;
+    --accent-rgb: 139,92,255;
+    --font: "Space Grotesk", sans-serif;
 }
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-html,body{
-    width:100%;
-    height:100%;
+html,
+body {
+    width: 100%;
+    height: 100%;
 }
 
-body{
-    font-family:var(--font);
-    color:white;
-    overflow:hidden;
+body {
+    font-family: var(--font);
+    color: white;
+    overflow: hidden;
 
     background:
         radial-gradient(
@@ -46,22 +52,25 @@ body{
         ),
         #070712;
 
-    transition:
-        background .5s ease;
+    transition: background .5s ease;
 }
 
-/* STAR FIELD */
 
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:-1;
+/* =========================
+   STAR FIELD
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    z-index: -1;
 
     background-image:
-        radial-gradient(white 1px,transparent 1px),
-        radial-gradient(white 1px,transparent 1px);
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 1px, transparent 1px);
 
     background-size:
         90px 90px,
@@ -71,122 +80,132 @@ body::before{
         10px 20px,
         50px 80px;
 
-    opacity:.22;
+    opacity: .22;
 }
+
 
 /* =========================
    SIDEBAR
 ========================= */
 
-.sidebar{
-    position:fixed;
+.sidebar {
+    position: fixed;
 
-    left:18px;
-    top:50%;
+    left: 18px;
+    top: 50%;
 
-    transform:translateY(-50%);
+    transform: translateY(-50%);
 
-    width:68px;
+    width: 68px;
 
-    padding:10px 8px;
+    padding: 10px 8px;
 
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    gap:8px;
+    gap: 8px;
 
-    background:rgba(8,8,18,.45);
+    background: rgba(8,8,18,.45);
 
     border:
         1px solid
         rgba(255,255,255,.09);
 
-    border-radius:22px;
+    border-radius: 22px;
 
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 
     box-shadow:
         0 20px 50px
         rgba(0,0,0,.35);
 
-    z-index:100;
+    z-index: 100;
 }
 
-/* SIDEBAR CLOCK */
 
-.side-time{
-    width:100%;
+/* =========================
+   SIDEBAR CLOCK
+========================= */
 
-    text-align:center;
+.side-time {
+    width: 100%;
 
-    font-size:10px;
+    text-align: center;
 
-    color:#aaaaba;
+    font-size: 10px;
 
-    padding-bottom:8px;
+    color: #aaaaba;
+
+    padding-bottom: 8px;
 
     border-bottom:
         1px solid
         rgba(255,255,255,.08);
 
-    white-space:nowrap;
+    white-space: nowrap;
 }
 
-/* NAVIGATION BUTTON */
 
-.nav-item{
-    position:relative;
+/* =========================
+   NAV BUTTONS
+========================= */
 
-    width:50px;
-    height:50px;
+.nav-item {
+    position: relative;
 
-    border:0;
-    border-radius:15px;
+    width: 50px;
+    height: 50px;
 
-    background:transparent;
+    border: 0;
+    border-radius: 15px;
 
-    color:white;
+    background: transparent;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    color: white;
 
-    cursor:pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
 
     transition:
         transform .28s cubic-bezier(.2,.8,.2,1),
         background .25s ease;
 }
 
-.nav-item:hover{
-    transform:scale(1.12);
+.nav-item:hover {
+    transform: scale(1.12);
 
     background:
         rgba(var(--accent-rgb),.16);
 }
 
-.nav-item.active{
+.nav-item.active {
     background:
         rgba(var(--accent-rgb),.23);
 }
 
-/* TOOLTIP */
 
-.nav-item::after{
-    content:attr(data-name);
+/* =========================
+   TOOLTIP
+========================= */
 
-    position:absolute;
+.nav-item::after {
+    content: attr(data-name);
 
-    left:63px;
-    top:50%;
+    position: absolute;
+
+    left: 63px;
+    top: 50%;
 
     transform:
         translateY(-50%)
         translateX(-6px);
 
-    padding:8px 12px;
+    padding: 8px 12px;
 
     background:
         rgba(8,8,18,.95);
@@ -195,262 +214,274 @@ body::before{
         1px solid
         rgba(255,255,255,.1);
 
-    border-radius:9px;
+    border-radius: 9px;
 
-    color:white;
+    color: white;
 
-    font-size:13px;
+    font-size: 13px;
 
-    white-space:nowrap;
+    white-space: nowrap;
 
-    opacity:0;
-    visibility:hidden;
+    opacity: 0;
+    visibility: hidden;
 
-    pointer-events:none;
+    pointer-events: none;
 
     transition:
         opacity .2s ease,
         transform .2s ease;
 }
 
-.nav-item:hover::after{
-    transition-delay:.5s;
+.nav-item:hover::after {
+    transition-delay: .5s;
 
-    opacity:1;
-    visibility:visible;
+    opacity: 1;
+    visibility: visible;
 
     transform:
         translateY(-50%)
         translateX(0);
 }
 
-/* ICON BOX */
 
-.icon-box{
-    width:36px;
-    height:36px;
+/* =========================
+   ICON BOX
+========================= */
 
-    border-radius:11px;
+.icon-box {
+    width: 36px;
+    height: 36px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    border-radius: 11px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
 
     transition:
         transform .28s ease;
 }
 
-.nav-item:hover .icon-box{
-    transform:scale(1.08);
+.nav-item:hover .icon-box {
+    transform: scale(1.08);
 }
 
-.svg-icon{
-    width:23px;
-    height:23px;
+.svg-icon {
+    width: 24px;
+    height: 24px;
 
-    display:block;
+    display: block;
+
+    flex-shrink: 0;
 }
 
-/* =========================
-   HOME ICON
-========================= */
-
-.home-icon{
-    color:var(--accent);
-
-    background:
-        rgba(var(--accent-rgb),.14);
-}
-
-.home-icon .svg-icon{
-    fill:currentColor;
-}
-
-/* =========================
-   STEAM
-========================= */
-
-.steam-icon{
-    background:#171d25;
-}
-
-.steam-icon .svg-icon{
-    fill:none;
-}
-
-.steam-icon circle{
-    stroke:#66c0f4;
-}
-
-.steam-icon path{
-    stroke:#66c0f4;
-}
-
-.steam-icon .center-dot{
-    fill:#66c0f4;
-    stroke:none;
-}
-
-/* =========================
-   SPOTIFY
-========================= */
-
-.spotify-icon{
-    background:#102719;
-}
-
-.spotify-icon .svg-icon{
-    fill:#1DB954;
-}
-
-/* =========================
-   DISCORD
-========================= */
-
-.discord-icon{
-    background:#171a35;
-}
-
-.discord-icon .svg-icon{
-    fill:#5865F2;
-}
-
-/* =========================
-   GOOGLE
-========================= */
-
-.google-icon{
-    background:#181818;
-}
-
-/* =========================
-   SETTINGS
-========================= */
-
-.settings-icon{
-    color:var(--accent);
-
-    background:
-        rgba(var(--accent-rgb),.14);
-}
-
-.settings-icon .svg-icon{
-    fill:currentColor;
-}
-
-/* DIVIDER */
-
-.divider{
-    width:38px;
-    height:1px;
-
-    background:
-        rgba(255,255,255,.1);
-
-    margin:3px 0;
-}
-
-/* =========================
-   CONTENT
-========================= */
-
-.content{
-    width:100%;
-    height:100%;
-
-    padding-left:105px;
-
-    position:relative;
-}
-
-.page{
-    position:absolute;
-
-    inset:0;
-
-    padding:
-        35px 7%;
-
-    opacity:0;
-    visibility:hidden;
-
-    transform:translateY(10px);
-
-    transition:
-        opacity .3s ease,
-        transform .3s ease;
-
-    overflow-y:auto;
-}
-
-.page.active{
-    opacity:1;
-    visibility:visible;
-
-    transform:translateY(0);
-}
 
 /* =========================
    HOME
 ========================= */
 
-.home{
-    display:flex;
-    flex-direction:column;
+.home-icon {
+    color: var(--accent);
 
-    align-items:center;
-
-    text-align:center;
+    background:
+        rgba(var(--accent-rgb),.14);
 }
 
-.welcome{
-    margin-top:10px;
+.home-icon .svg-icon {
+    fill: currentColor;
+}
+
+
+/* =========================
+   STEAM
+========================= */
+
+.steam-icon {
+    background: #171d25;
+}
+
+.steam-icon .svg-icon {
+    width: 24px;
+    height: 24px;
+}
+
+
+/* =========================
+   SPOTIFY
+========================= */
+
+.spotify-icon {
+    background: #102719;
+}
+
+.spotify-icon .svg-icon {
+    width: 24px;
+    height: 24px;
+}
+
+
+/* =========================
+   DISCORD
+========================= */
+
+.discord-icon {
+    background: #171a35;
+}
+
+.discord-icon .svg-icon {
+    fill: #5865F2;
+}
+
+
+/* =========================
+   GOOGLE
+========================= */
+
+.google-icon {
+    background: #181818;
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-icon {
+    color: var(--accent);
+
+    background:
+        rgba(var(--accent-rgb),.14);
+}
+
+.settings-icon .svg-icon {
+    fill: currentColor;
+}
+
+
+/* =========================
+   DIVIDER
+========================= */
+
+.divider {
+    width: 38px;
+    height: 1px;
+
+    background:
+        rgba(255,255,255,.1);
+
+    margin: 3px 0;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+    width: 100%;
+    height: 100%;
+
+    padding-left: 105px;
+
+    position: relative;
+}
+
+
+/* =========================
+   PAGES
+========================= */
+
+.page {
+    position: absolute;
+
+    inset: 0;
+
+    padding: 35px 7%;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(10px);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+
+    overflow-y: auto;
+}
+
+.page.active {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0);
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+.home {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+.welcome {
+    margin-top: 10px;
 
     font-size:
         clamp(40px,6vw,72px);
 
-    font-weight:600;
+    font-weight: 600;
 
-    letter-spacing:-2.5px;
+    letter-spacing: -2.5px;
 }
 
-.welcome span{
-    color:var(--accent);
+.welcome span {
+    color: var(--accent);
 
     text-shadow:
         0 0 35px
         rgba(var(--accent-rgb),.35);
 }
 
-.clock{
-    margin-top:2px;
+.clock {
+    margin-top: 2px;
 
     font-size:
         clamp(40px,5vw,62px);
 
-    font-weight:400;
+    font-weight: 400;
 
-    letter-spacing:2px;
+    letter-spacing: 2px;
 }
 
-.date{
-    margin-top:2px;
+.date {
+    margin-top: 2px;
 
-    color:#aaaaba;
+    color: #aaaaba;
 
-    font-size:14px;
+    font-size: 14px;
 }
+
 
 /* =========================
    CARDS
 ========================= */
 
-.cards{
-    width:min(900px,100%);
+.cards {
+    width: min(900px,100%);
 
-    margin-top:40px;
+    margin-top: 40px;
 
-    display:grid;
+    display: grid;
 
     grid-template-columns:
         repeat(
@@ -458,11 +489,11 @@ body::before{
             minmax(180px,1fr)
         );
 
-    gap:17px;
+    gap: 17px;
 }
 
-.card{
-    padding:28px 20px;
+.card {
+    padding: 28px 20px;
 
     background:
         rgba(15,15,30,.58);
@@ -471,54 +502,60 @@ body::before{
         1px solid
         rgba(255,255,255,.1);
 
-    border-radius:18px;
+    border-radius: 18px;
 
-    backdrop-filter:blur(12px);
+    backdrop-filter: blur(12px);
 
     transition:
         transform .25s ease,
         border-color .25s ease;
 }
 
-.card:hover{
-    transform:translateY(-5px);
+.card:hover {
+    transform: translateY(-5px);
 
     border-color:
         rgba(var(--accent-rgb),.45);
 }
 
-.card-icon{
-    font-size:32px;
+.card-icon {
+    font-size: 32px;
 
-    margin-bottom:13px;
+    margin-bottom: 13px;
 }
 
-.card h2{
-    font-size:18px;
+.card h2 {
+    font-size: 18px;
 
-    font-weight:500;
+    font-weight: 500;
 }
 
-.card p{
-    color:#aaaaba;
+.card p {
+    color: #aaaaba;
 
-    font-size:13px;
+    font-size: 13px;
 
-    margin-top:7px;
+    margin-top: 7px;
 }
+
 
 /* =========================
-   SETTINGS
+   PAGE TITLES
 ========================= */
 
-.page-title{
-    font-size:42px;
+.page-title {
+    font-size: 42px;
 
-    margin-bottom:25px;
+    margin-bottom: 25px;
 }
 
-.settings-panel{
-    max-width:800px;
+
+/* =========================
+   SETTINGS PANEL
+========================= */
+
+.settings-panel {
+    max-width: 800px;
 
     background:
         rgba(10,10,20,.65);
@@ -527,98 +564,114 @@ body::before{
         1px solid
         rgba(255,255,255,.1);
 
-    border-radius:20px;
+    border-radius: 20px;
 
-    padding:25px;
+    padding: 25px;
 
-    backdrop-filter:blur(18px);
+    backdrop-filter: blur(18px);
 }
 
-.setting{
-    padding:20px 0;
+
+/* =========================
+   SETTINGS
+========================= */
+
+.setting {
+    padding: 20px 0;
 
     border-bottom:
         1px solid
         rgba(255,255,255,.08);
 }
 
-.setting:last-child{
-    border-bottom:0;
+.setting:last-child {
+    border-bottom: 0;
 }
 
-.setting h3{
-    margin-bottom:7px;
+.setting h3 {
+    margin-bottom: 7px;
 
-    font-size:17px;
+    font-size: 17px;
 }
 
-.setting p{
-    color:#aaaaba;
+.setting p {
+    color: #aaaaba;
 
-    font-size:13px;
+    font-size: 13px;
 
-    margin-bottom:13px;
+    margin-bottom: 13px;
 }
 
-select{
-    padding:11px 14px;
 
-    background:#151522;
+/* =========================
+   INPUTS
+========================= */
 
-    color:white;
+select {
+    padding: 11px 14px;
+
+    background: #151522;
+
+    color: white;
 
     border:
         1px solid
         #333346;
 
-    border-radius:9px;
+    border-radius: 9px;
 
-    font-family:var(--font);
+    font-family: var(--font);
 }
 
-input[type=color]{
-    width:55px;
-    height:40px;
+input[type="color"] {
+    width: 55px;
+    height: 40px;
 
-    border:0;
+    border: 0;
 
-    background:transparent;
+    background: transparent;
 
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.action{
-    padding:11px 16px;
 
-    border:0;
+/* =========================
+   BUTTONS
+========================= */
 
-    border-radius:9px;
+.action {
+    padding: 11px 16px;
 
-    background:var(--accent);
+    border: 0;
 
-    color:white;
+    border-radius: 9px;
 
-    font-family:var(--font);
+    background: var(--accent);
 
-    cursor:pointer;
+    color: white;
+
+    font-family: var(--font);
+
+    cursor: pointer;
 
     transition:
         transform .2s ease,
         filter .2s ease;
 }
 
-.action:hover{
-    transform:translateY(-2px);
+.action:hover {
+    transform: translateY(-2px);
 
-    filter:brightness(1.12);
+    filter: brightness(1.12);
 }
+
 
 /* =========================
    THEMES
 ========================= */
 
-.theme-grid{
-    display:grid;
+.theme-grid {
+    display: grid;
 
     grid-template-columns:
         repeat(
@@ -626,33 +679,33 @@ input[type=color]{
             minmax(100px,1fr)
         );
 
-    gap:10px;
+    gap: 10px;
 }
 
-.theme-button{
-    height:60px;
+.theme-button {
+    height: 60px;
 
     border:
         2px solid
         transparent;
 
-    border-radius:12px;
+    border-radius: 12px;
 
-    cursor:pointer;
+    cursor: pointer;
 
-    color:white;
+    color: white;
 
-    font-family:var(--font);
+    font-family: var(--font);
 
     transition:
         transform .2s ease;
 }
 
-.theme-button:hover{
-    transform:translateY(-3px);
+.theme-button:hover {
+    transform: translateY(-3px);
 }
 
-.theme-purple{
+.theme-purple {
     background:
         linear-gradient(
             135deg,
@@ -661,7 +714,7 @@ input[type=color]{
         );
 }
 
-.theme-green{
+.theme-green {
     background:
         linear-gradient(
             135deg,
@@ -670,7 +723,7 @@ input[type=color]{
         );
 }
 
-.theme-blue{
+.theme-blue {
     background:
         linear-gradient(
             135deg,
@@ -679,7 +732,7 @@ input[type=color]{
         );
 }
 
-.theme-red{
+.theme-red {
     background:
         linear-gradient(
             135deg,
@@ -688,7 +741,7 @@ input[type=color]{
         );
 }
 
-.theme-orange{
+.theme-orange {
     background:
         linear-gradient(
             135deg,
@@ -697,7 +750,7 @@ input[type=color]{
         );
 }
 
-.theme-pink{
+.theme-pink {
     background:
         linear-gradient(
             135deg,
@@ -706,7 +759,7 @@ input[type=color]{
         );
 }
 
-.theme-cyan{
+.theme-cyan {
     background:
         linear-gradient(
             135deg,
@@ -715,7 +768,7 @@ input[type=color]{
         );
 }
 
-.theme-white{
+.theme-white {
     background:
         linear-gradient(
             135deg,
@@ -723,15 +776,16 @@ input[type=color]{
             #fff
         );
 
-    color:#111;
+    color: #111;
 }
+
 
 /* =========================
    BACKGROUNDS
 ========================= */
 
-.background-grid{
-    display:grid;
+.background-grid {
+    display: grid;
 
     grid-template-columns:
         repeat(
@@ -739,37 +793,40 @@ input[type=color]{
             minmax(140px,1fr)
         );
 
-    gap:12px;
+    gap: 12px;
 }
 
-.background-button{
-    height:85px;
+.background-button {
+    height: 85px;
 
     border:
         1px solid
         rgba(255,255,255,.12);
 
-    border-radius:14px;
+    border-radius: 14px;
 
-    color:white;
+    color: white;
 
-    font-family:var(--font);
+    font-family: var(--font);
 
-    cursor:pointer;
+    cursor: pointer;
 
     transition:
         transform .25s ease,
         border .25s ease;
 }
 
-.background-button:hover{
-    transform:translateY(-3px);
+.background-button:hover {
+    transform: translateY(-3px);
 
     border-color:
         rgba(255,255,255,.35);
 }
 
-.bg-space{
+
+/* DEFAULT SPACE */
+
+.bg-space {
     background:
         radial-gradient(
             circle at 20% 20%,
@@ -784,7 +841,10 @@ input[type=color]{
         #070712;
 }
 
-.bg-deep{
+
+/* DEEP SPACE */
+
+.bg-deep {
     background:
         radial-gradient(
             circle at 70% 30%,
@@ -794,7 +854,10 @@ input[type=color]{
         #02040c;
 }
 
-.bg-nebula{
+
+/* NEBULA */
+
+.bg-nebula {
     background:
         radial-gradient(
             circle at 20% 30%,
@@ -809,8 +872,11 @@ input[type=color]{
         #090614;
 }
 
-.bg-stars{
-    background:#05050d;
+
+/* MOVING STARS */
+
+.bg-stars {
+    background: #05050d;
 
     background-image:
         radial-gradient(
@@ -818,26 +884,28 @@ input[type=color]{
             transparent 1px
         );
 
-    background-size:35px 35px;
+    background-size: 35px 35px;
 
     animation:
         stars 12s linear infinite;
 }
 
-@keyframes stars{
+@keyframes stars {
 
-    from{
-        background-position:0 0;
+    from {
+        background-position: 0 0;
     }
 
-    to{
-        background-position:
-            350px 350px;
+    to {
+        background-position: 350px 350px;
     }
 
 }
 
-.bg-moving{
+
+/* MOVING NEBULA */
+
+.bg-moving {
     background:
         radial-gradient(
             circle at 20% 50%,
@@ -851,7 +919,7 @@ input[type=color]{
         ),
         #080611;
 
-    background-size:200% 200%;
+    background-size: 200% 200%;
 
     animation:
         nebula 15s
@@ -859,19 +927,22 @@ input[type=color]{
         infinite alternate;
 }
 
-@keyframes nebula{
+@keyframes nebula {
 
-    from{
-        background-position:0% 50%;
+    from {
+        background-position: 0% 50%;
     }
 
-    to{
-        background-position:100% 50%;
+    to {
+        background-position: 100% 50%;
     }
 
 }
 
-.bg-aurora{
+
+/* AURORA */
+
+.bg-aurora {
     background:
         linear-gradient(
             120deg,
@@ -881,70 +952,72 @@ input[type=color]{
             #06121c
         );
 
-    background-size:300% 300%;
+    background-size: 300% 300%;
 
     animation:
         aurora 12s
         ease infinite;
 }
 
-@keyframes aurora{
+@keyframes aurora {
 
-    0%{
-        background-position:0 50%;
+    0% {
+        background-position: 0 50%;
     }
 
-    50%{
-        background-position:100% 50%;
+    50% {
+        background-position: 100% 50%;
     }
 
-    100%{
-        background-position:0 50%;
+    100% {
+        background-position: 0 50%;
     }
 
 }
+
 
 /* =========================
    PANIC SCREEN
 ========================= */
 
-#panicScreen{
-    position:fixed;
+#panicScreen {
+    position: fixed;
 
-    inset:0;
+    inset: 0;
 
-    background:white;
+    background: white;
 
-    display:none;
+    display: none;
 
-    z-index:9999;
+    z-index: 9999;
 }
 
-#panicScreen.active{
-    display:block;
+#panicScreen.active {
+    display: block;
 }
+
 
 /* =========================
    MOBILE
 ========================= */
 
-@media(max-width:650px){
+@media (max-width: 650px) {
 
-    .sidebar{
-        left:8px;
-        width:58px;
+    .sidebar {
+        left: 8px;
+        width: 58px;
     }
 
-    .nav-item{
-        width:44px;
-        height:44px;
+    .nav-item {
+        width: 44px;
+        height: 44px;
     }
 
-    .content{
-        padding-left:78px;
+    .content {
+        padding-left: 78px;
     }
 
-    .page{
+    .page {
         padding:
             30px 22px;
     }
@@ -954,15 +1027,20 @@ input[type=color]{
 </style>
 </head>
 
+
 <body>
 
-<!-- =========================
+
+<!-- ==================================================
      SIDEBAR
-========================= -->
+================================================== -->
 
 <aside class="sidebar">
 
-<div class="side-time" id="sideTime">
+
+<div
+class="side-time"
+id="sideTime">
 12:00 PM
 </div>
 
@@ -1004,7 +1082,7 @@ Z
 </button>
 
 
-<!-- GAMES / STEAM -->
+<!-- STEAM -->
 
 <button
 class="nav-item"
@@ -1019,41 +1097,28 @@ viewBox="0 0 24 24"
 class="svg-icon"
 >
 
-<circle
-cx="12"
-cy="12"
-r="9"
-stroke-width="1.8"
-/>
-
-<circle
-cx="15.5"
-cy="8.5"
-r="2.4"
-fill="none"
-stroke-width="1.7"
-/>
-
-<circle
-class="center-dot"
-cx="15.5"
-cy="8.5"
-r=".8"
-/>
-
 <path
-d="M5 14.5L10.2 16.7"
-fill="none"
-stroke-width="1.8"
-stroke-linecap="round"
-/>
+fill="#66C0F4"
+d="
+M12 2
+a10 10 0 0 0-9.8 8.1
+l5.1 2.1
+a2.8 2.8 0 1 1-.8 2.1
+l-3.9-1.6
+A10 10 0 1 0 12 2
 
-<circle
-cx="9.8"
-cy="17"
-r="2.1"
-fill="none"
-stroke-width="1.7"
+M16.2 6.8
+a3.1 3.1 0 1 1 0 6.2
+a3.1 3.1 0 0 1 0-6.2
+
+M16.2 8.2
+a1.7 1.7 0 1 0 0 3.4
+a1.7 1.7 0 0 0 0-3.4
+
+M8.8 12.8
+a1.4 1.4 0 1 0 0 2.8
+a1.4 1.4 0 0 0 0-2.8
+"
 />
 
 </svg>
@@ -1078,31 +1143,39 @@ viewBox="0 0 24 24"
 class="svg-icon"
 >
 
-<path d="
-M12 2
-A10 10 0 1 0 12 22
-A10 10 0 0 0 12 2
+<circle
+cx="12"
+cy="12"
+r="10"
+fill="#1DB954"
+/>
 
-M16.6 16.6
-A.8.8 0 0 1 15.5 16.9
-C12.5 15.1 8.7 14.7 4.2 15.7
-A.8.8 0 1 1 3.8 14.1
-C8.7 13 12.9 13.4 16.3 15.4
-C16.7 15.6 16.8 16.2 16.6 16.6
+<path
+d="M7 9.2
+C10.5 8.2 14.6 8.5 17.2 10"
+fill="none"
+stroke="#07110a"
+stroke-width="1.6"
+stroke-linecap="round"
+/>
 
-M18.1 13.5
-A1 1 0 0 1 16.8 13.9
-C13.3 11.8 8 11.2 3.9 12.4
-A1 1 0 1 1 3.3 10.5
-C8 9.1 13.8 9.8 17.8 12.2
-C18.3 12.5 18.5 13.1 18.1 13.5
+<path
+d="M7.5 12
+C10.5 11.2 14.1 11.5 16.5 12.7"
+fill="none"
+stroke="#07110a"
+stroke-width="1.5"
+stroke-linecap="round"
+/>
 
-M18.2 10.3
-C14 7.8 7 7.6 3 8.8
-A1.2 1.2 0 1 1 2.3 6.5
-C7 5.1 14.8 5.4 19.6 8.2
-A1.2 1.2 0 0 1 18.2 10.3Z
-"/>
+<path
+d="M8.2 14.7
+C10.6 14.2 13.5 14.4 15.4 15.2"
+fill="none"
+stroke="#07110a"
+stroke-width="1.4"
+stroke-linecap="round"
+/>
 
 </svg>
 
@@ -1126,7 +1199,9 @@ viewBox="0 0 24 24"
 class="svg-icon"
 >
 
-<path d="
+<path
+fill="#5865F2"
+d="
 M19.5 5.4
 A16.2 16.2 0 0 0 15.6 4
 L15.1 5.1
@@ -1155,7 +1230,8 @@ ZM15.3 14.2
 C14.2 14.2 13.3 13.2 13.3 12
 S14.2 9.8 15.3 9.8
 S17.3 10.8 17.3 12
-S16.4 14.2 15.3 14.2Z
+S16.4 14.2 15.3 14.2
+Z
 "/>
 
 </svg>
@@ -1273,8 +1349,7 @@ C4.73 4.96 4.46 5.05 4.34 5.27
 L2.34 8.73
 C2.22 8.95 2.27 9.22 2.46 9.37
 L4.57 11.02
-C4.53 11.34 4.5 11.66 4.5 12
-S4.53 12.66 4.57 12.98
+C4.53 11.34 4.5 11.66 4.57 12.98
 L2.46 14.63
 C2.27 14.78 2.22 15.05 2.34 15.27
 L4.34 18.73
@@ -1304,15 +1379,16 @@ A3.5 3.5 0 0 1 12 15.5Z
 
 </button>
 
+
 </aside>
 
 
 <main class="content">
 
 
-<!-- =========================
+<!-- ==================================================
      HOME
-========================= -->
+================================================== -->
 
 <section
 id="home"
@@ -1325,53 +1401,96 @@ Welcome to <span>Nova</span>
 
 <div
 class="clock"
-id="clock"
->
+id="clock">
 12:00:00 PM
 </div>
 
 <div
 class="date"
-id="date"
->
+id="date">
 Thursday, August 13
 </div>
 
 
 <div class="cards">
 
-<div class="card">
-<div class="card-icon">🎮</div>
-<h2>Games</h2>
-<p>Your game library.</p>
-</div>
 
 <div class="card">
-<div class="card-icon">🎵</div>
-<h2>Spotify</h2>
-<p>Music and playlists.</p>
+
+<div class="card-icon">
+🎮
 </div>
 
-<div class="card">
-<div class="card-icon">💬</div>
-<h2>Discord</h2>
-<p>Your Discord space.</p>
+<h2>
+Games
+</h2>
+
+<p>
+Your game library.
+</p>
+
 </div>
 
+
 <div class="card">
-<div class="card-icon">🌐</div>
-<h2>Browser</h2>
-<p>Web tools.</p>
+
+<div class="card-icon">
+🎵
 </div>
+
+<h2>
+Spotify
+</h2>
+
+<p>
+Music and playlists.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+💬
+</div>
+
+<h2>
+Discord
+</h2>
+
+<p>
+Your Discord space.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🌐
+</div>
+
+<h2>
+Browser
+</h2>
+
+<p>
+Web tools.
+</p>
+
+</div>
+
 
 </div>
 
 </section>
 
 
-<!-- =========================
+<!-- ==================================================
      GAMES
-========================= -->
+================================================== -->
 
 <section
 id="games"
@@ -1382,34 +1501,69 @@ class="page"
 🎮 Games
 </h1>
 
+
 <div class="cards">
 
-<div class="card">
-<div class="card-icon">🚀</div>
-<h2>Space Runner</h2>
-<p>Coming soon.</p>
-</div>
 
 <div class="card">
-<div class="card-icon">👾</div>
-<h2>Pixel Quest</h2>
-<p>Coming soon.</p>
+
+<div class="card-icon">
+🚀
 </div>
 
-<div class="card">
-<div class="card-icon">🧩</div>
-<h2>Galaxy Blocks</h2>
-<p>Coming soon.</p>
+<h2>
+Space Runner
+</h2>
+
+<p>
+Coming soon.
+</p>
+
 </div>
+
+
+<div class="card">
+
+<div class="card-icon">
+👾
+</div>
+
+<h2>
+Pixel Quest
+</h2>
+
+<p>
+Coming soon.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🧩
+</div>
+
+<h2>
+Galaxy Blocks
+</h2>
+
+<p>
+Coming soon.
+</p>
+
+</div>
+
 
 </div>
 
 </section>
 
 
-<!-- =========================
+<!-- ==================================================
      SPOTIFY
-========================= -->
+================================================== -->
 
 <section
 id="spotify"
@@ -1419,6 +1573,7 @@ class="page"
 <h1 class="page-title">
 Spotify
 </h1>
+
 
 <div class="settings-panel">
 
@@ -1435,9 +1590,9 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 </section>
 
 
-<!-- =========================
+<!-- ==================================================
      DISCORD
-========================= -->
+================================================== -->
 
 <section
 id="discord"
@@ -1448,9 +1603,12 @@ class="page"
 Discord
 </h1>
 
+
 <div class="settings-panel">
 
-<h2>Discord</h2>
+<h2>
+Discord
+</h2>
 
 <br>
 
@@ -1472,9 +1630,9 @@ Open Discord
 </section>
 
 
-<!-- =========================
+<!-- ==================================================
      BROWSER
-========================= -->
+================================================== -->
 
 <section
 id="browser"
@@ -1484,6 +1642,7 @@ class="page"
 <h1 class="page-title">
 Browser
 </h1>
+
 
 <div class="settings-panel">
 
@@ -1519,9 +1678,9 @@ Search
 </section>
 
 
-<!-- =========================
+<!-- ==================================================
      SETTINGS
-========================= -->
+================================================== -->
 
 <section
 id="settings"
@@ -1531,6 +1690,7 @@ class="page"
 <h1 class="page-title">
 Settings
 </h1>
+
 
 <div class="settings-panel">
 
@@ -1546,6 +1706,7 @@ Font
 <p>
 Change Nova's typeface.
 </p>
+
 
 <select
 id="fontSelector"
@@ -1585,7 +1746,7 @@ Arial
 </div>
 
 
-<!-- THEME -->
+<!-- THEMES -->
 
 <div class="setting">
 
@@ -1597,63 +1758,65 @@ Theme
 Change Nova's accent color.
 </p>
 
+
 <div class="theme-grid">
+
 
 <button
 class="theme-button theme-purple"
-onclick="setTheme('#8b5cff','139,92,255')"
->
+onclick="setTheme('#8b5cff','139,92,255')">
 Purple
 </button>
 
+
 <button
 class="theme-button theme-green"
-onclick="setTheme('#19c77a','25,199,122')"
->
+onclick="setTheme('#19c77a','25,199,122')">
 Emerald
 </button>
 
+
 <button
 class="theme-button theme-blue"
-onclick="setTheme('#238cff','35,140,255')"
->
+onclick="setTheme('#238cff','35,140,255')">
 Ocean
 </button>
 
+
 <button
 class="theme-button theme-red"
-onclick="setTheme('#ef3f5f','239,63,95')"
->
+onclick="setTheme('#ef3f5f','239,63,95')">
 Crimson
 </button>
 
+
 <button
 class="theme-button theme-orange"
-onclick="setTheme('#ff8a24','255,138,36')"
->
+onclick="setTheme('#ff8a24','255,138,36')">
 Amber
 </button>
 
+
 <button
 class="theme-button theme-pink"
-onclick="setTheme('#f05cff','240,92,255')"
->
+onclick="setTheme('#f05cff','240,92,255')">
 Rose
 </button>
 
+
 <button
 class="theme-button theme-cyan"
-onclick="setTheme('#20d9e8','32,217,232')"
->
+onclick="setTheme('#20d9e8','32,217,232')">
 Cyan
 </button>
 
+
 <button
 class="theme-button theme-white"
-onclick="setTheme('#ffffff','255,255,255')"
->
+onclick="setTheme('#ffffff','255,255,255')">
 Arctic
 </button>
+
 
 </div>
 
@@ -1694,49 +1857,51 @@ Background
 Choose a static or moving background.
 </p>
 
+
 <div class="background-grid">
+
 
 <button
 class="background-button bg-space"
-onclick="setBackground('space')"
->
+onclick="setBackground('space')">
 Default Space
 </button>
 
+
 <button
 class="background-button bg-deep"
-onclick="setBackground('deep')"
->
+onclick="setBackground('deep')">
 Deep Space
 </button>
 
+
 <button
 class="background-button bg-nebula"
-onclick="setBackground('nebula')"
->
+onclick="setBackground('nebula')">
 Nebula
 </button>
 
+
 <button
 class="background-button bg-stars"
-onclick="setBackground('stars')"
->
+onclick="setBackground('stars')">
 Moving Stars
 </button>
 
+
 <button
 class="background-button bg-moving"
-onclick="setBackground('moving')"
->
+onclick="setBackground('moving')">
 Moving Nebula
 </button>
 
+
 <button
 class="background-button bg-aurora"
-onclick="setBackground('aurora')"
->
+onclick="setBackground('aurora')">
 Aurora
 </button>
+
 
 </div>
 
@@ -1765,7 +1930,7 @@ onchange="customBackground()"
 </div>
 
 
-<!-- PANIC -->
+<!-- PANIC KEY -->
 
 <div class="setting">
 
@@ -1777,13 +1942,14 @@ onchange="customBackground()"
 Press a key to instantly hide the Nova page.
 </p>
 
+
 <button
 class="action"
 id="panicButton"
-onclick="setPanicKey()"
->
+onclick="setPanicKey()">
 Set Panic Key
 </button>
+
 
 <span
 id="panicStatus"
@@ -1791,8 +1957,7 @@ style="
 color:#aaaaba;
 font-size:13px;
 margin-left:10px;
-"
->
+">
 Not set
 </span>
 
@@ -1803,442 +1968,486 @@ Not set
 
 </section>
 
+
 </main>
 
+
+<!-- PANIC SCREEN -->
 
 <div id="panicScreen"></div>
 
 
 <script>
 
-/* =========================
+
+/* ==================================================
    PAGE SWITCHING
-========================= */
+================================================== */
 
-function showPage(page,button){
+function showPage(page, button) {
 
-document
-.querySelectorAll(".page")
-.forEach(function(p){
+    document
+        .querySelectorAll(".page")
+        .forEach(function(p) {
+            p.classList.remove("active");
+        });
 
-p.classList.remove("active");
+    document
+        .getElementById(page)
+        .classList.add("active");
 
-});
 
-document
-.getElementById(page)
-.classList.add("active");
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(function(b) {
+            b.classList.remove("active");
+        });
 
-document
-.querySelectorAll(".nav-item")
-.forEach(function(b){
-
-b.classList.remove("active");
-
-});
-
-button.classList.add("active");
-
+    button.classList.add("active");
 }
 
 
-/* =========================
+/* ==================================================
    CLOCK
-========================= */
+================================================== */
 
-function updateClock(){
+function updateClock() {
 
-const now=new Date();
+    const now = new Date();
 
-document.getElementById("clock")
-.textContent=
-now.toLocaleTimeString([],{
-    hour:"numeric",
-    minute:"2-digit",
-    second:"2-digit"
-});
 
-document.getElementById("sideTime")
-.textContent=
-now.toLocaleTimeString([],{
-    hour:"numeric",
-    minute:"2-digit"
-});
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString([], {
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit"
+        });
 
-document.getElementById("date")
-.textContent=
-now.toLocaleDateString([],{
-    weekday:"long",
-    month:"long",
-    day:"numeric"
-});
+
+    document.getElementById("sideTime").textContent =
+        now.toLocaleTimeString([], {
+            hour: "numeric",
+            minute: "2-digit"
+        });
+
+
+    document.getElementById("date").textContent =
+        now.toLocaleDateString([], {
+            weekday: "long",
+            month: "long",
+            day: "numeric"
+        });
 
 }
+
 
 updateClock();
 
-setInterval(updateClock,1000);
+setInterval(updateClock, 1000);
 
 
-/* =========================
+/* ==================================================
    FONT
-========================= */
+================================================== */
 
-function changeFont(){
+function changeFont() {
 
-const font=
-document
-.getElementById("fontSelector")
-.value;
+    const font =
+        document
+        .getElementById("fontSelector")
+        .value;
 
-document.documentElement
-.style
-.setProperty(
-    "--font",
-    font
-);
 
-localStorage.setItem(
-    "novaFont",
-    font
-);
+    document.documentElement
+        .style
+        .setProperty("--font", font);
 
+
+    localStorage.setItem(
+        "novaFont",
+        font
+    );
 }
 
 
-/* =========================
+/* ==================================================
    THEME
-========================= */
+================================================== */
 
-function setTheme(color,rgb){
+function setTheme(color, rgb) {
 
-document.documentElement
-.style
-.setProperty(
-    "--accent",
-    color
-);
+    document.documentElement
+        .style
+        .setProperty(
+            "--accent",
+            color
+        );
 
-document.documentElement
-.style
-.setProperty(
-    "--accent-rgb",
-    rgb
-);
 
-document.getElementById(
-    "accentColor"
-).value=color;
+    document.documentElement
+        .style
+        .setProperty(
+            "--accent-rgb",
+            rgb
+        );
 
-localStorage.setItem(
-    "novaAccent",
-    color
-);
 
-localStorage.setItem(
-    "novaAccentRGB",
-    rgb
-);
+    document.getElementById(
+        "accentColor"
+    ).value = color;
 
+
+    localStorage.setItem(
+        "novaAccent",
+        color
+    );
+
+
+    localStorage.setItem(
+        "novaAccentRGB",
+        rgb
+    );
 }
 
 
-/* =========================
+/* ==================================================
    CUSTOM ACCENT
-========================= */
+================================================== */
 
-function customAccent(){
+function customAccent() {
 
-const color=
-document
-.getElementById("accentColor")
-.value;
+    const color =
+        document
+        .getElementById("accentColor")
+        .value;
 
-const r=parseInt(
-color.substring(1,3),
-16
-);
 
-const g=parseInt(
-color.substring(3,5),
-16
-);
+    const r =
+        parseInt(
+            color.substring(1,3),
+            16
+        );
 
-const b=parseInt(
-color.substring(5,7),
-16
-);
 
-setTheme(
-color,
-`${r},${g},${b}`
-);
+    const g =
+        parseInt(
+            color.substring(3,5),
+            16
+        );
 
+
+    const b =
+        parseInt(
+            color.substring(5,7),
+            16
+        );
+
+
+    setTheme(
+        color,
+        `${r},${g},${b}`
+    );
 }
 
 
-/* =========================
+/* ==================================================
    BACKGROUND
-========================= */
+================================================== */
 
-function setBackground(type){
+function setBackground(type) {
 
-document.body.className="";
+    document.body.className = "";
 
-document.body.style.background="";
+    document.body.style.background = "";
 
-if(type==="space"){
 
-document.body.style.background=
-"radial-gradient(circle at 20% 20%,#5131a8,transparent 40%),radial-gradient(circle at 80% 80%,#6d1a80,transparent 40%),#070712";
+    if (type === "space") {
 
+        document.body.style.background =
+            "radial-gradient(circle at 20% 20%,#5131a8,transparent 40%),radial-gradient(circle at 80% 80%,#6d1a80,transparent 40%),#070712";
+    }
+
+
+    if (type === "deep") {
+
+        document.body.classList.add(
+            "bg-deep"
+        );
+    }
+
+
+    if (type === "nebula") {
+
+        document.body.classList.add(
+            "bg-nebula"
+        );
+    }
+
+
+    if (type === "stars") {
+
+        document.body.classList.add(
+            "bg-stars"
+        );
+    }
+
+
+    if (type === "moving") {
+
+        document.body.classList.add(
+            "bg-moving"
+        );
+    }
+
+
+    if (type === "aurora") {
+
+        document.body.classList.add(
+            "bg-aurora"
+        );
+    }
+
+
+    localStorage.setItem(
+        "novaBackground",
+        type
+    );
 }
 
-if(type==="deep"){
-document.body.classList.add("bg-deep");
-}
 
-if(type==="nebula"){
-document.body.classList.add("bg-nebula");
-}
-
-if(type==="stars"){
-document.body.classList.add("bg-stars");
-}
-
-if(type==="moving"){
-document.body.classList.add("bg-moving");
-}
-
-if(type==="aurora"){
-document.body.classList.add("bg-aurora");
-}
-
-localStorage.setItem(
-"novaBackground",
-type
-);
-
-}
-
-
-/* =========================
+/* ==================================================
    CUSTOM BACKGROUND
-========================= */
+================================================== */
 
-function customBackground(){
+function customBackground() {
 
-const color=
-document
-.getElementById("backgroundColor")
-.value;
+    const color =
+        document
+        .getElementById("backgroundColor")
+        .value;
 
-document.body.className="";
 
-document.body.style.background=color;
+    document.body.className = "";
 
-localStorage.setItem(
-"novaCustomBackground",
-color
-);
+    document.body.style.background = color;
 
+
+    localStorage.setItem(
+        "novaCustomBackground",
+        color
+    );
 }
 
 
-/* =========================
+/* ==================================================
    PANIC KEY
-========================= */
+================================================== */
 
-let panicKey=
-localStorage.getItem(
-"novaPanicKey"
-);
-
-let settingPanic=false;
+let panicKey =
+    localStorage.getItem(
+        "novaPanicKey"
+    );
 
 
-if(panicKey){
+let settingPanic = false;
 
-document.getElementById(
-"panicStatus"
-).textContent=
-"Key: "+panicKey;
 
+if (panicKey) {
+
+    document.getElementById(
+        "panicStatus"
+    ).textContent =
+        "Key: " + panicKey;
 }
 
 
-function setPanicKey(){
+function setPanicKey() {
 
-settingPanic=true;
+    settingPanic = true;
 
-document.getElementById(
-"panicButton"
-).textContent=
-"Press a key...";
 
-document.getElementById(
-"panicStatus"
-).textContent=
-"Waiting for key";
+    document.getElementById(
+        "panicButton"
+    ).textContent =
+        "Press a key...";
 
+
+    document.getElementById(
+        "panicStatus"
+    ).textContent =
+        "Waiting for key";
 }
 
 
 document.addEventListener(
-"keydown",
-function(event){
+    "keydown",
+    function(event) {
 
-if(settingPanic){
 
-event.preventDefault();
+        if (settingPanic) {
 
-panicKey=event.key;
+            event.preventDefault();
 
-localStorage.setItem(
-"novaPanicKey",
-panicKey
+
+            panicKey = event.key;
+
+
+            localStorage.setItem(
+                "novaPanicKey",
+                panicKey
+            );
+
+
+            settingPanic = false;
+
+
+            document.getElementById(
+                "panicButton"
+            ).textContent =
+                "Set Panic Key";
+
+
+            document.getElementById(
+                "panicStatus"
+            ).textContent =
+                "Key: " + panicKey;
+
+
+            return;
+        }
+
+
+        if (
+            panicKey &&
+            event.key.toLowerCase() ===
+            panicKey.toLowerCase()
+        ) {
+
+            document
+                .getElementById(
+                    "panicScreen"
+                )
+                .classList
+                .toggle("active");
+        }
+
+    }
 );
 
-settingPanic=false;
 
-document.getElementById(
-"panicButton"
-).textContent=
-"Set Panic Key";
-
-document.getElementById(
-"panicStatus"
-).textContent=
-"Key: "+panicKey;
-
-return;
-
-}
-
-if(
-panicKey &&
-event.key.toLowerCase()===
-panicKey.toLowerCase()
-){
-
-document
-.getElementById("panicScreen")
-.classList
-.toggle("active");
-
-}
-
-}
-);
-
-
-/* =========================
+/* ==================================================
    SEARCH
-========================= */
+================================================== */
 
-function searchWeb(){
+function searchWeb() {
 
-const query=
-document
-.getElementById("searchInput")
-.value;
+    const query =
+        document
+        .getElementById("searchInput")
+        .value;
 
-if(!query.trim()) return;
 
-window.open(
-"https://www.google.com/search?q="+
-encodeURIComponent(query),
-"_blank"
-);
+    if (!query.trim()) {
+        return;
+    }
 
+
+    window.open(
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(query),
+        "_blank"
+    );
 }
 
 
-/* =========================
-   LOAD FONT
-========================= */
+/* ==================================================
+   LOAD SAVED FONT
+================================================== */
 
-const savedFont=
-localStorage.getItem(
-"novaFont"
-);
+const savedFont =
+    localStorage.getItem(
+        "novaFont"
+    );
 
-if(savedFont){
 
-document.documentElement
-.style
-.setProperty(
-"--font",
-savedFont
-);
+if (savedFont) {
 
-document.getElementById(
-"fontSelector"
-).value=
-savedFont;
+    document.documentElement
+        .style
+        .setProperty(
+            "--font",
+            savedFont
+        );
 
+
+    document.getElementById(
+        "fontSelector"
+    ).value =
+        savedFont;
 }
 
 
-/* =========================
-   LOAD THEME
-========================= */
+/* ==================================================
+   LOAD SAVED THEME
+================================================== */
 
-const savedAccent=
-localStorage.getItem(
-"novaAccent"
-);
+const savedAccent =
+    localStorage.getItem(
+        "novaAccent"
+    );
 
-const savedRGB=
-localStorage.getItem(
-"novaAccentRGB"
-);
 
-if(savedAccent && savedRGB){
+const savedRGB =
+    localStorage.getItem(
+        "novaAccentRGB"
+    );
 
-setTheme(
-savedAccent,
-savedRGB
-);
 
+if (savedAccent && savedRGB) {
+
+    setTheme(
+        savedAccent,
+        savedRGB
+    );
 }
 
 
-/* =========================
-   LOAD BACKGROUND
-========================= */
+/* ==================================================
+   LOAD SAVED BACKGROUND
+================================================== */
 
-const savedBackground=
-localStorage.getItem(
-"novaBackground"
-);
+const savedBackground =
+    localStorage.getItem(
+        "novaBackground"
+    );
 
-if(savedBackground){
 
-setBackground(
-savedBackground
-);
+if (savedBackground) {
 
+    setBackground(
+        savedBackground
+    );
 }
 
 
-/* =========================
+/* ==================================================
    LOAD CUSTOM BACKGROUND
-========================= */
+================================================== */
 
-const savedCustomBackground=
-localStorage.getItem(
-"novaCustomBackground"
-);
+const savedCustomBackground =
+    localStorage.getItem(
+        "novaCustomBackground"
+    );
 
-if(savedCustomBackground){
 
-document.getElementById(
-"backgroundColor"
-).value=
-savedCustomBackground;
+if (savedCustomBackground) {
 
+    document.getElementById(
+        "backgroundColor"
+    ).value =
+        savedCustomBackground;
 }
+
 
 </script>
 
