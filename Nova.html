@@ -1,128 +1,738 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Nova — AI</title>
-  <style>
-    :root{--bg:#07070d;--panel:rgba(18,18,30,.72);--accent:#8b5cf6;--muted:rgba(255,255,255,.62)}
-    html,body{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#fff}
-    .app{max-width:900px;margin:36px auto;padding:20px;background:linear-gradient(145deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border-radius:12px;border:1px solid rgba(255,255,255,.06)}
-    h1{margin:0 0 12px;font-size:26px}
-    .messages{height:60vh;overflow:auto;padding:12px;border-radius:8px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.03)}
-    .msg{margin:8px 0;padding:10px;border-radius:10px;max-width:78%}
-    .user{background:linear-gradient(90deg,var(--accent),#a78bfa);color:#000;margin-left:auto}
-    .assistant{background:rgba(255,255,255,.04);color:#fff}
-    .assistant a{color:#8b5cf6;text-decoration:underline;cursor:pointer}
-    .assistant a:hover{color:#a78bfa;text-decoration:underline}
-    form{display:flex;gap:8px;margin-top:12px}
-    input[type=text]{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:transparent;color:#fff}
-    button{padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:#fff;cursor:pointer}
-    .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nova AI</title>
+
+<style>
+
+:root {
+    --purple: #8b5cf6;
+    --purple-light: #a78bfa;
+    --bg: #07070d;
+    --panel: rgba(18, 18, 30, 0.82);
+    --text: #ffffff;
+    --muted: rgba(255,255,255,.6);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(139,92,246,.30),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(76,29,149,.25),
+            transparent 35%
+        ),
+        var(--bg);
+}
+
+
+/* =========================
+   APP
+========================= */
+
+.app {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 18px;
+
+    background:
+        rgba(10,10,18,.82);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    backdrop-filter: blur(20px);
+}
+
+
+.back-button {
+    width: 42px;
+    height: 42px;
+
+    margin-right: 12px;
+
+    border: 0;
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.back-button:hover {
+    background:
+        rgba(139,92,246,.35);
+
+    transform: scale(1.05);
+}
+
+
+.avatar {
+    width: 44px;
+    height: 44px;
+
+    margin-right: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple-light)
+        );
+
+    box-shadow:
+        0 0 25px
+        rgba(139,92,246,.25);
+
+    font-size: 21px;
+}
+
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+.status {
+    margin-top: 3px;
+
+    color: #86efac;
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+.chat {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+
+/* MESSAGE */
+
+.message {
+    max-width: min(78%, 700px);
+
+    padding:
+        13px 16px;
+
+    border-radius: 17px;
+
+    line-height: 1.5;
+
+    font-size: 14px;
+
+    white-space: pre-wrap;
+
+    word-wrap: break-word;
+}
+
+
+/* AI */
+
+.message.ai {
+    align-self: flex-start;
+
+    background:
+        rgba(255,255,255,.065);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+}
+
+
+/* USER */
+
+.message.user {
+    align-self: flex-end;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple-light)
+        );
+
+    box-shadow:
+        0 5px 20px
+        rgba(139,92,246,.15);
+}
+
+
+/* THINKING */
+
+.thinking {
+    opacity: .65;
+}
+
+
+/* =========================
+   INPUT AREA
+========================= */
+
+.input-area {
+    padding: 15px;
+
+    display: flex;
+
+    gap: 10px;
+
+    background:
+        rgba(10,10,18,.88);
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:
+        blur(20px);
+}
+
+
+/* INPUT */
+
+#messageInput {
+    flex: 1;
+
+    min-width: 0;
+
+    padding:
+        14px 16px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 15px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.055);
+
+    color: white;
+
+    font-size: 14px;
+
+    transition: .2s;
+}
+
+
+#messageInput:focus {
+    border-color:
+        rgba(167,139,250,.55);
+
+    box-shadow:
+        0 0 20px
+        rgba(139,92,246,.08);
+}
+
+
+#messageInput::placeholder {
+    color:
+        rgba(255,255,255,.4);
+}
+
+
+/* SEND */
+
+#sendButton {
+    width: 52px;
+
+    border: 0;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple-light)
+        );
+
+    color: white;
+
+    font-size: 19px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+#sendButton:hover {
+    transform: scale(1.04);
+
+    box-shadow:
+        0 0 20px
+        rgba(139,92,246,.3);
+}
+
+
+#sendButton:disabled {
+    opacity: .5;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px) {
+
+    .header {
+        height: 65px;
+
+        padding: 0 12px;
+    }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .chat {
+        padding: 18px;
+    }
+
+    .message {
+        max-width: 88%;
+    }
+
+    .input-area {
+        padding: 10px;
+    }
+
+    #messageInput {
+        padding: 13px;
+    }
+
+    #sendButton {
+        width: 48px;
+    }
+
+}
+
+</style>
+
 </head>
+
+
 <body>
-  <div class="app">
-    <h1>Nova — AI Assistant</h1>
-    <div class="meta">Powered by a server-side model. Keep your API key secret when you deploy.</div>
-    <div id="messages" class="messages" role="log" aria-live="polite"></div>
 
-    <form id="chatForm">
-      <input id="prompt" type="text" autocomplete="off" placeholder="Ask Nova something..." required />
-      <button type="submit">Send</button>
-    </form>
-  </div>
 
-  <script>
-    const messagesEl = document.getElementById('messages');
-    const form = document.getElementById('chatForm');
-    const input = document.getElementById('prompt');
+<div class="app">
 
-    function parseLinksInText(text) {
-      // Match URLs in text and convert them to clickable links
-      const urlRegex = /(https?:\/\/[^\s]+)/g;
-      const parts = [];
-      let lastIndex = 0;
-      
-      text.replace(urlRegex, (match, url, offset) => {
-        // Add text before the URL
-        if (offset > lastIndex) {
-          parts.push({ type: 'text', content: text.substring(lastIndex, offset) });
-        }
-        // Add the URL as a link
-        parts.push({ type: 'link', content: url, href: url });
-        lastIndex = offset + match.length;
-      });
-      
-      // Add remaining text
-      if (lastIndex < text.length) {
-        parts.push({ type: 'text', content: text.substring(lastIndex) });
-      }
-      
-      return parts;
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+<button
+    class="back-button"
+    onclick="goHome()">
+
+    ←
+
+</button>
+
+
+<div class="avatar">
+    🤖
+</div>
+
+
+<div>
+
+<div class="title">
+    Nova AI
+</div>
+
+<div class="status">
+    ● Online
+</div>
+
+</div>
+
+</header>
+
+
+
+<!-- =========================
+     CHAT
+========================= -->
+
+<main
+    class="chat"
+    id="chat">
+
+<div class="message ai">
+
+Hey! I'm Nova AI 🤖
+
+What can I help you with today?
+
+</div>
+
+</main>
+
+
+
+<!-- =========================
+     INPUT
+========================= -->
+
+<div class="input-area">
+
+<input
+    id="messageInput"
+    type="text"
+    placeholder="Ask Nova anything..."
+    autocomplete="off"
+>
+
+
+<button
+    id="sendButton">
+
+    ➤
+
+</button>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+/*
+=================================
+NOVA AI JAVASCRIPT
+=================================
+*/
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const chatInput =
+    document.getElementById("messageInput");
+
+const sendButton =
+    document.getElementById("sendButton");
+
+const chat =
+    document.getElementById("chat");
+
+
+/* =========================
+   ADD MESSAGE
+========================= */
+
+function addMessage(text, type) {
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message " + type;
+
+    message.textContent =
+        text;
+
+    chat.appendChild(message);
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+}
+
+
+/* =========================
+   SEND MESSAGE
+========================= */
+
+async function sendMessage() {
+
+    const message =
+        chatInput.value.trim();
+
+
+    /* Don't send empty messages */
+
+    if (!message) {
+        return;
     }
 
-    function appendMessage(text, cls) {
-      const d = document.createElement('div');
-      d.className = 'msg ' + cls;
-      
-      if (cls === 'assistant') {
-        // Parse links in assistant messages
-        const parts = parseLinksInText(text);
-        parts.forEach(part => {
-          if (part.type === 'link') {
-            const link = document.createElement('a');
-            link.href = part.href;
-            link.textContent = part.content;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            d.appendChild(link);
-          } else {
-            d.appendChild(document.createTextNode(part.content));
-          }
-        });
-      } else {
-        d.textContent = text;
-      }
-      
-      messagesEl.appendChild(d);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
+
+    /* Show user's message */
+
+    addMessage(
+        message,
+        "user"
+    );
+
+
+    /* Clear input */
+
+    chatInput.value = "";
+
+
+    /* Disable button */
+
+    sendButton.disabled = true;
+
+
+    /* Create thinking message */
+
+    const thinking =
+        document.createElement("div");
+
+    thinking.className =
+        "message ai thinking";
+
+    thinking.textContent =
+        "Nova is thinking...";
+
+    chat.appendChild(thinking);
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+
+    try {
+
+        /*
+        =================================
+        RENDER AI SERVER
+        =================================
+        */
+
+        const response =
+            await fetch(
+                "https://nova-ai-cbq2.onrender.com/chat",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            message: message
+                        })
+                }
+            );
+
+
+        /*
+        =================================
+        CHECK RESPONSE
+        =================================
+        */
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server returned " +
+                response.status
+            );
+
+        }
+
+
+        /*
+        =================================
+        GET AI RESPONSE
+        =================================
+        */
+
+        const data =
+            await response.json();
+
+
+        /*
+        =================================
+        DISPLAY AI RESPONSE
+        =================================
+        */
+
+        thinking.className =
+            "message ai";
+
+        thinking.textContent =
+            data.reply ||
+            "Nova couldn't generate a response.";
+
+
     }
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const text = input.value.trim();
-      if (!text) return;
-      appendMessage(text, 'user');
-      input.value = '';
-      appendMessage('Nova is thinking...', 'assistant');
+    catch (error) {
 
-      try {
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({message: text})
-        });
+        console.error(
+            "Nova AI error:",
+            error
+        );
 
-        // remove the "thinking" placeholder
-        const placeholders = [...messagesEl.querySelectorAll('.assistant')];
-        const lastPlaceholder = placeholders[placeholders.length-1];
-        if (lastPlaceholder && lastPlaceholder.textContent === 'Nova is thinking...') {
-          lastPlaceholder.remove();
+
+        thinking.className =
+            "message ai";
+
+
+        thinking.textContent =
+            "I couldn't connect to Nova's AI server. 🤖";
+
+
+    }
+
+
+    /* Re-enable button */
+
+    sendButton.disabled = false;
+
+
+    /* Scroll down */
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+}
+
+
+/* =========================
+   SEND BUTTON
+========================= */
+
+sendButton.addEventListener(
+    "click",
+    sendMessage
+);
+
+
+/* =========================
+   ENTER KEY
+========================= */
+
+chatInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+
         }
 
-        if (!res.ok) {
-          const err = await res.json().catch(()=>({error:res.statusText}));
-          appendMessage('Error: ' + (err.error || res.statusText), 'assistant');
-          return;
-        }
+    }
+);
 
-        const data = await res.json();
-        appendMessage(data.reply || 'No reply', 'assistant');
-      } catch (err) {
-        appendMessage('Network error: ' + (err.message||err), 'assistant');
-      }
-    });
-  </script>
+
+/* =========================
+   HOME BUTTON
+========================= */
+
+function goHome() {
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =========================
+   FOCUS INPUT
+========================= */
+
+chatInput.focus();
+
+</script>
+
+
 </body>
+
 </html>
