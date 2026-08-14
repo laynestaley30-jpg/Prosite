@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova AI</title>
+
+<style>
+:root {
+    --theme: #8b5cf6;
+    --theme2: #a78bfa;
+    --bg: #090912;
+    --panel: rgba(18,18,30,.92);
+    --text: #fff;
+    --muted: rgba(255,255,255,.6);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background:
+        radial-gradient(circle at 15% 20%,
+        rgba(139,92,246,.3),
+        transparent 35%),
+        radial-gradient(circle at 85% 80%,
+        rgba(76,29,149,.25),
+        transparent 35%),
+        var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+}
+
+.ai-window {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    background: rgba(10,10,18,.7);
+    backdrop-filter: blur(18px);
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    background: linear-gradient(135deg,var(--theme),var(--theme2));
+    font-size: 21px;
+}
+
+.title {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.status {
+    margin-top: 3px;
+    color: #86efac;
+    font-size: 11px;
+}
+
+.chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.message {
+    max-width: 78%;
+    padding: 12px 15px;
+    border-radius: 16px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.ai {
+    align-self: flex-start;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg,var(--theme),var(--theme2));
+}
+
+.input-area {
+    padding: 15px;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid rgba(255,255,255,.08);
+    background: rgba(10,10,18,.8);
+    backdrop-filter: blur(18px);
+}
+
+#messageInput {
+    flex: 1;
+    padding: 13px 15px;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 14px;
+    outline: none;
+    background: rgba(255,255,255,.06);
+    color: white;
+    font-size: 14px;
+}
+
+#messageInput::placeholder {
+    color: var(--muted);
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+}
+
+.send {
+    width: 50px;
+    border-radius: 14px;
+    background: var(--theme);
+    color: white;
+    font-size: 18px;
+}
+
+.send:hover {
+    background: var(--theme2);
+}
+
+.typing {
+    color: var(--muted);
+    font-size: 12px;
+    padding: 0 25px 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="ai-window">
+
+    <header class="header">
+        <div class="avatar">🤖</div>
+
+        <div>
+            <div class="title">Nova AI</div>
+            <div class="status">● Online</div>
+        </div>
+    </header>
+
+    <main class="chat" id="chat">
+        <div class="message ai">
+            Hey! I'm Nova AI 🤖
+            What can I help you with today?
+        </div>
+    </main>
+
+    <div class="typing" id="typing">
+        Nova is thinking...
+    </div>
+
+    <div class="input-area">
+
+        <input
+            id="messageInput"
+            type="text"
+            placeholder="Ask Nova anything..."
+            autocomplete="off"
+        >
+
+        <button
+            class="send"
+            onclick="sendMessage()">
+            ➤
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const input =
+    document.getElementById("messageInput");
+
+const chat =
+    document.getElementById("chat");
+
+const typing =
+    document.getElementById("typing");
+
+
+function addMessage(text, type) {
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message " + type;
+
+    message.textContent = text;
+
+    chat.appendChild(message);
+
+    chat.scrollTop =
+        chat.scrollHeight;
+}
+
+
+async function sendMessage() {
+
+    const text =
+        input.value.trim();
+
+    if (!text) return;
+
+    addMessage(text, "user");
+
+    input.value = "";
+
+    typing.style.display = "block";
+
+    try {
+
+        const response =
+            await fetch("/api/chat", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    message: text
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+            throw new Error(
+                data.error ||
+                "Something went wrong."
+            );
+        }
+
+
+        addMessage(
+            data.reply,
+            "ai"
+        );
+
+    }
+
+    catch (error) {
+
+        addMessage(
+            "I couldn't connect to my AI brain right now. 🤖",
+            "ai"
+        );
+
+        console.error(error);
+
+    }
+
+    finally {
+
+        typing.style.display = "none";
+
+    }
+}
+
+
+input.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
