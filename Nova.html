@@ -13,6 +13,8 @@
     .msg{margin:8px 0;padding:10px;border-radius:10px;max-width:78%}
     .user{background:linear-gradient(90deg,var(--accent),#a78bfa);color:#000;margin-left:auto}
     .assistant{background:rgba(255,255,255,.04);color:#fff}
+    .assistant a{color:#8b5cf6;text-decoration:underline;cursor:pointer}
+    .assistant a:hover{color:#a78bfa;text-decoration:underline}
     form{display:flex;gap:8px;margin-top:12px}
     input[type=text]{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:transparent;color:#fff}
     button{padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:#fff;cursor:pointer}
@@ -36,10 +38,53 @@
     const form = document.getElementById('chatForm');
     const input = document.getElementById('prompt');
 
+    function parseLinksInText(text) {
+      // Match URLs in text and convert them to clickable links
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      const parts = [];
+      let lastIndex = 0;
+      
+      text.replace(urlRegex, (match, url, offset) => {
+        // Add text before the URL
+        if (offset > lastIndex) {
+          parts.push({ type: 'text', content: text.substring(lastIndex, offset) });
+        }
+        // Add the URL as a link
+        parts.push({ type: 'link', content: url, href: url });
+        lastIndex = offset + match.length;
+      });
+      
+      // Add remaining text
+      if (lastIndex < text.length) {
+        parts.push({ type: 'text', content: text.substring(lastIndex) });
+      }
+      
+      return parts;
+    }
+
     function appendMessage(text, cls) {
       const d = document.createElement('div');
       d.className = 'msg ' + cls;
-      d.textContent = text;
+      
+      if (cls === 'assistant') {
+        // Parse links in assistant messages
+        const parts = parseLinksInText(text);
+        parts.forEach(part => {
+          if (part.type === 'link') {
+            const link = document.createElement('a');
+            link.href = part.href;
+            link.textContent = part.content;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            d.appendChild(link);
+          } else {
+            d.appendChild(document.createTextNode(part.content));
+          }
+        });
+      } else {
+        d.textContent = text;
+      }
+      
       messagesEl.appendChild(d);
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
