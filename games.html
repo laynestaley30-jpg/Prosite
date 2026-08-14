@@ -2,699 +2,388 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Nova Games</title>
-
 
 <style>
 
 :root {
-
 --purple: #8b5cf6;
 --purple-light: #a78bfa;
-
 --background: #080810;
-
---panel: rgba(18,18,30,.82);
-
 --text: #ffffff;
-
 --muted: rgba(255,255,255,.6);
-
 }
-
 
 * {
-
 box-sizing: border-box;
-
 }
-
 
 html,
 body {
-
 margin: 0;
-
 width: 100%;
-
 height: 100%;
-
 }
 
-
 body {
-
+font-family: Arial, Helvetica, sans-serif;
 color: var(--text);
-
-font-family:
-Arial,
-Helvetica,
-sans-serif;
-
 background:
-
 radial-gradient(
 circle at 15% 20%,
 rgba(139,92,246,.30),
 transparent 35%
 ),
-
 radial-gradient(
 circle at 85% 80%,
 rgba(76,29,149,.25),
 transparent 35%
 ),
-
 var(--background);
-
 }
-
 
 .app {
-
-width: 100%;
-
-height: 100%;
-
 display: flex;
-
+width: 100%;
+height: 100%;
 }
 
 
-/* =========================
-SIDEBAR
-========================= */
+/* SIDEBAR */
 
 .sidebar {
-
 width: 78px;
-
-height:
-calc(100% - 28px);
-
+height: calc(100% - 28px);
 margin: 14px;
-
 padding: 12px 8px;
 
 display: flex;
-
 flex-direction: column;
-
 align-items: center;
 
-background:
-rgba(12,12,22,.82);
+background: rgba(12,12,22,.82);
 
 border:
-1px solid
-rgba(255,255,255,.09);
+1px solid rgba(255,255,255,.09);
 
 border-radius: 23px;
 
-backdrop-filter:
-blur(18px);
-
-box-shadow:
-0 20px 60px
-rgba(0,0,0,.25);
-
+backdrop-filter: blur(18px);
 }
-
 
 .sidebar-buttons {
-
-width: 100%;
-
 display: flex;
-
 flex-direction: column;
-
-align-items: center;
-
 gap: 10px;
-
+align-items: center;
+width: 100%;
 }
 
-
 .sidebar-button {
-
 position: relative;
 
 width: 50px;
-
 height: 50px;
 
 border: 0;
-
 border-radius: 16px;
 
-display: flex;
-
-align-items: center;
-
-justify-content: center;
-
-background:
-rgba(255,255,255,.07);
-
+background: rgba(255,255,255,.07);
 color: white;
 
 font-size: 22px;
 
 cursor: pointer;
 
-transition: .2s ease;
-
+transition: .2s;
 }
-
 
 .sidebar-button:hover {
-
-transform:
-scale(1.08);
-
-background:
-rgba(255,255,255,.14);
-
+transform: scale(1.07);
+background: rgba(255,255,255,.15);
 }
 
-
 .sidebar-button::after {
-
-content:
-attr(data-label);
+content: attr(data-label);
 
 position: absolute;
 
 left: 62px;
-
 top: 50%;
 
-transform:
-translateY(-50%)
-translateX(-5px);
+transform: translateY(-50%);
 
-padding:
-7px 10px;
+padding: 7px 10px;
 
-border-radius:
-9px;
+border-radius: 9px;
 
-background:
-rgba(5,5,10,.96);
+background: #05050a;
+color: white;
 
-color:
-white;
+font-size: 12px;
 
-font-size:
-12px;
+white-space: nowrap;
 
-white-space:
-nowrap;
+opacity: 0;
+pointer-events: none;
 
-opacity:
-0;
-
-pointer-events:
-none;
-
-transition:
-.2s ease;
-
-z-index:
-100;
-
+z-index: 50;
 }
-
 
 .sidebar-button:hover::after {
-
-opacity:
-1;
-
-transform:
-translateY(-50%)
-translateX(0);
-
+opacity: 1;
 }
 
-
-.ai-button {
-
+.active {
 background:
 linear-gradient(
 135deg,
-rgba(139,92,246,.38),
-rgba(167,139,250,.20)
+rgba(139,92,246,.65),
+rgba(167,139,250,.25)
 );
-
-border:
-1px solid
-rgba(167,139,250,.35);
-
 }
-
 
 .sidebar-bottom {
-
-margin-top:
-auto;
-
+margin-top: auto;
 }
 
 
-/* =========================
-MAIN
-========================= */
+/* MAIN */
 
 .main {
-
 flex: 1;
 
 height: 100%;
 
 overflow-y: auto;
 
-padding:
-35px 45px;
+padding: 35px 45px;
+}
 
+h1 {
+margin: 0;
+
+font-size:
+clamp(40px,6vw,65px);
+
+letter-spacing: -3px;
+}
+
+h1 span {
+color: var(--purple-light);
+}
+
+.subtitle {
+color: var(--muted);
+margin-top: 8px;
+margin-bottom: 25px;
 }
 
 
-.header {
+/* SEARCH */
 
+.search {
+width: 100%;
+
+padding: 14px 17px;
+
+border:
+1px solid rgba(255,255,255,.1);
+
+border-radius: 15px;
+
+outline: none;
+
+background:
+rgba(255,255,255,.06);
+
+color: white;
+
+font-size: 14px;
+
+margin-bottom: 30px;
+}
+
+.search::placeholder {
+color: var(--muted);
+}
+
+
+/* CATEGORY */
+
+.category {
+margin-bottom: 35px;
+}
+
+.category h2 {
+margin: 0 0 14px;
+font-size: 20px;
+}
+
+
+/* GAME GRID */
+
+.game-grid {
+display: grid;
+
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(190px,1fr)
+);
+
+gap: 13px;
+}
+
+
+/* GAME */
+
+.game {
+padding: 18px;
+
+border-radius: 18px;
+
+background:
+rgba(255,255,255,.055);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+cursor: pointer;
+
+transition: .2s;
+}
+
+.game:hover {
+transform: translateY(-4px);
+
+background:
+rgba(139,92,246,.16);
+
+border-color:
+rgba(167,139,250,.4);
+}
+
+.game-icon {
+font-size: 30px;
+margin-bottom: 9px;
+}
+
+.game h3 {
+margin: 0 0 6px;
+font-size: 14px;
+}
+
+.game p {
+margin: 0;
+font-size: 11px;
+color: var(--muted);
+}
+
+
+/* PLAYER */
+
+.player {
+display: none;
+
+position: fixed;
+
+inset: 0;
+
+z-index: 100;
+
+background:
+rgba(3,3,8,.97);
+
+padding: 16px;
+}
+
+.player.open {
+display: flex;
+flex-direction: column;
+}
+
+.player-bar {
 display: flex;
 
 align-items: center;
 
 justify-content: space-between;
 
-margin-bottom: 25px;
-
+margin-bottom: 10px;
 }
-
-
-.title-area h1 {
-
-margin: 0;
-
-font-size:
-clamp(35px,5vw,55px);
-
-letter-spacing:
--2px;
-
-}
-
-
-.title-area h1 span {
-
-color:
-var(--purple-light);
-
-}
-
-
-.title-area p {
-
-margin:
-8px 0 0;
-
-color:
-var(--muted);
-
-font-size:
-13px;
-
-}
-
-
-/* =========================
-SEARCH
-========================= */
-
-.search {
-
-width: 100%;
-
-padding:
-14px 17px;
-
-margin-bottom:
-25px;
-
-border:
-1px solid
-rgba(255,255,255,.1);
-
-border-radius:
-15px;
-
-outline:
-none;
-
-background:
-rgba(255,255,255,.06);
-
-color:
-white;
-
-font-size:
-14px;
-
-}
-
-
-.search::placeholder {
-
-color:
-var(--muted);
-
-}
-
-
-/* =========================
-CATEGORY
-========================= */
-
-.category {
-
-margin-bottom:
-35px;
-
-}
-
-
-.category h2 {
-
-margin:
-0 0 14px;
-
-font-size:
-20px;
-
-}
-
-
-/* =========================
-GAME GRID
-========================= */
-
-.game-grid {
-
-display:
-grid;
-
-grid-template-columns:
-repeat(
-auto-fit,
-minmax(180px,1fr)
-);
-
-gap:
-13px;
-
-}
-
-
-.game {
-
-padding:
-18px;
-
-border-radius:
-18px;
-
-background:
-rgba(255,255,255,.055);
-
-border:
-1px solid
-rgba(255,255,255,.08);
-
-cursor:
-pointer;
-
-transition:
-.2s ease;
-
-}
-
-
-.game:hover {
-
-transform:
-translateY(-4px);
-
-background:
-rgba(139,92,246,.15);
-
-border-color:
-rgba(167,139,250,.35);
-
-}
-
-
-.game-icon {
-
-font-size:
-30px;
-
-margin-bottom:
-10px;
-
-}
-
-
-.game h3 {
-
-margin:
-0 0 6px;
-
-font-size:
-14px;
-
-}
-
-
-.game p {
-
-margin:
-0;
-
-color:
-var(--muted);
-
-font-size:
-11px;
-
-}
-
-
-/* =========================
-GAME PLAYER
-========================= */
-
-.game-player {
-
-display:
-none;
-
-position:
-fixed;
-
-inset:
-0;
-
-z-index:
-500;
-
-padding:
-18px;
-
-background:
-rgba(3,3,8,.96);
-
-}
-
-
-.game-player.active {
-
-display:
-flex;
-
-flex-direction:
-column;
-
-}
-
-
-.player-header {
-
-display:
-flex;
-
-align-items:
-center;
-
-justify-content:
-space-between;
-
-margin-bottom:
-10px;
-
-}
-
 
 .player-title {
-
-font-size:
-18px;
-
-font-weight:
-bold;
-
+font-size: 18px;
+font-weight: bold;
 }
-
 
 .player-buttons {
-
-display:
-flex;
-
-gap:
-8px;
-
+display: flex;
+gap: 8px;
 }
 
-
 .player-button {
+border: 0;
 
-border:
-0;
+border-radius: 10px;
 
-border-radius:
-10px;
-
-padding:
-9px 13px;
+padding: 9px 13px;
 
 background:
 rgba(255,255,255,.1);
 
-color:
-white;
+color: white;
 
-cursor:
-pointer;
-
+cursor: pointer;
 }
-
 
 .player-button:hover {
-
 background:
-rgba(255,255,255,.18);
-
+rgba(255,255,255,.2);
 }
-
 
 #gameFrame {
+width: 100%;
+height: 100%;
 
-width:
-100%;
+border: 0;
 
-height:
-100%;
+border-radius: 15px;
 
-border:
-0;
-
-border-radius:
-16px;
-
-background:
-black;
-
+background: black;
 }
 
 
-.player-message {
-
-padding:
-7px 0;
-
-color:
-var(--muted);
-
-font-size:
-11px;
-
-}
-
-
-/* =========================
-MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:700px) {
 
 .sidebar {
-
-width:
-65px;
-
-margin:
-9px;
-
-height:
-calc(100% - 18px);
-
+width: 65px;
+margin: 9px;
+height: calc(100% - 18px);
 }
-
 
 .sidebar-button {
-
-width:
-44px;
-
-height:
-44px;
-
-font-size:
-20px;
-
+width: 44px;
+height: 44px;
+font-size: 20px;
 }
-
 
 .sidebar-button::after {
-
-display:
-none;
-
+display: none;
 }
-
 
 .main {
-
-padding:
-25px 18px;
-
+padding: 25px 18px;
 }
 
-
 .game-grid {
-
-grid-template-columns:
-1fr;
-
+grid-template-columns: 1fr;
 }
 
 }
@@ -710,12 +399,9 @@ grid-template-columns:
 <div class="app">
 
 
-<!-- =========================
-SIDEBAR
-========================= -->
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
-
 
 <div class="sidebar-buttons">
 
@@ -723,7 +409,7 @@ SIDEBAR
 <button
 class="sidebar-button"
 data-label="Home"
-onclick="goHome()">
+onclick="location.href='index.html'">
 
 🏠
 
@@ -731,7 +417,7 @@ onclick="goHome()">
 
 
 <button
-class="sidebar-button ai-button"
+class="sidebar-button active"
 data-label="Games">
 
 🎮
@@ -742,7 +428,7 @@ data-label="Games">
 <button
 class="sidebar-button"
 data-label="Music"
-onclick="openMusic()">
+onclick="location.href='music.html'">
 
 🎵
 
@@ -752,7 +438,7 @@ onclick="openMusic()">
 <button
 class="sidebar-button"
 data-label="Chat"
-onclick="openChat()">
+onclick="location.href='chat.html'">
 
 💬
 
@@ -762,7 +448,7 @@ onclick="openChat()">
 <button
 class="sidebar-button"
 data-label="Nova AI"
-onclick="openNovaAI()">
+onclick="location.href='Nova.html'">
 
 🤖
 
@@ -772,11 +458,11 @@ onclick="openNovaAI()">
 <button
 class="sidebar-button"
 data-label="Google"
-onclick="openGoogle()">
+onclick="window.open('https://www.google.com','_blank')">
 
 <span style="
-font-weight:700;
-font-family:Arial;
+font-weight:bold;
+font-size:22px;
 background:linear-gradient(
 90deg,
 #4285F4,
@@ -787,7 +473,9 @@ background:linear-gradient(
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 ">
+
 G
+
 </span>
 
 </button>
@@ -798,231 +486,64 @@ G
 
 <div class="sidebar-bottom">
 
-
 <button
 class="sidebar-button"
 data-label="Settings"
-onclick="openSettings()">
+onclick="location.href='settings.html'">
 
 ⚙️
 
 </button>
 
-
 </div>
-
 
 </aside>
 
 
-<!-- =========================
-MAIN
-========================= -->
+
+<!-- MAIN -->
 
 <main class="main">
 
-
-<div class="header">
-
-
-<div class="title-area">
 
 <h1>
 Nova <span>Games</span>
 </h1>
 
-<p>
+<div class="subtitle">
 Your browser game collection.
-</p>
-
-</div>
-
-
 </div>
 
 
 <input
+id="search"
 class="search"
-id="gameSearch"
 type="text"
 placeholder="🔎 Search games..."
-oninput="searchGames()">
+oninput="searchGames()"
+>
 
 
-<!-- =========================
-MAIN GAMES
-========================= -->
 
-<section
-class="category">
+<!-- QUICK GAMES -->
 
+<section class="category">
 
-<h2>
-🎮 Games
-</h2>
-
+<h2>🔥 Games</h2>
 
 <div class="game-grid">
 
 
 <div
 class="game"
-data-name="Tung Tung Escape"
-onclick="playGame('Tung Tung Escape','')">
-
-<div class="game-icon">🗿</div>
-
-<h3>
-Tung Tung Escape
-</h3>
-
-<p>
-Escape the chaos.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Bad Time Simulator"
-onclick="playGame('Bad Time Simulator','')">
-
-<div class="game-icon">💀</div>
-
-<h3>
-Bad Time Simulator
-</h3>
-
-<p>
-Survive the battle.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Friday Night Funkin"
-onclick="playGame('Friday Night Funkin’','')">
-
-<div class="game-icon">🎤</div>
-
-<h3>
-Friday Night Funkin'
-</h3>
-
-<p>
-Rhythm battles.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Undertale Yellow"
-onclick="playGame('Undertale Yellow','')">
-
-<div class="game-icon">💛</div>
-
-<h3>
-Undertale Yellow
-</h3>
-
-<p>
-Underground adventure.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Deltarune"
-onclick="playGame('Deltarune','')">
-
-<div class="game-icon">♟️</div>
-
-<h3>
-Deltarune
-</h3>
-
-<p>
-Another adventure.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Baldis Basics"
-onclick="playGame('Baldi’s Basics','')">
-
-<div class="game-icon">📚</div>
-
-<h3>
-Baldi's Basics
-</h3>
-
-<p>
-Escape the school.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Getting Over It"
-onclick="playGame('Getting Over It','')">
-
-<div class="game-icon">⛰️</div>
-
-<h3>
-Getting Over It
-</h3>
-
-<p>
-Climb your way up.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Worlds Hardest Game"
-onclick="playGame('The World’s Hardest Game','')">
-
-<div class="game-icon">🟥</div>
-
-<h3>
-The World's Hardest Game
-</h3>
-
-<p>
-Test your patience.
-</p>
-
-</div>
-
-
-<div
-class="game"
 data-name="Slope"
-onclick="playGame('Slope','https://slope-game.github.io/')">
+onclick="openGame('Slope','https://slope-game.github.io/')">
 
 <div class="game-icon">🟢</div>
 
-<h3>
-Slope
-</h3>
+<h3>Slope</h3>
 
-<p>
-Roll down the track.
-</p>
+<p>Roll down the track.</p>
 
 </div>
 
@@ -1030,89 +551,13 @@ Roll down the track.
 <div
 class="game"
 data-name="Run 3"
-onclick="playGame('Run 3','https://run3.io/')">
+onclick="openGame('Run 3','https://run3.io/')">
 
 <div class="game-icon">🏃</div>
 
-<h3>
-Run 3
-</h3>
+<h3>Run 3</h3>
 
-<p>
-Run through space.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Fireboy Watergirl"
-onclick="playGame('Fireboy and Watergirl','')">
-
-<div class="game-icon">🔥</div>
-
-<h3>
-Fireboy & Watergirl
-</h3>
-
-<p>
-Teamwork platforming.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Duck Life 4"
-onclick="playGame('Duck Life 4','')">
-
-<div class="game-icon">🦆</div>
-
-<h3>
-Duck Life 4
-</h3>
-
-<p>
-Train your duck.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Fancy Pants"
-onclick="playGame('Fancy Pants Adventures','')">
-
-<div class="game-icon">🖊️</div>
-
-<h3>
-Fancy Pants Adventures
-</h3>
-
-<p>
-Stickman platforming.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Stickman Hook"
-onclick="playGame('Stickman Hook','')">
-
-<div class="game-icon">🪝</div>
-
-<h3>
-Stickman Hook
-</h3>
-
-<p>
-Swing through levels.
-</p>
+<p>Run through space.</p>
 
 </div>
 
@@ -1120,377 +565,13 @@ Swing through levels.
 <div
 class="game"
 data-name="Shell Shockers"
-onclick="playGame('Shell Shockers','https://shellshock.io/')">
+onclick="openGame('Shell Shockers','https://shellshock.io/')">
 
 <div class="game-icon">🥚</div>
 
-<h3>
-Shell Shockers
-</h3>
+<h3>Shell Shockers</h3>
 
-<p>
-Egg battle royale.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Bloons TD 5"
-onclick="playGame('Bloons TD 5','')">
-
-<div class="game-icon">🎈</div>
-
-<h3>
-Bloons TD 5
-</h3>
-
-<p>
-Defend against bloons.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Plants vs Zombies"
-onclick="playGame('Plants vs. Zombies','')">
-
-<div class="game-icon">🌻</div>
-
-<h3>
-Plants vs. Zombies
-</h3>
-
-<p>
-Defend your house.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Papas Freezeria"
-onclick="playGame('Papa’s Freezeria','')">
-
-<div class="game-icon">🍦</div>
-
-<h3>
-Papa's Freezeria
-</h3>
-
-<p>
-Run the shop.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Super Mario 63"
-onclick="playGame('Super Mario 63','')">
-
-<div class="game-icon">🍄</div>
-
-<h3>
-Super Mario 63
-</h3>
-
-<p>
-Mario adventure.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Sonic"
-onclick="playGame('Sonic','')">
-
-<div class="game-icon">💨</div>
-
-<h3>
-Sonic
-</h3>
-
-<p>
-Gotta go fast.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-HORROR
-========================= -->
-
-<section class="category">
-
-<h2>
-👻 Horror
-</h2>
-
-
-<div class="game-grid">
-
-
-<div
-class="game"
-data-name="FNAF Fan Games"
-onclick="playGame('FNAF Fan Games','')">
-
-<div class="game-icon">🐻</div>
-
-<h3>
-FNAF Fan Games
-</h3>
-
-<p>
-Survive the night.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="The Backrooms"
-onclick="playGame('The Backrooms','')">
-
-<div class="game-icon">🟨</div>
-
-<h3>
-The Backrooms
-</h3>
-
-<p>
-Find your way out.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="SCP Games"
-onclick="playGame('SCP Games','')">
-
-<div class="game-icon">👁️</div>
-
-<h3>
-SCP Games
-</h3>
-
-<p>
-Containment breached.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Granny"
-onclick="playGame('Granny','')">
-
-<div class="game-icon">👵</div>
-
-<h3>
-Granny
-</h3>
-
-<p>
-Escape the house.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Slender"
-onclick="playGame('Slender-style Games','')">
-
-<div class="game-icon">🌲</div>
-
-<h3>
-Slender-style Games
-</h3>
-
-<p>
-Don't let him find you.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-WEIRD
-========================= -->
-
-<section class="category">
-
-<h2>
-🤪 Weird / Funny
-</h2>
-
-
-<div class="game-grid">
-
-
-<div
-class="game"
-data-name="We Become What We Behold"
-onclick="playGame('We Become What We Behold','')">
-
-<div class="game-icon">📺</div>
-
-<h3>
-We Become What We Behold
-</h3>
-
-<p>
-A strange little game.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Sort the Court"
-onclick="playGame('Sort the Court!','')">
-
-<div class="game-icon">👑</div>
-
-<h3>
-Sort the Court!
-</h3>
-
-<p>
-Rule your kingdom.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Goat Games"
-onclick="playGame('Goat Games','')">
-
-<div class="game-icon">🐐</div>
-
-<h3>
-Goat Games
-</h3>
-
-<p>
-Maximum goat energy.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Stickman Games"
-onclick="playGame('Stickman Games','')">
-
-<div class="game-icon">🕴️</div>
-
-<h3>
-Stickman Games
-</h3>
-
-<p>
-Stickman chaos.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Ragdoll Games"
-onclick="playGame('Ragdoll Games','')">
-
-<div class="game-icon">🧍</div>
-
-<h3>
-Ragdoll Games
-</h3>
-
-<p>
-Physics chaos.
-</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="People Playground"
-onclick="playGame('People Playground-style Games','')">
-
-<div class="game-icon">🧪</div>
-
-<h3>
-People Playground-style
-</h3>
-
-<p>
-Physics sandbox games.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-MULTIPLAYER
-========================= -->
-
-<section class="category">
-
-<h2>
-🧠 Multiplayer
-</h2>
-
-
-<div class="game-grid">
-
-
-<div
-class="game"
-data-name="Shell Shockers"
-onclick="playGame('Shell Shockers','https://shellshock.io/')">
-
-<div class="game-icon">🥚</div>
-
-<h3>
-Shell Shockers
-</h3>
-
-<p>
-Multiplayer FPS.
-</p>
+<p>Multiplayer FPS.</p>
 
 </div>
 
@@ -1498,17 +579,13 @@ Multiplayer FPS.
 <div
 class="game"
 data-name="Krunker"
-onclick="playGame('Krunker','https://krunker.io/')">
+onclick="openGame('Krunker','https://krunker.io/')">
 
 <div class="game-icon">🔫</div>
 
-<h3>
-Krunker
-</h3>
+<h3>Krunker</h3>
 
-<p>
-Browser FPS.
-</p>
+<p>Browser FPS.</p>
 
 </div>
 
@@ -1516,17 +593,13 @@ Browser FPS.
 <div
 class="game"
 data-name="Agar.io"
-onclick="playGame('Agar.io','https://agar.io/')">
+onclick="openGame('Agar.io','https://agar.io/')">
 
 <div class="game-icon">🟢</div>
 
-<h3>
-Agar.io
-</h3>
+<h3>Agar.io</h3>
 
-<p>
-Grow and survive.
-</p>
+<p>Grow and survive.</p>
 
 </div>
 
@@ -1534,17 +607,13 @@ Grow and survive.
 <div
 class="game"
 data-name="Slither.io"
-onclick="playGame('Slither.io','https://slither.io/')">
+onclick="openGame('Slither.io','https://slither.io/')">
 
 <div class="game-icon">🐍</div>
 
-<h3>
-Slither.io
-</h3>
+<h3>Slither.io</h3>
 
-<p>
-Become the biggest snake.
-</p>
+<p>Become the biggest snake.</p>
 
 </div>
 
@@ -1552,17 +621,13 @@ Become the biggest snake.
 <div
 class="game"
 data-name="Diep.io"
-onclick="playGame('Diep.io','https://diep.io/')">
+onclick="openGame('Diep.io','https://diep.io/')">
 
 <div class="game-icon">🔵</div>
 
-<h3>
-Diep.io
-</h3>
+<h3>Diep.io</h3>
 
-<p>
-Tank battles.
-</p>
+<p>Tank battles.</p>
 
 </div>
 
@@ -1570,17 +635,377 @@ Tank battles.
 <div
 class="game"
 data-name="Paper.io"
-onclick="playGame('Paper.io','https://paper-io.com/')">
+onclick="openGame('Paper.io','https://paper-io.com/')">
 
 <div class="game-icon">📄</div>
 
-<h3>
-Paper.io
-</h3>
+<h3>Paper.io</h3>
 
-<p>
-Take over territory.
-</p>
+<p>Claim territory.</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- HORROR -->
+
+<section class="category">
+
+<h2>👻 Horror</h2>
+
+<div class="game-grid">
+
+
+<div
+class="game"
+data-name="FNAF"
+onclick="comingSoon('FNAF')">
+
+<div class="game-icon">🐻</div>
+
+<h3>FNAF Fan Games</h3>
+
+<p>Coming soon.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Granny"
+onclick="comingSoon('Granny')">
+
+<div class="game-icon">👵</div>
+
+<h3>Granny</h3>
+
+<p>Coming soon.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Backrooms"
+onclick="comingSoon('The Backrooms')">
+
+<div class="game-icon">🟨</div>
+
+<h3>The Backrooms</h3>
+
+<p>Coming soon.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="SCP"
+onclick="comingSoon('SCP Games')">
+
+<div class="game-icon">👁️</div>
+
+<h3>SCP Games</h3>
+
+<p>Coming soon.</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- FUNNY -->
+
+<section class="category">
+
+<h2>🤪 Weird / Funny</h2>
+
+<div class="game-grid">
+
+
+<div
+class="game"
+data-name="We Become What We Behold"
+onclick="comingSoon('We Become What We Behold')">
+
+<div class="game-icon">📺</div>
+
+<h3>We Become What We Behold</h3>
+
+<p>Coming soon.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Sort the Court"
+onclick="comingSoon('Sort the Court')">
+
+<div class="game-icon">👑</div>
+
+<h3>Sort the Court!</h3>
+
+<p>Coming soon.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Stickman"
+onclick="comingSoon('Stickman Games')">
+
+<div class="game-icon">🕴️</div>
+
+<h3>Stickman Games</h3>
+
+<p>Coming soon.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Ragdoll"
+onclick="comingSoon('Ragdoll Games')">
+
+<div class="game-icon">🧍</div>
+
+<h3>Ragdoll Games</h3>
+
+<p>Coming soon.</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- REQUESTED -->
+
+<section class="category">
+
+<h2>⭐ Your Games</h2>
+
+<div class="game-grid">
+
+
+<div
+class="game"
+data-name="Tung Tung Escape"
+onclick="comingSoon('Tung Tung Escape')">
+
+<div class="game-icon">🗿</div>
+
+<h3>Tung Tung Escape</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Bad Time Simulator"
+onclick="comingSoon('Bad Time Simulator')">
+
+<div class="game-icon">💀</div>
+
+<h3>Bad Time Simulator</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Friday Night Funkin"
+onclick="comingSoon('Friday Night Funkin')">
+
+<div class="game-icon">🎤</div>
+
+<h3>Friday Night Funkin'</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Undertale Yellow"
+onclick="comingSoon('Undertale Yellow')">
+
+<div class="game-icon">💛</div>
+
+<h3>Undertale Yellow</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Deltarune"
+onclick="comingSoon('Deltarune')">
+
+<div class="game-icon">♟️</div>
+
+<h3>Deltarune</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Baldi"
+onclick="comingSoon('Baldi’s Basics')">
+
+<div class="game-icon">📚</div>
+
+<h3>Baldi's Basics</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Getting Over It"
+onclick="comingSoon('Getting Over It')">
+
+<div class="game-icon">⛰️</div>
+
+<h3>Getting Over It</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Duck Life 4"
+onclick="comingSoon('Duck Life 4')">
+
+<div class="game-icon">🦆</div>
+
+<h3>Duck Life 4</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Fancy Pants"
+onclick="comingSoon('Fancy Pants Adventures')">
+
+<div class="game-icon">✏️</div>
+
+<h3>Fancy Pants Adventures</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Stickman Hook"
+onclick="comingSoon('Stickman Hook')">
+
+<div class="game-icon">🪝</div>
+
+<h3>Stickman Hook</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Bloons TD 5"
+onclick="comingSoon('Bloons TD 5')">
+
+<div class="game-icon">🎈</div>
+
+<h3>Bloons TD 5</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Plants vs Zombies"
+onclick="comingSoon('Plants vs. Zombies')">
+
+<div class="game-icon">🌻</div>
+
+<h3>Plants vs. Zombies</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Papa Freezeria"
+onclick="comingSoon('Papa’s Freezeria')">
+
+<div class="game-icon">🍦</div>
+
+<h3>Papa's Freezeria</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Super Mario 63"
+onclick="comingSoon('Super Mario 63')">
+
+<div class="game-icon">🍄</div>
+
+<h3>Super Mario 63</h3>
+
+<p>URL needed.</p>
+
+</div>
+
+
+<div
+class="game"
+data-name="Sonic"
+onclick="comingSoon('Sonic')">
+
+<div class="game-icon">💨</div>
+
+<h3>Sonic</h3>
+
+<p>URL needed.</p>
 
 </div>
 
@@ -1594,22 +1019,23 @@ Take over territory.
 </div>
 
 
-<!-- =========================
-GAME PLAYER
-========================= -->
+
+<!-- GAME PLAYER -->
 
 <div
-class="game-player"
-id="gamePlayer">
+class="player"
+id="player">
 
 
-<div class="player-header">
+<div class="player-bar">
 
 
 <div
 class="player-title"
-id="gameTitle">
+id="playerTitle">
+
 Game
+
 </div>
 
 
@@ -1618,7 +1044,7 @@ Game
 
 <button
 class="player-button"
-onclick="openExternalGame()">
+onclick="openExternal()">
 
 ↗ Open Game
 
@@ -1627,7 +1053,7 @@ onclick="openExternalGame()">
 
 <button
 class="player-button"
-onclick="closeGame()">
+onclick="closePlayer()">
 
 ✕ Close
 
@@ -1639,19 +1065,8 @@ onclick="closeGame()">
 </div>
 
 
-<div
-class="player-message"
-id="playerMessage">
-
-If the game doesn't load inside Nova,
-use "Open Game".
-
-</div>
-
-
 <iframe
 id="gameFrame"
-src=""
 allowfullscreen>
 </iframe>
 
@@ -1659,224 +1074,111 @@ allowfullscreen>
 </div>
 
 
+
 <script>
 
-
-/* =========================
-NAVIGATION
-========================= */
-
-function goHome() {
-
-window.location.href =
-"index.html";
-
-}
+let currentURL = "";
 
 
-function openMusic() {
+/* OPEN GAME */
 
-window.location.href =
-"music.html";
+function openGame(name, url) {
 
-}
+currentURL = url;
 
+document.getElementById(
+"playerTitle"
+).textContent = name;
 
-function openChat() {
+document.getElementById(
+"gameFrame"
+).src = url;
 
-window.location.href =
-"chat.html";
+document.getElementById(
+"player"
+).classList.add("open");
 
 }
 
 
-function openNovaAI() {
+/* OPEN EXTERNAL */
 
-window.location.href =
-"Nova.html";
+function openExternal() {
 
-}
-
-
-function openSettings() {
-
-window.location.href =
-"settings.html";
-
-}
-
-
-function openGoogle() {
+if (currentURL) {
 
 window.open(
-"https://www.google.com/",
+currentURL,
 "_blank"
 );
 
 }
 
-
-/* =========================
-GAME PLAYER
-========================= */
-
-let currentGameURL = "";
-
-
-function playGame(name, url) {
-
-const player =
-document.getElementById(
-"gamePlayer"
-);
-
-const frame =
-document.getElementById(
-"gameFrame"
-);
-
-const title =
-document.getElementById(
-"gameTitle"
-);
-
-const message =
-document.getElementById(
-"playerMessage"
-);
-
-
-title.textContent =
-name;
-
-
-currentGameURL =
-url || "";
-
-
-if (url) {
-
-frame.src =
-url;
-
-message.textContent =
-"Loading " +
-name +
-"... If it doesn't load, use Open Game.";
-
-} else {
-
-frame.src =
-"about:blank";
-
-message.textContent =
-name +
-" needs a verified game URL before it can be embedded.";
-
 }
 
 
-player.classList.add(
-"active"
-);
+/* CLOSE */
 
-}
-
-
-function closeGame() {
-
-document.getElementById(
-"gamePlayer"
-).classList.remove(
-"active"
-);
-
+function closePlayer() {
 
 document.getElementById(
 "gameFrame"
-).src =
-"";
+).src = "";
+
+document.getElementById(
+"player"
+).classList.remove("open");
 
 }
 
 
-function openExternalGame() {
-
-if (!currentGameURL) {
-
-alert(
-"This game does not have a verified URL yet."
-);
-
-return;
-
-}
-
-
-window.open(
-currentGameURL,
-"_blank"
-);
-
-}
-
-
-/* =========================
-SEARCH
-========================= */
+/* SEARCH */
 
 function searchGames() {
 
 const search =
 document.getElementById(
-"gameSearch"
-)
-.value
-.toLowerCase();
+"search"
+).value.toLowerCase();
 
-
-document.querySelectorAll(
-".game"
-).forEach(
-game => {
+document
+.querySelectorAll(".game")
+.forEach(game => {
 
 const name =
-game.dataset.name
-.toLowerCase();
+game.dataset.name.toLowerCase();
 
-
-if (
+game.style.display =
 name.includes(search)
-) {
-
-game.style.display =
-"block";
-
-} else {
-
-game.style.display =
-"none";
-
-}
+? "block"
+: "none";
 
 });
 
 }
 
 
-/* =========================
-ESC KEY
-========================= */
+/* COMING SOON */
+
+function comingSoon(name) {
+
+alert(
+name +
+" is saved in Nova, but we still need a legitimate web-game URL for it."
+);
+
+}
+
+
+/* ESCAPE */
 
 document.addEventListener(
 "keydown",
-event => {
+function(event) {
 
-if (
-event.key === "Escape"
-) {
+if (event.key === "Escape") {
 
-closeGame();
+closePlayer();
 
 }
 
