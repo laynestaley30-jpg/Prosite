@@ -10,27 +10,27 @@
 <style>
 
 :root {
---purple: #8b5cf6;
---purple-light: #a78bfa;
---background: #080810;
---text: #ffffff;
---muted: rgba(255,255,255,.6);
+--purple:#8b5cf6;
+--light:#a78bfa;
+--bg:#080810;
+--text:#fff;
+--muted:rgba(255,255,255,.6);
 }
 
 * {
-box-sizing: border-box;
+box-sizing:border-box;
 }
 
-html,
-body {
-margin: 0;
-width: 100%;
-height: 100%;
+html,body {
+margin:0;
+width:100%;
+height:100%;
 }
 
 body {
-font-family: Arial, Helvetica, sans-serif;
-color: var(--text);
+font-family:Arial,Helvetica,sans-serif;
+color:var(--text);
+
 background:
 radial-gradient(
 circle at 15% 20%,
@@ -42,99 +42,101 @@ circle at 85% 80%,
 rgba(76,29,149,.25),
 transparent 35%
 ),
-var(--background);
+var(--bg);
 }
 
 .app {
-display: flex;
-width: 100%;
-height: 100%;
+display:flex;
+width:100%;
+height:100%;
 }
 
 
 /* SIDEBAR */
 
 .sidebar {
-width: 78px;
-height: calc(100% - 28px);
-margin: 14px;
-padding: 12px 8px;
+width:78px;
+height:calc(100% - 28px);
+margin:14px;
+padding:12px 8px;
 
-display: flex;
-flex-direction: column;
-align-items: center;
+display:flex;
+flex-direction:column;
+align-items:center;
 
-background: rgba(12,12,22,.82);
+background:rgba(12,12,22,.82);
 
-border:
-1px solid rgba(255,255,255,.09);
+border:1px solid rgba(255,255,255,.09);
 
-border-radius: 23px;
+border-radius:23px;
 
-backdrop-filter: blur(18px);
+backdrop-filter:blur(18px);
 }
 
 .sidebar-buttons {
-display: flex;
-flex-direction: column;
-gap: 10px;
-align-items: center;
-width: 100%;
+display:flex;
+flex-direction:column;
+gap:10px;
+align-items:center;
+width:100%;
 }
 
 .sidebar-button {
-position: relative;
+position:relative;
 
-width: 50px;
-height: 50px;
+width:50px;
+height:50px;
 
-border: 0;
-border-radius: 16px;
+border:0;
+border-radius:16px;
 
-background: rgba(255,255,255,.07);
-color: white;
+background:rgba(255,255,255,.07);
 
-font-size: 22px;
+color:white;
 
-cursor: pointer;
+font-size:22px;
 
-transition: .2s;
+cursor:pointer;
+
+transition:.2s;
 }
 
 .sidebar-button:hover {
-transform: scale(1.07);
-background: rgba(255,255,255,.15);
+transform:scale(1.07);
+background:rgba(255,255,255,.15);
 }
 
 .sidebar-button::after {
-content: attr(data-label);
+content:attr(data-label);
 
-position: absolute;
+position:absolute;
 
-left: 62px;
-top: 50%;
+left:62px;
+top:50%;
 
-transform: translateY(-50%);
+transform:translateY(-50%);
 
-padding: 7px 10px;
+padding:7px 10px;
 
-border-radius: 9px;
+border-radius:9px;
 
-background: #05050a;
-color: white;
+background:#05050a;
 
-font-size: 12px;
+color:white;
 
-white-space: nowrap;
+font-size:12px;
 
-opacity: 0;
-pointer-events: none;
+white-space:nowrap;
 
-z-index: 50;
+opacity:0;
+
+pointer-events:none;
+
+z-index:50;
 }
 
 .sidebar-button:hover::after {
-opacity: 1;
+opacity:1;
 }
 
 .active {
@@ -147,87 +149,90 @@ rgba(167,139,250,.25)
 }
 
 .sidebar-bottom {
-margin-top: auto;
+margin-top:auto;
 }
 
 
 /* MAIN */
 
 .main {
-flex: 1;
+flex:1;
 
-height: 100%;
+height:100%;
 
-overflow-y: auto;
+overflow-y:auto;
 
-padding: 35px 45px;
+padding:35px 45px;
 }
 
 h1 {
-margin: 0;
+margin:0;
 
 font-size:
 clamp(40px,6vw,65px);
 
-letter-spacing: -3px;
+letter-spacing:-3px;
 }
 
 h1 span {
-color: var(--purple-light);
+color:var(--light);
 }
 
 .subtitle {
-color: var(--muted);
-margin-top: 8px;
-margin-bottom: 25px;
+color:var(--muted);
+
+margin-top:8px;
+
+margin-bottom:25px;
 }
 
 
 /* SEARCH */
 
 .search {
-width: 100%;
+width:100%;
 
-padding: 14px 17px;
+padding:14px 17px;
 
 border:
 1px solid rgba(255,255,255,.1);
 
-border-radius: 15px;
+border-radius:15px;
 
-outline: none;
+outline:none;
 
 background:
 rgba(255,255,255,.06);
 
-color: white;
+color:white;
 
-font-size: 14px;
+font-size:14px;
 
-margin-bottom: 30px;
+margin-bottom:30px;
 }
 
 .search::placeholder {
-color: var(--muted);
+color:var(--muted);
 }
 
 
-/* CATEGORY */
+/* CATEGORIES */
 
 .category {
-margin-bottom: 35px;
+margin-bottom:35px;
 }
 
 .category h2 {
-margin: 0 0 14px;
-font-size: 20px;
+margin:0 0 14px;
+
+font-size:20px;
 }
 
 
-/* GAME GRID */
+/* GAMES */
 
 .game-grid {
-display: grid;
+display:grid;
 
 grid-template-columns:
 repeat(
@@ -235,16 +240,13 @@ auto-fit,
 minmax(190px,1fr)
 );
 
-gap: 13px;
+gap:13px;
 }
 
-
-/* GAME */
-
 .game {
-padding: 18px;
+padding:18px;
 
-border-radius: 18px;
+border-radius:18px;
 
 background:
 rgba(255,255,255,.055);
@@ -252,13 +254,13 @@ rgba(255,255,255,.055);
 border:
 1px solid rgba(255,255,255,.08);
 
-cursor: pointer;
+cursor:pointer;
 
-transition: .2s;
+transition:.2s;
 }
 
 .game:hover {
-transform: translateY(-4px);
+transform:translateY(-4px);
 
 background:
 rgba(139,92,246,.16);
@@ -268,93 +270,23 @@ rgba(167,139,250,.4);
 }
 
 .game-icon {
-font-size: 30px;
-margin-bottom: 9px;
+font-size:30px;
+
+margin-bottom:9px;
 }
 
 .game h3 {
-margin: 0 0 6px;
-font-size: 14px;
+margin:0 0 6px;
+
+font-size:14px;
 }
 
 .game p {
-margin: 0;
-font-size: 11px;
-color: var(--muted);
-}
+margin:0;
 
+font-size:11px;
 
-/* PLAYER */
-
-.player {
-display: none;
-
-position: fixed;
-
-inset: 0;
-
-z-index: 100;
-
-background:
-rgba(3,3,8,.97);
-
-padding: 16px;
-}
-
-.player.open {
-display: flex;
-flex-direction: column;
-}
-
-.player-bar {
-display: flex;
-
-align-items: center;
-
-justify-content: space-between;
-
-margin-bottom: 10px;
-}
-
-.player-title {
-font-size: 18px;
-font-weight: bold;
-}
-
-.player-buttons {
-display: flex;
-gap: 8px;
-}
-
-.player-button {
-border: 0;
-
-border-radius: 10px;
-
-padding: 9px 13px;
-
-background:
-rgba(255,255,255,.1);
-
-color: white;
-
-cursor: pointer;
-}
-
-.player-button:hover {
-background:
-rgba(255,255,255,.2);
-}
-
-#gameFrame {
-width: 100%;
-height: 100%;
-
-border: 0;
-
-border-radius: 15px;
-
-background: black;
+color:var(--muted);
 }
 
 
@@ -363,27 +295,30 @@ background: black;
 @media(max-width:700px) {
 
 .sidebar {
-width: 65px;
-margin: 9px;
-height: calc(100% - 18px);
+width:65px;
+
+margin:9px;
+
+height:calc(100% - 18px);
 }
 
 .sidebar-button {
-width: 44px;
-height: 44px;
-font-size: 20px;
+width:44px;
+height:44px;
+
+font-size:20px;
 }
 
 .sidebar-button::after {
-display: none;
+display:none;
 }
 
 .main {
-padding: 25px 18px;
+padding:25px 18px;
 }
 
 .game-grid {
-grid-template-columns: 1fr;
+grid-template-columns:1fr;
 }
 
 }
@@ -460,23 +395,7 @@ class="sidebar-button"
 data-label="Google"
 onclick="window.open('https://www.google.com','_blank')">
 
-<span style="
-font-weight:bold;
-font-size:22px;
-background:linear-gradient(
-90deg,
-#4285F4,
-#34A853,
-#FBBC05,
-#EA4335
-);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-">
-
 G
-
-</span>
 
 </button>
 
@@ -510,62 +429,141 @@ onclick="location.href='settings.html'">
 Nova <span>Games</span>
 </h1>
 
+
 <div class="subtitle">
-Your browser game collection.
+Click a game to play it.
 </div>
 
 
 <input
 id="search"
 class="search"
-type="text"
 placeholder="🔎 Search games..."
 oninput="searchGames()"
 >
 
 
 
-<!-- QUICK GAMES -->
+<!-- JS13KGAMES -->
 
 <section class="category">
 
-<h2>🔥 Games</h2>
+<h2>🔥 Browser Games</h2>
 
 <div class="game-grid">
 
 
 <div
 class="game"
-data-name="Slope"
-onclick="openGame('Slope','https://slope-game.github.io/')">
+data-name="ASDF"
+onclick="playGame(
+'ASDF',
+'https://play.js13kgames.com/asdf/'
+)">
 
-<div class="game-icon">🟢</div>
+<div class="game-icon">🎮</div>
 
-<h3>Slope</h3>
+<h3>ASDF</h3>
 
-<p>Roll down the track.</p>
+<p>Simon-style keyboard game.</p>
 
 </div>
+
 
 
 <div
 class="game"
-data-name="Run 3"
-onclick="openGame('Run 3','https://run3.io/')">
+data-name="13 Seconds to Midnight"
+onclick="playGame(
+'13 Seconds to Midnight',
+'https://play.js13kgames.com/13-seconds-to-midnight/'
+)">
 
-<div class="game-icon">🏃</div>
+<div class="game-icon">⏰</div>
 
-<h3>Run 3</h3>
+<h3>13 Seconds to Midnight</h3>
 
-<p>Run through space.</p>
+<p>Escape the forest.</p>
 
 </div>
+
+
+
+<div
+class="game"
+data-name="Ice-X"
+onclick="playGame(
+'Ice-X',
+'https://play.js13kgames.com/ice-x/'
+)">
+
+<div class="game-icon">🧊</div>
+
+<h3>Ice-X</h3>
+
+<p>Explore the network.</p>
+
+</div>
+
+
+
+<div
+class="game"
+data-name="Sub13"
+onclick="playGame(
+'Sub13',
+'https://play.js13kgames.com/sub13/'
+)">
+
+<div class="game-icon">🏎️</div>
+
+<h3>Sub13</h3>
+
+<p>Arcade racing game.</p>
+
+</div>
+
+
+
+<div
+class="game"
+data-name="Khan Westward Conquest"
+onclick="playGame(
+'Khan - Westward Conquest',
+'https://play.js13kgames.com/khan-westward-conquest/'
+)">
+
+<div class="game-icon">⚔️</div>
+
+<h3>Khan</h3>
+
+<p>Strategy card game.</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- MULTIPLAYER -->
+
+<section class="category">
+
+<h2>🌐 Multiplayer</h2>
+
+<div class="game-grid">
 
 
 <div
 class="game"
 data-name="Shell Shockers"
-onclick="openGame('Shell Shockers','https://shellshock.io/')">
+onclick="playGame(
+'Shell Shockers',
+'https://shellshock.io/'
+)">
 
 <div class="game-icon">🥚</div>
 
@@ -576,24 +574,14 @@ onclick="openGame('Shell Shockers','https://shellshock.io/')">
 </div>
 
 
-<div
-class="game"
-data-name="Krunker"
-onclick="openGame('Krunker','https://krunker.io/')">
-
-<div class="game-icon">🔫</div>
-
-<h3>Krunker</h3>
-
-<p>Browser FPS.</p>
-
-</div>
-
 
 <div
 class="game"
 data-name="Agar.io"
-onclick="openGame('Agar.io','https://agar.io/')">
+onclick="playGame(
+'Agar.io',
+'https://agar.io/'
+)">
 
 <div class="game-icon">🟢</div>
 
@@ -604,10 +592,14 @@ onclick="openGame('Agar.io','https://agar.io/')">
 </div>
 
 
+
 <div
 class="game"
 data-name="Slither.io"
-onclick="openGame('Slither.io','https://slither.io/')">
+onclick="playGame(
+'Slither.io',
+'https://slither.io/'
+)">
 
 <div class="game-icon">🐍</div>
 
@@ -618,10 +610,14 @@ onclick="openGame('Slither.io','https://slither.io/')">
 </div>
 
 
+
 <div
 class="game"
 data-name="Diep.io"
-onclick="openGame('Diep.io','https://diep.io/')">
+onclick="playGame(
+'Diep.io',
+'https://diep.io/'
+)">
 
 <div class="game-icon">🔵</div>
 
@@ -632,10 +628,14 @@ onclick="openGame('Diep.io','https://diep.io/')">
 </div>
 
 
+
 <div
 class="game"
 data-name="Paper.io"
-onclick="openGame('Paper.io','https://paper-io.com/')">
+onclick="playGame(
+'Paper.io',
+'https://paper-io.com/'
+)">
 
 <div class="game-icon">📄</div>
 
@@ -645,145 +645,6 @@ onclick="openGame('Paper.io','https://paper-io.com/')">
 
 </div>
 
-</div>
-
-</section>
-
-
-
-<!-- HORROR -->
-
-<section class="category">
-
-<h2>👻 Horror</h2>
-
-<div class="game-grid">
-
-
-<div
-class="game"
-data-name="FNAF"
-onclick="comingSoon('FNAF')">
-
-<div class="game-icon">🐻</div>
-
-<h3>FNAF Fan Games</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Granny"
-onclick="comingSoon('Granny')">
-
-<div class="game-icon">👵</div>
-
-<h3>Granny</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Backrooms"
-onclick="comingSoon('The Backrooms')">
-
-<div class="game-icon">🟨</div>
-
-<h3>The Backrooms</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="SCP"
-onclick="comingSoon('SCP Games')">
-
-<div class="game-icon">👁️</div>
-
-<h3>SCP Games</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<!-- FUNNY -->
-
-<section class="category">
-
-<h2>🤪 Weird / Funny</h2>
-
-<div class="game-grid">
-
-
-<div
-class="game"
-data-name="We Become What We Behold"
-onclick="comingSoon('We Become What We Behold')">
-
-<div class="game-icon">📺</div>
-
-<h3>We Become What We Behold</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Sort the Court"
-onclick="comingSoon('Sort the Court')">
-
-<div class="game-icon">👑</div>
-
-<h3>Sort the Court!</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Stickman"
-onclick="comingSoon('Stickman Games')">
-
-<div class="game-icon">🕴️</div>
-
-<h3>Stickman Games</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Ragdoll"
-onclick="comingSoon('Ragdoll Games')">
-
-<div class="game-icon">🧍</div>
-
-<h3>Ragdoll Games</h3>
-
-<p>Coming soon.</p>
-
-</div>
 
 </div>
 
@@ -809,7 +670,7 @@ onclick="comingSoon('Tung Tung Escape')">
 
 <h3>Tung Tung Escape</h3>
 
-<p>URL needed.</p>
+<p>Coming soon.</p>
 
 </div>
 
@@ -823,7 +684,7 @@ onclick="comingSoon('Bad Time Simulator')">
 
 <h3>Bad Time Simulator</h3>
 
-<p>URL needed.</p>
+<p>Coming soon.</p>
 
 </div>
 
@@ -837,7 +698,7 @@ onclick="comingSoon('Friday Night Funkin')">
 
 <h3>Friday Night Funkin'</h3>
 
-<p>URL needed.</p>
+<p>Coming soon.</p>
 
 </div>
 
@@ -851,7 +712,7 @@ onclick="comingSoon('Undertale Yellow')">
 
 <h3>Undertale Yellow</h3>
 
-<p>URL needed.</p>
+<p>Coming soon.</p>
 
 </div>
 
@@ -865,7 +726,7 @@ onclick="comingSoon('Deltarune')">
 
 <h3>Deltarune</h3>
 
-<p>URL needed.</p>
+<p>Coming soon.</p>
 
 </div>
 
@@ -879,7 +740,7 @@ onclick="comingSoon('Baldi’s Basics')">
 
 <h3>Baldi's Basics</h3>
 
-<p>URL needed.</p>
+<p>Coming soon.</p>
 
 </div>
 
@@ -893,121 +754,24 @@ onclick="comingSoon('Getting Over It')">
 
 <h3>Getting Over It</h3>
 
-<p>URL needed.</p>
+<p>Coming soon.</p>
 
 </div>
 
 
 <div
 class="game"
-data-name="Duck Life 4"
-onclick="comingSoon('Duck Life 4')">
+data-name="Granny"
+onclick="comingSoon('Granny')">
 
-<div class="game-icon">🦆</div>
+<div class="game-icon">👵</div>
 
-<h3>Duck Life 4</h3>
+<h3>Granny</h3>
 
-<p>URL needed.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Fancy Pants"
-onclick="comingSoon('Fancy Pants Adventures')">
-
-<div class="game-icon">✏️</div>
-
-<h3>Fancy Pants Adventures</h3>
-
-<p>URL needed.</p>
+<p>Coming soon.</p>
 
 </div>
 
-
-<div
-class="game"
-data-name="Stickman Hook"
-onclick="comingSoon('Stickman Hook')">
-
-<div class="game-icon">🪝</div>
-
-<h3>Stickman Hook</h3>
-
-<p>URL needed.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Bloons TD 5"
-onclick="comingSoon('Bloons TD 5')">
-
-<div class="game-icon">🎈</div>
-
-<h3>Bloons TD 5</h3>
-
-<p>URL needed.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Plants vs Zombies"
-onclick="comingSoon('Plants vs. Zombies')">
-
-<div class="game-icon">🌻</div>
-
-<h3>Plants vs. Zombies</h3>
-
-<p>URL needed.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Papa Freezeria"
-onclick="comingSoon('Papa’s Freezeria')">
-
-<div class="game-icon">🍦</div>
-
-<h3>Papa's Freezeria</h3>
-
-<p>URL needed.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Super Mario 63"
-onclick="comingSoon('Super Mario 63')">
-
-<div class="game-icon">🍄</div>
-
-<h3>Super Mario 63</h3>
-
-<p>URL needed.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Sonic"
-onclick="comingSoon('Sonic')">
-
-<div class="game-icon">💨</div>
-
-<h3>Sonic</h3>
-
-<p>URL needed.</p>
-
-</div>
 
 </div>
 
@@ -1020,114 +784,29 @@ onclick="comingSoon('Sonic')">
 
 
 
-<!-- GAME PLAYER -->
-
-<div
-class="player"
-id="player">
-
-
-<div class="player-bar">
-
-
-<div
-class="player-title"
-id="playerTitle">
-
-Game
-
-</div>
-
-
-<div class="player-buttons">
-
-
-<button
-class="player-button"
-onclick="openExternal()">
-
-↗ Open Game
-
-</button>
-
-
-<button
-class="player-button"
-onclick="closePlayer()">
-
-✕ Close
-
-</button>
-
-
-</div>
-
-</div>
-
-
-<iframe
-id="gameFrame"
-allowfullscreen>
-</iframe>
-
-
-</div>
-
-
-
 <script>
 
-let currentURL = "";
 
+/* PLAY */
 
-/* OPEN GAME */
-
-function openGame(name, url) {
-
-currentURL = url;
-
-document.getElementById(
-"playerTitle"
-).textContent = name;
-
-document.getElementById(
-"gameFrame"
-).src = url;
-
-document.getElementById(
-"player"
-).classList.add("open");
-
-}
-
-
-/* OPEN EXTERNAL */
-
-function openExternal() {
-
-if (currentURL) {
+function playGame(name,url) {
 
 window.open(
-currentURL,
+url,
 "_blank"
 );
 
 }
 
-}
 
+/* COMING SOON */
 
-/* CLOSE */
+function comingSoon(name) {
 
-function closePlayer() {
-
-document.getElementById(
-"gameFrame"
-).src = "";
-
-document.getElementById(
-"player"
-).classList.remove("open");
+alert(
+name +
+" doesn't have a verified web-game URL added yet."
+);
 
 }
 
@@ -1141,6 +820,7 @@ document.getElementById(
 "search"
 ).value.toLowerCase();
 
+
 document
 .querySelectorAll(".game")
 .forEach(game => {
@@ -1148,41 +828,21 @@ document
 const name =
 game.dataset.name.toLowerCase();
 
+if(name.includes(search)) {
+
 game.style.display =
-name.includes(search)
-? "block"
-: "none";
+"block";
 
-});
+} else {
 
-}
-
-
-/* COMING SOON */
-
-function comingSoon(name) {
-
-alert(
-name +
-" is saved in Nova, but we still need a legitimate web-game URL for it."
-);
-
-}
-
-
-/* ESCAPE */
-
-document.addEventListener(
-"keydown",
-function(event) {
-
-if (event.key === "Escape") {
-
-closePlayer();
+game.style.display =
+"none";
 
 }
 
 });
+
+}
 
 </script>
 
