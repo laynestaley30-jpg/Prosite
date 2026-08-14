@@ -1,550 +1,83 @@
-<button onclick="window.location.href='NovaAI.html'">
-    🤖
-</button>
-<!-- =========================
-     NOVA AI
-========================= -->
-
-<section class="nova-ai">
-
-    <!-- AI HEADER -->
-
-    <div class="nova-ai-header">
-
-        <div class="nova-ai-avatar">
-            🤖
-        </div>
-
-        <div class="nova-ai-title">
-
-            <h2>Nova AI</h2>
-
-            <span>
-                ● Online
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- CHAT AREA -->
-
-    <div class="nova-ai-chat">
-
-        <!-- AI MESSAGE -->
-
-        <div class="nova-ai-message ai">
-
-            <div class="nova-ai-name">
-                Nova AI
-            </div>
-
-            <p>
-                Hey! I'm Nova AI 🤖
-            </p>
-
-            <p>
-                I can help you with homework,
-                games, questions, studying,
-                writing, and more.
-            </p>
-
-        </div>
-
-
-        <!-- USER MESSAGE EXAMPLE -->
-
-        <!--
-        <div class="nova-ai-message user">
-
-            <div class="nova-ai-name">
-                You
-            </div>
-
-            <p>
-                What is 25 × 4?
-            </p>
-
-        </div>
-        -->
-
-
-    </div>
-
-
-    <!-- TYPING AREA -->
-
-    <div class="nova-ai-input">
-
-        <input
-            type="text"
-            placeholder="Ask Nova anything..."
-            autocomplete="off"
-        >
-
-        <button
-            type="button"
-            aria-label="Send message">
-
-            ➤
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<style>
-
-/* =========================
-   NOVA AI
-========================= */
-
-.nova-ai {
-
-    width:
-        min(850px, 100%);
-
-    height:
-        min(700px, 85vh);
-
-    margin:
-        30px auto;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    overflow:
-        hidden;
-
-    color:
-        #ffffff;
-
-    background:
-        rgba(12,12,22,.92);
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    border-radius:
-        25px;
-
-    box-shadow:
-        0 25px 80px
-        rgba(0,0,0,.4);
-
-    backdrop-filter:
-        blur(20px);
-
-    font-family:
-        "Space Grotesk",
-        Arial,
-        sans-serif;
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-.nova-ai-header {
-
-    min-height:
-        78px;
-
-    padding:
-        15px 20px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        13px;
-
-    background:
-        rgba(255,255,255,.035);
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.08);
-}
-
-
-.nova-ai-avatar {
-
-    width:
-        48px;
-
-    height:
-        48px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    border-radius:
-        15px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #8b5cf6,
-            #a78bfa
-        );
-
-    box-shadow:
-        0 0 25px
-        rgba(139,92,246,.3);
-
-    font-size:
-        23px;
-}
-
-
-.nova-ai-title h2 {
-
-    margin:
-        0;
-
-    font-size:
-        18px;
-
-    font-weight:
-        600;
-}
-
-
-.nova-ai-title span {
-
-    display:
-        block;
-
-    margin-top:
-        3px;
-
-    color:
-        #86efac;
-
-    font-size:
-        11px;
-}
-
-
-/* =========================
-   CHAT
-========================= */
-
-.nova-ai-chat {
-
-    flex:
-        1;
-
-    overflow-y:
-        auto;
-
-    padding:
-        25px;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    gap:
-        16px;
-}
-
-
-/* =========================
-   MESSAGE
-========================= */
-
-.nova-ai-message {
-
-    width:
-        fit-content;
-
-    max-width:
-        min(650px, 80%);
-
-    padding:
-        14px 17px;
-
-    border-radius:
-        18px;
-
-    font-size:
-        14px;
-
-    line-height:
-        1.55;
-}
-
-
-.nova-ai-message p {
-
-    margin:
-        5px 0;
-}
-
-
-.nova-ai-message p:first-of-type {
-
-    margin-top:
-        0;
-}
-
-
-.nova-ai-message p:last-of-type {
-
-    margin-bottom:
-        0;
-}
-
-
-/* AI */
-
-.nova-ai-message.ai {
-
-    align-self:
-        flex-start;
-
-    background:
-        rgba(255,255,255,.065);
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    border-bottom-left-radius:
-        6px;
-}
-
-
-/* USER */
-
-.nova-ai-message.user {
-
-    align-self:
-        flex-end;
-
-    background:
-        linear-gradient(
-            135deg,
-            #8b5cf6,
-            #a78bfa
-        );
-
-    border-bottom-right-radius:
-        6px;
-}
-
-
-/* MESSAGE NAME */
-
-.nova-ai-name {
-
-    margin-bottom:
-        5px;
-
-    color:
-        rgba(255,255,255,.55);
-
-    font-size:
-        10px;
-
-    font-weight:
-        600;
-
-    text-transform:
-        uppercase;
-
-    letter-spacing:
-        .5px;
-}
-
-
-/* =========================
-   INPUT
-========================= */
-
-.nova-ai-input {
-
-    padding:
-        15px;
-
-    display:
-        flex;
-
-    gap:
-        10px;
-
-    background:
-        rgba(10,10,18,.8);
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.08);
-}
-
-
-.nova-ai-input input {
-
-    flex:
-        1;
-
-    min-width:
-        0;
-
-    padding:
-        14px 16px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    border-radius:
-        15px;
-
-    outline:
-        none;
-
-    background:
-        rgba(255,255,255,.055);
-
-    color:
-        #ffffff;
-
-    font-family:
-        inherit;
-
-    font-size:
-        14px;
-
-    transition:
-        .2s ease;
-}
-
-
-.nova-ai-input input:focus {
-
-    border-color:
-        rgba(139,92,246,.7);
-
-    box-shadow:
-        0 0 0 3px
-        rgba(139,92,246,.12);
-}
-
-
-.nova-ai-input input::placeholder {
-
-    color:
-        rgba(255,255,255,.45);
-}
-
-
-.nova-ai-input button {
-
-    width:
-        50px;
-
-    height:
-        50px;
-
-    flex-shrink:
-        0;
-
-    border:
-        0;
-
-    border-radius:
-        15px;
-
-    background:
-        #8b5cf6;
-
-    color:
-        #ffffff;
-
-    font-size:
-        18px;
-
-    cursor:
-        pointer;
-
-    transition:
-        .2s ease;
-}
-
-
-.nova-ai-input button:hover {
-
-    background:
-        #a78bfa;
-
-    transform:
-        scale(1.04);
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:700px) {
-
-    .nova-ai {
-
-        width:
-            calc(100% - 20px);
-
-        height:
-            calc(100vh - 20px);
-
-        margin:
-            10px;
-
-        border-radius:
-            20px;
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nova — AI</title>
+  <style>
+    :root{--bg:#07070d;--panel:rgba(18,18,30,.72);--accent:#8b5cf6;--muted:rgba(255,255,255,.62)}
+    html,body{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#fff}
+    .app{max-width:900px;margin:36px auto;padding:20px;background:linear-gradient(145deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border-radius:12px;border:1px solid rgba(255,255,255,.06)}
+    h1{margin:0 0 12px;font-size:26px}
+    .messages{height:60vh;overflow:auto;padding:12px;border-radius:8px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.03)}
+    .msg{margin:8px 0;padding:10px;border-radius:10px;max-width:78%}
+    .user{background:linear-gradient(90deg,var(--accent),#a78bfa);color:#000;margin-left:auto}
+    .assistant{background:rgba(255,255,255,.04);color:#fff}
+    form{display:flex;gap:8px;margin-top:12px}
+    input[type=text]{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:transparent;color:#fff}
+    button{padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+    .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>Nova — AI Assistant</h1>
+    <div class="meta">Powered by a server-side model. Keep your API key secret when you deploy.</div>
+    <div id="messages" class="messages" role="log" aria-live="polite"></div>
+
+    <form id="chatForm">
+      <input id="prompt" type="text" autocomplete="off" placeholder="Ask Nova something..." required />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const messagesEl = document.getElementById('messages');
+    const form = document.getElementById('chatForm');
+    const input = document.getElementById('prompt');
+
+    function appendMessage(text, cls) {
+      const d = document.createElement('div');
+      d.className = 'msg ' + cls;
+      d.textContent = text;
+      messagesEl.appendChild(d);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
     }
 
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      appendMessage(text, 'user');
+      input.value = '';
+      appendMessage('Nova is thinking...', 'assistant');
 
-    .nova-ai-chat {
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({message: text})
+        });
 
-        padding:
-            15px;
-    }
+        // remove the "thinking" placeholder
+        const placeholders = [...messagesEl.querySelectorAll('.assistant')];
+        const lastPlaceholder = placeholders[placeholders.length-1];
+        if (lastPlaceholder && lastPlaceholder.textContent === 'Nova is thinking...') {
+          lastPlaceholder.remove();
+        }
 
+        if (!res.ok) {
+          const err = await res.json().catch(()=>({error:res.statusText}));
+          appendMessage('Error: ' + (err.error || res.statusText), 'assistant');
+          return;
+        }
 
-    .nova-ai-message {
-
-        max-width:
-            90%;
-    }
-
-
-    .nova-ai-input {
-
-        padding:
-            10px;
-    }
-
-}
-
-</style>
+        const data = await res.json();
+        appendMessage(data.reply || 'No reply', 'assistant');
+      } catch (err) {
+        appendMessage('Network error: ' + (err.message||err), 'assistant');
+      }
+    });
+  </script>
+</body>
+</html>
