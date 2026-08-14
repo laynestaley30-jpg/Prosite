@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -874,163 +873,6 @@ text-align: center;
 
 
 /* =========================
-FLOATING AI PANEL
-========================= */
-
-.ai-panel {
-  position: fixed;
-  left: 120px;
-  top: 20px;
-  width: 380px;
-  height: 600px;
-  background: linear-gradient(145deg, rgba(18,18,30,.95), rgba(12,12,22,.85));
-  border: 1px solid rgba(139,92,246,.3);
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.4);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  cursor: grab;
-}
-
-.ai-panel.hidden {
-  display: none;
-}
-
-.ai-panel-header {
-  padding: 16px 18px;
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: grab;
-}
-
-.ai-panel-header:active {
-  cursor: grabbing;
-}
-
-.ai-panel-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  margin: 0;
-}
-
-.ai-panel-close {
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: rgba(255,255,255,.08);
-  border-radius: 8px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .2s;
-}
-
-.ai-panel-close:hover {
-  background: rgba(255,255,255,.12);
-}
-
-.ai-panel-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px;
-}
-
-.ai-messages {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.ai-msg {
-  margin: 6px 0;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 12px;
-  line-height: 1.4;
-  max-width: 100%;
-}
-
-.ai-msg.user {
-  background: linear-gradient(90deg, var(--purple), #a78bfa);
-  color: #000;
-  margin-left: auto;
-  max-width: 90%;
-}
-
-.ai-msg.assistant {
-  background: rgba(255,255,255,.08);
-  color: #fff;
-  max-width: 90%;
-}
-
-.ai-msg a {
-  color: #8b5cf6;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.ai-msg a:hover {
-  color: #a78bfa;
-}
-
-.ai-panel-input-wrap {
-  padding: 12px;
-  border-top: 1px solid rgba(255,255,255,.06);
-  display: flex;
-  gap: 8px;
-}
-
-.ai-panel-input {
-  flex: 1;
-  padding: 9px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,.06);
-  background: transparent;
-  color: #fff;
-  font-size: 12px;
-  outline: none;
-  transition: border .2s;
-}
-
-.ai-panel-input::placeholder {
-  color: rgba(255,255,255,.35);
-}
-
-.ai-panel-input:focus {
-  border-color: rgba(139,92,246,.4);
-}
-
-.ai-panel-send {
-  width: 36px;
-  height: 36px;
-  border: none;
-  background: var(--purple);
-  border-radius: 8px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .2s;
-}
-
-.ai-panel-send:hover {
-  background: var(--purple2);
-}
-
-
-/* =========================
 MOBILE
 ========================= */
 
@@ -1055,12 +897,6 @@ span 12;
 grid-column:
 span 6;
 
-}
-
-.ai-panel {
-  width: 320px;
-  height: 500px;
-  left: 90px;
 }
 
 }
@@ -1120,13 +956,6 @@ display: flex;
 
 }
 
-.ai-panel {
-  width: 280px;
-  height: 450px;
-  left: 70px;
-  top: 10px;
-}
-
 }
 
 </style>
@@ -1168,11 +997,41 @@ onclick="goHome()">
 
 
 <button
+class="sidebar-button"
+data-label="Games"
+onclick="openGames()">
+
+🎮
+
+</button>
+
+
+<button
+class="sidebar-button"
+data-label="Music"
+onclick="openMusic()">
+
+🎵
+
+</button>
+
+
+<button
+class="sidebar-button"
+data-label="Chat"
+onclick="openChat()">
+
+💬
+
+</button>
+
+
+<button
 class="sidebar-button ai-button"
 data-label="Nova AI"
-onclick="toggleAIPanel()">
+onclick="openNovaAI()">
 
-✨
+🤖
 
 </button>
 
@@ -1180,9 +1039,11 @@ onclick="toggleAIPanel()">
 <button
 class="sidebar-button"
 data-label="Google"
-onclick="goGoogle()">
+onclick="openGoogle()">
 
-<span class="google-logo">G</span>
+<span class="google-logo">
+G
+</span>
 
 </button>
 
@@ -1195,7 +1056,8 @@ onclick="goGoogle()">
 
 <button
 class="sidebar-button"
-data-label="Settings">
+data-label="Settings"
+onclick="openSettings()">
 
 ⚙️
 
@@ -1208,155 +1070,277 @@ data-label="Settings">
 </aside>
 
 
-<!-- =========================
-FLOATING AI PANEL
-========================= -->
-
-<div id="aiPanel" class="ai-panel hidden">
-  <div class="ai-panel-header" id="panelHeader">
-    <h3 class="ai-panel-title">Nova — AI Assistant</h3>
-    <button class="ai-panel-close" onclick="toggleAIPanel()">✕</button>
-  </div>
-  <div class="ai-panel-content">
-    <div id="aiMessages" class="ai-messages"></div>
-  </div>
-  <div class="ai-panel-input-wrap">
-    <input id="aiInput" class="ai-panel-input" type="text" placeholder="Ask Nova..." autocomplete="off" />
-    <button class="ai-panel-send" onclick="sendAIMessage()">➤</button>
-  </div>
-</div>
-
 
 <!-- =========================
-MAIN CONTENT
+MAIN
 ========================= -->
 
 <main class="main">
 
 
-<!-- TOP BAR -->
+<!-- TOP -->
 
 <div class="topbar">
 
+
 <div class="logo">
 
-<div class="logo-icon">N</div>
+<div class="logo-icon">
+✦
+</div>
 
-<span>Nova</span>
+Nova
 
 </div>
+
 
 <div class="top-status">
 
-<span class="status-dot"></span>
+<div class="status-dot"></div>
 
-<span>All systems operational</span>
+Online
+
+</div>
+
 
 </div>
 
-</div>
 
 
 <!-- HERO -->
 
 <section class="hero">
 
-<div class="hero-label">Welcome</div>
 
-<h1>Welcome to <span>Nova</span></h1>
+<div class="hero-label">
+Personal dashboard
+</div>
 
-<p>Your personal dashboard and AI-assisted workspace.</p>
+
+<h1>
+
+Welcome to
+<span>Nova.</span>
+
+</h1>
+
+
+<p>
+Your games, music, chat and AI.
+All in one place.
+</p>
+
+
+
+<!-- CLOCK -->
 
 <div class="clock-card">
 
-<div class="clock" id="clock"></div>
+<div class="clock" id="clock">
+12:00
+</div>
 
-<div class="date" id="date"></div>
+<div class="date" id="date">
+Loading...
+</div>
 
 </div>
+
 
 </section>
 
-
-<!-- FEATURE GRID -->
-
-<div class="feature-grid">
-
-
-<div class="card ai-card card-large">
-
-<div class="card-icon">✨</div>
-
-<h2>AI Assistant</h2>
-
-<p>Click the Nova button in the sidebar to chat with your AI assistant. Get answers, brainstorm ideas, or ask for help.</p>
-
-</div>
-
-
-<div class="card card-small">
-
-<div class="card-icon">🔍</div>
-
-<h2>Search</h2>
-
-<p>Quickly find anything with the search bar below.</p>
-
-</div>
-
-
-<div class="card card-small">
-
-<div class="card-icon">⚡</div>
-
-<h2>Quick Links</h2>
-
-<p>Access your favorite services fast.</p>
-
-</div>
-
-
-<div class="card card-small">
-
-<div class="card-icon">🎨</div>
-
-<h2>Customize</h2>
-
-<p>Personalize your dashboard theme and layout.</p>
-
-</div>
-
-
-<div class="card card-small">
-
-<div class="card-icon">📊</div>
-
-<h2>Analytics</h2>
-
-<p>Track your productivity and usage patterns.</p>
-
-</div>
-
-
-</div>
 
 
 <!-- SEARCH -->
 
 <div class="search-wrap">
 
-<input class="search" type="text" placeholder="Search...">
+<input
+class="search"
+id="search"
+placeholder="⌕  Search Nova..."
+onkeydown="handleSearch(event)"
+>
 
 </div>
 
 
-<!-- FOOTER -->
 
-<footer class="footer">
+<!-- FEATURE CARDS -->
 
-© 2024 Nova. All rights reserved.
+<section class="feature-grid">
 
-</footer>
+
+<!-- GAMES -->
+
+<div
+class="card card-large"
+onclick="openGames()">
+
+
+<div class="card-icon">
+🎮
+</div>
+
+
+<h2>
+Games
+</h2>
+
+
+<p>
+Your browser game collection.
+Open your games and start playing.
+</p>
+
+
+</div>
+
+
+
+<!-- AI -->
+
+<div
+class="card card-large ai-card"
+onclick="openNovaAI()">
+
+
+<div class="card-icon">
+🤖
+</div>
+
+
+<h2>
+Nova AI
+</h2>
+
+
+<p>
+Ask questions, get help,
+or just talk with Nova.
+</p>
+
+
+</div>
+
+
+
+<!-- CHAT -->
+
+<div
+class="card card-small"
+onclick="openChat()">
+
+
+<div class="card-icon">
+💬
+</div>
+
+
+<h2>
+Chat
+</h2>
+
+
+<p>
+Talk with other people.
+</p>
+
+
+</div>
+
+
+
+<!-- MUSIC -->
+
+<div
+class="card card-small"
+onclick="openMusic()">
+
+
+<div class="card-icon">
+🎵
+</div>
+
+
+<h2>
+Music
+</h2>
+
+
+<p>
+Listen to your music.
+</p>
+
+
+</div>
+
+
+
+<!-- GOOGLE -->
+
+<div
+class="card card-small"
+onclick="openGoogle()">
+
+
+<div class="card-icon">
+
+<span class="google-logo">
+G
+</span>
+
+</div>
+
+
+<h2>
+Google
+</h2>
+
+
+<p>
+Search the web.
+</p>
+
+
+</div>
+
+
+
+<!-- SETTINGS -->
+
+<div
+class="card card-small"
+onclick="openSettings()">
+
+
+<div class="card-icon">
+⚙️
+</div>
+
+
+<h2>
+Settings
+</h2>
+
+
+<p>
+Customize Nova.
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+<div class="footer">
+
+Nova • Your personal web space
+
+</div>
 
 
 </main>
@@ -1365,162 +1349,185 @@ MAIN CONTENT
 </div>
 
 
+
 <script>
 
-// ===== CLOCK =====
+
+/* =========================
+CLOCK
+========================= */
 
 function updateClock() {
-  const now = new Date();
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  
-  document.getElementById('clock').textContent = `${hours}:${minutes}`;
-  document.getElementById('date').textContent = `${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
+
+const now =
+new Date();
+
+
+document.getElementById(
+"clock"
+).textContent =
+
+now.toLocaleTimeString(
+[],
+{
+hour: "numeric",
+minute: "2-digit",
+second: "2-digit"
 }
+);
+
+
+document.getElementById(
+"date"
+).textContent =
+
+now.toLocaleDateString(
+[],
+{
+weekday: "long",
+month: "long",
+day: "numeric"
+}
+);
+
+}
+
 
 updateClock();
-setInterval(updateClock, 60000);
 
-// ===== NAVIGATION =====
+setInterval(
+updateClock,
+1000
+);
+
+
+
+/* =========================
+NAVIGATION
+========================= */
 
 function goHome() {
-  console.log('Home clicked');
+
+location.href =
+"index.html";
+
 }
 
-function goGoogle() {
-  window.open('https://google.com', '_blank');
+
+function openGames() {
+
+location.href =
+"games.html";
+
 }
 
-// ===== AI PANEL =====
 
-let isDragging = false;
-let offsetX = 0;
-let offsetY = 0;
+function openMusic() {
 
-const aiPanel = document.getElementById('aiPanel');
-const panelHeader = document.getElementById('panelHeader');
-const aiInput = document.getElementById('aiInput');
-const aiMessagesContainer = document.getElementById('aiMessages');
+location.href =
+"music.html";
 
-function toggleAIPanel() {
-  aiPanel.classList.toggle('hidden');
-  if (!aiPanel.classList.contains('hidden')) {
-    aiInput.focus();
-  }
 }
 
-// Dragging functionality
-panelHeader.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  offsetX = e.clientX - aiPanel.getBoundingClientRect().left;
-  offsetY = e.clientY - aiPanel.getBoundingClientRect().top;
-  panelHeader.style.cursor = 'grabbing';
-});
 
-document.addEventListener('mousemove', (e) => {
-  if (isDragging) {
-    aiPanel.style.left = (e.clientX - offsetX) + 'px';
-    aiPanel.style.top = (e.clientY - offsetY) + 'px';
-  }
-});
+function openChat() {
 
-document.addEventListener('mouseup', () => {
-  isDragging = false;
-  panelHeader.style.cursor = 'grab';
-});
+location.href =
+"chat.html";
 
-// Parse links in text
-function parseLinksInText(text) {
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
-  const parts = [];
-  let lastIndex = 0;
-  
-  text.replace(urlRegex, (match, url, offset) => {
-    if (offset > lastIndex) {
-      parts.push({ type: 'text', content: text.substring(lastIndex, offset) });
-    }
-    parts.push({ type: 'link', content: url, href: url });
-    lastIndex = offset + match.length;
-  });
-  
-  if (lastIndex < text.length) {
-    parts.push({ type: 'text', content: text.substring(lastIndex) });
-  }
-  
-  return parts;
 }
 
-// Add message to panel
-function appendAIMessage(text, cls) {
-  const d = document.createElement('div');
-  d.className = 'ai-msg ' + cls;
-  
-  if (cls === 'assistant') {
-    const parts = parseLinksInText(text);
-    parts.forEach(part => {
-      if (part.type === 'link') {
-        const link = document.createElement('a');
-        link.href = part.href;
-        link.textContent = part.content;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        d.appendChild(link);
-      } else {
-        d.appendChild(document.createTextNode(part.content));
-      }
-    });
-  } else {
-    d.textContent = text;
-  }
-  
-  aiMessagesContainer.appendChild(d);
-  aiMessagesContainer.scrollTop = aiMessagesContainer.scrollHeight;
+
+function openNovaAI() {
+
+location.href =
+"Nova.html";
+
 }
 
-// Send AI message
-async function sendAIMessage() {
-  const text = aiInput.value.trim();
-  if (!text) return;
-  
-  appendAIMessage(text, 'user');
-  aiInput.value = '';
-  appendAIMessage('Nova is thinking...', 'assistant');
-  
-  try {
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({message: text})
-    });
-    
-    const lastMsg = aiMessagesContainer.lastElementChild;
-    if (lastMsg && lastMsg.textContent === 'Nova is thinking...') {
-      lastMsg.remove();
-    }
-    
-    if (!res.ok) {
-      const err = await res.json().catch(()=>({error:res.statusText}));
-      appendAIMessage('Error: ' + (err.error || res.statusText), 'assistant');
-      return;
-    }
-    
-    const data = await res.json();
-    appendAIMessage(data.reply || 'No reply', 'assistant');
-  } catch (err) {
-    appendAIMessage('Network error: ' + (err.message||err), 'assistant');
-  }
+
+function openSettings() {
+
+location.href =
+"settings.html";
+
 }
 
-// Enter key to send
-aiInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
-    sendAIMessage();
-  }
-});
+
+function openGoogle() {
+
+window.open(
+"https://www.google.com",
+"_blank"
+);
+
+}
+
+
+/* =========================
+SEARCH
+========================= */
+
+function handleSearch(event) {
+
+if (
+event.key === "Enter"
+) {
+
+const value =
+event.target.value
+.toLowerCase()
+.trim();
+
+
+if (
+value.includes("game")
+) {
+
+openGames();
+
+}
+
+else if (
+value.includes("music")
+) {
+
+openMusic();
+
+}
+
+else if (
+value.includes("chat")
+) {
+
+openChat();
+
+}
+
+else if (
+value.includes("ai") ||
+value.includes("nova")
+) {
+
+openNovaAI();
+
+}
+
+else if (
+value.includes("google") ||
+value.includes("search")
+) {
+
+openGoogle();
+
+}
+
+}
+
+}
 
 </script>
+
 
 </body>
 
