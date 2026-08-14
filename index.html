@@ -92,6 +92,7 @@ animation-delay:-6s;
 }
 
 @keyframes float {
+
 0% {
 transform:translate(0,0) scale(1);
 }
@@ -99,6 +100,7 @@ transform:translate(0,0) scale(1);
 100% {
 transform:translate(90px,60px) scale(1.18);
 }
+
 }
 
 /* =========================
@@ -218,7 +220,7 @@ fill:var(--theme2);
 }
 
 /* =========================
-IMAGE LOGOS
+LOGOS
 ========================= */
 
 .logo-button {
@@ -233,21 +235,36 @@ display:block;
 border-radius:9px;
 }
 
-.steam-button {
+/* =========================
+GAMES BUTTON
+========================= */
+
+.games-button {
 background:white;
 }
 
-.steam-button:hover {
+.games-button:hover {
 background:white;
 }
 
-.steam-button img {
+.games-button img {
 width:31px;
 height:31px;
 border-radius:9px;
 }
 
-.spotify-button,
+/* =========================
+SPOTIFY
+========================= */
+
+.spotify-button {
+background:rgba(255,255,255,.07);
+}
+
+/* =========================
+DISCORD
+========================= */
+
 .discord-button {
 background:rgba(255,255,255,.07);
 }
@@ -396,7 +413,7 @@ font-size:12px;
 }
 
 /* =========================
-SETTINGS WINDOW
+SETTINGS
 ========================= */
 
 .overlay {
@@ -584,10 +601,6 @@ id="background">
 
 <div class="app">
 
-<!-- =========================
-SIDEBAR
-========================= -->
-
 <aside class="sidebar">
 
 <div
@@ -615,18 +628,16 @@ d="M12 3 3 10.5v9.2c0 .7.5 1.3 1.3 1.3h5.1v-6h5.2v6h5.1c.8 0 1.3-.6 1.3-1.3v-9.2
 </button>
 
 
-<!-- STEAM / GAMES -->
+<!-- GAMES -->
 
 <a
-href="https://store.steampowered.com/"
-target="_blank"
-rel="noopener noreferrer"
-class="sidebar-button logo-button steam-button"
+href="./Games.html"
+class="sidebar-button logo-button games-button"
 data-label="Games">
 
 <img
 src="Steam.png"
-alt="Steam">
+alt="Games">
 
 </a>
 
@@ -647,23 +658,21 @@ alt="Spotify">
 </a>
 
 
-<!-- DISCORD -->
+<!-- CHAT -->
 
 <a
-href="https://discord.com/app"
-target="_blank"
-rel="noopener noreferrer"
+href="./Chat.html"
 class="sidebar-button logo-button discord-button"
-data-label="Discord">
+data-label="Chat">
 
 <img
 src="Discord.png"
-alt="Discord">
+alt="Chat">
 
 </a>
 
 
-<!-- GOOGLE / BROWSER -->
+<!-- BROWSER -->
 
 <a
 href="./Browser.html"
@@ -710,7 +719,7 @@ onclick="openSettings()">
 <svg viewBox="0 0 24 24">
 
 <path
-d="M19.4 13.5c.1-.5.1-1 0-1.5l2-1.5-2-3.4-2.4 1c-.4-.3-.9-.6-1.4-.8L15.3 4h-4l-.3 2.3c-.5.2-1 .5-1.4.8l-2.4-1-2 3.4 2 1.5c-.1.5-.1 1 0 1.5l-2 1.5 2 3.4 2.4-1c.4.3.9.6 1.4.8l.3 2.3h4l.3-2.3c.5-.2 1-.5 1.4-.8l2.4 1 2-3.4-2-1.5zM13.3 15.3a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+d="M19.4 13.5c.1-.5.1-1 0-1.5l2-1.5-2-3.4-2.4 1c-.4-.3-.9-.6-1.4-.8L15.3 4h-4l-.3 2.3c-.5.2-1 .5-1.4.8l-2.4-1-2 3.4 2 1.5c-.1.5-.1 1 0 1.5l-2 1.5 2.4 1c.4.3.9.6 1.4.8l.3 2.3h4l.3-2.3c.5-.2 1-.5 1.4-.8l2.4 1 2-3.4-2-1.5zM13.3 15.3a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
 
 </svg>
 
@@ -720,10 +729,6 @@ d="M19.4 13.5c.1-.5.1-1 0-1.5l2-1.5-2-3.4-2.4 1c-.4-.3-.9-.6-1.4-.8L15.3 4h-4l-.
 
 </aside>
 
-
-<!-- =========================
-MAIN
-========================= -->
 
 <main class="main">
 
@@ -762,7 +767,6 @@ Loading...
 
 <div class="quick-links">
 
-
 <!-- BROWSER -->
 
 <div
@@ -787,7 +791,7 @@ onclick="openGames()">
 <h3>🎮 Games</h3>
 
 <p>
-Open your game hub.
+Open your Nova game hub.
 </p>
 
 </div>
@@ -808,20 +812,19 @@ Open Spotify.
 </div>
 
 
-<!-- SOCIAL -->
+<!-- CHAT -->
 
 <div
 class="card"
-onclick="openSocial()">
+onclick="openChat()">
 
-<h3>💬 Social</h3>
+<h3>💬 Chat</h3>
 
 <p>
-Open Discord.
+Open Nova Chat.
 </p>
 
 </div>
-
 
 </div>
 
@@ -832,9 +835,7 @@ Open Discord.
 </div>
 
 
-<!-- =========================
-SETTINGS
-========================= -->
+<!-- SETTINGS -->
 
 <div
 class="overlay"
@@ -1057,6 +1058,7 @@ oninput="changeOpacity(this.value)">
 
 </div>
 
+
 <div class="row">
 
 <label>
@@ -1097,6 +1099,7 @@ onchange="saveClock()">
 
 </div>
 
+
 <div class="row">
 
 <label>
@@ -1110,6 +1113,7 @@ checked
 onchange="saveClock()">
 
 </div>
+
 
 <div class="row">
 
@@ -1159,22 +1163,23 @@ options.second = "2-digit";
 }
 
 document.getElementById("clock").textContent =
-now.toLocaleTimeString([], options);
+now.toLocaleTimeString([],options);
 
 document.getElementById("sidebarClock").textContent =
-now.toLocaleTimeString([], {
+now.toLocaleTimeString([],{
 hour:"numeric",
 minute:"2-digit",
 hour12:!is24
 });
 
 document.getElementById("date").textContent =
-now.toLocaleDateString([], {
+now.toLocaleDateString([],{
 weekday:"long",
 month:"long",
 day:"numeric",
 year:"numeric"
 });
+
 }
 
 setInterval(updateClock,1000);
@@ -1200,11 +1205,8 @@ GAMES
 
 function openGames() {
 
-window.open(
-"https://store.steampowered.com/",
-"_blank",
-"noopener,noreferrer"
-);
+window.location.href =
+"./Games.html";
 
 }
 
@@ -1225,16 +1227,13 @@ window.open(
 
 
 /* =========================
-SOCIAL
+CHAT
 ========================= */
 
-function openSocial() {
+function openChat() {
 
-window.open(
-"https://discord.com/app",
-"_blank",
-"noopener,noreferrer"
-);
+window.location.href =
+"./Chat.html";
 
 }
 
@@ -1294,7 +1293,7 @@ FONT
 function setFont(font) {
 
 document.body.style.fontFamily =
-`"${font}", sans-serif`;
+`"${font}",sans-serif`;
 
 localStorage.setItem(
 "novaFont",
@@ -1505,7 +1504,7 @@ type
 
 
 /* =========================
-SIDEBAR SETTINGS
+SIDEBAR
 ========================= */
 
 function changeOpacity(value) {
@@ -1531,7 +1530,7 @@ document.documentElement
 .style
 .setProperty(
 "--blur",
-value + "px"
+value+"px"
 );
 
 localStorage.setItem(
