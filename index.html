@@ -7,24 +7,13 @@
 <title>Nova</title>
 
 <style>
-
-/* =========================
-   NOVA VARIABLES
-========================= */
-
 :root {
     --accent: #8b5cf6;
     --accent2: #a78bfa;
     --bg: #05050b;
     --text: #ffffff;
     --muted: rgba(255,255,255,.55);
-    --glass: rgba(12,12,22,.48);
 }
-
-
-/* =========================
-   RESET
-========================= */
 
 * {
     box-sizing: border-box;
@@ -39,16 +28,15 @@ body {
 
 body {
     overflow: hidden;
+    color: var(--text);
 
     font-family:
         "Trebuchet MS",
         Arial,
         sans-serif;
 
-    color: var(--text);
     background: var(--bg);
 }
-
 
 /* =========================
    MOVING BACKGROUND
@@ -69,186 +57,121 @@ body {
         #05050b;
 }
 
-
-/* BIG ORBS */
-
 .orb {
     position: absolute;
-
     border-radius: 50%;
-
     filter: blur(80px);
-
     opacity: .30;
-
     pointer-events: none;
 }
-
-
-/* ORB 1 */
 
 .orb1 {
     width: 550px;
     height: 550px;
-
     left: -180px;
     top: -180px;
-
     background: var(--accent);
 
     animation:
         moveOne 18s ease-in-out infinite;
 }
 
-
-/* ORB 2 */
-
 .orb2 {
     width: 500px;
     height: 500px;
-
     right: -180px;
     bottom: -180px;
-
     background: var(--accent2);
 
     animation:
         moveTwo 22s ease-in-out infinite;
 }
 
-
-/* ORB 3 */
-
 .orb3 {
     width: 350px;
     height: 350px;
-
     left: 45%;
     top: 15%;
-
     background: #4c1d95;
-
     opacity: .18;
 
     animation:
         moveThree 16s ease-in-out infinite;
 }
 
-
-/* ORB 4 */
-
 .orb4 {
     width: 280px;
     height: 280px;
-
     left: 20%;
     bottom: -100px;
-
     background: var(--accent);
-
     opacity: .16;
 
     animation:
         moveFour 20s ease-in-out infinite;
 }
 
-
-/* ORB 5 */
-
 .orb5 {
     width: 260px;
     height: 260px;
-
     right: 20%;
     top: -100px;
-
     background: var(--accent2);
-
     opacity: .12;
 
     animation:
         moveFive 25s ease-in-out infinite;
 }
 
-
-/* ORB ANIMATIONS */
-
 @keyframes moveOne {
-
     0%,100% {
-        transform:
-            translate(0,0)
-            scale(1);
+        transform: translate(0,0) scale(1);
     }
 
     50% {
-        transform:
-            translate(180px,120px)
-            scale(1.25);
+        transform: translate(180px,120px) scale(1.25);
     }
 }
-
 
 @keyframes moveTwo {
-
     0%,100% {
-        transform:
-            translate(0,0)
-            scale(1);
+        transform: translate(0,0) scale(1);
     }
 
     50% {
-        transform:
-            translate(-180px,-130px)
-            scale(1.2);
+        transform: translate(-180px,-130px) scale(1.2);
     }
 }
-
 
 @keyframes moveThree {
-
     0%,100% {
-        transform:
-            translate(0,0);
+        transform: translate(0,0);
     }
 
     50% {
-        transform:
-            translate(150px,180px)
-            scale(1.25);
+        transform: translate(150px,180px) scale(1.25);
     }
 }
-
 
 @keyframes moveFour {
-
     0%,100% {
-        transform:
-            translate(0,0);
+        transform: translate(0,0);
     }
 
     50% {
-        transform:
-            translate(220px,-180px)
-            scale(1.3);
+        transform: translate(220px,-180px) scale(1.3);
     }
 }
-
 
 @keyframes moveFive {
-
     0%,100% {
-        transform:
-            translate(0,0);
+        transform: translate(0,0);
     }
 
     50% {
-        transform:
-            translate(-200px,180px)
-            scale(1.2);
+        transform: translate(-200px,180px) scale(1.2);
     }
 }
-
 
 /* =========================
    PARTICLES
@@ -276,18 +199,14 @@ body {
 }
 
 @keyframes particleMove {
-
     from {
-        transform:
-            translateY(110vh);
+        transform: translateY(110vh);
     }
 
     to {
-        transform:
-            translateY(-20vh);
+        transform: translateY(-20vh);
     }
 }
-
 
 /* =========================
    APP
@@ -296,17 +215,14 @@ body {
 .app {
     width: 100%;
     height: 100%;
-
     display: flex;
 }
-
 
 /* =========================
    SIDEBAR
 ========================= */
 
 .sidebar {
-
     width: 82px;
 
     height:
@@ -317,9 +233,7 @@ body {
     padding: 12px 9px;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
 
     background:
@@ -331,29 +245,23 @@ body {
 
     border-radius: 25px;
 
-    backdrop-filter:
-        blur(22px);
-
-    -webkit-backdrop-filter:
-        blur(22px);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
 
     box-shadow:
         0 20px 70px
         rgba(0,0,0,.35);
 }
 
-
 /* =========================
-   NOVA LOGO
+   LOGO
 ========================= */
 
 .logo {
-
     width: 50px;
     height: 50px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
@@ -368,26 +276,19 @@ body {
 
     box-shadow:
         0 0 28px
-        color-mix(
-            in srgb,
-            var(--accent) 45%,
-            transparent
-        );
+        rgba(139,92,246,.35);
 
     font-size: 24px;
 
     margin-bottom: 12px;
 }
 
-
 /* =========================
    SIDEBAR CLOCK
 ========================= */
 
 .side-clock {
-
     text-align: center;
-
     margin-bottom: 16px;
 
     font-family:
@@ -396,57 +297,42 @@ body {
 }
 
 .side-time {
-
     font-size: 12px;
-
     font-weight: bold;
-
     letter-spacing: 1px;
-
     color: var(--accent2);
 }
 
 .side-ampm {
-
     font-size: 8px;
-
     color: var(--muted);
-
     margin-top: 2px;
 }
-
 
 /* =========================
    SIDEBAR BUTTONS
 ========================= */
 
 .sidebar-buttons {
-
     width: 100%;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
 
     gap: 9px;
 }
 
-
 .sidebar-button {
-
     position: relative;
 
     width: 50px;
     height: 50px;
 
     border: 0;
-
     border-radius: 16px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
@@ -462,65 +348,43 @@ body {
     font-size: 20px;
 }
 
-
 .sidebar-button:hover {
-
     transform:
         translateY(-2px)
         scale(1.06);
 
     background:
-        color-mix(
-            in srgb,
-            var(--accent) 25%,
-            transparent
-        );
+        rgba(139,92,246,.25);
 }
 
-
 .sidebar-button.active {
-
     background:
-        color-mix(
-            in srgb,
-            var(--accent) 35%,
-            transparent
-        );
+        rgba(139,92,246,.35);
 
     box-shadow:
         0 0 18px
-        color-mix(
-            in srgb,
-            var(--accent) 20%,
-            transparent
-        );
+        rgba(139,92,246,.20);
 }
-
 
 /* =========================
    TOOLTIP
 ========================= */
 
 .sidebar-button::after {
-
-    content:
-        attr(data-label);
+    content: attr(data-label);
 
     position: absolute;
 
     left: 64px;
-
     top: 50%;
 
     transform:
         translateY(-50%)
         translateX(-5px);
 
-    padding:
-        7px 10px;
+    padding: 7px 10px;
 
-    border-radius:
-        8px;
+    border-radius: 8px;
 
     background:
         rgba(4,4,9,.95);
@@ -540,9 +404,7 @@ body {
     z-index: 100;
 }
 
-
 .sidebar-button:hover::after {
-
     opacity: 1;
 
     transform:
@@ -550,15 +412,12 @@ body {
         translateX(0);
 }
 
-
 /* =========================
    DIVIDER
 ========================= */
 
 .sidebar-divider {
-
     width: 45px;
-
     height: 1px;
 
     margin:
@@ -573,21 +432,16 @@ body {
         );
 }
 
-
 /* =========================
    MAIN
 ========================= */
 
 .main {
-
     flex: 1;
-
     height: 100%;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     text-align: center;
@@ -595,29 +449,22 @@ body {
     padding: 30px;
 }
 
-
 /* =========================
    CENTER
 ========================= */
 
 .center {
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
 }
-
 
 /* =========================
    WELCOME
 ========================= */
 
 .welcome-small {
-
     color: var(--muted);
 
     font-size: 14px;
@@ -629,17 +476,11 @@ body {
     margin-bottom: 10px;
 }
 
-
 .welcome {
-
     margin: 0;
 
     font-size:
-        clamp(
-            52px,
-            9vw,
-            105px
-        );
+        clamp(52px,9vw,105px);
 
     font-weight: 700;
 
@@ -648,27 +489,35 @@ body {
     line-height: .95;
 }
 
-
-.welcome span {
+#welcomeWord {
+    display: inline-block;
 
     color: var(--accent2);
 
     text-shadow:
         0 0 35px
-        color-mix(
-            in srgb,
-            var(--accent) 40%,
-            transparent
-        );
+        rgba(139,92,246,.40);
+
+    transition:
+        opacity .5s ease,
+        transform .5s ease;
 }
 
+#welcomeWord.fade-out {
+    opacity: 0;
+    transform: translateY(8px);
+}
+
+#welcomeWord.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 /* =========================
    DIGITAL CLOCK
 ========================= */
 
 .big-clock {
-
     margin-top: 30px;
 
     font-family:
@@ -676,11 +525,7 @@ body {
         monospace;
 
     font-size:
-        clamp(
-            38px,
-            6vw,
-            68px
-        );
+        clamp(38px,6vw,68px);
 
     font-weight: bold;
 
@@ -690,16 +535,10 @@ body {
 
     text-shadow:
         0 0 20px
-        color-mix(
-            in srgb,
-            var(--accent) 45%,
-            transparent
-        );
+        rgba(139,92,246,.45);
 }
 
-
 .big-date {
-
     margin-top: 8px;
 
     color: var(--muted);
@@ -709,13 +548,11 @@ body {
     letter-spacing: 2px;
 }
 
-
 /* =========================
    LINE
 ========================= */
 
 .center-line {
-
     width:
         min(330px,70vw);
 
@@ -734,17 +571,14 @@ body {
     opacity: .5;
 }
 
-
 /* =========================
    NO ANIMATION
 ========================= */
 
 .no-animation .orb,
 .no-animation .particle {
-
     animation: none !important;
 }
-
 
 /* =========================
    MOBILE
@@ -753,81 +587,61 @@ body {
 @media(max-width:700px) {
 
     .sidebar {
-
         width: 65px;
-
         margin: 9px;
 
         height:
             calc(100% - 18px);
-
     }
 
     .logo {
-
         width: 43px;
         height: 43px;
-
         font-size: 20px;
     }
 
     .sidebar-button {
-
         width: 43px;
         height: 43px;
-
         font-size: 18px;
     }
 
     .sidebar-button::after {
-
         display: none;
     }
 
     .side-clock {
-
         margin-bottom: 12px;
     }
 
     .side-time {
-
         font-size: 9px;
     }
 
     .welcome-small {
-
         font-size: 10px;
-
         letter-spacing: 3px;
     }
 
     .welcome {
-
         font-size: 53px;
-
         letter-spacing: -3px;
     }
 
     .big-clock {
-
         font-size: 30px;
-
         letter-spacing: 3px;
     }
 
     .big-date {
-
         font-size: 10px;
     }
-
 }
 
 </style>
 </head>
 
-
 <body>
-
 
 <!-- =========================
      BACKGROUND
@@ -848,13 +662,11 @@ body {
 
 </div>
 
-
 <!-- =========================
      APP
 ========================= -->
 
 <div class="app">
-
 
 <!-- =========================
      SIDEBAR
@@ -862,114 +674,82 @@ body {
 
 <aside class="sidebar">
 
-
-<div class="logo">
-    ✦
-</div>
-
-
-<!-- SMALL CLOCK -->
-
-<div class="side-clock">
-
-    <div
-        class="side-time"
-        id="sideTime">
-        00:00
+    <div class="logo">
+        ✦
     </div>
 
-    <div
-        class="side-ampm"
-        id="sideAmpm">
-        AM
+    <div class="side-clock">
+
+        <div
+            class="side-time"
+            id="sideTime">
+            00:00
+        </div>
+
+        <div
+            class="side-ampm"
+            id="sideAmpm">
+            AM
+        </div>
+
     </div>
 
-</div>
+    <div class="sidebar-buttons">
 
+        <button
+            class="sidebar-button active"
+            data-label="Home"
+            onclick="location.href='index.html'">
+            🏠
+        </button>
 
-<div class="sidebar-buttons">
+        <button
+            class="sidebar-button"
+            data-label="Games"
+            onclick="location.href='games.html'">
+            🎮
+        </button>
 
+        <button
+            class="sidebar-button"
+            data-label="Music"
+            onclick="location.href='music.html'">
+            🎵
+        </button>
 
-<button
-    class="sidebar-button active"
-    data-label="Home"
-    onclick="location.href='index.html'">
+        <button
+            class="sidebar-button"
+            data-label="Chat"
+            onclick="location.href='chat.html'">
+            💬
+        </button>
 
-    🏠
+        <button
+            class="sidebar-button"
+            data-label="Nova AI"
+            onclick="location.href='Nova.html'">
+            🤖
+        </button>
 
-</button>
+        <button
+            class="sidebar-button"
+            data-label="Google"
+            onclick="window.open('https://www.google.com','_blank')">
+            G
+        </button>
 
+    </div>
 
-<button
-    class="sidebar-button"
-    data-label="Games"
-    onclick="location.href='games.html'">
+    <div class="sidebar-divider"></div>
 
-    🎮
-
-</button>
-
-
-<button
-    class="sidebar-button"
-    data-label="Music"
-    onclick="location.href='music.html'">
-
-    🎵
-
-</button>
-
-
-<button
-    class="sidebar-button"
-    data-label="Chat"
-    onclick="location.href='chat.html'">
-
-    💬
-
-</button>
-
-
-<button
-    class="sidebar-button"
-    data-label="Nova AI"
-    onclick="location.href='Nova.html'">
-
-    🤖
-
-</button>
-
-
-<button
-    class="sidebar-button"
-    data-label="Google"
-    onclick="window.open('https://www.google.com','_blank')">
-
-    G
-
-</button>
-
-
-</div>
-
-
-<!-- DIVIDER -->
-
-<div class="sidebar-divider"></div>
-
-
-<button
-    class="sidebar-button"
-    data-label="Settings"
-    onclick="location.href='settings.html'">
-
-    ⚙️
-
-</button>
-
+    <button
+        class="sidebar-button"
+        data-label="Settings"
+        onclick="location.href='settings.html'">
+        ⚙️
+    </button>
 
 </aside>
-
 
 <!-- =========================
      MAIN
@@ -977,43 +757,37 @@ body {
 
 <main class="main">
 
-<div class="center">
+    <div class="center">
 
+        <div class="welcome-small">
+            Welcome to
+        </div>
 
-<div class="welcome-small">
-    Welcome to
-</div>
+        <h1 class="welcome">
+            <span id="welcomeWord">
+                Nova
+            </span>
+        </h1>
 
+        <div
+            class="big-clock"
+            id="bigClock">
+            00:00:00
+        </div>
 
-<h1 class="welcome">
-    <span>Nova</span>
-</h1>
+        <div
+            class="big-date"
+            id="bigDate">
+            Loading...
+        </div>
 
+        <div class="center-line"></div>
 
-<div
-    class="big-clock"
-    id="bigClock">
-    00:00:00
-</div>
-
-
-<div
-    class="big-date"
-    id="bigDate">
-    Loading...
-</div>
-
-
-<div class="center-line"></div>
-
-
-</div>
+    </div>
 
 </main>
 
-
 </div>
-
 
 <script>
 
@@ -1025,8 +799,7 @@ function updateClock() {
 
     const now = new Date();
 
-    let hours =
-        now.getHours();
+    let hours = now.getHours();
 
     const minutes =
         String(
@@ -1048,26 +821,22 @@ function updateClock() {
 
     hours =
         String(hours)
-            .padStart(2,"0");
-
+        .padStart(2,"0");
 
     document.getElementById(
         "bigClock"
     ).textContent =
         `${hours}:${minutes}:${seconds}`;
 
-
     document.getElementById(
         "sideTime"
     ).textContent =
         `${hours}:${minutes}`;
 
-
     document.getElementById(
         "sideAmpm"
     ).textContent =
         ampm;
-
 
     document.getElementById(
         "bigDate"
@@ -1081,8 +850,86 @@ function updateClock() {
                 year:"numeric"
             }
         );
-
 }
+
+updateClock();
+
+setInterval(
+    updateClock,
+    1000
+);
+
+
+/* =========================
+   WELCOME WORDS
+========================= */
+
+const welcomeWords = [
+
+    "Nova",
+    "Home",
+    "Happiness",
+    "Freedom",
+    "Peace",
+    "Adventure",
+    "Possibility",
+    "Creativity",
+    "Dreams",
+    "Discovery",
+    "Joy",
+    "Wonder"
+
+];
+
+let welcomeIndex = 0;
+
+const welcomeWord =
+    document.getElementById(
+        "welcomeWord"
+    );
+
+
+function changeWelcomeWord() {
+
+    welcomeWord.classList.add(
+        "fade-out"
+    );
+
+    setTimeout(() => {
+
+        welcomeIndex =
+            (welcomeIndex + 1)
+            % welcomeWords.length;
+
+        welcomeWord.textContent =
+            welcomeWords[
+                welcomeIndex
+            ];
+
+        welcomeWord.classList.remove(
+            "fade-out"
+        );
+
+        welcomeWord.classList.add(
+            "fade-in"
+        );
+
+        setTimeout(() => {
+
+            welcomeWord.classList.remove(
+                "fade-in"
+            );
+
+        },500);
+
+    },500);
+}
+
+
+setInterval(
+    changeWelcomeWord,
+    3500
+);
 
 
 /* =========================
@@ -1096,7 +943,6 @@ function createParticles() {
             "particles"
         );
 
-
     for (
         let i = 0;
         i < 45;
@@ -1108,36 +954,31 @@ function createParticles() {
                 "div"
             );
 
-
         particle.className =
             "particle";
-
 
         particle.style.left =
             Math.random() * 100 + "%";
 
-
         particle.style.animationDuration =
-            (8 + Math.random() * 18)
-            + "s";
-
+            (
+                8 +
+                Math.random() * 18
+            ) + "s";
 
         particle.style.animationDelay =
-            (-Math.random() * 20)
-            + "s";
-
+            (
+                -Math.random() * 20
+            ) + "s";
 
         particle.style.opacity =
             .1 +
             Math.random() * .4;
 
-
         container.appendChild(
             particle
         );
-
     }
-
 }
 
 
@@ -1152,21 +993,14 @@ function loadSettings() {
             "novaAccent"
         );
 
-
     const animation =
         localStorage.getItem(
             "novaAnimations"
         );
 
-
     if (accent) {
-
-        applyAccent(
-            accent
-        );
-
+        applyAccent(accent);
     }
-
 
     if (
         animation === "off"
@@ -1175,15 +1009,11 @@ function loadSettings() {
         document.body.classList.add(
             "no-animation"
         );
-
     }
-
 }
 
 
-function applyAccent(
-    color
-) {
+function applyAccent(color) {
 
     const colors = {
 
@@ -1224,11 +1054,9 @@ function applyAccent(
 
     };
 
-
     const selected =
         colors[color] ||
         colors.purple;
-
 
     document.documentElement.style
         .setProperty(
@@ -1236,13 +1064,11 @@ function applyAccent(
             selected[0]
         );
 
-
     document.documentElement.style
         .setProperty(
             "--accent2",
             selected[1]
         );
-
 }
 
 
@@ -1254,15 +1080,7 @@ createParticles();
 
 loadSettings();
 
-updateClock();
-
-setInterval(
-    updateClock,
-    1000
-);
-
 </script>
-
 
 </body>
 </html>
