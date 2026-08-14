@@ -1,651 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nova Browser</title>
 
 <style>
-
 * {
     box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
+    margin: 0;
     width: 100%;
     height: 100%;
-    margin: 0;
 }
 
 body {
-    background: #111318;
+    background: #202124;
     color: white;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    font-family: Arial, sans-serif;
     overflow: hidden;
 }
 
-
-/* =========================
-   TOP BAR
-========================= */
-
 .browser {
-
     width: 100%;
     height: 100%;
-
     display: flex;
     flex-direction: column;
 }
 
+/* Tabs */
 
-/* =========================
-   TOOLBAR
-========================= */
+.tabs {
+    height: 42px;
+    background: #171717;
+    display: flex;
+    align-items: flex-end;
+    padding-left: 8px;
+    gap: 4px;
+}
+
+.tab {
+    height: 36px;
+    min-width: 150px;
+    max-width: 220px;
+    padding: 0 12px;
+    border-radius: 10px 10px 0 0;
+    background: #2b2b2b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+.tab.active {
+    background: #303134;
+}
+
+.tab-close {
+    margin-left: 10px;
+    cursor: pointer;
+    opacity: .7;
+}
+
+.new-tab {
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.new-tab:hover {
+    background: #303134;
+}
+
+/* Toolbar */
 
 .toolbar {
-
     height: 58px;
-
+    background: #303134;
     display: flex;
     align-items: center;
-
     gap: 8px;
-
     padding: 8px 12px;
-
-    background: #1b1e24;
-
-    border-bottom:
-        1px solid
-        #30343d;
 }
 
-
-/* =========================
-   BUTTONS
-========================= */
-
-.tool-button {
-
+.tool {
     width: 38px;
     height: 38px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background: #282c34;
-
-    color: #ffffff;
-
-    font-size: 18px;
-
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: white;
+    font-size: 19px;
     cursor: pointer;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
 }
 
-.tool-button:hover {
-
-    background: #353a45;
+.tool:hover {
+    background: #414247;
 }
-
-
-/* =========================
-   ADDRESS BAR
-========================= */
 
 .address {
-
     flex: 1;
-
-    height: 38px;
-
-    padding:
-        0 14px;
-
-    border:
-        1px solid
-        #363b45;
-
-    border-radius: 12px;
-
+    height: 40px;
+    border: 0;
     outline: none;
-
-    background: #111318;
-
+    border-radius: 20px;
+    padding: 0 18px;
+    background: #202124;
     color: white;
-
     font-size: 14px;
 }
 
 .address:focus {
-
-    border-color:
-        #8b5cf6;
+    background: #171717;
 }
 
-
-/* =========================
-   PAGE
-========================= */
+/* Page */
 
 .page {
-
     flex: 1;
-
-    background: white;
-
-    position: relative;
+    background: #ffffff;
+    color: #202124;
+    overflow: auto;
 }
-
-
-/* =========================
-   IFRAME
-========================= */
-
-iframe {
-
-    width: 100%;
-    height: 100%;
-
-    border: none;
-
-    background: white;
-}
-
-
-/* =========================
-   HOME PAGE
-========================= */
 
 .home {
-
-    position: absolute;
-
-    inset: 0;
-
+    min-height: 100%;
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
-    background:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(139,92,246,.20),
-            transparent 35%
-        ),
-
-        radial-gradient(
-            circle at 80% 80%,
-            rgba(59,130,246,.15),
-            transparent 35%
-        ),
-
-        #ffffff;
-
-    color: #171717;
 }
 
-.home.hidden {
-
-    display: none;
+.logo {
+    font-size: 58px;
+    font-weight: bold;
+    letter-spacing: -4px;
 }
 
-.home h1 {
-
-    margin: 0;
-
-    font-size: 54px;
-
-    font-weight: 700;
-
-    letter-spacing: -3px;
-}
-
-.home h1 span {
-
+.logo span {
     color: #8b5cf6;
 }
 
-.home p {
-
-    margin-top: 8px;
-
+.subtitle {
     color: #666;
-
-    font-size: 14px;
+    margin-top: 8px;
 }
 
-
-/* =========================
-   SEARCH
-========================= */
-
-.search-box {
-
-    width:
-        min(600px,80%);
-
-    height: 48px;
-
+.search {
     margin-top: 25px;
-
+    width: min(600px, 85%);
+    height: 48px;
     display: flex;
-
-    border:
-        1px solid
-        #ddd;
-
-    border-radius: 15px;
-
+    border: 1px solid #ddd;
+    border-radius: 24px;
     overflow: hidden;
-
-    box-shadow:
-        0 8px 30px
-        rgba(0,0,0,.08);
 }
 
-.search-box input {
-
+.search input {
     flex: 1;
-
-    border: none;
-
-    outline: none;
-
-    padding:
-        0 16px;
-
+    border: 0;
+    outline: 0;
+    padding: 0 18px;
     font-size: 15px;
 }
 
-.search-box button {
-
-    width: 90px;
-
-    border: none;
-
+.search button {
+    width: 100px;
+    border: 0;
     background: #8b5cf6;
-
     color: white;
-
-    font-weight: 600;
-
     cursor: pointer;
+    font-weight: bold;
 }
 
-.search-box button:hover {
-
-    background: #7c3aed;
+.message {
+    margin-top: 25px;
+    color: #777;
+    font-size: 13px;
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="browser">
 
+    <div class="tabs">
 
-<!-- =========================
-     TOOLBAR
-========================= -->
-
-<div class="toolbar">
-
-
-    <button
-        class="tool-button"
-        onclick="goBack()"
-        title="Back">
-
-        ←
-
-    </button>
-
-
-    <button
-        class="tool-button"
-        onclick="goForward()"
-        title="Forward">
-
-        →
-
-    </button>
-
-
-    <button
-        class="tool-button"
-        onclick="reloadPage()"
-        title="Refresh">
-
-        ↻
-
-    </button>
-
-
-    <button
-        class="tool-button"
-        onclick="goHome()"
-        title="Home">
-
-        ⌂
-
-    </button>
-
-
-    <input
-        class="address"
-        id="address"
-        type="text"
-        placeholder="Search Google or enter a URL"
-        autocomplete="off">
-
-
-</div>
-
-
-<!-- =========================
-     PAGE
-========================= -->
-
-<div class="page">
-
-
-    <!-- NOVA HOME -->
-
-    <div
-        class="home"
-        id="home">
-
-        <h1>
-            Nova<span>.</span>
-        </h1>
-
-        <p>
-            Search the web.
-        </p>
-
-
-        <div class="search-box">
-
-            <input
-                id="search"
-                type="text"
-                placeholder="Search Google">
-
-            <button
-                onclick="searchGoogle()">
-
-                Search
-
-            </button>
-
+        <div class="tab active">
+            <span>New Tab</span>
+            <span class="tab-close">×</span>
         </div>
+
+        <button class="new-tab" onclick="newTab()">+</button>
 
     </div>
 
+    <div class="toolbar">
 
-    <!-- WEB PAGE -->
+        <button class="tool" onclick="goBack()">←</button>
 
-    <iframe
-        id="frame"
-        style="display:none;">
-    </iframe>
+        <button class="tool" onclick="goForward()">→</button>
 
+        <button class="tool" onclick="refresh()">↻</button>
+
+        <button class="tool" onclick="home()">⌂</button>
+
+        <input
+            id="address"
+            class="address"
+            placeholder="Search Google or enter a URL"
+            autocomplete="off"
+        >
+
+    </div>
+
+    <main class="page">
+
+        <div class="home">
+
+            <div class="logo">
+                Nova<span>.</span>
+            </div>
+
+            <div class="subtitle">
+                Mini Browser
+            </div>
+
+            <div class="search">
+
+                <input
+                    id="search"
+                    placeholder="Search Google"
+                    autocomplete="off"
+                >
+
+                <button onclick="searchGoogle()">
+                    Search
+                </button>
+
+            </div>
+
+            <div class="message">
+                Browser shell loaded successfully.
+            </div>
+
+        </div>
+
+    </main>
 
 </div>
-
-</div>
-
 
 <script>
 
-
-/* =========================
-   ELEMENTS
-========================= */
-
 const address =
-    document.getElementById(
-        "address"
-    );
+    document.getElementById("address");
 
 const search =
-    document.getElementById(
-        "search"
-    );
-
-const home =
-    document.getElementById(
-        "home"
-    );
-
-const frame =
-    document.getElementById(
-        "frame"
-    );
-
-
-/* =========================
-   SEARCH
-========================= */
+    document.getElementById("search");
 
 function searchGoogle() {
 
-    const query =
-        search.value.trim();
+    const text = search.value.trim();
 
-    if (!query) {
-        return;
-    }
+    if (!text) return;
 
     const url =
         "https://www.google.com/search?q=" +
-        encodeURIComponent(query);
+        encodeURIComponent(text);
 
-    openPage(url);
+    window.open(url, "_blank");
 }
-
-
-/* =========================
-   ADDRESS BAR
-========================= */
 
 function navigate() {
 
-    let value =
-        address.value.trim();
+    const text = address.value.trim();
 
-    if (!value) {
-        return;
-    }
+    if (!text) return;
 
-
-    /*
-       If the user types something
-       that looks like a URL, open it.
-    */
+    let url;
 
     if (
-        value.startsWith("http://") ||
-        value.startsWith("https://")
+        text.startsWith("https://") ||
+        text.startsWith("http://")
     ) {
-
-        openPage(value);
-
-        return;
+        url = text;
+    } else {
+        url =
+            "https://www.google.com/search?q=" +
+            encodeURIComponent(text);
     }
 
-
-    /*
-       Otherwise search Google.
-    */
-
-    const url =
-        "https://www.google.com/search?q=" +
-        encodeURIComponent(value);
-
-    openPage(url);
+    window.open(url, "_blank");
 }
 
-
-/* =========================
-   OPEN PAGE
-========================= */
-
-function openPage(url) {
-
-    home.classList.add(
-        "hidden"
-    );
-
-    frame.style.display =
-        "block";
-
-    frame.src = url;
-
-    address.value = url;
-}
-
-
-/* =========================
-   ENTER KEY
-========================= */
-
-address.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Enter"
-        ) {
-
-            navigate();
-
-        }
-
-    }
-);
-
-
-search.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Enter"
-        ) {
-
-            searchGoogle();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   HOME
-========================= */
-
-function goHome() {
-
-    frame.style.display =
-        "none";
-
-    home.classList.remove(
-        "hidden"
-    );
+function home() {
 
     address.value = "";
 
     search.value = "";
 }
 
+function refresh() {
 
-/* =========================
-   REFRESH
-========================= */
-
-function reloadPage() {
-
-    if (
-        frame.style.display !==
-        "none"
-    ) {
-
-        frame.contentWindow.location.reload();
-
-    }
-
+    location.reload();
 }
-
-
-/* =========================
-   BACK
-========================= */
 
 function goBack() {
 
-    try {
-
-        frame.contentWindow.history.back();
-
-    } catch(error) {
-
-        console.log(error);
-
-    }
-
+    history.back();
 }
-
-
-/* =========================
-   FORWARD
-========================= */
 
 function goForward() {
 
-    try {
+    history.forward();
+}
 
-        frame.contentWindow.history.forward();
+function newTab() {
 
-    } catch(error) {
+    window.open(
+        window.location.href,
+        "_blank"
+    );
+}
 
-        console.log(error);
+address.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+            navigate();
+        }
 
     }
+);
 
-}
+search.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+            searchGoogle();
+        }
+
+    }
+);
 
 </script>
 
 </body>
-
 </html>
