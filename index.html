@@ -344,7 +344,7 @@ grid-template-columns:1fr;
 <button
 class="sidebar-button"
 data-label="Home"
-onclick="location.href='index.html'">
+onclick="redirectToHome()">
 
 🏠
 
@@ -540,6 +540,7 @@ onclick="playGame(
 <p>Strategy card game.</p>
 
 </div>
+
 
 
 </div>
@@ -846,6 +847,22 @@ game.style.display =
 
 </script>
 
+<!-- Inline HTML helper for Home navigation -->
+<script>
+if (!window.redirectToHome) {
+  window.redirectToHome = function () {
+    try {
+      const path = window.location.pathname.replace(/\/\/+$/, "");
+      const idx = path.lastIndexOf('/');
+      const base = idx > 0 ? path.substring(0, idx + 1) : '/';
+      const target = window.location.origin + base + 'index.html';
+      window.location.href = target;
+    } catch (e) {
+      window.location.href = './index.html';
+    }
+  };
+}
+</script>
 
 </body>
 
