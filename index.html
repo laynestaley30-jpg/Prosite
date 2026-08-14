@@ -96,8 +96,9 @@ body::before{
     align-items:center;
     justify-content:center;
     cursor:pointer;
-    transition:transform .28s cubic-bezier(.2,.8,.2,1),
-               background .25s ease;
+    transition:
+        transform .28s cubic-bezier(.2,.8,.2,1),
+        background .25s ease;
 }
 
 .nav-item:hover{
@@ -144,7 +145,9 @@ body::before{
     display:flex;
     align-items:center;
     justify-content:center;
-    transition:transform .28s ease,box-shadow .25s ease;
+    transition:
+        transform .28s ease,
+        box-shadow .25s ease;
 }
 
 .nav-item:hover .icon-box{
@@ -157,6 +160,8 @@ body::before{
     display:block;
 }
 
+/* HOME / SETTINGS */
+
 .smart-icon{
     color:var(--accent);
     background:rgba(var(--accent-rgb),.14);
@@ -166,15 +171,34 @@ body::before{
     fill:currentColor;
 }
 
-/* NORMAL BRAND COLORS */
+/* STEAM */
+
+.games-icon{
+    color:#ffffff;
+    background:rgba(255,255,255,.10);
+}
+
+.games-icon .svg-icon{
+    fill:none;
+}
+
+/* SPOTIFY */
 
 .spotify-icon{
     background:rgba(29,185,84,.13);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .spotify-icon .svg-icon{
+    width:23px;
+    height:23px;
     fill:#1DB954;
+    transform:translate(0,0);
 }
+
+/* DISCORD */
 
 .discord-icon{
     background:rgba(88,101,242,.14);
@@ -184,13 +208,7 @@ body::before{
     fill:#5865F2;
 }
 
-.games-icon{
-    background:rgba(255,255,255,.10);
-}
-
-.games-icon .svg-icon{
-    fill:white;
-}
+/* GOOGLE */
 
 .google-icon{
     background:rgba(255,255,255,.10);
@@ -210,6 +228,18 @@ body.smart-colors .brand-icon{
 
 body.smart-colors .brand-icon .svg-icon{
     fill:currentColor;
+}
+
+body.smart-colors .games-icon .svg-icon{
+    fill:none;
+}
+
+body.smart-colors .games-icon .svg-icon circle{
+    stroke:currentColor;
+}
+
+body.smart-colors .games-icon .svg-icon path{
+    stroke:currentColor;
 }
 
 body.smart-colors .google-icon .svg-icon path{
@@ -241,7 +271,9 @@ body.smart-colors .google-icon .svg-icon path{
     opacity:0;
     visibility:hidden;
     transform:translateY(10px);
-    transition:opacity .3s ease,transform .3s ease;
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
     overflow-y:auto;
 }
 
@@ -269,12 +301,13 @@ body.smart-colors .google-icon .svg-icon path{
 
 .welcome span{
     color:var(--accent);
-    text-shadow:0 0 35px rgba(var(--accent-rgb),.35);
+    text-shadow:
+        0 0 35px rgba(var(--accent-rgb),.35);
 }
 
 .clock{
     margin-top:2px;
-    font-size:clamp(44px,6vw,70px);
+    font-size:clamp(40px,5vw,62px);
     font-weight:400;
     letter-spacing:2px;
 }
@@ -291,7 +324,8 @@ body.smart-colors .google-icon .svg-icon path{
     width:min(900px,100%);
     margin-top:40px;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    grid-template-columns:
+        repeat(auto-fit,minmax(180px,1fr));
     gap:17px;
 }
 
@@ -301,7 +335,9 @@ body.smart-colors .google-icon .svg-icon path{
     border:1px solid rgba(255,255,255,.1);
     border-radius:18px;
     backdrop-filter:blur(12px);
-    transition:transform .25s ease,border-color .25s ease;
+    transition:
+        transform .25s ease,
+        border-color .25s ease;
 }
 
 .card:hover{
@@ -343,7 +379,8 @@ body.smart-colors .google-icon .svg-icon path{
 
 .setting{
     padding:20px 0;
-    border-bottom:1px solid rgba(255,255,255,.08);
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
 }
 
 .setting:last-child{
@@ -386,7 +423,9 @@ input[type=color]{
     color:white;
     font-family:var(--font);
     cursor:pointer;
-    transition:transform .2s ease,filter .2s ease;
+    transition:
+        transform .2s ease,
+        filter .2s ease;
 }
 
 .action:hover{
@@ -398,7 +437,8 @@ input[type=color]{
 
 .theme-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+    grid-template-columns:
+        repeat(auto-fit,minmax(100px,1fr));
     gap:10px;
 }
 
@@ -416,20 +456,45 @@ input[type=color]{
     transform:translateY(-3px);
 }
 
-.theme-purple{background:linear-gradient(135deg,#7b4dff,#b04cff)}
-.theme-green{background:linear-gradient(135deg,#00a86b,#45e39b)}
-.theme-blue{background:linear-gradient(135deg,#1677ff,#39c5ff)}
-.theme-red{background:linear-gradient(135deg,#d92950,#ff704d)}
-.theme-orange{background:linear-gradient(135deg,#e76f00,#ffbd45)}
-.theme-pink{background:linear-gradient(135deg,#d84cff,#ff72b7)}
-.theme-cyan{background:linear-gradient(135deg,#00a6a6,#49efff)}
-.theme-white{background:linear-gradient(135deg,#aaa,#fff);color:#111}
+.theme-purple{
+    background:linear-gradient(135deg,#7b4dff,#b04cff);
+}
+
+.theme-green{
+    background:linear-gradient(135deg,#00a86b,#45e39b);
+}
+
+.theme-blue{
+    background:linear-gradient(135deg,#1677ff,#39c5ff);
+}
+
+.theme-red{
+    background:linear-gradient(135deg,#d92950,#ff704d);
+}
+
+.theme-orange{
+    background:linear-gradient(135deg,#e76f00,#ffbd45);
+}
+
+.theme-pink{
+    background:linear-gradient(135deg,#d84cff,#ff72b7);
+}
+
+.theme-cyan{
+    background:linear-gradient(135deg,#00a6a6,#49efff);
+}
+
+.theme-white{
+    background:linear-gradient(135deg,#aaa,#fff);
+    color:#111;
+}
 
 /* BACKGROUNDS */
 
 .background-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    grid-template-columns:
+        repeat(auto-fit,minmax(140px,1fr));
     gap:12px;
 }
 
@@ -440,7 +505,9 @@ input[type=color]{
     color:white;
     font-family:var(--font);
     cursor:pointer;
-    transition:transform .25s ease,border .25s ease;
+    transition:
+        transform .25s ease,
+        border .25s ease;
 }
 
 .background-button:hover{
@@ -449,53 +516,87 @@ input[type=color]{
 }
 
 .bg-space{
-    background:radial-gradient(circle at 20% 20%,#5131a8,transparent 40%),
-               radial-gradient(circle at 80% 80%,#6d1a80,transparent 40%),#070712;
+    background:
+        radial-gradient(circle at 20% 20%,#5131a8,transparent 40%),
+        radial-gradient(circle at 80% 80%,#6d1a80,transparent 40%),
+        #070712;
 }
 
 .bg-deep{
-    background:radial-gradient(circle at 70% 30%,#162858,transparent 35%),#02040c;
+    background:
+        radial-gradient(circle at 70% 30%,#162858,transparent 35%),
+        #02040c;
 }
 
 .bg-nebula{
-    background:radial-gradient(circle at 20% 30%,#812f92,transparent 35%),
-               radial-gradient(circle at 80% 70%,#263c99,transparent 40%),#090614;
+    background:
+        radial-gradient(circle at 20% 30%,#812f92,transparent 35%),
+        radial-gradient(circle at 80% 70%,#263c99,transparent 40%),
+        #090614;
 }
 
 .bg-stars{
     background:#05050d;
-    background-image:radial-gradient(white 1px,transparent 1px);
+    background-image:
+        radial-gradient(white 1px,transparent 1px);
     background-size:35px 35px;
     animation:stars 12s linear infinite;
 }
 
 @keyframes stars{
-    from{background-position:0 0}
-    to{background-position:350px 350px}
+    from{
+        background-position:0 0;
+    }
+
+    to{
+        background-position:350px 350px;
+    }
 }
 
 .bg-moving{
-    background:radial-gradient(circle at 20% 50%,#702c9b,transparent 35%),
-               radial-gradient(circle at 80% 50%,#214f9c,transparent 35%),#080611;
+    background:
+        radial-gradient(circle at 20% 50%,#702c9b,transparent 35%),
+        radial-gradient(circle at 80% 50%,#214f9c,transparent 35%),
+        #080611;
     background-size:200% 200%;
     animation:nebula 15s ease-in-out infinite alternate;
 }
 
 @keyframes nebula{
-    from{background-position:0% 50%}
-    to{background-position:100% 50%}
+    from{
+        background-position:0% 50%;
+    }
+
+    to{
+        background-position:100% 50%;
+    }
 }
 
 .bg-aurora{
-    background:linear-gradient(120deg,#061c24,#123e3a,#35144d,#06121c);
+    background:
+        linear-gradient(
+            120deg,
+            #061c24,
+            #123e3a,
+            #35144d,
+            #06121c
+        );
     background-size:300% 300%;
     animation:aurora 12s ease infinite;
 }
 
 @keyframes aurora{
-    0%{background-position:0 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0 50%}
+    0%{
+        background-position:0 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0 50%;
+    }
 }
 
 /* PANIC */
@@ -512,7 +613,10 @@ input[type=color]{
     display:block;
 }
 
+/* MOBILE */
+
 @media(max-width:650px){
+
     .sidebar{
         left:8px;
         width:58px;
@@ -540,73 +644,297 @@ input[type=color]{
 
 <aside class="sidebar">
 
-<div class="side-time" id="sideTime">12:00 PM</div>
+<div class="side-time" id="sideTime">
+12:00 PM
+</div>
 
 <!-- HOME -->
-<button class="nav-item active" data-name="Home" onclick="showPage('home',this)">
+
+<button
+class="nav-item active"
+data-name="Home"
+onclick="showPage('home',this)">
+
 <span class="icon-box smart-icon">
+
 <svg viewBox="0 0 24 24" class="svg-icon">
-<path d="M3 11.5L12 4l9 7.5v8a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>
+<path d="
+M3 11.5
+L12 4
+L21 11.5
+V19.5
+A1 1 0 0 1 20 20.5
+H15
+V14.5
+H9
+V20.5
+H4
+A1 1 0 0 1 3 19.5
+Z"/>
+
 </svg>
+
 </span>
+
 </button>
 
-<!-- GAMES -->
-<button class="nav-item" data-name="Games" onclick="showPage('games',this)">
+
+<!-- GAMES / STEAM -->
+
+<button
+class="nav-item"
+data-name="Games"
+onclick="showPage('games',this)">
+
 <span class="icon-box brand-icon games-icon">
+
 <svg viewBox="0 0 24 24" class="svg-icon">
-<path d="M7 8h10c3.3 0 5.2 2.4 5.8 6.1.4 2.4-.5 4.1-2.1 4.1-1.3 0-2.1-1-3-2.1-.6-.7-1.2-1.1-2-1.1H8.3c-.8 0-1.4.4-2 1.1-.9 1.1-1.7 2.1-3 2.1-1.6 0-2.5-1.7-2.1-4.1C1.8 10.4 3.7 8 7 8z"/>
-<path d="M7 11v4M5 13h4"/>
-<circle cx="16.5" cy="12" r="1"/>
-<circle cx="19" cy="14" r="1"/>
+
+<circle
+cx="12"
+cy="12"
+r="9"
+stroke="currentColor"
+stroke-width="1.8"/>
+
+<circle
+cx="15.5"
+cy="8.5"
+r="2.4"
+fill="none"
+stroke="currentColor"
+stroke-width="1.7"/>
+
+<circle
+cx="15.5"
+cy="8.5"
+r=".8"
+fill="currentColor"/>
+
+<path
+d="M5 14.5L10.2 16.7"
+fill="none"
+stroke="currentColor"
+stroke-width="1.8"
+stroke-linecap="round"/>
+
+<circle
+cx="9.8"
+cy="17"
+r="2.1"
+fill="none"
+stroke="currentColor"
+stroke-width="1.7"/>
+
 </svg>
+
 </span>
+
 </button>
+
 
 <!-- SPOTIFY -->
-<button class="nav-item" data-name="Spotify" onclick="showPage('spotify',this)">
+
+<button
+class="nav-item"
+data-name="Spotify"
+onclick="showPage('spotify',this)">
+
 <span class="icon-box brand-icon spotify-icon">
+
 <svg viewBox="0 0 24 24" class="svg-icon">
-<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.6 14.6a.8.8 0 0 1-1.1.3c-3-1.8-6.8-2.2-11.3-1.2a.8.8 0 1 1-.4-1.6c4.9-1.1 9.1-.7 12.5 1.3.4.2.5.8.3 1.2zm1.5-3.1a1 1 0 0 1-1.3.4c-3.5-2.1-8.8-2.7-12.9-1.5a1 1 0 1 1-.6-1.9c4.7-1.4 10.5-.7 14.5 1.7.5.3.7.9.3 1.3zm.1-3.2c-4.2-2.5-11.2-2.7-15.2-1.5a1.2 1.2 0 1 1-.7-2.3c4.7-1.4 12.5-1.1 17.3 1.7a1.2 1.2 0 0 1-1.4 2.1z"/>
+
+<path d="
+M12 2
+A10 10 0 1 0 12 22
+A10 10 0 0 0 12 2
+ZM16.6 16.6
+A.8.8 0 0 1 15.5 16.9
+C12.5 15.1 8.7 14.7 4.2 15.7
+A.8.8 0 1 1 3.8 14.1
+C8.7 13 12.9 13.4 16.3 15.4
+C16.7 15.6 16.8 16.2 16.6 16.6
+
+ZM18.1 13.5
+A1 1 0 0 1 16.8 13.9
+C13.3 11.8 8 11.2 3.9 12.4
+A1 1 0 1 1 3.3 10.5
+C8 9.1 13.8 9.8 17.8 12.2
+C18.3 12.5 18.5 13.1 18.1 13.5
+
+ZM18.2 10.3
+C14 7.8 7 7.6 3 8.8
+A1.2 1.2 0 1 1 2.3 6.5
+C7 5.1 14.8 5.4 19.6 8.2
+A1.2 1.2 0 0 1 18.2 10.3Z"/>
+
 </svg>
+
 </span>
+
 </button>
+
 
 <!-- DISCORD -->
-<button class="nav-item" data-name="Discord" onclick="showPage('discord',this)">
+
+<button
+class="nav-item"
+data-name="Discord"
+onclick="showPage('discord',this)">
+
 <span class="icon-box brand-icon discord-icon">
+
 <svg viewBox="0 0 24 24" class="svg-icon">
-<path d="M19.5 5.4A16.2 16.2 0 0 0 15.6 4l-.5 1.1a14 14 0 0 0-6.2 0L8.4 4a16.2 16.2 0 0 0-3.9 1.4C2 9.1 1.3 12.7 1.7 16.2a16 16 0 0 0 4.8 2.4l1.2-1.7c-.7-.3-1.3-.7-1.9-1.1l.5-.4c3.7 1.7 7.6 1.7 11.3 0l.5.4c-.6.4-1.2.8-1.9 1.1l1.2 1.7a16 16 0 0 0 4.8-2.4c.5-4.1-.8-7.7-2.7-10.8zM8.7 14.2c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2z"/>
+
+<path d="
+M19.5 5.4
+A16.2 16.2 0 0 0 15.6 4
+L15.1 5.1
+A14 14 0 0 0 8.9 5.1
+L8.4 4
+A16.2 16.2 0 0 0 4.5 5.4
+C2 9.1 1.3 12.7 1.7 16.2
+A16 16 0 0 0 6.5 18.6
+L7.7 16.9
+C7 16.6 6.4 16.2 5.8 15.8
+L6.3 15.4
+C10 17.1 13.9 17.1 17.6 15.4
+L18.1 15.8
+C17.5 16.2 16.9 16.6 16.2 16.9
+L17.4 18.6
+A16 16 0 0 0 22.2 16.2
+C22.7 12.1 21.2 8.5 19.5 5.4ZM8.7 14.2
+C7.6 14.2 6.7 13.2 6.7 12
+S7.6 9.8 8.7 9.8
+S10.7 10.8 10.7 12
+S9.8 14.2 8.7 14.2ZM15.3 14.2
+C14.2 14.2 13.3 13.2 13.3 12
+S14.2 9.8 15.3 9.8
+S17.3 10.8 17.3 12
+S16.4 14.2 15.3 14.2Z"/>
+
 </svg>
+
 </span>
+
 </button>
 
+
 <!-- GOOGLE -->
-<button class="nav-item" data-name="Browser" onclick="showPage('browser',this)">
+
+<button
+class="nav-item"
+data-name="Browser"
+onclick="showPage('browser',this)">
+
 <span class="icon-box brand-icon google-icon">
+
 <svg viewBox="0 0 48 48" class="svg-icon">
-<path fill="#4285F4" d="M47.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h13.2c-.6 2.9-2.2 5.3-4.7 7v5.8h7.6c4.4-4.1 7.4-10.1 7.4-16.8z"/>
-<path fill="#34A853" d="M24 48c6.3 0 11.6-2.1 15.5-5.7l-7.6-5.8c-2.1 1.4-4.7 2.2-7.9 2.2-6.1 0-11.3-4.1-13.2-9.6H3v6C6.9 42.1 14.8 48 24 48z"/>
-<path fill="#FBBC05" d="M10.8 29.1A14.4 14.4 0 0 1 10 24c0-1.8.3-3.5.8-5.1v-6H3A24 24 0 0 0 0 24c0 3.9.9 7.6 3 11l7.8-5.9z"/>
-<path fill="#EA4335" d="M24 9.5c3.4 0 6.4 1.2 8.8 3.5l6.6-6.6C35.6 2.3 30.3 0 24 0 14.8 0 6.9 5.9 3 14.9l7.8 6C12.7 13.6 17.9 9.5 24 9.5z"/>
+
+<path
+fill="#4285F4"
+d="M47.5 24.5
+C47.5 22.9 47.4 21.4 47.1 20H24V28.5H37.2
+C36.6 31.4 35 33.8 32.5 35.5V41.3H40.1
+C44.5 37.2 47.5 31.2 47.5 24.5Z"/>
+
+<path
+fill="#34A853"
+d="M24 48
+C30.3 48 35.6 45.9 39.5 42.3L31.9 36.5
+C29.8 37.9 27.2 38.7 24 38.7
+C17.9 38.7 12.7 34.6 10.8 29.1H3V35.1
+C6.9 42.1 14.8 48 24 48Z"/>
+
+<path
+fill="#FBBC05"
+d="M10.8 29.1
+A14.4 14.4 0 0 1 10 24
+C10 22.2 10.3 20.5 10.8 18.9
+V12.9H3
+A24 24 0 0 0 0 24
+C0 27.9 .9 31.6 3 35
+L10.8 29.1Z"/>
+
+<path
+fill="#EA4335"
+d="M24 9.5
+C27.4 9.5 30.4 10.7 32.8 13
+L39.4 6.4
+C35.6 2.3 30.3 0 24 0
+C14.8 0 6.9 5.9 3 14.9
+L10.8 20.9
+C12.7 15.4 17.9 9.5 24 9.5Z"/>
+
 </svg>
+
 </span>
+
 </button>
+
 
 <div class="divider"></div>
 
+
 <!-- SETTINGS -->
-<button class="nav-item" data-name="Settings" onclick="showPage('settings',this)">
+
+<button
+class="nav-item"
+data-name="Settings"
+onclick="showPage('settings',this)">
+
 <span class="icon-box smart-icon">
+
 <svg viewBox="0 0 24 24" class="svg-icon">
-<path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm9 3.5l-2.1-.8a7.2 7.2 0 0 0-.7-1.7l.9-2.1-2-2-2.1.9a7.2 7.2 0 0 0-1.7-.7L12.5 3h-1l-.8 2.1a7.2 7.2 0 0 0-1.7.7l-2.1-.9-2 2 .9 2.1a7.2 7.2 0 0 0-.7 1.7L3 12v1l2.1.8c.2.6.4 1.2.7 1.7l-.9 2.1 2 2 2.1-.9c.5.3 1.1.5 1.7.7l.8 2.1h1l.8-2.1c.6-.2 1.2-.4 1.7-.7l2.1.9 2-2-.9-2.1c.3-.5.5-1.1.7-1.7L21 13v-1z"/>
+
+<path d="
+M12 8.5
+A3.5 3.5 0 1 0 12 15.5
+A3.5 3.5 0 0 0 12 8.5
+ZM21 12
+L18.9 11.2
+A7.2 7.2 0 0 0 18.2 9.5
+L19.1 7.4
+L17.1 5.4
+L15 6.3
+A7.2 7.2 0 0 0 13.3 5.6
+L12.5 3
+H11.5
+L10.7 5.6
+A7.2 7.2 0 0 0 9 6.3
+L6.9 5.4
+L4.9 7.4
+L5.8 9.5
+A7.2 7.2 0 0 0 5.1 11.2
+L3 12
+V13
+L5.1 13.8
+A7.2 7.2 0 0 0 5.8 15.5
+L4.9 17.6
+L6.9 19.6
+L9 18.7
+A7.2 7.2 0 0 0 10.7 19.4
+L11.5 22
+H12.5
+L13.3 19.4
+A7.2 7.2 0 0 0 15 18.7
+L17.1 19.6
+L19.1 17.6
+L18.2 15.5
+A7.2 7.2 0 0 0 18.9 13.8
+L21 13Z"/>
+
 </svg>
+
 </span>
+
 </button>
 
 </aside>
 
+
 <main class="content">
+
 
 <!-- HOME -->
 
@@ -651,7 +979,9 @@ Thursday, August 13
 </div>
 
 </div>
+
 </section>
+
 
 <!-- GAMES -->
 
@@ -680,7 +1010,9 @@ Thursday, August 13
 </div>
 
 </div>
+
 </section>
+
 
 <!-- SPOTIFY -->
 
@@ -699,7 +1031,9 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 </iframe>
 
 </div>
+
 </section>
+
 
 <!-- DISCORD -->
 
@@ -710,17 +1044,27 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 <div class="settings-panel">
 
 <h2>Discord</h2>
-<br>
-<p>Open Discord from Nova.</p>
+
 <br>
 
-<button class="action"
+<p>
+Open Discord from Nova.
+</p>
+
+<br>
+
+<button
+class="action"
 onclick="window.open('https://discord.com/app','_blank')">
+
 Open Discord
+
 </button>
 
 </div>
+
 </section>
+
 
 <!-- BROWSER -->
 
@@ -730,194 +1074,326 @@ Open Discord
 
 <div class="settings-panel">
 
-<p>Search the web.</p>
+<p>
+Search the web.
+</p>
+
 <br>
 
-<input id="searchInput"
-style="width:70%;padding:12px;background:#11111d;color:white;border:1px solid #333;border-radius:9px;"
+<input
+id="searchInput"
+style="
+width:70%;
+padding:12px;
+background:#11111d;
+color:white;
+border:1px solid #333;
+border-radius:9px;
+font-family:var(--font);
+"
 placeholder="Search the web...">
 
-<button class="action" onclick="searchWeb()">
+<button
+class="action"
+onclick="searchWeb()">
+
 Search
+
 </button>
 
 </div>
+
 </section>
+
 
 <!-- SETTINGS -->
 
 <section id="settings" class="page">
 
-<h1 class="page-title">⚙️ Settings</h1>
+<h1 class="page-title">
+⚙️ Settings
+</h1>
 
 <div class="settings-panel">
+
 
 <!-- FONT -->
 
 <div class="setting">
 
 <h3>Font</h3>
-<p>Change Nova's typeface.</p>
 
-<select id="fontSelector" onchange="changeFont()">
+<p>
+Change Nova's typeface.
+</p>
 
-<option value='"Space Grotesk",sans-serif'>Space Grotesk</option>
-<option value='"Outfit",sans-serif'>Outfit</option>
-<option value='"Manrope",sans-serif'>Manrope</option>
-<option value='"Urbanist",sans-serif'>Urbanist</option>
-<option value='"Sora",sans-serif'>Sora</option>
-<option value='"Rajdhani",sans-serif'>Rajdhani</option>
-<option value="Arial,sans-serif">Arial</option>
+<select
+id="fontSelector"
+onchange="changeFont()">
+
+<option value='"Space Grotesk",sans-serif'>
+Space Grotesk
+</option>
+
+<option value='"Outfit",sans-serif'>
+Outfit
+</option>
+
+<option value='"Manrope",sans-serif'>
+Manrope
+</option>
+
+<option value='"Urbanist",sans-serif'>
+Urbanist
+</option>
+
+<option value='"Sora",sans-serif'>
+Sora
+</option>
+
+<option value='"Rajdhani",sans-serif'>
+Rajdhani
+</option>
+
+<option value="Arial,sans-serif">
+Arial
+</option>
 
 </select>
 
 </div>
+
 
 <!-- THEME -->
 
 <div class="setting">
 
 <h3>Theme</h3>
-<p>Change Nova's accent color.</p>
+
+<p>
+Change Nova's accent color.
+</p>
 
 <div class="theme-grid">
 
-<button class="theme-button theme-purple" onclick="setTheme('#8b5cff','139,92,255')">Purple</button>
+<button
+class="theme-button theme-purple"
+onclick="setTheme('#8b5cff','139,92,255')">
+Purple
+</button>
 
-<button class="theme-button theme-green" onclick="setTheme('#19c77a','25,199,122')">Emerald</button>
+<button
+class="theme-button theme-green"
+onclick="setTheme('#19c77a','25,199,122')">
+Emerald
+</button>
 
-<button class="theme-button theme-blue" onclick="setTheme('#238cff','35,140,255')">Ocean</button>
+<button
+class="theme-button theme-blue"
+onclick="setTheme('#238cff','35,140,255')">
+Ocean
+</button>
 
-<button class="theme-button theme-red" onclick="setTheme('#ef3f5f','239,63,95')">Crimson</button>
+<button
+class="theme-button theme-red"
+onclick="setTheme('#ef3f5f','239,63,95')">
+Crimson
+</button>
 
-<button class="theme-button theme-orange" onclick="setTheme('#ff8a24','255,138,36')">Amber</button>
+<button
+class="theme-button theme-orange"
+onclick="setTheme('#ff8a24','255,138,36')">
+Amber
+</button>
 
-<button class="theme-button theme-pink" onclick="setTheme('#f05cff','240,92,255')">Rose</button>
+<button
+class="theme-button theme-pink"
+onclick="setTheme('#f05cff','240,92,255')">
+Rose
+</button>
 
-<button class="theme-button theme-cyan" onclick="setTheme('#20d9e8','32,217,232')">Cyan</button>
+<button
+class="theme-button theme-cyan"
+onclick="setTheme('#20d9e8','32,217,232')">
+Cyan
+</button>
 
-<button class="theme-button theme-white" onclick="setTheme('#ffffff','255,255,255')">Arctic</button>
+<button
+class="theme-button theme-white"
+onclick="setTheme('#ffffff','255,255,255')">
+Arctic
+</button>
 
 </div>
+
 </div>
+
 
 <!-- SMART COLOR -->
 
 <div class="setting">
 
-<h3>Smart Color</h3>
+<h3>
+Smart Color
+</h3>
 
 <p>
 Make the sidebar logos match your selected theme.
 </p>
 
-<button class="action"
+<button
+class="action"
 id="smartColorButton"
 onclick="toggleSmartColor()">
+
 Smart Color: OFF
+
 </button>
 
 </div>
 
-<!-- CUSTOM COLOR -->
+
+<!-- CUSTOM ACCENT -->
 
 <div class="setting">
 
-<h3>Custom Accent</h3>
-<p>Choose your own theme color.</p>
+<h3>
+Custom Accent
+</h3>
 
-<input type="color"
+<p>
+Choose your own theme color.
+</p>
+
+<input
+type="color"
 id="accentColor"
 value="#8b5cff"
 onchange="customAccent()">
 
 </div>
 
+
 <!-- BACKGROUNDS -->
 
 <div class="setting">
 
-<h3>Background</h3>
-<p>Choose a static or moving background.</p>
+<h3>
+Background
+</h3>
+
+<p>
+Choose a static or moving background.
+</p>
 
 <div class="background-grid">
 
-<button class="background-button bg-space"
+<button
+class="background-button bg-space"
 onclick="setBackground('space')">
 Default Space
 </button>
 
-<button class="background-button bg-deep"
+<button
+class="background-button bg-deep"
 onclick="setBackground('deep')">
 Deep Space
 </button>
 
-<button class="background-button bg-nebula"
+<button
+class="background-button bg-nebula"
 onclick="setBackground('nebula')">
 Nebula
 </button>
 
-<button class="background-button bg-stars"
+<button
+class="background-button bg-stars"
 onclick="setBackground('stars')">
 Moving Stars
 </button>
 
-<button class="background-button bg-moving"
+<button
+class="background-button bg-moving"
 onclick="setBackground('moving')">
 Moving Nebula
 </button>
 
-<button class="background-button bg-aurora"
+<button
+class="background-button bg-aurora"
 onclick="setBackground('aurora')">
 Aurora
 </button>
 
 </div>
+
 </div>
 
-<!-- BACKGROUND COLOR -->
+
+<!-- CUSTOM BACKGROUND -->
 
 <div class="setting">
 
-<h3>Custom Background Color</h3>
-<p>Choose your own background color.</p>
+<h3>
+Custom Background Color
+</h3>
 
-<input type="color"
+<p>
+Choose your own background color.
+</p>
+
+<input
+type="color"
 id="backgroundColor"
 value="#070712"
 onchange="customBackground()">
 
 </div>
 
+
 <!-- PANIC -->
 
 <div class="setting">
 
-<h3>🚨 Panic Key</h3>
+<h3>
+🚨 Panic Key
+</h3>
 
 <p>
 Press a key to instantly hide the Nova page.
 </p>
 
-<button class="action"
+<button
+class="action"
 id="panicButton"
 onclick="setPanicKey()">
+
 Set Panic Key
+
 </button>
 
-<span id="panicStatus"
-style="color:#aaaaba;font-size:13px;margin-left:10px;">
+<span
+id="panicStatus"
+style="
+color:#aaaaba;
+font-size:13px;
+margin-left:10px;
+">
+
 Not set
+
 </span>
 
 </div>
 
 </div>
+
 </section>
 
 </main>
 
+
 <div id="panicScreen"></div>
+
 
 <script>
 
@@ -925,14 +1401,21 @@ Not set
 
 function showPage(page,button){
 
-document.querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
+document
+.querySelectorAll(".page")
+.forEach(p =>
+p.classList.remove("active")
+);
 
-document.getElementById(page)
+document
+.getElementById(page)
 .classList.add("active");
 
-document.querySelectorAll(".nav-item")
-.forEach(b=>b.classList.remove("active"));
+document
+.querySelectorAll(".nav-item")
+.forEach(b =>
+b.classList.remove("active")
+);
 
 button.classList.add("active");
 
@@ -946,20 +1429,23 @@ function updateClock(){
 const now=new Date();
 
 document.getElementById("clock")
-.textContent=now.toLocaleTimeString([],{
+.textContent=
+now.toLocaleTimeString([],{
 hour:"numeric",
 minute:"2-digit",
 second:"2-digit"
 });
 
 document.getElementById("sideTime")
-.textContent=now.toLocaleTimeString([],{
+.textContent=
+now.toLocaleTimeString([],{
 hour:"numeric",
 minute:"2-digit"
 });
 
 document.getElementById("date")
-.textContent=now.toLocaleDateString([],{
+.textContent=
+now.toLocaleDateString([],{
 weekday:"long",
 month:"long",
 day:"numeric"
@@ -968,6 +1454,7 @@ day:"numeric"
 }
 
 updateClock();
+
 setInterval(updateClock,1000);
 
 
@@ -975,14 +1462,17 @@ setInterval(updateClock,1000);
 
 function changeFont(){
 
-const font=document.getElementById("fontSelector").value;
+const font=
+document.getElementById("fontSelector").value;
 
-document.documentElement.style.setProperty(
-"--font",
+document.documentElement
+.style
+.setProperty("--font",font);
+
+localStorage.setItem(
+"novaFont",
 font
 );
-
-localStorage.setItem("novaFont",font);
 
 }
 
@@ -991,21 +1481,26 @@ localStorage.setItem("novaFont",font);
 
 function setTheme(color,rgb){
 
-document.documentElement.style.setProperty(
-"--accent",
-color
-);
+document.documentElement
+.style
+.setProperty("--accent",color);
 
-document.documentElement.style.setProperty(
-"--accent-rgb",
-rgb
-);
+document.documentElement
+.style
+.setProperty("--accent-rgb",rgb);
 
 document.getElementById("accentColor")
 .value=color;
 
-localStorage.setItem("novaAccent",color);
-localStorage.setItem("novaAccentRGB",rgb);
+localStorage.setItem(
+"novaAccent",
+color
+);
+
+localStorage.setItem(
+"novaAccentRGB",
+rgb
+);
 
 }
 
@@ -1014,13 +1509,25 @@ localStorage.setItem("novaAccentRGB",rgb);
 
 function customAccent(){
 
-const color=document.getElementById("accentColor").value;
+const color=
+document.getElementById("accentColor").value;
 
-const r=parseInt(color.substring(1,3),16);
-const g=parseInt(color.substring(3,5),16);
-const b=parseInt(color.substring(5,7),16);
+const r=parseInt(
+color.substring(1,3),16
+);
 
-setTheme(color,`${r},${g},${b}`);
+const g=parseInt(
+color.substring(3,5),16
+);
+
+const b=parseInt(
+color.substring(5,7),16
+);
+
+setTheme(
+color,
+`${r},${g},${b}`
+);
 
 }
 
@@ -1028,27 +1535,39 @@ setTheme(color,`${r},${g},${b}`);
 /* SMART COLOR */
 
 let smartColors=
-localStorage.getItem("novaSmartColors")==="true";
+localStorage.getItem(
+"novaSmartColors"
+)==="true";
+
 
 function updateSmartColor(){
 
 if(smartColors){
 
-document.body.classList.add("smart-colors");
+document.body
+.classList
+.add("smart-colors");
 
-document.getElementById("smartColorButton")
-.textContent="Smart Color: ON";
+document.getElementById(
+"smartColorButton"
+).textContent=
+"Smart Color: ON";
 
 }else{
 
-document.body.classList.remove("smart-colors");
+document.body
+.classList
+.remove("smart-colors");
 
-document.getElementById("smartColorButton")
-.textContent="Smart Color: OFF";
+document.getElementById(
+"smartColorButton"
+).textContent=
+"Smart Color: OFF";
 
 }
 
 }
+
 
 function toggleSmartColor(){
 
@@ -1064,11 +1583,13 @@ updateSmartColor();
 }
 
 
-/* BACKGROUNDS */
+/* BACKGROUND */
 
 function setBackground(type){
 
 document.body.className="";
+
+document.body.style.background="";
 
 if(type==="space"){
 
@@ -1097,7 +1618,12 @@ if(type==="aurora"){
 document.body.classList.add("bg-aurora");
 }
 
-localStorage.setItem("novaBackground",type);
+localStorage.setItem(
+"novaBackground",
+type
+);
+
+updateSmartColor();
 
 }
 
@@ -1107,7 +1633,9 @@ localStorage.setItem("novaBackground",type);
 function customBackground(){
 
 const color=
-document.getElementById("backgroundColor").value;
+document.getElementById(
+"backgroundColor"
+).value;
 
 document.body.className="";
 
@@ -1118,36 +1646,51 @@ localStorage.setItem(
 color
 );
 
+updateSmartColor();
+
 }
 
 
 /* PANIC KEY */
 
 let panicKey=
-localStorage.getItem("novaPanicKey");
+localStorage.getItem(
+"novaPanicKey"
+);
 
 let settingPanic=false;
 
+
 if(panicKey){
 
-document.getElementById("panicStatus")
-.textContent="Key: "+panicKey;
+document.getElementById(
+"panicStatus"
+).textContent=
+"Key: "+panicKey;
 
 }
+
 
 function setPanicKey(){
 
 settingPanic=true;
 
-document.getElementById("panicButton")
-.textContent="Press a key...";
+document.getElementById(
+"panicButton"
+).textContent=
+"Press a key...";
 
-document.getElementById("panicStatus")
-.textContent="Waiting for key";
+document.getElementById(
+"panicStatus"
+).textContent=
+"Waiting for key";
 
 }
 
-document.addEventListener("keydown",function(event){
+
+document.addEventListener(
+"keydown",
+function(event){
 
 if(settingPanic){
 
@@ -1162,11 +1705,15 @@ panicKey
 
 settingPanic=false;
 
-document.getElementById("panicButton")
-.textContent="Set Panic Key";
+document.getElementById(
+"panicButton"
+).textContent=
+"Set Panic Key";
 
-document.getElementById("panicStatus")
-.textContent="Key: "+panicKey;
+document.getElementById(
+"panicStatus"
+).textContent=
+"Key: "+panicKey;
 
 return;
 
@@ -1178,12 +1725,15 @@ event.key.toLowerCase()===
 panicKey.toLowerCase()
 ){
 
-document.getElementById("panicScreen")
-.classList.toggle("active");
+document
+.getElementById("panicScreen")
+.classList
+.toggle("active");
 
 }
 
-});
+}
+);
 
 
 /* SEARCH */
@@ -1191,9 +1741,11 @@ document.getElementById("panicScreen")
 function searchWeb(){
 
 const query=
-document.getElementById("searchInput").value;
+document.getElementById(
+"searchInput"
+).value;
 
-if(!query.trim())return;
+if(!query.trim()) return;
 
 window.open(
 "https://www.google.com/search?q="+
@@ -1204,57 +1756,86 @@ encodeURIComponent(query),
 }
 
 
-/* LOAD SETTINGS */
+/* LOAD SAVED FONT */
 
 const savedFont=
-localStorage.getItem("novaFont");
+localStorage.getItem(
+"novaFont"
+);
 
 if(savedFont){
 
-document.documentElement.style.setProperty(
+document.documentElement
+.style
+.setProperty(
 "--font",
 savedFont
 );
 
-document.getElementById("fontSelector")
-.value=savedFont;
+document.getElementById(
+"fontSelector"
+).value=
+savedFont;
 
 }
 
+
+/* LOAD SAVED THEME */
 
 const savedAccent=
-localStorage.getItem("novaAccent");
+localStorage.getItem(
+"novaAccent"
+);
 
 const savedRGB=
-localStorage.getItem("novaAccentRGB");
+localStorage.getItem(
+"novaAccentRGB"
+);
 
-if(savedAccent&&savedRGB){
+if(savedAccent && savedRGB){
 
-setTheme(savedAccent,savedRGB);
+setTheme(
+savedAccent,
+savedRGB
+);
 
 }
 
 
+/* LOAD SAVED BACKGROUND */
+
 const savedBackground=
-localStorage.getItem("novaBackground");
+localStorage.getItem(
+"novaBackground"
+);
 
 if(savedBackground){
 
-setBackground(savedBackground);
+setBackground(
+savedBackground
+);
 
 }
 
 
+/* LOAD CUSTOM BACKGROUND */
+
 const savedCustomBackground=
-localStorage.getItem("novaCustomBackground");
+localStorage.getItem(
+"novaCustomBackground"
+);
 
 if(savedCustomBackground){
 
-document.getElementById("backgroundColor")
-.value=savedCustomBackground;
+document.getElementById(
+"backgroundColor"
+).value=
+savedCustomBackground;
 
 }
 
+
+/* START SMART COLOR */
 
 updateSmartColor();
 
