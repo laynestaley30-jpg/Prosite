@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nova — Settings</title>
+<style>
+:root{--bg:#07070d;--panel:rgba(18,18,30,.72);--accent:#8b5cf6;--muted:rgba(255,255,255,.62)}
+html,body{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#fff}
+.app{max-width:900px;margin:36px auto;padding:20px;background:linear-gradient(145deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border-radius:12px;border:1px solid rgba(255,255,255,.06)}
+h1{margin:0 0 12px}
+.section{margin-top:14px;padding:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03);border-radius:8px}
+.label{font-size:13px;color:var(--muted);margin-bottom:8px}
+.button{display:inline-block;padding:8px 12px;border-radius:8px;background:var(--accent);color:#000;border:0;cursor:pointer}
+.back{margin-top:16px;display:inline-block}
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>Settings</h1>
+  <div class="section">
+    <div class="label">Appearance</div>
+    <button class="button" onclick="toggleDark()">Toggle Dark (demo)</button>
+  </div>
+  <div class="section">
+    <div class="label">AI</div>
+    <p class="label">Assistant settings will appear here.</p>
+  </div>
+  <div class="section">
+    <div class="label">About</div>
+    <p class="label">Nova • Your personal web space</p>
+  </div>
+  <button class="button back" onclick="goHome()">Back</button>
+</div>
+
+<script>
+function goHome(){ location.href = 'index.html'; }
+function toggleDark(){ alert('This is a demo toggle.'); }
+</script>
+</body>
+</html>
