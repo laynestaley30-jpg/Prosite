@@ -8,110 +8,256 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lato:wght@400;700&family=Montserrat:wght@400;500;600&family=Orbitron:wght@400;500;600&family=Playfair+Display:wght@400;500;600&family=Poppins:wght@400;500;600&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Lato:wght@400;700&family=Orbitron:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
     --theme: #8b5cf6;
-    --theme2: #a855f7;
+    --theme-light: #a78bfa;
+
     --text: #ffffff;
-    --muted: rgba(255,255,255,.65);
-    --sidebar: rgba(15,15,28,.62);
-    --box: rgba(255,255,255,.09);
-    --radius: 16px;
+    --muted: rgba(255,255,255,.62);
+
+    --sidebar-alpha: .58;
+    --sidebar: rgba(10,10,20,.58);
+    --box: rgba(255,255,255,.07);
+
+    --blur: 18px;
+    --hover-scale: 1.10;
+
+    --sidebar-width: 78px;
+    --main-padding: 45px;
+    --card-gap: 15px;
 }
 
 * {
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 body {
-    overflow: hidden;
-    color: var(--text);
     font-family: "Space Grotesk", sans-serif;
+    color: var(--text);
     background: #090912;
 }
 
-#background {
+/* =========================
+   BACKGROUND
+========================= */
+
+.background {
     position: fixed;
     inset: 0;
-    z-index: -2;
+    z-index: -10;
+    overflow: hidden;
+
     background:
-        radial-gradient(circle at 15% 20%, rgba(139,92,246,.45), transparent 35%),
-        radial-gradient(circle at 85% 80%, rgba(168,85,247,.28), transparent 35%),
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(139,92,246,.35),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(76,29,149,.28),
+            transparent 35%
+        ),
         #090912;
-    transition: background .5s ease;
+
+    transition:
+        background .6s ease;
 }
 
-#background.moving {
-    animation: backgroundMove 12s ease-in-out infinite alternate;
+.background::before,
+.background::after {
+    content: "";
+    position: absolute;
+
+    width: 55vw;
+    height: 55vw;
+
+    border-radius: 50%;
+
+    filter: blur(80px);
+
+    opacity: .18;
+
+    animation:
+        novaFloat 14s ease-in-out infinite alternate;
 }
 
-@keyframes backgroundMove {
-    0% {
-        transform: scale(1);
-        filter: hue-rotate(0deg);
+.background::before {
+    background: var(--theme);
+    top: -25vw;
+    left: -20vw;
+}
+
+.background::after {
+    background: var(--theme-light);
+    right: -25vw;
+    bottom: -25vw;
+
+    animation-delay: -5s;
+}
+
+@keyframes novaFloat {
+    from {
+        transform:
+            translate(0,0)
+            scale(1);
     }
-    100% {
-        transform: scale(1.08);
-        filter: hue-rotate(25deg);
+
+    to {
+        transform:
+            translate(7vw,5vw)
+            scale(1.15);
     }
 }
+
+/* EXTRA MOVING BACKGROUND */
+
+.background.extra::before {
+    animation:
+        novaFloat 10s ease-in-out infinite alternate,
+        spinGlow 22s linear infinite;
+}
+
+.background.extra::after {
+    animation:
+        novaFloat 13s ease-in-out infinite alternate,
+        spinGlowReverse 28s linear infinite;
+}
+
+@keyframes spinGlow {
+    from {
+        transform:
+            rotate(0deg)
+            translate(0,0)
+            scale(1);
+    }
+
+    to {
+        transform:
+            rotate(360deg)
+            translate(7vw,5vw)
+            scale(1.2);
+    }
+}
+
+@keyframes spinGlowReverse {
+    from {
+        transform:
+            rotate(360deg)
+            translate(0,0)
+            scale(1);
+    }
+
+    to {
+        transform:
+            rotate(0deg)
+            translate(-6vw,-4vw)
+            scale(1.15);
+    }
+}
+
+/* =========================
+   APP
+========================= */
 
 .app {
     width: 100%;
     height: 100%;
+
     display: flex;
 }
 
+/* =========================
+   SIDEBAR
+========================= */
+
 .sidebar {
-    width: 78px;
+    width: var(--sidebar-width);
     height: calc(100% - 28px);
+
     margin: 14px;
     padding: 10px 9px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
 
-    background: var(--sidebar);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    background:
+        rgba(10,10,20,var(--sidebar-alpha));
 
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 22px;
+    backdrop-filter:
+        blur(var(--blur));
 
-    box-shadow: 0 12px 50px rgba(0,0,0,.25);
+    -webkit-backdrop-filter:
+        blur(var(--blur));
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    border-radius: 23px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.25);
+
+    transition:
+        width .35s ease,
+        background .35s ease;
 }
 
-.side-time {
+.sidebar-time {
     width: 100%;
+
     text-align: center;
-    font-size: 10px;
+
+    font-size: 11px;
+    font-weight: 600;
+
     color: var(--muted);
-    padding: 5px 0 7px;
-    white-space: nowrap;
+
+    margin:
+        5px 0 14px;
 }
 
-.side-divider {
-    width: 70%;
-    height: 1px;
-    background: rgba(255,255,255,.1);
-    margin-bottom: 2px;
+.sidebar-buttons {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 10px;
 }
 
-.side-button {
+.sidebar-bottom {
+    margin-top: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+/* =========================
+   ICON BUTTON
+========================= */
+
+.sidebar-button {
     position: relative;
 
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
 
     flex-shrink: 0;
 
@@ -120,365 +266,641 @@ body {
     justify-content: center;
 
     border: 0;
-    border-radius: var(--radius);
+    border-radius: 16px;
 
-    background: var(--box);
+    background:
+        var(--box);
+
     color: white;
 
     text-decoration: none;
+
     cursor: pointer;
 
     transition:
-        transform .25s ease,
+        transform .28s cubic-bezier(.2,.8,.2,1),
         background .25s ease,
         box-shadow .25s ease;
 }
 
-.side-button:hover {
-    transform: scale(1.10);
-    background: rgba(255,255,255,.14);
-    box-shadow: 0 8px 25px rgba(0,0,0,.18);
+.sidebar-button:hover {
+    transform:
+        scale(var(--hover-scale));
+
+    background:
+        rgba(255,255,255,.14);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.18);
+
+    z-index: 5;
 }
 
-.side-button::after {
+/* TOOLTIP */
+
+.sidebar-button::after {
     content: attr(data-label);
 
     position: absolute;
-    left: 66px;
+
+    left: 64px;
     top: 50%;
 
-    transform: translateY(-50%) translateX(-6px);
+    transform:
+        translateY(-50%)
+        translateX(-5px);
 
-    opacity: 0;
-    pointer-events: none;
+    padding:
+        7px 10px;
+
+    background:
+        rgba(8,8,15,.94);
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 9px;
+
+    color: white;
+
+    font-size: 12px;
 
     white-space: nowrap;
 
-    padding: 7px 11px;
-    border-radius: 9px;
+    opacity: 0;
 
-    background: rgba(10,10,20,.9);
-    border: 1px solid rgba(255,255,255,.1);
-
-    color: white;
-    font-size: 12px;
+    pointer-events: none;
 
     transition:
         opacity .2s ease .45s,
         transform .2s ease .45s;
+}
+
+.sidebar-button:hover::after {
+    opacity: 1;
+
+    transform:
+        translateY(-50%)
+        translateX(0);
+}
+
+/* =========================
+   HOME ICON
+========================= */
+
+.home-button svg {
+    width: 27px;
+    height: 27px;
+
+    fill: var(--theme);
+
+    transition:
+        fill .3s ease;
+}
+
+/* =========================
+   LOGO IMAGE BUTTONS
+========================= */
+
+.logo-button {
+    overflow: hidden;
+}
+
+.logo-button img {
+    width: 29px;
+    height: 29px;
+
+    object-fit: contain;
+
+    display: block;
+
+    transition:
+        transform .25s ease;
+}
+
+.logo-button:hover img {
+    transform:
+        scale(1.06);
+}
+
+/* STEAM */
+
+.games-button {
+    background: #ffffff;
+}
+
+.games-button:hover {
+    background: #ffffff;
+}
+
+.games-button img {
+    width: 31px;
+    height: 31px;
+}
+
+/* =========================
+   SETTINGS COG
+========================= */
+
+.settings-button svg {
+    width: 27px;
+    height: 27px;
+
+    display: block;
+
+    fill: var(--theme);
+
+    transition:
+        fill .3s ease,
+        transform .35s ease;
+}
+
+.settings-button:hover svg {
+    transform:
+        rotate(35deg)
+        scale(1.04);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    flex: 1;
+
+    height: 100%;
+
+    padding:
+        35px var(--main-padding);
+
+    overflow-y: auto;
+
+    transition:
+        padding .4s ease;
+}
+
+/* =========================
+   HOME
+========================= */
+
+.home {
+    min-height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcome {
+    margin-top: 20px;
+
+    text-align: center;
+}
+
+.welcome h1 {
+    margin: 0;
+
+    font-size:
+        clamp(38px,6vw,70px);
+
+    font-weight: 600;
+
+    letter-spacing: -3px;
+}
+
+.welcome h1 span {
+    color: var(--theme-light);
+
+    transition:
+        color .3s ease;
+}
+
+.welcome p {
+    margin:
+        8px 0 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+/* =========================
+   CLOCK
+========================= */
+
+.clock {
+    margin-top: 10px;
+
+    text-align: center;
+}
+
+.clock-time {
+    font-size:
+        clamp(30px,4vw,48px);
+
+    font-weight: 500;
+
+    letter-spacing:
+        -1.5px;
+}
+
+.clock-date {
+    margin-top: 1px;
+
+    font-size: 12px;
+
+    color: var(--muted);
+}
+
+/* =========================
+   QUICK CARDS
+========================= */
+
+.quick-links {
+    margin-top: 40px;
+
+    width:
+        min(900px,100%);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(190px,1fr)
+        );
+
+    gap: var(--card-gap);
+
+    transition:
+        gap .4s ease;
+}
+
+.quick-card {
+    padding: 20px;
+
+    border-radius: 19px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    cursor: pointer;
+
+    transition:
+        transform .3s ease,
+        background .3s ease;
+}
+
+.quick-card:hover {
+    transform:
+        translateY(-4px);
+
+    background:
+        rgba(255,255,255,.09);
+}
+
+.quick-card h3 {
+    margin:
+        0 0 5px;
+
+    font-size: 16px;
+}
+
+.quick-card p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+/* =========================
+   SETTINGS OVERLAY
+========================= */
+
+.overlay {
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(0,0,0,.55);
+
+    backdrop-filter:
+        blur(7px);
 
     z-index: 50;
 }
 
-.side-button:hover::after {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0);
-}
-
-.side-button svg {
-    width: 27px;
-    height: 27px;
-    display: block;
-}
-
-.home-button svg,
-.settings-button svg {
-    stroke: var(--theme);
-}
-
-.steam-button {
-    background: #ffffff;
-}
-
-.steam-button:hover {
-    background: #ffffff;
-}
-
-.steam-button svg {
-    width: 28px;
-    height: 28px;
-}
-
-.bottom-buttons {
-    margin-top: auto;
+.overlay.show {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
 }
 
-.main {
-    flex: 1;
-    height: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.settings {
+    width:
+        min(650px,calc(100% - 30px));
 
-.home {
-    text-align: center;
-    transform: translateY(-18px);
-}
-
-.home-logo {
-    width: 46px;
-    height: 46px;
-    margin: 0 auto 13px;
-
-    border-radius: 15px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.1);
-
-    color: var(--theme);
-
-    box-shadow: 0 8px 35px rgba(0,0,0,.18);
-}
-
-.home-logo svg {
-    width: 25px;
-    height: 25px;
-}
-
-h1 {
-    margin: 0;
-    font-size: clamp(34px, 5vw, 58px);
-    font-weight: 500;
-    letter-spacing: -2px;
-}
-
-.subtitle {
-    margin-top: 8px;
-    color: var(--muted);
-    font-size: 14px;
-}
-
-.clock {
-    margin-top: 17px;
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 500;
-    letter-spacing: -1px;
-}
-
-.date {
-    margin-top: 3px;
-    color: var(--muted);
-    font-size: 13px;
-}
-
-.settings-panel {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-
-    width: min(570px, calc(100% - 35px));
-    max-height: 82vh;
-
-    transform: translate(-50%, -50%) scale(.96);
-
-    padding: 25px;
+    max-height: 85vh;
 
     overflow-y: auto;
 
-    background: rgba(12,12,24,.93);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    padding: 25px;
 
-    border: 1px solid rgba(255,255,255,.1);
+    background:
+        rgba(15,15,27,.95);
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
     border-radius: 24px;
 
-    box-shadow: 0 25px 90px rgba(0,0,0,.45);
-
-    opacity: 0;
-    pointer-events: none;
-
-    transition:
-        opacity .25s ease,
-        transform .25s ease;
-
-    z-index: 100;
-}
-
-.settings-panel.open {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translate(-50%, -50%) scale(1);
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.45);
 }
 
 .settings-header {
     display: flex;
-    align-items: center;
+
     justify-content: space-between;
-    margin-bottom: 20px;
+    align-items: center;
+
+    margin-bottom: 22px;
 }
 
 .settings-header h2 {
     margin: 0;
-    font-size: 25px;
-    font-weight: 500;
 }
 
 .close-settings {
     width: 36px;
     height: 36px;
+
     border: 0;
+
     border-radius: 10px;
-    background: var(--box);
+
+    background:
+        rgba(255,255,255,.07);
+
     color: white;
-    font-size: 20px;
+
     cursor: pointer;
+
+    font-size: 18px;
 }
 
-.setting {
-    margin-bottom: 21px;
+.setting-section {
+    padding:
+        17px 0;
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
 }
 
-.setting label {
-    display: block;
-    margin-bottom: 9px;
-    font-size: 13px;
+.setting-section h3 {
+    margin:
+        0 0 13px;
+
+    font-size: 14px;
+}
+
+.setting-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin:
+        12px 0;
+}
+
+.setting-row label {
     color: var(--muted);
-}
 
-select,
-input[type="color"],
-input[type="range"],
-button {
-    font-family: inherit;
+    font-size: 13px;
 }
 
 select {
-    width: 100%;
-    padding: 11px 12px;
-    border-radius: 11px;
-    border: 1px solid rgba(255,255,255,.1);
-    background: rgba(255,255,255,.07);
+    min-width: 160px;
+
+    padding:
+        9px 11px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 10px;
+
+    background:
+        #171722;
+
     color: white;
-    outline: none;
+
+    font-family: inherit;
 }
 
-select option {
-    background: #151525;
-}
+input[type="color"] {
+    width: 55px;
+    height: 35px;
 
-.color-row {
-    display: flex;
-    gap: 9px;
-    flex-wrap: wrap;
-}
-
-.color-option {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,.25);
-    cursor: pointer;
-}
-
-.color-option:hover {
-    transform: scale(1.08);
-}
-
-.range-row {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-.range-row input {
-    flex: 1;
-}
-
-.range-value {
-    width: 45px;
-    text-align: right;
-    color: var(--muted);
-    font-size: 12px;
-}
-
-.action-button {
-    width: 100%;
-    padding: 12px;
     border: 0;
-    border-radius: 11px;
-    background: var(--theme);
+
+    background: transparent;
+}
+
+input[type="range"] {
+    width: 170px;
+
+    accent-color:
+        var(--theme);
+}
+
+.theme-buttons,
+.background-buttons,
+.layout-buttons {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+.theme-button,
+.background-button,
+.layout-button {
+    padding:
+        9px 13px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,.06);
+
     color: white;
+
+    font-family: inherit;
+
     cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
 }
 
-.action-button:hover {
-    filter: brightness(1.12);
+.theme-button:hover,
+.background-button:hover,
+.layout-button:hover {
+    background:
+        rgba(255,255,255,.13);
+
+    transform:
+        translateY(-1px);
 }
 
-.secondary-button {
-    margin-top: 8px;
-    background: rgba(255,255,255,.08);
+/* PANIC */
+
+.panic-button {
+    padding:
+        10px 14px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    background:
+        #ef4444;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-weight: 600;
+
+    cursor: pointer;
 }
 
 .panic-status {
-    margin-top: 8px;
     color: var(--muted);
+
     font-size: 12px;
 }
 
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.25);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .25s ease;
-    z-index: 90;
+/* =========================
+   LAYOUTS
+========================= */
+
+/* COMPACT */
+
+body.layout-compact {
+    --sidebar-width: 68px;
+    --main-padding: 25px;
+    --card-gap: 10px;
 }
 
-.overlay.open {
-    opacity: 1;
-    pointer-events: auto;
+body.layout-compact .sidebar-button {
+    width: 45px;
+    height: 45px;
 }
 
-.panic-screen {
-    position: fixed;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    background: #ffffff;
-    z-index: 999;
+body.layout-compact .quick-card {
+    padding: 15px;
 }
 
-.panic-screen.active {
+body.layout-compact .quick-links {
+    margin-top: 25px;
+}
+
+/* WIDE */
+
+body.layout-wide {
+    --sidebar-width: 88px;
+    --main-padding: 65px;
+    --card-gap: 20px;
+}
+
+body.layout-wide .quick-links {
+    width:
+        min(1100px,100%);
+}
+
+body.layout-wide .quick-card {
+    padding: 24px;
+}
+
+/* CENTERED */
+
+body.layout-centered .main {
     display: flex;
+    justify-content: center;
 }
 
-.panic-screen span {
-    color: #111;
-    font-family: Arial, sans-serif;
-    font-size: 20px;
+body.layout-centered .home {
+    width:
+        min(1050px,100%);
 }
 
-@media (max-width: 650px) {
+body.layout-centered .welcome {
+    margin-top: 45px;
+}
+
+/* MINIMAL */
+
+body.layout-minimal .quick-links {
+    display: none;
+}
+
+body.layout-minimal .welcome {
+    margin-top: 70px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px) {
+
     .sidebar {
         width: 67px;
-        margin: 8px;
-        height: calc(100% - 16px);
-        padding: 8px 6px;
+
+        margin: 9px;
+
+        height:
+            calc(100% - 18px);
     }
 
-    .side-button {
-        width: 46px;
-        height: 46px;
+    .sidebar-button {
+        width: 44px;
+        height: 44px;
     }
 
-    .side-button::after {
+    .main {
+        padding:
+            25px 18px;
+    }
+
+    .sidebar-button::after {
         display: none;
     }
 
-    .home {
-        transform: translateY(-10px);
+    .welcome h1 {
+        letter-spacing: -2px;
+    }
+
+    .quick-links {
+        grid-template-columns: 1fr;
     }
 }
 </style>
@@ -486,595 +908,1346 @@ select option {
 
 <body>
 
-<div id="background"></div>
+<div
+    class="background"
+    id="background">
+</div>
 
 <div class="app">
 
-    <aside class="sidebar">
+<!-- =========================
+     SIDEBAR
+========================= -->
 
-        <div class="side-time" id="sideTime">12:00 PM</div>
+<aside class="sidebar">
 
-        <div class="side-divider"></div>
+    <div
+        class="sidebar-time"
+        id="sidebarTime">
+        12:00
+    </div>
+
+    <div class="sidebar-buttons">
 
         <!-- HOME -->
-        <button class="side-button home-button"
-                data-label="Home"
-                onclick="showHome()"
-                aria-label="Home">
-            <svg viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="1.8"
-                 stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 11.5 12 4l9 7.5"/>
-                <path d="M5.5 10.5V20h13v-9.5"/>
-                <path d="M9.5 20v-5.5h5V20"/>
+
+        <button
+            class="sidebar-button home-button"
+            data-label="Home"
+            onclick="showHome()">
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true">
+
+                <path
+                    d="M12 3.2 3 10.5v9.3c0 .7.5 1.2 1.2 1.2h5.1v-6.2h5.4V21H20c.7 0 1.2-.5 1.2-1.2v-9.3L12 3.2z"/>
+
             </svg>
+
         </button>
 
-        <!-- GAMES -->
-        <a class="side-button steam-button"
-           data-label="Games"
-           href="#"
-           aria-label="Games">
-            <svg viewBox="0 0 24 24">
-                <path fill="#000000"
-                    d="M12.5 2C6.7 2 2 6.2 2 11.7c0 4.7 3.5 8.6 8 9.3v-3.2c-1.2-.2-2.2-.8-2.9-1.6l-1.8 1.1c-.4.2-.9.1-1.1-.3-.3-.4-.1-.9.3-1.1l2-1.2c-.1-.4-.2-.8-.2-1.2 0-1.7 1.4-3.1 3.1-3.1.9 0 1.7.4 2.3 1l2.5-1.7c-.1-.3-.1-.6-.1-.9 0-1.8 1.5-3.3 3.3-3.3s3.3 1.5 3.3 3.3-1.5 3.3-3.3 3.3c-.5 0-1-.1-1.4-.3l-2.6 1.8c.1.3.1.6.1 1 0 1.8-1.5 3.3-3.3 3.3-.3 0-.6 0-.9-.1v3.2c.3 0 .7.1 1 .1 5.8 0 10.5-4.7 10.5-10.5S18.3 2 12.5 2z"/>
-            </svg>
+
+        <!-- STEAM -->
+
+        <a
+            href="#"
+            class="sidebar-button logo-button games-button"
+            data-label="Games">
+
+            <img
+                src="https://cdn.simpleicons.org/steam/000000"
+                alt="Steam">
+
         </a>
+
 
         <!-- SPOTIFY -->
-        <a class="side-button"
-           data-label="Spotify"
-           href="https://open.spotify.com/"
-           target="_blank"
-           rel="noopener"
-           aria-label="Spotify">
-            <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" fill="#1DB954"/>
-                <path d="M7 10.1c3.2-1 6.8-.8 9.8.4"
-                      fill="none" stroke="white"
-                      stroke-width="1.4" stroke-linecap="round"/>
-                <path d="M7.7 13c2.7-.7 5.7-.5 8.1.4"
-                      fill="none" stroke="white"
-                      stroke-width="1.4" stroke-linecap="round"/>
-                <path d="M8.5 15.7c2-.5 4.2-.3 6 .3"
-                      fill="none" stroke="white"
-                      stroke-width="1.4" stroke-linecap="round"/>
-            </svg>
+
+        <a
+            href="#"
+            class="sidebar-button logo-button"
+            data-label="Spotify">
+
+            <img
+                src="https://cdn.simpleicons.org/spotify/1DB954"
+                alt="Spotify">
+
         </a>
+
 
         <!-- DISCORD -->
-        <a class="side-button"
-           data-label="Discord"
-           href="https://discord.com/"
-           target="_blank"
-           rel="noopener"
-           aria-label="Discord">
-            <svg viewBox="0 0 24 24">
-                <path fill="#5865F2"
-                    d="M19.5 5.2A16.4 16.4 0 0 0 15.7 4l-.5 1a14.5 14.5 0 0 0-6.4 0l-.5-1a16.4 16.4 0 0 0-3.8 1.2C2.1 9.1 1.4 12.9 1.7 16.6a16.2 16.2 0 0 0 4.7 2.4l1.1-1.5c-.6-.2-1.1-.5-1.6-.8l.4-.3c3.1 1.5 6.8 1.5 9.9 0l.4.3c-.5.3-1 .6-1.6.8l1.1 1.5a16.2 16.2 0 0 0 4.7-2.4c.4-4.3-.7-8.1-1.8-11.4z"/>
-                <circle cx="8.5" cy="12" r="1.2" fill="white"/>
-                <circle cx="15.5" cy="12" r="1.2" fill="white"/>
-            </svg>
+
+        <a
+            href="#"
+            class="sidebar-button logo-button"
+            data-label="Discord">
+
+            <img
+                src="https://cdn.simpleicons.org/discord/5865F2"
+                alt="Discord">
+
         </a>
 
-        <!-- BROWSER -->
-        <a class="side-button"
-           data-label="Browser"
-           href="Browser.html"
-           aria-label="Browser">
-            <svg viewBox="0 0 24 24">
-                <path fill="#4285F4"
-                    d="M21.3 12.2c0-.7-.1-1.4-.2-2.1H12v4h5.2c-.2 1.3-.9 2.4-2 3.1v2.6h3.3c1.9-1.8 2.8-4.4 2.8-7.6z"/>
-                <path fill="#34A853"
-                    d="M12 21.8c2.7 0 4.9-.9 6.5-2.4l-3.3-2.6c-.9.6-2 .9-3.2.9-2.5 0-4.6-1.7-5.4-4H3.2v2.7c1.7 3.2 5 5.4 8.8 5.4z"/>
-                <path fill="#FBBC05"
-                    d="M6.6 13.7a5.8 5.8 0 0 1 0-3.4V7.6H3.2a9.8 9.8 0 0 0 0 8.8l3.4-2.7z"/>
-                <path fill="#EA4335"
-                    d="M12 6.2c1.5 0 2.8.5 3.8 1.5l2.8-2.8C16.9 3.4 14.7 2.2 12 2.2c-3.8 0-7.1 2.2-8.8 5.4l3.4 2.7c.8-2.4 2.9-4.1 5.4-4.1z"/>
-            </svg>
+
+        <!-- GOOGLE BROWSER -->
+
+        <a
+            href="Browser.html"
+            class="sidebar-button logo-button"
+            data-label="Browser">
+
+            <img
+                src="https://cdn.simpleicons.org/google/4285F4"
+                alt="Google">
+
         </a>
 
-        <div class="bottom-buttons">
+    </div>
 
-            <!-- SETTINGS -->
-            <button class="side-button settings-button"
-                    data-label="Settings"
-                    onclick="toggleSettings()"
-                    aria-label="Settings">
-                <svg viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor"
-                     stroke-width="1.8"
-                     stroke-linecap="round"
-                     stroke-linejoin="round">
-                    <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6z"/>
-                    <path d="m19.4 15 .1.1a1.8 1.8 0 0 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3 .9v.2a1.8 1.8 0 0 1-3.6 0v-.2a1.8 1.8 0 0 0-3-.9l-.1.1a1.8 1.8 0 0 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-.9-3H3.7a1.8 1.8 0 0 1 0-3.6h.2a1.8 1.8 0 0 0 .9-3l-.1-.1a1.8 1.8 0 0 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3-.9v-.2a1.8 1.8 0 0 1 3.6 0v.2a1.8 1.8 0 0 0 3 .9l.1-.1a1.8 1.8 0 0 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 .9 3h.2a1.8 1.8 0 0 1 0 3.6h-.2a1.8 1.8 0 0 0-.9 3z"/>
-                </svg>
+
+    <!-- SETTINGS -->
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="sidebar-button settings-button"
+            data-label="Settings"
+            onclick="openSettings()">
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true">
+
+                <path
+                    d="M19.4 13.5c.1-.5.1-1 0-1.5l2-1.5-2-3.4-2.4 1c-.4-.3-.9-.6-1.4-.8L15.3 4h-4l-.3 2.3c-.5.2-1 .5-1.4.8l-2.4-1-2 3.4 2 1.5c-.1.5-.1 1 0 1.5l-2 1.5 2 3.4 2.4-1c.4.3.9.6 1.4.8l.3 2.3h4l.3-2.3c.5-.2 1-.5 1.4-.8l2.4 1 2-3.4-2-1.5zM13.3 15.3a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+
+            </svg>
+
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+<section
+    class="home"
+    id="home">
+
+    <div class="welcome">
+
+        <h1>
+            Welcome to
+            <span>Nova</span>
+        </h1>
+
+        <p>
+            Your personal space on the web.
+        </p>
+
+    </div>
+
+
+    <div class="clock">
+
+        <div
+            class="clock-time"
+            id="clock">
+            12:00:00
+        </div>
+
+        <div
+            class="clock-date"
+            id="date">
+            Loading date...
+        </div>
+
+    </div>
+
+
+    <div class="quick-links">
+
+        <div
+            class="quick-card"
+            onclick="location.href='Browser.html'">
+
+            <h3>🌐 Browser</h3>
+
+            <p>
+                Open the Nova browser.
+            </p>
+
+        </div>
+
+        <div class="quick-card">
+
+            <h3>🎮 Games</h3>
+
+            <p>
+                Your game hub.
+            </p>
+
+        </div>
+
+        <div class="quick-card">
+
+            <h3>🎵 Music</h3>
+
+            <p>
+                Spotify and music.
+            </p>
+
+        </div>
+
+        <div class="quick-card">
+
+            <h3>💬 Social</h3>
+
+            <p>
+                Discord and more.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<div
+    class="overlay"
+    id="settingsOverlay"
+    onclick="closeSettingsOutside(event)">
+
+<div class="settings">
+
+    <div class="settings-header">
+
+        <h2>
+            Nova Settings
+        </h2>
+
+        <button
+            class="close-settings"
+            onclick="closeSettings()">
+            ×
+        </button>
+
+    </div>
+
+
+    <!-- FONT -->
+
+    <div class="setting-section">
+
+        <h3>
+            Font
+        </h3>
+
+        <div class="setting-row">
+
+            <label>
+                Site font
+            </label>
+
+            <select
+                id="fontSelect"
+                onchange="changeFont(this.value)">
+
+                <option>
+                    Space Grotesk
+                </option>
+
+                <option>
+                    Inter
+                </option>
+
+                <option>
+                    Poppins
+                </option>
+
+                <option>
+                    Montserrat
+                </option>
+
+                <option>
+                    Roboto
+                </option>
+
+                <option>
+                    Lato
+                </option>
+
+                <option>
+                    Orbitron
+                </option>
+
+                <option>
+                    Playfair Display
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- THEMES -->
+
+    <div class="setting-section">
+
+        <h3>
+            Theme
+        </h3>
+
+        <div class="theme-buttons">
+
+            <button
+                class="theme-button"
+                onclick="setTheme('#8b5cf6','#a78bfa')">
+                Purple
+            </button>
+
+            <button
+                class="theme-button"
+                onclick="setTheme('#3b82f6','#60a5fa')">
+                Blue
+            </button>
+
+            <button
+                class="theme-button"
+                onclick="setTheme('#22c55e','#86efac')">
+                Green
+            </button>
+
+            <button
+                class="theme-button"
+                onclick="setTheme('#ef4444','#f87171')">
+                Red
+            </button>
+
+            <button
+                class="theme-button"
+                onclick="setTheme('#f97316','#fb923c')">
+                Orange
+            </button>
+
+            <button
+                class="theme-button"
+                onclick="setTheme('#ec4899','#f472b6')">
+                Pink
+            </button>
+
+            <button
+                class="theme-button"
+                onclick="setTheme('#06b6d4','#67e8f9')">
+                Cyan
             </button>
 
         </div>
 
-    </aside>
-
-    <main class="main">
-
-        <section class="home" id="home">
-
-            <div class="home-logo">
-                <svg viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor"
-                     stroke-width="1.8"
-                     stroke-linecap="round"
-                     stroke-linejoin="round">
-                    <path d="M3 11.5 12 4l9 7.5"/>
-                    <path d="M5.5 10.5V20h13v-9.5"/>
-                    <path d="M9.5 20v-5.5h5V20"/>
-                </svg>
-            </div>
-
-            <h1>Welcome to Nova</h1>
-
-            <div class="subtitle">
-                Your personal space.
-            </div>
-
-            <div class="clock" id="clock">
-                12:00:00 PM
-            </div>
-
-            <div class="date" id="date">
-                Thursday, August 13, 2026
-            </div>
-
-        </section>
-
-    </main>
-
-</div>
-
-<div class="overlay" id="overlay" onclick="toggleSettings()"></div>
-
-<div class="settings-panel" id="settings">
-
-    <div class="settings-header">
-        <h2>Nova Settings</h2>
-
-        <button class="close-settings"
-                onclick="toggleSettings()">
-            ×
-        </button>
     </div>
 
-    <div class="setting">
-        <label>Font</label>
 
-        <select id="fontSelect" onchange="changeFont(this.value)">
-            <option value="Space Grotesk">Space Grotesk</option>
-            <option value="Inter">Inter</option>
-            <option value="Poppins">Poppins</option>
-            <option value="Montserrat">Montserrat</option>
-            <option value="Roboto">Roboto</option>
-            <option value="Lato">Lato</option>
-            <option value="Orbitron">Orbitron</option>
-            <option value="Playfair Display">Playfair Display</option>
-        </select>
-    </div>
+    <!-- CUSTOM COLOR -->
 
-    <div class="setting">
-        <label>Theme color</label>
+    <div class="setting-section">
 
-        <div class="color-row">
-            <button class="color-option" style="background:#8b5cf6"
-                    onclick="setTheme('#8b5cf6','#a855f7')"></button>
+        <h3>
+            Custom Color
+        </h3>
 
-            <button class="color-option" style="background:#3b82f6"
-                    onclick="setTheme('#3b82f6','#06b6d4')"></button>
+        <div class="setting-row">
 
-            <button class="color-option" style="background:#22c55e"
-                    onclick="setTheme('#22c55e','#10b981')"></button>
+            <label>
+                Theme color
+            </label>
 
-            <button class="color-option" style="background:#ef4444"
-                    onclick="setTheme('#ef4444','#f97316')"></button>
+            <input
+                type="color"
+                id="colorPicker"
+                value="#8b5cf6"
+                onchange="customColor(this.value)">
 
-            <button class="color-option" style="background:#f97316"
-                    onclick="setTheme('#f97316','#facc15')"></button>
-
-            <button class="color-option" style="background:#ec4899"
-                    onclick="setTheme('#ec4899','#f43f5e')"></button>
-
-            <button class="color-option" style="background:#06b6d4"
-                    onclick="setTheme('#06b6d4','#3b82f6')"></button>
         </div>
+
     </div>
 
-    <div class="setting">
-        <label>Custom theme color</label>
 
-        <input type="color"
-               id="customColor"
-               value="#8b5cf6"
-               onchange="customTheme(this.value)">
-    </div>
+    <!-- BACKGROUNDS -->
 
-    <div class="setting">
-        <label>Background</label>
+    <div class="setting-section">
 
-        <select id="backgroundSelect"
-                onchange="changeBackground(this.value)">
-            <option value="purple">Purple</option>
-            <option value="blue">Blue</option>
-            <option value="green">Green</option>
-            <option value="red">Red</option>
-            <option value="sunset">Sunset</option>
-            <option value="dark">Dark</option>
-            <option value="moving">Moving Purple</option>
-        </select>
-    </div>
+        <h3>
+            Moving Backgrounds
+        </h3>
 
-    <div class="setting">
-        <label>Sidebar transparency</label>
+        <div class="background-buttons">
 
-        <div class="range-row">
-            <input type="range"
-                   min="20"
-                   max="95"
-                   value="62"
-                   oninput="changeSidebar(this.value)">
+            <button
+                class="background-button"
+                onclick="changeBackground('nova')">
+                Nova Purple
+            </button>
 
-            <span class="range-value" id="sidebarValue">
-                62%
-            </span>
+            <button
+                class="background-button"
+                onclick="changeBackground('emerald')">
+                Emerald
+            </button>
+
+            <button
+                class="background-button"
+                onclick="changeBackground('ocean')">
+                Ocean
+            </button>
+
+            <button
+                class="background-button"
+                onclick="changeBackground('crimson')">
+                Crimson
+            </button>
+
+            <button
+                class="background-button"
+                onclick="changeBackground('aurora')">
+                Aurora
+            </button>
+
+            <button
+                class="background-button"
+                onclick="changeBackground('dark')">
+                Static Dark
+            </button>
+
         </div>
+
     </div>
 
-    <div class="setting">
-        <label>Clock format</label>
 
-        <select id="clockFormat"
-                onchange="saveSettings(); updateClock()">
-            <option value="12">12 hour</option>
-            <option value="24">24 hour</option>
-        </select>
+    <!-- LAYOUT -->
+
+    <div class="setting-section">
+
+        <h3>
+            Layout
+        </h3>
+
+        <div class="layout-buttons">
+
+            <button
+                class="layout-button"
+                onclick="setLayout('classic')">
+                Classic
+            </button>
+
+            <button
+                class="layout-button"
+                onclick="setLayout('compact')">
+                Compact
+            </button>
+
+            <button
+                class="layout-button"
+                onclick="setLayout('wide')">
+                Wide
+            </button>
+
+            <button
+                class="layout-button"
+                onclick="setLayout('centered')">
+                Centered
+            </button>
+
+            <button
+                class="layout-button"
+                onclick="setLayout('minimal')">
+                Minimal
+            </button>
+
+        </div>
+
     </div>
 
-    <div class="setting">
-        <label>Clock seconds</label>
 
-        <select id="secondsSelect"
-                onchange="saveSettings(); updateClock()">
-            <option value="yes">Show seconds</option>
-            <option value="no">Hide seconds</option>
-        </select>
+    <!-- SIDEBAR -->
+
+    <div class="setting-section">
+
+        <h3>
+            Sidebar
+        </h3>
+
+        <div class="setting-row">
+
+            <label>
+                Transparency
+            </label>
+
+            <input
+                type="range"
+                min="20"
+                max="90"
+                value="58"
+                id="transparency"
+                oninput="changeTransparency(this.value)">
+
+        </div>
+
+        <div class="setting-row">
+
+            <label>
+                Blur
+            </label>
+
+            <input
+                type="range"
+                min="0"
+                max="35"
+                value="18"
+                id="blur"
+                oninput="changeBlur(this.value)">
+
+        </div>
+
     </div>
 
-    <div class="setting">
 
-        <label>Panic key</label>
+    <!-- ICON HOVER -->
 
-        <button class="action-button"
+    <div class="setting-section">
+
+        <h3>
+            Icon Hover
+        </h3>
+
+        <div class="setting-row">
+
+            <label>
+                Hover size
+            </label>
+
+            <input
+                type="range"
+                min="100"
+                max="125"
+                value="110"
+                oninput="changeHover(this.value)">
+
+        </div>
+
+    </div>
+
+
+    <!-- CLOCK -->
+
+    <div class="setting-section">
+
+        <h3>
+            Clock
+        </h3>
+
+        <div class="setting-row">
+
+            <label>
+                24-hour clock
+            </label>
+
+            <input
+                type="checkbox"
+                id="twentyFour"
+                onchange="saveClockSettings()">
+
+        </div>
+
+        <div class="setting-row">
+
+            <label>
+                Show seconds
+            </label>
+
+            <input
+                type="checkbox"
+                id="showSeconds"
+                checked
+                onchange="saveClockSettings()">
+
+        </div>
+
+        <div class="setting-row">
+
+            <label>
+                Show date
+            </label>
+
+            <input
+                type="checkbox"
+                id="showDate"
+                checked
+                onchange="saveClockSettings()">
+
+        </div>
+
+    </div>
+
+
+    <!-- PANIC -->
+
+    <div class="setting-section">
+
+        <h3>
+            Panic Key
+        </h3>
+
+        <div class="setting-row">
+
+            <label
+                id="panicStatus"
+                class="panic-status">
+                Panic key: Not set
+            </label>
+
+            <button
+                class="panic-button"
                 onclick="setPanicKey()">
-            Set Panic Key
-        </button>
+                Set Panic Key
+            </button>
 
-        <button class="action-button secondary-button"
-                onclick="clearPanicKey()">
-            Clear Panic Key
-        </button>
+        </div>
 
-        <div class="panic-status"
-             id="panicStatus">
-            No panic key set.
+        <div class="setting-row">
+
+            <label>
+                Panic destination
+            </label>
+
+            <select
+                id="panicDestination">
+
+                <option value="https://www.google.com">
+                    Google
+                </option>
+
+                <option value="https://www.wikipedia.org">
+                    Wikipedia
+                </option>
+
+                <option value="about:blank">
+                    Blank Page
+                </option>
+
+            </select>
+
         </div>
 
     </div>
 
-    <div class="setting">
-
-        <button class="action-button secondary-button"
-                onclick="resetSettings()">
-            Reset Nova Settings
-        </button>
-
-    </div>
+</div>
 
 </div>
 
-<div class="panic-screen" id="panicScreen">
-    <span>Nova</span>
-</div>
 
 <script>
-let panicKey = localStorage.getItem("novaPanicKey");
+
+/* =========================
+   CLOCK
+========================= */
 
 function updateClock() {
-    const now = new Date();
 
-    const format =
-        document.getElementById("clockFormat")?.value || "12";
+    const now =
+        new Date();
+
+    const use24 =
+        localStorage.getItem(
+            "nova24"
+        ) === "true";
 
     const showSeconds =
-        document.getElementById("secondsSelect")?.value !== "no";
+        localStorage.getItem(
+            "novaSeconds"
+        ) !== "false";
 
-    let time;
+    const timeOptions = {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: !use24
+    };
 
-    if (format === "24") {
-        time = now.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: showSeconds ? "2-digit" : undefined,
-            hour12: false
-        });
-    } else {
-        time = now.toLocaleTimeString([], {
-            hour: "numeric",
-            minute: "2-digit",
-            second: showSeconds ? "2-digit" : undefined,
-            hour12: true
-        });
+    if (showSeconds) {
+        timeOptions.second =
+            "2-digit";
     }
 
-    document.getElementById("clock").textContent = time;
+    document.getElementById(
+        "clock"
+    ).textContent =
+        now.toLocaleTimeString(
+            [],
+            timeOptions
+        );
 
-    document.getElementById("sideTime").textContent =
-        now.toLocaleTimeString([], {
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true
-        });
-
-    document.getElementById("date").textContent =
-        now.toLocaleDateString([], {
-            weekday: "long",
-            month: "long",
-            day: "numeric",
-            year: "numeric"
-        });
+    document.getElementById(
+        "sidebarTime"
+    ).textContent =
+        now.toLocaleTimeString(
+            [],
+            {
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: !use24
+            }
+        );
 }
 
-setInterval(updateClock, 1000);
+setInterval(
+    updateClock,
+    1000
+);
+
 updateClock();
 
-function showHome() {
-    document.getElementById("home").style.display = "block";
+
+/* =========================
+   SETTINGS
+========================= */
+
+function openSettings() {
+
+    document
+        .getElementById(
+            "settingsOverlay"
+        )
+        .classList.add("show");
 }
 
-function toggleSettings() {
-    document.getElementById("settings").classList.toggle("open");
-    document.getElementById("overlay").classList.toggle("open");
+function closeSettings() {
+
+    document
+        .getElementById(
+            "settingsOverlay"
+        )
+        .classList.remove("show");
 }
 
-function setTheme(primary, secondary) {
-    document.documentElement.style.setProperty("--theme", primary);
-    document.documentElement.style.setProperty("--theme2", secondary);
+function closeSettingsOutside(event) {
 
-    localStorage.setItem("novaTheme", primary);
-    localStorage.setItem("novaTheme2", secondary);
+    if (
+        event.target.id ===
+        "settingsOverlay"
+    ) {
+        closeSettings();
+    }
 }
 
-function customTheme(color) {
-    setTheme(color, color);
-}
+
+/* =========================
+   FONT
+========================= */
 
 function changeFont(font) {
+
     document.body.style.fontFamily =
         `"${font}", sans-serif`;
 
-    localStorage.setItem("novaFont", font);
-}
-
-function changeBackground(type) {
-    const bg = document.getElementById("background");
-
-    bg.classList.remove("moving");
-
-    const backgrounds = {
-        purple:
-            "radial-gradient(circle at 15% 20%, rgba(139,92,246,.45), transparent 35%), radial-gradient(circle at 85% 80%, rgba(168,85,247,.28), transparent 35%), #090912",
-
-        blue:
-            "radial-gradient(circle at 15% 20%, rgba(59,130,246,.45), transparent 35%), radial-gradient(circle at 85% 80%, rgba(6,182,212,.28), transparent 35%), #080d18",
-
-        green:
-            "radial-gradient(circle at 15% 20%, rgba(34,197,94,.4), transparent 35%), radial-gradient(circle at 85% 80%, rgba(16,185,129,.25), transparent 35%), #07120d",
-
-        red:
-            "radial-gradient(circle at 15% 20%, rgba(239,68,68,.4), transparent 35%), radial-gradient(circle at 85% 80%, rgba(249,115,22,.25), transparent 35%), #150909",
-
-        sunset:
-            "radial-gradient(circle at 15% 20%, rgba(249,115,22,.45), transparent 35%), radial-gradient(circle at 85% 80%, rgba(236,72,153,.3), transparent 35%), #12090e",
-
-        dark:
-            "#050507",
-
-        moving:
-            "radial-gradient(circle at 15% 20%, rgba(139,92,246,.5), transparent 35%), radial-gradient(circle at 85% 80%, rgba(6,182,212,.3), transparent 35%), #090912"
-    };
-
-    bg.style.background =
-        backgrounds[type] || backgrounds.purple;
-
-    if (type === "moving") {
-        bg.classList.add("moving");
-    }
-
-    localStorage.setItem("novaBackground", type);
-}
-
-function changeSidebar(value) {
-    const opacity =
-        Number(value) / 100;
-
-    document.documentElement.style.setProperty(
-        "--sidebar",
-        `rgba(15,15,28,${opacity})`
+    localStorage.setItem(
+        "novaFont",
+        font
     );
+}
 
-    document.getElementById("sidebarValue").textContent =
-        value + "%";
+
+/* =========================
+   THEME
+========================= */
+
+function setTheme(
+    color,
+    light
+) {
+
+    document.documentElement
+        .style.setProperty(
+            "--theme",
+            color
+        );
+
+    document.documentElement
+        .style.setProperty(
+            "--theme-light",
+            light
+        );
 
     localStorage.setItem(
-        "novaSidebar",
+        "novaTheme",
+        color
+    );
+
+    localStorage.setItem(
+        "novaThemeLight",
+        light
+    );
+
+    document.getElementById(
+        "colorPicker"
+    ).value = color;
+}
+
+function customColor(color) {
+
+    setTheme(
+        color,
+        color
+    );
+}
+
+
+/* =========================
+   BACKGROUNDS
+========================= */
+
+function changeBackground(type) {
+
+    const bg =
+        document.getElementById(
+            "background"
+        );
+
+    bg.classList.remove(
+        "extra"
+    );
+
+    if (type === "nova") {
+
+        bg.style.background =
+            `
+            radial-gradient(
+                circle at 20% 20%,
+                rgba(139,92,246,.35),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 80% 80%,
+                rgba(76,29,149,.28),
+                transparent 35%
+            ),
+            #090912
+            `;
+
+        bg.classList.add(
+            "extra"
+        );
+    }
+
+
+    if (type === "emerald") {
+
+        bg.style.background =
+            `
+            radial-gradient(
+                circle at 20% 20%,
+                rgba(34,197,94,.38),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 80% 80%,
+                rgba(5,150,105,.30),
+                transparent 35%
+            ),
+            #050d0a
+            `;
+
+        bg.classList.add(
+            "extra"
+        );
+    }
+
+
+    if (type === "ocean") {
+
+        bg.style.background =
+            `
+            radial-gradient(
+                circle at 20% 20%,
+                rgba(59,130,246,.40),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 80% 80%,
+                rgba(6,182,212,.28),
+                transparent 35%
+            ),
+            #050b13
+            `;
+
+        bg.classList.add(
+            "extra"
+        );
+    }
+
+
+    if (type === "crimson") {
+
+        bg.style.background =
+            `
+            radial-gradient(
+                circle at 20% 20%,
+                rgba(239,68,68,.40),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 80% 80%,
+                rgba(190,24,93,.30),
+                transparent 35%
+            ),
+            #120607
+            `;
+
+        bg.classList.add(
+            "extra"
+        );
+    }
+
+
+    if (type === "aurora") {
+
+        bg.style.background =
+            `
+            radial-gradient(
+                circle at 15% 20%,
+                rgba(34,197,94,.35),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 80% 20%,
+                rgba(59,130,246,.35),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 50% 85%,
+                rgba(168,85,247,.35),
+                transparent 35%
+            ),
+            #070b12
+            `;
+
+        bg.classList.add(
+            "extra"
+        );
+    }
+
+
+    if (type === "dark") {
+
+        bg.style.background =
+            "#08080d";
+    }
+
+
+    localStorage.setItem(
+        "novaBackground",
+        type
+    );
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+function setLayout(layout) {
+
+    document.body.classList.remove(
+        "layout-compact",
+        "layout-wide",
+        "layout-centered",
+        "layout-minimal"
+    );
+
+    if (
+        layout !== "classic"
+    ) {
+
+        document.body.classList.add(
+            "layout-" + layout
+        );
+    }
+
+    localStorage.setItem(
+        "novaLayout",
+        layout
+    );
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+function changeTransparency(
+    value
+) {
+
+    const alpha =
+        Number(value) / 100;
+
+    document.documentElement
+        .style.setProperty(
+            "--sidebar-alpha",
+            alpha
+        );
+
+    localStorage.setItem(
+        "novaTransparency",
         value
     );
 }
 
-function setPanicKey() {
-    document.getElementById("panicStatus").textContent =
-        "Press any key...";
+function changeBlur(
+    value
+) {
 
-    function listener(event) {
-        event.preventDefault();
-
-        panicKey = event.key;
-
-        localStorage.setItem(
-            "novaPanicKey",
-            panicKey
+    document.documentElement
+        .style.setProperty(
+            "--blur",
+            `${value}px`
         );
 
-        document.getElementById("panicStatus").textContent =
-            "Panic key: " + panicKey;
-
-        document.removeEventListener(
-            "keydown",
-            listener
-        );
-    }
-
-    document.addEventListener(
-        "keydown",
-        listener
+    localStorage.setItem(
+        "novaBlur",
+        value
     );
 }
 
-function clearPanicKey() {
-    panicKey = null;
 
-    localStorage.removeItem(
-        "novaPanicKey"
+/* =========================
+   HOVER
+========================= */
+
+function changeHover(
+    value
+) {
+
+    document.documentElement
+        .style.setProperty(
+            "--hover-scale",
+            Number(value) / 100
+        );
+
+    localStorage.setItem(
+        "novaHover",
+        value
+    );
+}
+
+
+/* =========================
+   CLOCK SETTINGS
+========================= */
+
+function saveClockSettings() {
+
+    localStorage.setItem(
+        "nova24",
+        document.getElementById(
+            "twentyFour"
+        ).checked
     );
 
-    document.getElementById("panicStatus").textContent =
-        "No panic key set.";
+    localStorage.setItem(
+        "novaSeconds",
+        document.getElementById(
+            "showSeconds"
+        ).checked
+    );
+
+    localStorage.setItem(
+        "novaDate",
+        document.getElementById(
+            "showDate"
+        ).checked
+    );
+
+
+    document.getElementById(
+        "date"
+    ).style.display =
+        document.getElementById(
+            "showDate"
+        ).checked
+        ? "block"
+        : "none";
+
+    updateClock();
+}
+
+
+/* =========================
+   PANIC KEY
+========================= */
+
+let settingPanicKey = false;
+
+function setPanicKey() {
+
+    settingPanicKey = true;
+
+    document.getElementById(
+        "panicStatus"
+    ).textContent =
+        "Press any key...";
+
+    closeSettings();
 }
 
 document.addEventListener(
     "keydown",
-    event => {
+    function(event) {
+
+        if (settingPanicKey) {
+
+            event.preventDefault();
+
+            localStorage.setItem(
+                "novaPanicKey",
+                event.key
+            );
+
+            document.getElementById(
+                "panicStatus"
+            ).textContent =
+                "Panic key: " +
+                event.key;
+
+            settingPanicKey = false;
+
+            openSettings();
+
+            return;
+        }
+
+
+        const panic =
+            localStorage.getItem(
+                "novaPanicKey"
+            );
 
         if (
-            panicKey &&
-            event.key === panicKey
+            panic &&
+            event.key === panic
         ) {
-            document.getElementById(
-                "panicScreen"
-            ).classList.add("active");
+
+            const destination =
+                document.getElementById(
+                    "panicDestination"
+                ).value;
+
+            window.location.href =
+                destination;
         }
 
     }
 );
 
-function saveSettings() {
-    localStorage.setItem(
-        "novaClockFormat",
-        document.getElementById("clockFormat").value
-    );
 
-    localStorage.setItem(
-        "novaSeconds",
-        document.getElementById("secondsSelect").value
-    );
+/* =========================
+   HOME
+========================= */
+
+function showHome() {
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
-function resetSettings() {
-    localStorage.removeItem("novaTheme");
-    localStorage.removeItem("novaTheme2");
-    localStorage.removeItem("novaFont");
-    localStorage.removeItem("novaBackground");
-    localStorage.removeItem("novaSidebar");
-    localStorage.removeItem("novaClockFormat");
-    localStorage.removeItem("novaSeconds");
-    localStorage.removeItem("novaPanicKey");
 
-    location.reload();
-}
+/* =========================
+   LOAD SETTINGS
+========================= */
 
 function loadSettings() {
 
     const font =
-        localStorage.getItem("novaFont");
+        localStorage.getItem(
+            "novaFont"
+        );
 
     if (font) {
-        document.body.style.fontFamily =
-            `"${font}", sans-serif`;
+
+        changeFont(font);
 
         document.getElementById(
             "fontSelect"
-        ).value = font;
+        ).value =
+            font;
     }
 
-    const theme =
-        localStorage.getItem("novaTheme");
 
-    const theme2 =
-        localStorage.getItem("novaTheme2");
+    const theme =
+        localStorage.getItem(
+            "novaTheme"
+        );
+
+    const light =
+        localStorage.getItem(
+            "novaThemeLight"
+        );
 
     if (theme) {
+
         setTheme(
             theme,
-            theme2 || theme
+            light || theme
         );
     }
 
+
     const background =
-        localStorage.getItem("novaBackground");
+        localStorage.getItem(
+            "novaBackground"
+        );
 
     if (background) {
+
+        changeBackground(
+            background
+        );
+    }
+
+
+    const layout =
+        localStorage.getItem(
+            "novaLayout"
+        );
+
+    if (layout) {
+
+        setLayout(
+            layout
+        );
+    }
+
+
+    const transparency =
+        localStorage.getItem(
+            "novaTransparency"
+        );
+
+    if (transparency) {
+
         document.getElementById(
-            "backgroundSelect"
-        ).value = background;
+            "transparency"
+        ).value =
+            transparency;
 
-        changeBackground(background);
+        changeTransparency(
+            transparency
+        );
     }
 
-    const sidebar =
-        localStorage.getItem("novaSidebar");
 
-    if (sidebar) {
-        document.querySelector(
-            'input[type="range"]'
-        ).value = sidebar;
+    const blur =
+        localStorage.getItem(
+            "novaBlur"
+        );
 
-        changeSidebar(sidebar);
-    }
+    if (blur) {
 
-    const format =
-        localStorage.getItem("novaClockFormat");
-
-    if (format) {
         document.getElementById(
-            "clockFormat"
-        ).value = format;
+            "blur"
+        ).value =
+            blur;
+
+        changeBlur(
+            blur
+        );
     }
 
-    const seconds =
-        localStorage.getItem("novaSeconds");
 
-    if (seconds) {
+    const hover =
+        localStorage.getItem(
+            "novaHover"
+        );
+
+    if (hover) {
+
+        changeHover(
+            hover
+        );
+    }
+
+
+    document.getElementById(
+        "twentyFour"
+    ).checked =
+        localStorage.getItem(
+            "nova24"
+        ) === "true";
+
+
+    document.getElementById(
+        "showSeconds"
+    ).checked =
+        localStorage.getItem(
+            "novaSeconds"
+        ) !== "false";
+
+
+    document.getElementById(
+        "showDate"
+    ).checked =
+        localStorage.getItem(
+            "novaDate"
+        ) !== "false";
+
+
+    document.getElementById(
+        "date"
+    ).style.display =
         document.getElementById(
-            "secondsSelect"
-        ).value = seconds;
-    }
+            "showDate"
+        ).checked
+        ? "block"
+        : "none";
 
-    if (panicKey) {
+
+    const panic =
+        localStorage.getItem(
+            "novaPanicKey"
+        );
+
+    if (panic) {
+
         document.getElementById(
             "panicStatus"
         ).textContent =
-            "Panic key: " + panicKey;
+            "Panic key: " +
+            panic;
     }
+
+    updateClock();
 }
 
 loadSettings();
-updateClock();
+
 </script>
 
 </body>
