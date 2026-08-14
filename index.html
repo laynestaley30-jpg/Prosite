@@ -1,2454 +1,1080 @@
-
-
-On Thu, Aug 13, 2026 at 7:16 PM The Funni <thefunni11@gmail.com> wrote:
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Nova</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Urbanist:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lato:wght@400;700&family=Montserrat:wght@400;500;600&family=Orbitron:wght@400;500;600&family=Playfair+Display:wght@400;500;600&family=Poppins:wght@400;500;600&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-
 :root {
-    --accent: #8b5cff;
-    --accent-rgb: 139,92,255;
-    --font: "Space Grotesk", sans-serif;
+    --theme: #8b5cf6;
+    --theme2: #a855f7;
+    --text: #ffffff;
+    --muted: rgba(255,255,255,.65);
+    --sidebar: rgba(15,15,28,.62);
+    --box: rgba(255,255,255,.09);
+    --radius: 16px;
 }
 
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
-html,
-body {
+html, body {
+    margin: 0;
     width: 100%;
     height: 100%;
 }
 
 body {
-    font-family: var(--font);
-    color: white;
     overflow: hidden;
+    color: var(--text);
+    font-family: "Space Grotesk", sans-serif;
+    background: #090912;
+}
 
+#background {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
     background:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(75,44,160,.55),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 80% 75%,
-            rgba(120,20,150,.38),
-            transparent 35%
-        ),
-        #070712;
-
+        radial-gradient(circle at 15% 20%, rgba(139,92,246,.45), transparent 35%),
+        radial-gradient(circle at 85% 80%, rgba(168,85,247,.28), transparent 35%),
+        #090912;
     transition: background .5s ease;
 }
 
-
-/* =========================
-   STAR FIELD
-========================= */
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-
-    pointer-events: none;
-    z-index: -1;
-
-    background-image:
-        radial-gradient(white 1px, transparent 1px),
-        radial-gradient(white 1px, transparent 1px);
-
-    background-size:
-        90px 90px,
-        150px 150px;
-
-    background-position:
-        10px 20px,
-        50px 80px;
-
-    opacity: .22;
+#background.moving {
+    animation: backgroundMove 12s ease-in-out infinite alternate;
 }
 
+@keyframes backgroundMove {
+    0% {
+        transform: scale(1);
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        transform: scale(1.08);
+        filter: hue-rotate(25deg);
+    }
+}
 
-/* =========================
-   SIDEBAR
-========================= */
+.app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
 
 .sidebar {
-    position: fixed;
-
-    left: 18px;
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    width: 68px;
-
-    padding: 10px 8px;
+    width: 78px;
+    height: calc(100% - 28px);
+    margin: 14px;
+    padding: 10px 9px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-
     gap: 8px;
 
-    background: rgba(8,8,18,.45);
-
-    border:
-        1px solid
-        rgba(255,255,255,.09);
-
-    border-radius: 22px;
-
+    background: var(--sidebar);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
 
-    box-shadow:
-        0 20px 50px
-        rgba(0,0,0,.35);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 22px;
+
+    box-shadow: 0 12px 50px rgba(0,0,0,.25);
+}
+
+.side-time {
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    color: var(--muted);
+    padding: 5px 0 7px;
+    white-space: nowrap;
+}
+
+.side-divider {
+    width: 70%;
+    height: 1px;
+    background: rgba(255,255,255,.1);
+    margin-bottom: 2px;
+}
+
+.side-button {
+    position: relative;
+
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: var(--radius);
+
+    background: var(--box);
+    color: white;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
+}
+
+.side-button:hover {
+    transform: scale(1.10);
+    background: rgba(255,255,255,.14);
+    box-shadow: 0 8px 25px rgba(0,0,0,.18);
+}
+
+.side-button::after {
+    content: attr(data-label);
+
+    position: absolute;
+    left: 66px;
+    top: 50%;
+
+    transform: translateY(-50%) translateX(-6px);
+
+    opacity: 0;
+    pointer-events: none;
+
+    white-space: nowrap;
+
+    padding: 7px 11px;
+    border-radius: 9px;
+
+    background: rgba(10,10,20,.9);
+    border: 1px solid rgba(255,255,255,.1);
+
+    color: white;
+    font-size: 12px;
+
+    transition:
+        opacity .2s ease .45s,
+        transform .2s ease .45s;
+
+    z-index: 50;
+}
+
+.side-button:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+.side-button svg {
+    width: 27px;
+    height: 27px;
+    display: block;
+}
+
+.home-button svg,
+.settings-button svg {
+    stroke: var(--theme);
+}
+
+.steam-button {
+    background: #ffffff;
+}
+
+.steam-button:hover {
+    background: #ffffff;
+}
+
+.steam-button svg {
+    width: 28px;
+    height: 28px;
+}
+
+.bottom-buttons {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.main {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home {
+    text-align: center;
+    transform: translateY(-18px);
+}
+
+.home-logo {
+    width: 46px;
+    height: 46px;
+    margin: 0 auto 13px;
+
+    border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.1);
+
+    color: var(--theme);
+
+    box-shadow: 0 8px 35px rgba(0,0,0,.18);
+}
+
+.home-logo svg {
+    width: 25px;
+    height: 25px;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(34px, 5vw, 58px);
+    font-weight: 500;
+    letter-spacing: -2px;
+}
+
+.subtitle {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.clock {
+    margin-top: 17px;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 500;
+    letter-spacing: -1px;
+}
+
+.date {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.settings-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    width: min(570px, calc(100% - 35px));
+    max-height: 82vh;
+
+    transform: translate(-50%, -50%) scale(.96);
+
+    padding: 25px;
+
+    overflow-y: auto;
+
+    background: rgba(12,12,24,.93);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 24px;
+
+    box-shadow: 0 25px 90px rgba(0,0,0,.45);
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
 
     z-index: 100;
 }
 
-
-/* =========================
-   SIDEBAR CLOCK
-========================= */
-
-.side-time {
-    width: 100%;
-
-    text-align: center;
-
-    font-size: 10px;
-
-    color: #aaaaba;
-
-    padding-bottom: 8px;
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.08);
-
-    white-space: nowrap;
-}
-
-
-/* =========================
-   NAV BUTTONS
-========================= */
-
-.nav-item {
-    position: relative;
-
-    width: 50px;
-    height: 50px;
-
-    border: 0;
-    border-radius: 15px;
-
-    background: transparent;
-
-    color: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-
-    transition:
-        transform .28s cubic-bezier(.2,.8,.2,1),
-        background .25s ease;
-}
-
-.nav-item:hover {
-    transform: scale(1.12);
-
-    background:
-        rgba(var(--accent-rgb),.16);
-}
-
-.nav-item.active {
-    background:
-        rgba(var(--accent-rgb),.23);
-}
-
-
-/* =========================
-   TOOLTIP
-========================= */
-
-.nav-item::after {
-    content: attr(data-name);
-
-    position: absolute;
-
-    left: 63px;
-    top: 50%;
-
-    transform:
-        translateY(-50%)
-        translateX(-6px);
-
-    padding: 8px 12px;
-
-    background:
-        rgba(8,8,18,.95);
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    border-radius: 9px;
-
-    color: white;
-
-    font-size: 13px;
-
-    white-space: nowrap;
-
-    opacity: 0;
-    visibility: hidden;
-
-    pointer-events: none;
-
-    transition:
-        opacity .2s ease,
-        transform .2s ease;
-}
-
-.nav-item:hover::after {
-    transition-delay: .5s;
-
+.settings-panel.open {
     opacity: 1;
-    visibility: visible;
-
-    transform:
-        translateY(-50%)
-        translateX(0);
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
 }
 
-
-/* =========================
-   ICON BOX
-========================= */
-
-.icon-box {
-    width: 36px;
-    height: 36px;
-
-    border-radius: 11px;
-
+.settings-header {
     display: flex;
     align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    transition:
-        transform .28s ease;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
-.nav-item:hover .icon-box {
-    transform: scale(1.08);
-}
-
-.svg-icon {
-    width: 24px;
-    height: 24px;
-
-    display: block;
-
-    flex-shrink: 0;
-}
-
-
-/* =========================
-   HOME
-========================= */
-
-.home-icon {
-    color: var(--accent);
-
-    background:
-        rgba(var(--accent-rgb),.14);
-}
-
-.home-icon .svg-icon {
-    fill: currentColor;
-}
-
-
-/* =========================
-   STEAM
-========================= */
-
-.steam-icon {
-    background: #171d25;
-}
-
-.steam-icon .svg-icon {
-    width: 24px;
-    height: 24px;
-}
-
-
-/* =========================
-   SPOTIFY
-========================= */
-
-.spotify-icon {
-    background: #102719;
-}
-
-.spotify-icon .svg-icon {
-    width: 24px;
-    height: 24px;
-}
-
-
-/* =========================
-   DISCORD
-========================= */
-
-.discord-icon {
-    background: #171a35;
-}
-
-.discord-icon .svg-icon {
-    fill: #5865F2;
-}
-
-
-/* =========================
-   GOOGLE
-========================= */
-
-.google-icon {
-    background: #181818;
-}
-
-
-/* =========================
-   SETTINGS
-========================= */
-
-.settings-icon {
-    color: var(--accent);
-
-    background:
-        rgba(var(--accent-rgb),.14);
-}
-
-.settings-icon .svg-icon {
-    fill: currentColor;
-}
-
-
-/* =========================
-   DIVIDER
-========================= */
-
-.divider {
-    width: 38px;
-    height: 1px;
-
-    background:
-        rgba(255,255,255,.1);
-
-    margin: 3px 0;
-}
-
-
-/* =========================
-   CONTENT
-========================= */
-
-.content {
-    width: 100%;
-    height: 100%;
-
-    padding-left: 105px;
-
-    position: relative;
-}
-
-
-/* =========================
-   PAGES
-========================= */
-
-.page {
-    position: absolute;
-
-    inset: 0;
-
-    padding: 35px 7%;
-
-    opacity: 0;
-    visibility: hidden;
-
-    transform: translateY(10px);
-
-    transition:
-        opacity .3s ease,
-        transform .3s ease;
-
-    overflow-y: auto;
-}
-
-.page.active {
-    opacity: 1;
-    visibility: visible;
-
-    transform: translateY(0);
-}
-
-
-/* =========================
-   HOME
-========================= */
-
-.home {
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-
-    text-align: center;
-}
-
-.welcome {
-    margin-top: 10px;
-
-    font-size:
-        clamp(40px,6vw,72px);
-
-    font-weight: 600;
-
-    letter-spacing: -2.5px;
-}
-
-.welcome span {
-    color: var(--accent);
-
-    text-shadow:
-        0 0 35px
-        rgba(var(--accent-rgb),.35);
-}
-
-.clock {
-    margin-top: 2px;
-
-    font-size:
-        clamp(40px,5vw,62px);
-
-    font-weight: 400;
-
-    letter-spacing: 2px;
-}
-
-.date {
-    margin-top: 2px;
-
-    color: #aaaaba;
-
-    font-size: 14px;
-}
-
-
-/* =========================
-   CARDS
-========================= */
-
-.cards {
-    width: min(900px,100%);
-
-    margin-top: 40px;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(180px,1fr)
-        );
-
-    gap: 17px;
-}
-
-.card {
-    padding: 28px 20px;
-
-    background:
-        rgba(15,15,30,.58);
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    border-radius: 18px;
-
-    backdrop-filter: blur(12px);
-
-    transition:
-        transform .25s ease,
-        border-color .25s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-
-    border-color:
-        rgba(var(--accent-rgb),.45);
-}
-
-.card-icon {
-    font-size: 32px;
-
-    margin-bottom: 13px;
-}
-
-.card h2 {
-    font-size: 18px;
-
+.settings-header h2 {
+    margin: 0;
+    font-size: 25px;
     font-weight: 500;
 }
 
-.card p {
-    color: #aaaaba;
-
-    font-size: 13px;
-
-    margin-top: 7px;
+.close-settings {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--box);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
 }
-
-
-/* =========================
-   PAGE TITLES
-========================= */
-
-.page-title {
-    font-size: 42px;
-
-    margin-bottom: 25px;
-}
-
-
-/* =========================
-   SETTINGS PANEL
-========================= */
-
-.settings-panel {
-    max-width: 800px;
-
-    background:
-        rgba(10,10,20,.65);
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    border-radius: 20px;
-
-    padding: 25px;
-
-    backdrop-filter: blur(18px);
-}
-
-
-/* =========================
-   SETTINGS
-========================= */
 
 .setting {
-    padding: 20px 0;
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.08);
+    margin-bottom: 21px;
 }
 
-.setting:last-child {
-    border-bottom: 0;
-}
-
-.setting h3 {
-    margin-bottom: 7px;
-
-    font-size: 17px;
-}
-
-.setting p {
-    color: #aaaaba;
-
+.setting label {
+    display: block;
+    margin-bottom: 9px;
     font-size: 13px;
-
-    margin-bottom: 13px;
+    color: var(--muted);
 }
 
-
-/* =========================
-   INPUTS
-========================= */
+select,
+input[type="color"],
+input[type="range"],
+button {
+    font-family: inherit;
+}
 
 select {
-    padding: 11px 14px;
-
-    background: #151522;
-
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 11px;
+    border: 1px solid rgba(255,255,255,.1);
+    background: rgba(255,255,255,.07);
     color: white;
-
-    border:
-        1px solid
-        #333346;
-
-    border-radius: 9px;
-
-    font-family: var(--font);
+    outline: none;
 }
 
-input[type="color"] {
-    width: 55px;
-    height: 40px;
+select option {
+    background: #151525;
+}
 
-    border: 0;
+.color-row {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+}
 
-    background: transparent;
-
+.color-option {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.25);
     cursor: pointer;
 }
 
-
-/* =========================
-   BUTTONS
-========================= */
-
-.action {
-    padding: 11px 16px;
-
-    border: 0;
-
-    border-radius: 9px;
-
-    background: var(--accent);
-
-    color: white;
-
-    font-family: var(--font);
-
-    cursor: pointer;
-
-    transition:
-        transform .2s ease,
-        filter .2s ease;
+.color-option:hover {
+    transform: scale(1.08);
 }
 
-.action:hover {
-    transform: translateY(-2px);
+.range-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
 
+.range-row input {
+    flex: 1;
+}
+
+.range-value {
+    width: 45px;
+    text-align: right;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.action-button {
+    width: 100%;
+    padding: 12px;
+    border: 0;
+    border-radius: 11px;
+    background: var(--theme);
+    color: white;
+    cursor: pointer;
+}
+
+.action-button:hover {
     filter: brightness(1.12);
 }
 
-
-/* =========================
-   THEMES
-========================= */
-
-.theme-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(100px,1fr)
-        );
-
-    gap: 10px;
+.secondary-button {
+    margin-top: 8px;
+    background: rgba(255,255,255,.08);
 }
 
-.theme-button {
-    height: 60px;
-
-    border:
-        2px solid
-        transparent;
-
-    border-radius: 12px;
-
-    cursor: pointer;
-
-    color: white;
-
-    font-family: var(--font);
-
-    transition:
-        transform .2s ease;
+.panic-status {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 12px;
 }
 
-.theme-button:hover {
-    transform: translateY(-3px);
-}
-
-.theme-purple {
-    background:
-        linear-gradient(
-            135deg,
-            #7b4dff,
-            #b04cff
-        );
-}
-
-.theme-green {
-    background:
-        linear-gradient(
-            135deg,
-            #00a86b,
-            #45e39b
-        );
-}
-
-.theme-blue {
-    background:
-        linear-gradient(
-            135deg,
-            #1677ff,
-            #39c5ff
-        );
-}
-
-.theme-red {
-    background:
-        linear-gradient(
-            135deg,
-            #d92950,
-            #ff704d
-        );
-}
-
-.theme-orange {
-    background:
-        linear-gradient(
-            135deg,
-            #e76f00,
-            #ffbd45
-        );
-}
-
-.theme-pink {
-    background:
-        linear-gradient(
-            135deg,
-            #d84cff,
-            #ff72b7
-        );
-}
-
-.theme-cyan {
-    background:
-        linear-gradient(
-            135deg,
-            #00a6a6,
-            #49efff
-        );
-}
-
-.theme-white {
-    background:
-        linear-gradient(
-            135deg,
-            #aaa,
-            #fff
-        );
-
-    color: #111;
-}
-
-
-/* =========================
-   BACKGROUNDS
-========================= */
-
-.background-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(140px,1fr)
-        );
-
-    gap: 12px;
-}
-
-.background-button {
-    height: 85px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
-    border-radius: 14px;
-
-    color: white;
-
-    font-family: var(--font);
-
-    cursor: pointer;
-
-    transition:
-        transform .25s ease,
-        border .25s ease;
-}
-
-.background-button:hover {
-    transform: translateY(-3px);
-
-    border-color:
-        rgba(255,255,255,.35);
-}
-
-
-/* DEFAULT SPACE */
-
-.bg-space {
-    background:
-        radial-gradient(
-            circle at 20% 20%,
-            #5131a8,
-            transparent 40%
-        ),
-        radial-gradient(
-            circle at 80% 80%,
-            #6d1a80,
-            transparent 40%
-        ),
-        #070712;
-}
-
-
-/* DEEP SPACE */
-
-.bg-deep {
-    background:
-        radial-gradient(
-            circle at 70% 30%,
-            #162858,
-            transparent 35%
-        ),
-        #02040c;
-}
-
-
-/* NEBULA */
-
-.bg-nebula {
-    background:
-        radial-gradient(
-            circle at 20% 30%,
-            #812f92,
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 80% 70%,
-            #263c99,
-            transparent 40%
-        ),
-        #090614;
-}
-
-
-/* MOVING STARS */
-
-.bg-stars {
-    background: #05050d;
-
-    background-image:
-        radial-gradient(
-            white 1px,
-            transparent 1px
-        );
-
-    background-size: 35px 35px;
-
-    animation:
-        stars 12s linear infinite;
-}
-
-@keyframes stars {
-
-    from {
-        background-position: 0 0;
-    }
-
-    to {
-        background-position: 350px 350px;
-    }
-
-}
-
-
-/* MOVING NEBULA */
-
-.bg-moving {
-    background:
-        radial-gradient(
-            circle at 20% 50%,
-            #702c9b,
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 80% 50%,
-            #214f9c,
-            transparent 35%
-        ),
-        #080611;
-
-    background-size: 200% 200%;
-
-    animation:
-        nebula 15s
-        ease-in-out
-        infinite alternate;
-}
-
-@keyframes nebula {
-
-    from {
-        background-position: 0% 50%;
-    }
-
-    to {
-        background-position: 100% 50%;
-    }
-
-}
-
-
-/* AURORA */
-
-.bg-aurora {
-    background:
-        linear-gradient(
-            120deg,
-            #061c24,
-            #123e3a,
-            #35144d,
-            #06121c
-        );
-
-    background-size: 300% 300%;
-
-    animation:
-        aurora 12s
-        ease infinite;
-}
-
-@keyframes aurora {
-
-    0% {
-        background-position: 0 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0 50%;
-    }
-
-}
-
-
-/* =========================
-   PANIC SCREEN
-========================= */
-
-#panicScreen {
+.overlay {
     position: fixed;
-
     inset: 0;
+    background: rgba(0,0,0,.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+    z-index: 90;
+}
 
-    background: white;
+.overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
 
+.panic-screen {
+    position: fixed;
+    inset: 0;
     display: none;
-
-    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    z-index: 999;
 }
 
-#panicScreen.active {
-    display: block;
+.panic-screen.active {
+    display: flex;
 }
 
-
-/* =========================
-   MOBILE
-========================= */
+.panic-screen span {
+    color: #111;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+}
 
 @media (max-width: 650px) {
-
     .sidebar {
-        left: 8px;
-        width: 58px;
+        width: 67px;
+        margin: 8px;
+        height: calc(100% - 16px);
+        padding: 8px 6px;
     }
 
-    .nav-item {
-        width: 44px;
-        height: 44px;
+    .side-button {
+        width: 46px;
+        height: 46px;
     }
 
-    .content {
-        padding-left: 78px;
+    .side-button::after {
+        display: none;
     }
 
-    .page {
-        padding:
-            30px 22px;
+    .home {
+        transform: translateY(-10px);
     }
-
 }
-
 </style>
 </head>
 
-
 <body>
 
+<div id="background"></div>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="side-time" id="sideTime">12:00 PM</div>
+
+        <div class="side-divider"></div>
+
+        <!-- HOME -->
+        <button class="side-button home-button"
+                data-label="Home"
+                onclick="showHome()"
+                aria-label="Home">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 11.5 12 4l9 7.5"/>
+                <path d="M5.5 10.5V20h13v-9.5"/>
+                <path d="M9.5 20v-5.5h5V20"/>
+            </svg>
+        </button>
+
+        <!-- GAMES -->
+        <a class="side-button steam-button"
+           data-label="Games"
+           href="#"
+           aria-label="Games">
+            <svg viewBox="0 0 24 24">
+                <path fill="#000000"
+                    d="M12.5 2C6.7 2 2 6.2 2 11.7c0 4.7 3.5 8.6 8 9.3v-3.2c-1.2-.2-2.2-.8-2.9-1.6l-1.8 1.1c-.4.2-.9.1-1.1-.3-.3-.4-.1-.9.3-1.1l2-1.2c-.1-.4-.2-.8-.2-1.2 0-1.7 1.4-3.1 3.1-3.1.9 0 1.7.4 2.3 1l2.5-1.7c-.1-.3-.1-.6-.1-.9 0-1.8 1.5-3.3 3.3-3.3s3.3 1.5 3.3 3.3-1.5 3.3-3.3 3.3c-.5 0-1-.1-1.4-.3l-2.6 1.8c.1.3.1.6.1 1 0 1.8-1.5 3.3-3.3 3.3-.3 0-.6 0-.9-.1v3.2c.3 0 .7.1 1 .1 5.8 0 10.5-4.7 10.5-10.5S18.3 2 12.5 2z"/>
+            </svg>
+        </a>
+
+        <!-- SPOTIFY -->
+        <a class="side-button"
+           data-label="Spotify"
+           href="https://open.spotify.com/"
+           target="_blank"
+           rel="noopener"
+           aria-label="Spotify">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" fill="#1DB954"/>
+                <path d="M7 10.1c3.2-1 6.8-.8 9.8.4"
+                      fill="none" stroke="white"
+                      stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M7.7 13c2.7-.7 5.7-.5 8.1.4"
+                      fill="none" stroke="white"
+                      stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M8.5 15.7c2-.5 4.2-.3 6 .3"
+                      fill="none" stroke="white"
+                      stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+        </a>
+
+        <!-- DISCORD -->
+        <a class="side-button"
+           data-label="Discord"
+           href="https://discord.com/"
+           target="_blank"
+           rel="noopener"
+           aria-label="Discord">
+            <svg viewBox="0 0 24 24">
+                <path fill="#5865F2"
+                    d="M19.5 5.2A16.4 16.4 0 0 0 15.7 4l-.5 1a14.5 14.5 0 0 0-6.4 0l-.5-1a16.4 16.4 0 0 0-3.8 1.2C2.1 9.1 1.4 12.9 1.7 16.6a16.2 16.2 0 0 0 4.7 2.4l1.1-1.5c-.6-.2-1.1-.5-1.6-.8l.4-.3c3.1 1.5 6.8 1.5 9.9 0l.4.3c-.5.3-1 .6-1.6.8l1.1 1.5a16.2 16.2 0 0 0 4.7-2.4c.4-4.3-.7-8.1-1.8-11.4z"/>
+                <circle cx="8.5" cy="12" r="1.2" fill="white"/>
+                <circle cx="15.5" cy="12" r="1.2" fill="white"/>
+            </svg>
+        </a>
+
+        <!-- BROWSER -->
+        <a class="side-button"
+           data-label="Browser"
+           href="Browser.html"
+           aria-label="Browser">
+            <svg viewBox="0 0 24 24">
+                <path fill="#4285F4"
+                    d="M21.3 12.2c0-.7-.1-1.4-.2-2.1H12v4h5.2c-.2 1.3-.9 2.4-2 3.1v2.6h3.3c1.9-1.8 2.8-4.4 2.8-7.6z"/>
+                <path fill="#34A853"
+                    d="M12 21.8c2.7 0 4.9-.9 6.5-2.4l-3.3-2.6c-.9.6-2 .9-3.2.9-2.5 0-4.6-1.7-5.4-4H3.2v2.7c1.7 3.2 5 5.4 8.8 5.4z"/>
+                <path fill="#FBBC05"
+                    d="M6.6 13.7a5.8 5.8 0 0 1 0-3.4V7.6H3.2a9.8 9.8 0 0 0 0 8.8l3.4-2.7z"/>
+                <path fill="#EA4335"
+                    d="M12 6.2c1.5 0 2.8.5 3.8 1.5l2.8-2.8C16.9 3.4 14.7 2.2 12 2.2c-3.8 0-7.1 2.2-8.8 5.4l3.4 2.7c.8-2.4 2.9-4.1 5.4-4.1z"/>
+            </svg>
+        </a>
+
+        <div class="bottom-buttons">
+
+            <!-- SETTINGS -->
+            <button class="side-button settings-button"
+                    data-label="Settings"
+                    onclick="toggleSettings()"
+                    aria-label="Settings">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6z"/>
+                    <path d="m19.4 15 .1.1a1.8 1.8 0 0 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3 .9v.2a1.8 1.8 0 0 1-3.6 0v-.2a1.8 1.8 0 0 0-3-.9l-.1.1a1.8 1.8 0 0 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-.9-3H3.7a1.8 1.8 0 0 1 0-3.6h.2a1.8 1.8 0 0 0 .9-3l-.1-.1a1.8 1.8 0 0 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3-.9v-.2a1.8 1.8 0 0 1 3.6 0v.2a1.8 1.8 0 0 0 3 .9l.1-.1a1.8 1.8 0 0 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 .9 3h.2a1.8 1.8 0 0 1 0 3.6h-.2a1.8 1.8 0 0 0-.9 3z"/>
+                </svg>
+            </button>
 
-<!-- ==================================================
-     SIDEBAR
-================================================== -->
+        </div>
 
-<aside class="sidebar">
+    </aside>
 
+    <main class="main">
 
-<div
-class="side-time"
-id="sideTime">
-12:00 PM
-</div>
+        <section class="home" id="home">
 
+            <div class="home-logo">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path d="M3 11.5 12 4l9 7.5"/>
+                    <path d="M5.5 10.5V20h13v-9.5"/>
+                    <path d="M9.5 20v-5.5h5V20"/>
+                </svg>
+            </div>
 
-<!-- HOME -->
+            <h1>Welcome to Nova</h1>
 
-<button
-class="nav-item active"
-data-name="Home"
-onclick="showPage('home',this)"
->
+            <div class="subtitle">
+                Your personal space.
+            </div>
 
-<span class="icon-box home-icon">
+            <div class="clock" id="clock">
+                12:00:00 PM
+            </div>
 
-<svg
-viewBox="0 0 24 24"
-class="svg-icon"
->
+            <div class="date" id="date">
+                Thursday, August 13, 2026
+            </div>
 
-<path d="
-M3 11.5
-L12 4
-L21 11.5
-V19.5
-A1 1 0 0 1 20 20.5
-H15
-V14.5
-H9
-V20.5
-H4
-A1 1 0 0 1 3 19.5
-Z
-"/>
-
-</svg>
-
-</span>
-
-</button>
-
-
-<!-- STEAM -->
-
-<button
-class="nav-item"
-data-name="Games"
-onclick="showPage('games',this)"
->
+        </section>
 
-<span class="icon-box steam-icon">
-
-<svg
-viewBox="0 0 24 24"
-class="svg-icon"
->
-
-<path
-fill="#66C0F4"
-d="
-M12 2
-a10 10 0 0 0-9.8 8.1
-l5.1 2.1
-a2.8 2.8 0 1 1-.8 2.1
-l-3.9-1.6
-A10 10 0 1 0 12 2
-
-M16.2 6.8
-a3.1 3.1 0 1 1 0 6.2
-a3.1 3.1 0 0 1 0-6.2
-
-M16.2 8.2
-a1.7 1.7 0 1 0 0 3.4
-a1.7 1.7 0 0 0 0-3.4
-
-M8.8 12.8
-a1.4 1.4 0 1 0 0 2.8
-a1.4 1.4 0 0 0 0-2.8
-"
-/>
-
-</svg>
-
-</span>
-
-</button>
-
-
-<!-- SPOTIFY -->
-
-<button
-class="nav-item"
-data-name="Spotify"
-onclick="showPage('spotify',this)"
->
-
-<span class="icon-box spotify-icon">
-
-<svg
-viewBox="0 0 24 24"
-class="svg-icon"
->
-
-<circle
-cx="12"
-cy="12"
-r="10"
-fill="#1DB954"
-/>
-
-<path
-d="M7 9.2
-C10.5 8.2 14.6 8.5 17.2 10"
-fill="none"
-stroke="#07110a"
-stroke-width="1.6"
-stroke-linecap="round"
-/>
-
-<path
-d="M7.5 12
-C10.5 11.2 14.1 11.5 16.5 12.7"
-fill="none"
-stroke="#07110a"
-stroke-width="1.5"
-stroke-linecap="round"
-/>
-
-<path
-d="M8.2 14.7
-C10.6 14.2 13.5 14.4 15.4 15.2"
-fill="none"
-stroke="#07110a"
-stroke-width="1.4"
-stroke-linecap="round"
-/>
-
-</svg>
-
-</span>
-
-</button>
-
-
-<!-- DISCORD -->
-
-<button
-class="nav-item"
-data-name="Discord"
-onclick="showPage('discord',this)"
->
-
-<span class="icon-box discord-icon">
-
-<svg
-viewBox="0 0 24 24"
-class="svg-icon"
->
-
-<path
-fill="#5865F2"
-d="
-M19.5 5.4
-A16.2 16.2 0 0 0 15.6 4
-L15.1 5.1
-A14 14 0 0 0 8.9 5.1
-L8.4 4
-A16.2 16.2 0 0 0 4.5 5.4
-C2 9.1 1.3 12.7 1.7 16.2
-A16 16 0 0 0 6.5 18.6
-L7.7 16.9
-C7 16.6 6.4 16.2 5.8 15.8
-L6.3 15.4
-C10 17.1 13.9 17.1 17.6 15.4
-L18.1 15.8
-C17.5 16.2 16.9 16.6 16.2 16.9
-L17.4 18.6
-A16 16 0 0 0 22.2 16.2
-C22.7 12.1 21.2 8.5 19.5 5.4
-
-ZM8.7 14.2
-C7.6 14.2 6.7 13.2 6.7 12
-S7.6 9.8 8.7 9.8
-S10.7 10.8 10.7 12
-S9.8 14.2 8.7 14.2
-
-ZM15.3 14.2
-C14.2 14.2 13.3 13.2 13.3 12
-S14.2 9.8 15.3 9.8
-S17.3 10.8 17.3 12
-S16.4 14.2 15.3 14.2
-Z
-"/>
-
-</svg>
-
-</span>
-
-</button>
-
-
-<!-- GOOGLE -->
-
-<button
-class="nav-item"
-data-name="Browser"
-onclick="showPage('browser',this)"
->
-
-<span class="icon-box google-icon">
-
-<svg
-viewBox="0 0 48 48"
-class="svg-icon"
->
-
-<path
-fill="#4285F4"
-d="
-M47.5 24.5
-C47.5 22.9 47.4 21.4 47.1 20
-H24V28.5H37.2
-C36.6 31.4 35 33.8 32.5 35.5
-V41.3H40.1
-C44.5 37.2 47.5 31.2 47.5 24.5Z
-"/>
-
-<path
-fill="#34A853"
-d="
-M24 48
-C30.3 48 35.6 45.9 39.5 42.3
-L31.9 36.5
-C29.8 37.9 27.2 38.7 24 38.7
-C17.9 38.7 12.7 34.6 10.8 29.1
-H3V35.1
-C6.9 42.1 14.8 48 24 48Z
-"/>
-
-<path
-fill="#FBBC05"
-d="
-M10.8 29.1
-A14.4 14.4 0 0 1 10 24
-C10 22.2 10.3 20.5 10.8 18.9
-V12.9H3
-A24 24 0 0 0 0 24
-C0 27.9 .9 31.6 3 35
-L10.8 29.1Z
-"/>
-
-<path
-fill="#EA4335"
-d="
-M24 9.5
-C27.4 9.5 30.4 10.7 32.8 13
-L39.4 6.4
-C35.6 2.3 30.3 0 24 0
-C14.8 0 6.9 5.9 3 14.9
-L10.8 20.9
-C12.7 15.4 17.9 9.5 24 9.5Z
-"/>
-
-</svg>
-
-</span>
-
-</button>
-
-
-<div class="divider"></div>
-
-
-<!-- SETTINGS -->
-
-<button
-class="nav-item"
-data-name="Settings"
-onclick="showPage('settings',this)"
->
-
-<span class="icon-box settings-icon">
-
-<svg
-viewBox="0 0 24 24"
-class="svg-icon"
->
-
-<path d="
-M19.43 12.98
-C19.47 12.66 19.5 12.34 19.5 12
-S19.47 11.34 19.43 11.02
-L21.54 9.37
-C21.73 9.22 21.78 8.95 21.66 8.73
-L19.66 5.27
-C19.54 5.05 19.27 4.96 19.05 5.05
-L16.56 6.05
-C16.04 5.66 15.47 5.34 14.83 5.1
-L14.5 2.45
-C14.47 2.2 14.25 2 14 2
-H10
-C9.75 2 9.53 2.2 9.5 2.45
-L9.17 5.1
-C8.53 5.34 7.96 5.66 7.44 6.05
-L4.95 5.05
-C4.73 4.96 4.46 5.05 4.34 5.27
-L2.34 8.73
-C2.22 8.95 2.27 9.22 2.46 9.37
-L4.57 11.02
-C4.53 11.34 4.5 11.66 4.57 12.98
-L2.46 14.63
-C2.27 14.78 2.22 15.05 2.34 15.27
-L4.34 18.73
-C4.46 18.95 4.73 19.04 4.95 18.95
-L7.44 17.95
-C7.96 18.34 8.53 18.66 9.17 18.9
-L9.5 21.55
-C9.53 21.8 9.75 22 10 22
-H14
-C14.25 22 14.47 21.8 14.5 21.55
-L14.83 18.9
-C15.47 18.66 16.04 18.34 16.56 17.95
-L19.05 18.95
-C19.27 19.04 19.54 18.95 19.66 18.73
-L21.66 15.27
-C21.78 15.05 21.73 14.78 21.54 14.63
-L19.43 12.98Z
-
-M12 15.5
-A3.5 3.5 0 1 1 12 8.5
-A3.5 3.5 0 0 1 12 15.5Z
-"/>
-
-</svg>
-
-</span>
-
-</button>
-
-
-</aside>
-
-
-<main class="content">
-
-
-<!-- ==================================================
-     HOME
-================================================== -->
-
-<section
-id="home"
-class="page home active"
->
-
-<h1 class="welcome">
-Welcome to <span>Nova</span>
-</h1>
-
-<div
-class="clock"
-id="clock">
-12:00:00 PM
-</div>
-
-<div
-class="date"
-id="date">
-Thursday, August 13
-</div>
-
-
-<div class="cards">
-
-
-<div class="card">
-
-<div class="card-icon">
-🎮
-</div>
-
-<h2>
-Games
-</h2>
-
-<p>
-Your game library.
-</p>
+    </main>
 
 </div>
 
+<div class="overlay" id="overlay" onclick="toggleSettings()"></div>
 
-<div class="card">
+<div class="settings-panel" id="settings">
 
-<div class="card-icon">
-🎵
-</div>
+    <div class="settings-header">
+        <h2>Nova Settings</h2>
 
-<h2>
-Spotify
-</h2>
+        <button class="close-settings"
+                onclick="toggleSettings()">
+            ×
+        </button>
+    </div>
 
-<p>
-Music and playlists.
-</p>
+    <div class="setting">
+        <label>Font</label>
 
-</div>
+        <select id="fontSelect" onchange="changeFont(this.value)">
+            <option value="Space Grotesk">Space Grotesk</option>
+            <option value="Inter">Inter</option>
+            <option value="Poppins">Poppins</option>
+            <option value="Montserrat">Montserrat</option>
+            <option value="Roboto">Roboto</option>
+            <option value="Lato">Lato</option>
+            <option value="Orbitron">Orbitron</option>
+            <option value="Playfair Display">Playfair Display</option>
+        </select>
+    </div>
 
+    <div class="setting">
+        <label>Theme color</label>
 
-<div class="card">
+        <div class="color-row">
+            <button class="color-option" style="background:#8b5cf6"
+                    onclick="setTheme('#8b5cf6','#a855f7')"></button>
 
-<div class="card-icon">
-💬
-</div>
+            <button class="color-option" style="background:#3b82f6"
+                    onclick="setTheme('#3b82f6','#06b6d4')"></button>
 
-<h2>
-Discord
-</h2>
+            <button class="color-option" style="background:#22c55e"
+                    onclick="setTheme('#22c55e','#10b981')"></button>
 
-<p>
-Your Discord space.
-</p>
+            <button class="color-option" style="background:#ef4444"
+                    onclick="setTheme('#ef4444','#f97316')"></button>
 
-</div>
+            <button class="color-option" style="background:#f97316"
+                    onclick="setTheme('#f97316','#facc15')"></button>
 
+            <button class="color-option" style="background:#ec4899"
+                    onclick="setTheme('#ec4899','#f43f5e')"></button>
 
-<div class="card">
+            <button class="color-option" style="background:#06b6d4"
+                    onclick="setTheme('#06b6d4','#3b82f6')"></button>
+        </div>
+    </div>
 
-<div class="card-icon">
-🌐
-</div>
+    <div class="setting">
+        <label>Custom theme color</label>
 
-<h2>
-Browser
-</h2>
+        <input type="color"
+               id="customColor"
+               value="#8b5cf6"
+               onchange="customTheme(this.value)">
+    </div>
 
-<p>
-Web tools.
-</p>
+    <div class="setting">
+        <label>Background</label>
 
-</div>
+        <select id="backgroundSelect"
+                onchange="changeBackground(this.value)">
+            <option value="purple">Purple</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="red">Red</option>
+            <option value="sunset">Sunset</option>
+            <option value="dark">Dark</option>
+            <option value="moving">Moving Purple</option>
+        </select>
+    </div>
 
+    <div class="setting">
+        <label>Sidebar transparency</label>
 
-</div>
+        <div class="range-row">
+            <input type="range"
+                   min="20"
+                   max="95"
+                   value="62"
+                   oninput="changeSidebar(this.value)">
 
-</section>
+            <span class="range-value" id="sidebarValue">
+                62%
+            </span>
+        </div>
+    </div>
 
+    <div class="setting">
+        <label>Clock format</label>
 
-<!-- ==================================================
-     GAMES
-================================================== -->
+        <select id="clockFormat"
+                onchange="saveSettings(); updateClock()">
+            <option value="12">12 hour</option>
+            <option value="24">24 hour</option>
+        </select>
+    </div>
 
-<section
-id="games"
-class="page"
->
+    <div class="setting">
+        <label>Clock seconds</label>
 
-<h1 class="page-title">
-🎮 Games
-</h1>
+        <select id="secondsSelect"
+                onchange="saveSettings(); updateClock()">
+            <option value="yes">Show seconds</option>
+            <option value="no">Hide seconds</option>
+        </select>
+    </div>
 
+    <div class="setting">
 
-<div class="cards">
+        <label>Panic key</label>
 
+        <button class="action-button"
+                onclick="setPanicKey()">
+            Set Panic Key
+        </button>
 
-<div class="card">
+        <button class="action-button secondary-button"
+                onclick="clearPanicKey()">
+            Clear Panic Key
+        </button>
 
-<div class="card-icon">
-🚀
-</div>
+        <div class="panic-status"
+             id="panicStatus">
+            No panic key set.
+        </div>
 
-<h2>
-Space Runner
-</h2>
+    </div>
 
-<p>
-Coming soon.
-</p>
+    <div class="setting">
 
-</div>
+        <button class="action-button secondary-button"
+                onclick="resetSettings()">
+            Reset Nova Settings
+        </button>
 
-
-<div class="card">
-
-<div class="card-icon">
-👾
-</div>
-
-<h2>
-Pixel Quest
-</h2>
-
-<p>
-Coming soon.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">
-🧩
-</div>
-
-<h2>
-Galaxy Blocks
-</h2>
-
-<p>
-Coming soon.
-</p>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- ==================================================
-     SPOTIFY
-================================================== -->
-
-<section
-id="spotify"
-class="page"
->
-
-<h1 class="page-title">
-Spotify
-</h1>
-
-
-<div class="settings-panel">
-
-<iframe
-src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
-width="100%"
-height="352"
-frameborder="0"
-allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-</iframe>
+    </div>
 
 </div>
 
-</section>
-
-
-<!-- ==================================================
-     DISCORD
-================================================== -->
-
-<section
-id="discord"
-class="page"
->
-
-<h1 class="page-title">
-Discord
-</h1>
-
-
-<div class="settings-panel">
-
-<h2>
-Discord
-</h2>
-
-<br>
-
-<p>
-Open Discord from Nova.
-</p>
-
-<br>
-
-<button
-class="action"
-onclick="window.open('https://discord.com/app','_blank')"
->
-Open Discord
-</button>
-
+<div class="panic-screen" id="panicScreen">
+    <span>Nova</span>
 </div>
-
-</section>
-
-
-<!-- ==================================================
-     BROWSER
-================================================== -->
-
-<section
-id="browser"
-class="page"
->
-
-<h1 class="page-title">
-Browser
-</h1>
-
-
-<div class="settings-panel">
-
-<p>
-Search the web.
-</p>
-
-<br>
-
-<input
-id="searchInput"
-style="
-width:70%;
-padding:12px;
-background:#11111d;
-color:white;
-border:1px solid #333;
-border-radius:9px;
-font-family:var(--font);
-"
-placeholder="Search the web..."
->
-
-<button
-class="action"
-onclick="searchWeb()"
->
-Search
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ==================================================
-     SETTINGS
-================================================== -->
-
-<section
-id="settings"
-class="page"
->
-
-<h1 class="page-title">
-Settings
-</h1>
-
-
-<div class="settings-panel">
-
-
-<!-- FONT -->
-
-<div class="setting">
-
-<h3>
-Font
-</h3>
-
-<p>
-Change Nova's typeface.
-</p>
-
-
-<select
-id="fontSelector"
-onchange="changeFont()"
->
-
-<option value='"Space Grotesk",sans-serif'>
-Space Grotesk
-</option>
-
-<option value='"Outfit",sans-serif'>
-Outfit
-</option>
-
-<option value='"Manrope",sans-serif'>
-Manrope
-</option>
-
-<option value='"Urbanist",sans-serif'>
-Urbanist
-</option>
-
-<option value='"Sora",sans-serif'>
-Sora
-</option>
-
-<option value='"Rajdhani",sans-serif'>
-Rajdhani
-</option>
-
-<option value="Arial,sans-serif">
-Arial
-</option>
-
-</select>
-
-</div>
-
-
-<!-- THEMES -->
-
-<div class="setting">
-
-<h3>
-Theme
-</h3>
-
-<p>
-Change Nova's accent color.
-</p>
-
-
-<div class="theme-grid">
-
-
-<button
-class="theme-button theme-purple"
-onclick="setTheme('#8b5cff','139,92,255')">
-Purple
-</button>
-
-
-<button
-class="theme-button theme-green"
-onclick="setTheme('#19c77a','25,199,122')">
-Emerald
-</button>
-
-
-<button
-class="theme-button theme-blue"
-onclick="setTheme('#238cff','35,140,255')">
-Ocean
-</button>
-
-
-<button
-class="theme-button theme-red"
-onclick="setTheme('#ef3f5f','239,63,95')">
-Crimson
-</button>
-
-
-<button
-class="theme-button theme-orange"
-onclick="setTheme('#ff8a24','255,138,36')">
-Amber
-</button>
-
-
-<button
-class="theme-button theme-pink"
-onclick="setTheme('#f05cff','240,92,255')">
-Rose
-</button>
-
-
-<button
-class="theme-button theme-cyan"
-onclick="setTheme('#20d9e8','32,217,232')">
-Cyan
-</button>
-
-
-<button
-class="theme-button theme-white"
-onclick="setTheme('#ffffff','255,255,255')">
-Arctic
-</button>
-
-
-</div>
-
-</div>
-
-
-<!-- CUSTOM ACCENT -->
-
-<div class="setting">
-
-<h3>
-Custom Accent
-</h3>
-
-<p>
-Choose your own theme color.
-</p>
-
-<input
-type="color"
-id="accentColor"
-value="#8b5cff"
-onchange="customAccent()"
->
-
-</div>
-
-
-<!-- BACKGROUNDS -->
-
-<div class="setting">
-
-<h3>
-Background
-</h3>
-
-<p>
-Choose a static or moving background.
-</p>
-
-
-<div class="background-grid">
-
-
-<button
-class="background-button bg-space"
-onclick="setBackground('space')">
-Default Space
-</button>
-
-
-<button
-class="background-button bg-deep"
-onclick="setBackground('deep')">
-Deep Space
-</button>
-
-
-<button
-class="background-button bg-nebula"
-onclick="setBackground('nebula')">
-Nebula
-</button>
-
-
-<button
-class="background-button bg-stars"
-onclick="setBackground('stars')">
-Moving Stars
-</button>
-
-
-<button
-class="background-button bg-moving"
-onclick="setBackground('moving')">
-Moving Nebula
-</button>
-
-
-<button
-class="background-button bg-aurora"
-onclick="setBackground('aurora')">
-Aurora
-</button>
-
-
-</div>
-
-</div>
-
-
-<!-- CUSTOM BACKGROUND -->
-
-<div class="setting">
-
-<h3>
-Custom Background Color
-</h3>
-
-<p>
-Choose your own background color.
-</p>
-
-<input
-type="color"
-id="backgroundColor"
-value="#070712"
-onchange="customBackground()"
->
-
-</div>
-
-
-<!-- PANIC KEY -->
-
-<div class="setting">
-
-<h3>
-🚨 Panic Key
-</h3>
-
-<p>
-Press a key to instantly hide the Nova page.
-</p>
-
-
-<button
-class="action"
-id="panicButton"
-onclick="setPanicKey()">
-Set Panic Key
-</button>
-
-
-<span
-id="panicStatus"
-style="
-color:#aaaaba;
-font-size:13px;
-margin-left:10px;
-">
-Not set
-</span>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-</main>
-
-
-<!-- PANIC SCREEN -->
-
-<div id="panicScreen"></div>
-
 
 <script>
-
-
-/* ==================================================
-   PAGE SWITCHING
-================================================== */
-
-function showPage(page, button) {
-
-    document
-        .querySelectorAll(".page")
-        .forEach(function(p) {
-            p.classList.remove("active");
-        });
-
-    document
-        .getElementById(page)
-        .classList.add("active");
-
-
-    document
-        .querySelectorAll(".nav-item")
-        .forEach(function(b) {
-            b.classList.remove("active");
-        });
-
-    button.classList.add("active");
-}
-
-
-/* ==================================================
-   CLOCK
-================================================== */
+let panicKey = localStorage.getItem("novaPanicKey");
 
 function updateClock() {
-
     const now = new Date();
 
+    const format =
+        document.getElementById("clockFormat")?.value || "12";
 
-    document.getElementById("clock").textContent =
-        now.toLocaleTimeString([], {
+    const showSeconds =
+        document.getElementById("secondsSelect")?.value !== "no";
+
+    let time;
+
+    if (format === "24") {
+        time = now.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: showSeconds ? "2-digit" : undefined,
+            hour12: false
+        });
+    } else {
+        time = now.toLocaleTimeString([], {
             hour: "numeric",
             minute: "2-digit",
-            second: "2-digit"
+            second: showSeconds ? "2-digit" : undefined,
+            hour12: true
         });
+    }
 
+    document.getElementById("clock").textContent = time;
 
     document.getElementById("sideTime").textContent =
         now.toLocaleTimeString([], {
             hour: "numeric",
-            minute: "2-digit"
+            minute: "2-digit",
+            hour12: true
         });
-
 
     document.getElementById("date").textContent =
         now.toLocaleDateString([], {
             weekday: "long",
             month: "long",
-            day: "numeric"
+            day: "numeric",
+            year: "numeric"
         });
-
 }
-
-
-updateClock();
 
 setInterval(updateClock, 1000);
+updateClock();
 
-
-/* ==================================================
-   FONT
-================================================== */
-
-function changeFont() {
-
-    const font =
-        document
-        .getElementById("fontSelector")
-        .value;
-
-
-    document.documentElement
-        .style
-        .setProperty("--font", font);
-
-
-    localStorage.setItem(
-        "novaFont",
-        font
-    );
+function showHome() {
+    document.getElementById("home").style.display = "block";
 }
 
-
-/* ==================================================
-   THEME
-================================================== */
-
-function setTheme(color, rgb) {
-
-    document.documentElement
-        .style
-        .setProperty(
-            "--accent",
-            color
-        );
-
-
-    document.documentElement
-        .style
-        .setProperty(
-            "--accent-rgb",
-            rgb
-        );
-
-
-    document.getElementById(
-        "accentColor"
-    ).value = color;
-
-
-    localStorage.setItem(
-        "novaAccent",
-        color
-    );
-
-
-    localStorage.setItem(
-        "novaAccentRGB",
-        rgb
-    );
+function toggleSettings() {
+    document.getElementById("settings").classList.toggle("open");
+    document.getElementById("overlay").classList.toggle("open");
 }
 
+function setTheme(primary, secondary) {
+    document.documentElement.style.setProperty("--theme", primary);
+    document.documentElement.style.setProperty("--theme2", secondary);
 
-/* ==================================================
-   CUSTOM ACCENT
-================================================== */
-
-function customAccent() {
-
-    const color =
-        document
-        .getElementById("accentColor")
-        .value;
-
-
-    const r =
-        parseInt(
-            color.substring(1,3),
-            16
-        );
-
-
-    const g =
-        parseInt(
-            color.substring(3,5),
-            16
-        );
-
-
-    const b =
-        parseInt(
-            color.substring(5,7),
-            16
-        );
-
-
-    setTheme(
-        color,
-        `${r},${g},${b}`
-    );
+    localStorage.setItem("novaTheme", primary);
+    localStorage.setItem("novaTheme2", secondary);
 }
 
+function customTheme(color) {
+    setTheme(color, color);
+}
 
-/* ==================================================
-   BACKGROUND
-================================================== */
+function changeFont(font) {
+    document.body.style.fontFamily =
+        `"${font}", sans-serif`;
 
-function setBackground(type) {
+    localStorage.setItem("novaFont", font);
+}
 
-    document.body.className = "";
+function changeBackground(type) {
+    const bg = document.getElementById("background");
 
-    document.body.style.background = "";
+    bg.classList.remove("moving");
 
+    const backgrounds = {
+        purple:
+            "radial-gradient(circle at 15% 20%, rgba(139,92,246,.45), transparent 35%), radial-gradient(circle at 85% 80%, rgba(168,85,247,.28), transparent 35%), #090912",
 
-    if (type === "space") {
+        blue:
+            "radial-gradient(circle at 15% 20%, rgba(59,130,246,.45), transparent 35%), radial-gradient(circle at 85% 80%, rgba(6,182,212,.28), transparent 35%), #080d18",
 
-        document.body.style.background =
-            "radial-gradient(circle at 20% 20%,#5131a8,transparent 40%),radial-gradient(circle at 80% 80%,#6d1a80,transparent 40%),#070712";
-    }
+        green:
+            "radial-gradient(circle at 15% 20%, rgba(34,197,94,.4), transparent 35%), radial-gradient(circle at 85% 80%, rgba(16,185,129,.25), transparent 35%), #07120d",
 
+        red:
+            "radial-gradient(circle at 15% 20%, rgba(239,68,68,.4), transparent 35%), radial-gradient(circle at 85% 80%, rgba(249,115,22,.25), transparent 35%), #150909",
 
-    if (type === "deep") {
+        sunset:
+            "radial-gradient(circle at 15% 20%, rgba(249,115,22,.45), transparent 35%), radial-gradient(circle at 85% 80%, rgba(236,72,153,.3), transparent 35%), #12090e",
 
-        document.body.classList.add(
-            "bg-deep"
-        );
-    }
+        dark:
+            "#050507",
 
+        moving:
+            "radial-gradient(circle at 15% 20%, rgba(139,92,246,.5), transparent 35%), radial-gradient(circle at 85% 80%, rgba(6,182,212,.3), transparent 35%), #090912"
+    };
 
-    if (type === "nebula") {
-
-        document.body.classList.add(
-            "bg-nebula"
-        );
-    }
-
-
-    if (type === "stars") {
-
-        document.body.classList.add(
-            "bg-stars"
-        );
-    }
-
+    bg.style.background =
+        backgrounds[type] || backgrounds.purple;
 
     if (type === "moving") {
-
-        document.body.classList.add(
-            "bg-moving"
-        );
+        bg.classList.add("moving");
     }
 
+    localStorage.setItem("novaBackground", type);
+}
 
-    if (type === "aurora") {
+function changeSidebar(value) {
+    const opacity =
+        Number(value) / 100;
 
-        document.body.classList.add(
-            "bg-aurora"
-        );
-    }
+    document.documentElement.style.setProperty(
+        "--sidebar",
+        `rgba(15,15,28,${opacity})`
+    );
 
+    document.getElementById("sidebarValue").textContent =
+        value + "%";
 
     localStorage.setItem(
-        "novaBackground",
-        type
+        "novaSidebar",
+        value
     );
 }
 
+function setPanicKey() {
+    document.getElementById("panicStatus").textContent =
+        "Press any key...";
 
-/* ==================================================
-   CUSTOM BACKGROUND
-================================================== */
+    function listener(event) {
+        event.preventDefault();
 
-function customBackground() {
+        panicKey = event.key;
 
-    const color =
-        document
-        .getElementById("backgroundColor")
-        .value;
+        localStorage.setItem(
+            "novaPanicKey",
+            panicKey
+        );
 
+        document.getElementById("panicStatus").textContent =
+            "Panic key: " + panicKey;
 
-    document.body.className = "";
+        document.removeEventListener(
+            "keydown",
+            listener
+        );
+    }
 
-    document.body.style.background = color;
-
-
-    localStorage.setItem(
-        "novaCustomBackground",
-        color
+    document.addEventListener(
+        "keydown",
+        listener
     );
 }
 
+function clearPanicKey() {
+    panicKey = null;
 
-/* ==================================================
-   PANIC KEY
-================================================== */
-
-let panicKey =
-    localStorage.getItem(
+    localStorage.removeItem(
         "novaPanicKey"
     );
 
-
-let settingPanic = false;
-
-
-if (panicKey) {
-
-    document.getElementById(
-        "panicStatus"
-    ).textContent =
-        "Key: " + panicKey;
+    document.getElementById("panicStatus").textContent =
+        "No panic key set.";
 }
-
-
-function setPanicKey() {
-
-    settingPanic = true;
-
-
-    document.getElementById(
-        "panicButton"
-    ).textContent =
-        "Press a key...";
-
-
-    document.getElementById(
-        "panicStatus"
-    ).textContent =
-        "Waiting for key";
-}
-
 
 document.addEventListener(
     "keydown",
-    function(event) {
-
-
-        if (settingPanic) {
-
-            event.preventDefault();
-
-
-            panicKey = event.key;
-
-
-            localStorage.setItem(
-                "novaPanicKey",
-                panicKey
-            );
-
-
-            settingPanic = false;
-
-
-            document.getElementById(
-                "panicButton"
-            ).textContent =
-                "Set Panic Key";
-
-
-            document.getElementById(
-                "panicStatus"
-            ).textContent =
-                "Key: " + panicKey;
-
-
-            return;
-        }
-
+    event => {
 
         if (
             panicKey &&
-            event.key.toLowerCase() ===
-            panicKey.toLowerCase()
+            event.key === panicKey
         ) {
-
-            document
-                .getElementById(
-                    "panicScreen"
-                )
-                .classList
-                .toggle("active");
+            document.getElementById(
+                "panicScreen"
+            ).classList.add("active");
         }
 
     }
 );
 
+function saveSettings() {
+    localStorage.setItem(
+        "novaClockFormat",
+        document.getElementById("clockFormat").value
+    );
 
-/* ==================================================
-   SEARCH
-================================================== */
+    localStorage.setItem(
+        "novaSeconds",
+        document.getElementById("secondsSelect").value
+    );
+}
 
-function searchWeb() {
+function resetSettings() {
+    localStorage.removeItem("novaTheme");
+    localStorage.removeItem("novaTheme2");
+    localStorage.removeItem("novaFont");
+    localStorage.removeItem("novaBackground");
+    localStorage.removeItem("novaSidebar");
+    localStorage.removeItem("novaClockFormat");
+    localStorage.removeItem("novaSeconds");
+    localStorage.removeItem("novaPanicKey");
 
-    const query =
-        document
-        .getElementById("searchInput")
-        .value;
+    location.reload();
+}
 
+function loadSettings() {
 
-    if (!query.trim()) {
-        return;
+    const font =
+        localStorage.getItem("novaFont");
+
+    if (font) {
+        document.body.style.fontFamily =
+            `"${font}", sans-serif`;
+
+        document.getElementById(
+            "fontSelect"
+        ).value = font;
     }
 
+    const theme =
+        localStorage.getItem("novaTheme");
 
-    window.open(
-        "https://www.google.com/search?q=" +
-        encodeURIComponent(query),
-        "_blank"
-    );
-}
+    const theme2 =
+        localStorage.getItem("novaTheme2");
 
-
-/* ==================================================
-   LOAD SAVED FONT
-================================================== */
-
-const savedFont =
-    localStorage.getItem(
-        "novaFont"
-    );
-
-
-if (savedFont) {
-
-    document.documentElement
-        .style
-        .setProperty(
-            "--font",
-            savedFont
+    if (theme) {
+        setTheme(
+            theme,
+            theme2 || theme
         );
+    }
 
+    const background =
+        localStorage.getItem("novaBackground");
 
-    document.getElementById(
-        "fontSelector"
-    ).value =
-        savedFont;
+    if (background) {
+        document.getElementById(
+            "backgroundSelect"
+        ).value = background;
+
+        changeBackground(background);
+    }
+
+    const sidebar =
+        localStorage.getItem("novaSidebar");
+
+    if (sidebar) {
+        document.querySelector(
+            'input[type="range"]'
+        ).value = sidebar;
+
+        changeSidebar(sidebar);
+    }
+
+    const format =
+        localStorage.getItem("novaClockFormat");
+
+    if (format) {
+        document.getElementById(
+            "clockFormat"
+        ).value = format;
+    }
+
+    const seconds =
+        localStorage.getItem("novaSeconds");
+
+    if (seconds) {
+        document.getElementById(
+            "secondsSelect"
+        ).value = seconds;
+    }
+
+    if (panicKey) {
+        document.getElementById(
+            "panicStatus"
+        ).textContent =
+            "Panic key: " + panicKey;
+    }
 }
 
-
-/* ==================================================
-   LOAD SAVED THEME
-================================================== */
-
-const savedAccent =
-    localStorage.getItem(
-        "novaAccent"
-    );
-
-
-const savedRGB =
-    localStorage.getItem(
-        "novaAccentRGB"
-    );
-
-
-if (savedAccent && savedRGB) {
-
-    setTheme(
-        savedAccent,
-        savedRGB
-    );
-}
-
-
-/* ==================================================
-   LOAD SAVED BACKGROUND
-================================================== */
-
-const savedBackground =
-    localStorage.getItem(
-        "novaBackground"
-    );
-
-
-if (savedBackground) {
-
-    setBackground(
-        savedBackground
-    );
-}
-
-
-/* ==================================================
-   LOAD CUSTOM BACKGROUND
-================================================== */
-
-const savedCustomBackground =
-    localStorage.getItem(
-        "novaCustomBackground"
-    );
-
-
-if (savedCustomBackground) {
-
-    document.getElementById(
-        "backgroundColor"
-    ).value =
-        savedCustomBackground;
-}
-
-
+loadSettings();
+updateClock();
 </script>
 
 </body>
