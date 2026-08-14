@@ -1,99 +1,896 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>Nova Settings</title>
 
 <style>
-body{
-margin:0;
-min-height:100vh;
-font-family:Arial,sans-serif;
-color:white;
-background:
-radial-gradient(circle at 20% 20%,rgba(139,92,246,.3),transparent 35%),
-#080810;
+
+:root {
+    --accent: #8b5cf6;
+    --accent2: #a78bfa;
+    --bg: #05050b;
+    --muted: rgba(255,255,255,.55);
 }
 
-header{
-height:70px;
-display:flex;
-align-items:center;
-padding:0 20px;
-border-bottom:1px solid rgba(255,255,255,.08);
+* {
+    box-sizing: border-box;
 }
 
-button{
-border:0;
-border-radius:10px;
-padding:10px 14px;
-background:rgba(255,255,255,.08);
-color:white;
-cursor:pointer;
-margin-right:15px;
+html,
+body {
+    margin: 0;
+    min-height: 100%;
 }
 
-main{
-padding:35px;
-max-width:700px;
+body {
+
+    font-family:
+        "Trebuchet MS",
+        Arial,
+        sans-serif;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            color-mix(
+                in srgb,
+                var(--accent) 30%,
+                transparent
+            ),
+            transparent 35%
+        ),
+        #05050b;
+
+    min-height: 100vh;
 }
 
-h1{
-font-size:40px;
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+
+    height: 72px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        0 25px;
+
+    background:
+        rgba(10,10,20,.45);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+
+    backdrop-filter:
+        blur(22px);
 }
 
-span{
-color:#a78bfa;
+
+.back {
+
+    width: 42px;
+    height: 42px;
+
+    border: 0;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+    margin-right: 14px;
 }
 
-.setting{
-margin-top:15px;
-padding:20px;
-border-radius:18px;
-background:rgba(255,255,255,.06);
-border:1px solid rgba(255,255,255,.08);
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+
+    width:
+        min(850px,100%);
+
+    margin: auto;
+
+    padding:
+        45px 22px 60px;
 }
 
-.setting h3{
-margin:0 0 7px;
+
+.title {
+
+    font-size:
+        clamp(40px,7vw,65px);
+
+    letter-spacing:
+        -4px;
+
+    margin: 0;
 }
 
-.setting p{
-margin:0;
-color:rgba(255,255,255,.6);
-font-size:13px;
+
+.title span {
+
+    color:
+        var(--accent2);
 }
+
+
+.subtitle {
+
+    color:
+        var(--muted);
+
+    margin-top: 8px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section {
+
+    margin-top: 32px;
+
+    padding: 24px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    backdrop-filter:
+        blur(20px);
+}
+
+
+.section-title {
+
+    margin:
+        0 0 20px;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   COLORS
+========================= */
+
+.colors {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(110px,1fr)
+        );
+
+    gap: 12px;
+}
+
+
+.color {
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        rgba(255,255,255,.045);
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.color:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        rgba(255,255,255,.09);
+}
+
+
+.swatch {
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    margin-bottom: 9px;
+}
+
+
+/* =========================
+   SETTINGS ROW
+========================= */
+
+.row {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    padding:
+        15px 0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+
+.row:last-child {
+
+    border-bottom: 0;
+}
+
+
+.row h3 {
+
+    margin: 0 0 5px;
+
+    font-size: 14px;
+}
+
+
+.row p {
+
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   TOGGLE
+========================= */
+
+.toggle {
+
+    position: relative;
+
+    width: 52px;
+    height: 30px;
+}
+
+
+.toggle input {
+
+    display: none;
+}
+
+
+.slider {
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,255,255,.12);
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.slider::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 22px;
+    height: 22px;
+
+    left: 4px;
+    top: 4px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    transition: .2s;
+}
+
+
+.toggle input:checked
++ .slider {
+
+    background:
+        var(--accent);
+}
+
+
+.toggle input:checked
++ .slider::before {
+
+    transform:
+        translateX(22px);
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+.reset {
+
+    margin-top: 25px;
+
+    padding:
+        13px 18px;
+
+    border: 0;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+.reset:hover {
+
+    background:
+        rgba(255,255,255,.12);
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-<button onclick="location.href='index.html'">←</button>
-<strong>⚙️ Nova Settings</strong>
+
+<button
+class="back"
+onclick="location.href='index.html'">
+
+←
+
+</button>
+
+<strong>
+⚙️ Nova Settings
+</strong>
+
 </header>
+
 
 <main>
 
-<h1>Nova <span>Settings</span></h1>
+<h1 class="title">
+Nova <span>Settings</span>
+</h1>
 
-<div class="setting">
-<h3>🎨 Theme</h3>
-<p>Nova Purple</p>
+<p class="subtitle">
+Customize the look and atmosphere of Nova.
+</p>
+
+
+<!-- =========================
+     COLORS
+========================= -->
+
+<section class="section">
+
+<h2 class="section-title">
+🎨 Accent Color
+</h2>
+
+
+<div class="colors">
+
+
+<button
+class="color"
+onclick="setAccent('purple')">
+
+<div
+class="swatch"
+style="background:#8b5cf6">
 </div>
 
-<div class="setting">
-<h3>🤖 AI</h3>
-<p>Nova AI connection enabled.</p>
+Purple
+
+</button>
+
+
+<button
+class="color"
+onclick="setAccent('blue')">
+
+<div
+class="swatch"
+style="background:#3b82f6">
 </div>
 
-<div class="setting">
-<h3>🎮 Games</h3>
-<p>Nova Games enabled.</p>
+Blue
+
+</button>
+
+
+<button
+class="color"
+onclick="setAccent('cyan')">
+
+<div
+class="swatch"
+style="background:#06b6d4">
 </div>
+
+Cyan
+
+</button>
+
+
+<button
+class="color"
+onclick="setAccent('pink')">
+
+<div
+class="swatch"
+style="background:#ec4899">
+</div>
+
+Pink
+
+</button>
+
+
+<button
+class="color"
+onclick="setAccent('green')">
+
+<div
+class="swatch"
+style="background:#10b981">
+</div>
+
+Green
+
+</button>
+
+
+<button
+class="color"
+onclick="setAccent('orange')">
+
+<div
+class="swatch"
+style="background:#f97316">
+</div>
+
+Orange
+
+</button>
+
+
+<button
+class="color"
+onclick="setAccent('red')">
+
+<div
+class="swatch"
+style="background:#ef4444">
+</div>
+
+Red
+
+</button>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     EFFECTS
+========================= -->
+
+<section class="section">
+
+<h2 class="section-title">
+✨ Effects
+</h2>
+
+
+<div class="row">
+
+<div>
+
+<h3>
+Moving Background
+</h3>
+
+<p>
+Animate the glowing background.
+</p>
+
+</div>
+
+
+<label class="toggle">
+
+<input
+type="checkbox"
+id="animations"
+onchange="saveAnimations()">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<h3>
+Floating Particles
+</h3>
+
+<p>
+Keep the small particles floating.
+</p>
+
+</div>
+
+
+<label class="toggle">
+
+<input
+type="checkbox"
+checked
+disabled>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<h3>
+Glass Interface
+</h3>
+
+<p>
+Use translucent glass panels.
+</p>
+
+</div>
+
+
+<label class="toggle">
+
+<input
+type="checkbox"
+checked
+disabled>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CLOCK
+========================= -->
+
+<section class="section">
+
+<h2 class="section-title">
+🕐 Clock
+</h2>
+
+
+<div class="row">
+
+<div>
+
+<h3>
+Digital Clock
+</h3>
+
+<p>
+Use the futuristic digital clock.
+</p>
+
+</div>
+
+
+<label class="toggle">
+
+<input
+type="checkbox"
+checked
+disabled>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<h3>
+Seconds
+</h3>
+
+<p>
+Show seconds on the main clock.
+</p>
+
+</div>
+
+
+<label class="toggle">
+
+<input
+type="checkbox"
+checked
+disabled>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</section>
+
+
+<button
+class="reset"
+onclick="resetSettings()">
+
+Reset Nova Settings
+
+</button>
+
 
 </main>
+
+
+<script>
+
+/* =========================
+   COLORS
+========================= */
+
+const colors = {
+
+    purple: [
+        "#8b5cf6",
+        "#a78bfa"
+    ],
+
+    blue: [
+        "#3b82f6",
+        "#60a5fa"
+    ],
+
+    cyan: [
+        "#06b6d4",
+        "#67e8f9"
+    ],
+
+    pink: [
+        "#ec4899",
+        "#f472b6"
+    ],
+
+    green: [
+        "#10b981",
+        "#34d399"
+    ],
+
+    orange: [
+        "#f97316",
+        "#fb923c"
+    ],
+
+    red: [
+        "#ef4444",
+        "#f87171"
+    ]
+
+};
+
+
+/* =========================
+   APPLY COLOR
+========================= */
+
+function setAccent(name) {
+
+    const color =
+        colors[name];
+
+    if (!color) return;
+
+
+    localStorage.setItem(
+        "novaAccent",
+        name
+    );
+
+
+    document.documentElement.style
+        .setProperty(
+            "--accent",
+            color[0]
+        );
+
+
+    document.documentElement.style
+        .setProperty(
+            "--accent2",
+            color[1]
+        );
+
+}
+
+
+/* =========================
+   ANIMATION
+========================= */
+
+function saveAnimations() {
+
+    const checkbox =
+        document.getElementById(
+            "animations"
+        );
+
+
+    localStorage.setItem(
+        "novaAnimations",
+        checkbox.checked
+            ? "on"
+            : "off"
+    );
+
+}
+
+
+/* =========================
+   LOAD
+========================= */
+
+function loadSettings() {
+
+    const saved =
+        localStorage.getItem(
+            "novaAccent"
+        );
+
+
+    if (saved) {
+
+        setAccent(saved);
+
+    }
+
+
+    const animations =
+        localStorage.getItem(
+            "novaAnimations"
+        );
+
+
+    document.getElementById(
+        "animations"
+    ).checked =
+        animations !== "off";
+
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function resetSettings() {
+
+    localStorage.removeItem(
+        "novaAccent"
+    );
+
+    localStorage.removeItem(
+        "novaAnimations"
+    );
+
+
+    loadSettings();
+
+
+    alert(
+        "Nova settings have been reset."
+    );
+
+}
+
+
+loadSettings();
+
+</script>
 
 </body>
 </html>
