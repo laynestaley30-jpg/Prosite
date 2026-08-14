@@ -30,7 +30,7 @@ body {
     flex-direction: column;
 }
 
-/* Tabs */
+/* TABS */
 
 .tabs {
     height: 42px;
@@ -79,7 +79,7 @@ body {
     background: #303134;
 }
 
-/* Toolbar */
+/* TOOLBAR */
 
 .toolbar {
     height: 58px;
@@ -105,6 +105,11 @@ body {
     background: #414247;
 }
 
+.tool:disabled {
+    opacity: .35;
+    cursor: default;
+}
+
 .address {
     flex: 1;
     height: 40px;
@@ -121,11 +126,11 @@ body {
     background: #171717;
 }
 
-/* Page */
+/* PAGE */
 
 .page {
     flex: 1;
-    background: #ffffff;
+    background: white;
     color: #202124;
     overflow: auto;
 }
@@ -136,6 +141,10 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.home.hidden {
+    display: none;
 }
 
 .logo {
@@ -180,10 +189,33 @@ body {
     font-weight: bold;
 }
 
+.search button:hover {
+    background: #7c3aed;
+}
+
 .message {
     margin-top: 25px;
     color: #777;
     font-size: 13px;
+}
+
+.notice {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #202124;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s;
+}
+
+.notice.show {
+    opacity: 1;
 }
 </style>
 </head>
@@ -192,39 +224,83 @@ body {
 
 <div class="browser">
 
+    <!-- TABS -->
+
     <div class="tabs">
 
-        <div class="tab active">
-            <span>New Tab</span>
-            <span class="tab-close">×</span>
+        <div class="tab active" id="tab">
+
+            <span id="tabTitle">
+                New Tab
+            </span>
+
+            <span
+                class="tab-close"
+                onclick="closeTab()">
+                ×
+            </span>
+
         </div>
 
-        <button class="new-tab" onclick="newTab()">+</button>
+        <button
+            class="new-tab"
+            onclick="newTab()">
+            +
+        </button>
 
     </div>
 
+
+    <!-- TOOLBAR -->
+
     <div class="toolbar">
 
-        <button class="tool" onclick="goBack()">←</button>
+        <button
+            class="tool"
+            id="backButton"
+            onclick="goBack()"
+            title="Back">
+            ←
+        </button>
 
-        <button class="tool" onclick="goForward()">→</button>
+        <button
+            class="tool"
+            id="forwardButton"
+            onclick="goForward()"
+            title="Forward">
+            →
+        </button>
 
-        <button class="tool" onclick="refresh()">↻</button>
+        <button
+            class="tool"
+            onclick="refreshPage()"
+            title="Refresh">
+            ↻
+        </button>
 
-        <button class="tool" onclick="home()">⌂</button>
+        <button
+            class="tool"
+            onclick="goHome()"
+            title="Home">
+            ⌂
+        </button>
 
         <input
             id="address"
             class="address"
             placeholder="Search Google or enter a URL"
-            autocomplete="off"
-        >
+            autocomplete="off">
 
     </div>
 
+
+    <!-- PAGE -->
+
     <main class="page">
 
-        <div class="home">
+        <div
+            class="home"
+            id="home">
 
             <div class="logo">
                 Nova<span>.</span>
@@ -239,8 +315,7 @@ body {
                 <input
                     id="search"
                     placeholder="Search Google"
-                    autocomplete="off"
-                >
+                    autocomplete="off">
 
                 <button onclick="searchGoogle()">
                     Search
@@ -258,7 +333,33 @@ body {
 
 </div>
 
+
+<div
+    class="notice"
+    id="notice">
+</div>
+
+
 <script>
+
+/*
+========================================
+NOVA BROWSER HISTORY
+========================================
+*/
+
+let historyStack = [
+    "home"
+];
+
+let historyPosition = 0;
+
+
+/*
+========================================
+ELEMENTS
+========================================
+*/
 
 const address =
     document.getElementById("address");
@@ -266,24 +367,79 @@ const address =
 const search =
     document.getElementById("search");
 
+const home =
+    document.getElementById("home");
+
+const backButton =
+    document.getElementById("backButton");
+
+const forwardButton =
+    document.getElementById("forwardButton");
+
+const tabTitle =
+    document.getElementById("tabTitle");
+
+const notice =
+    document.getElementById("notice");
+
+
+/*
+========================================
+NOTICE
+========================================
+*/
+
+function showNotice(text) {
+
+    notice.textContent = text;
+
+    notice.classList.add("show");
+
+    setTimeout(function() {
+
+        notice.classList.remove("show");
+
+    }, 1800);
+}
+
+
+/*
+========================================
+SEARCH
+========================================
+*/
+
 function searchGoogle() {
 
-    const text = search.value.trim();
+    const text =
+        search.value.trim();
 
-    if (!text) return;
+    if (!text) {
+        return;
+    }
 
     const url =
         "https://www.google.com/search?q=" +
         encodeURIComponent(text);
 
-    window.open(url, "_blank");
+    navigateTo(url);
 }
+
+
+/*
+========================================
+ADDRESS BAR
+========================================
+*/
 
 function navigate() {
 
-    const text = address.value.trim();
+    const text =
+        address.value.trim();
 
-    if (!text) return;
+    if (!text) {
+        return;
+    }
 
     let url;
 
@@ -291,37 +447,261 @@ function navigate() {
         text.startsWith("https://") ||
         text.startsWith("http://")
     ) {
+
         url = text;
+
     } else {
+
         url =
             "https://www.google.com/search?q=" +
             encodeURIComponent(text);
+
     }
 
-    window.open(url, "_blank");
+    navigateTo(url);
 }
 
-function home() {
 
-    address.value = "";
+/*
+========================================
+NAVIGATE
+========================================
+*/
 
-    search.value = "";
+function navigateTo(url) {
+
+    /*
+       Add the page to our browser history.
+    */
+
+    historyStack =
+        historyStack.slice(
+            0,
+            historyPosition + 1
+        );
+
+    historyStack.push(url);
+
+    historyPosition++;
+
+    openDestination(url);
+
+    updateButtons();
 }
 
-function refresh() {
+
+/*
+========================================
+OPEN DESTINATION
+========================================
+*/
+
+function openDestination(url) {
+
+    /*
+       External websites cannot reliably
+       be embedded by GitHub Pages.
+
+       So we open the destination in a
+       normal browser tab.
+    */
+
+    if (url === "home") {
+
+        goHomeDisplay();
+
+        return;
+    }
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+    address.value = url;
+
+    tabTitle.textContent =
+        getTitle(url);
+
+    home.classList.add("hidden");
+
+    showNotice(
+        "Opened in a new browser tab."
+    );
+}
+
+
+/*
+========================================
+BACK
+========================================
+*/
+
+function goBack() {
+
+    if (
+        historyPosition <= 0
+    ) {
+
+        showNotice(
+            "No previous page."
+        );
+
+        return;
+    }
+
+    historyPosition--;
+
+    const destination =
+        historyStack[
+            historyPosition
+        ];
+
+    if (
+        destination === "home"
+    ) {
+
+        goHomeDisplay();
+
+    } else {
+
+        openHistoryPage(
+            destination
+        );
+    }
+
+    updateButtons();
+}
+
+
+/*
+========================================
+FORWARD
+========================================
+*/
+
+function goForward() {
+
+    if (
+        historyPosition >=
+        historyStack.length - 1
+    ) {
+
+        showNotice(
+            "No next page."
+        );
+
+        return;
+    }
+
+    historyPosition++;
+
+    const destination =
+        historyStack[
+            historyPosition
+        ];
+
+    if (
+        destination === "home"
+    ) {
+
+        goHomeDisplay();
+
+    } else {
+
+        openHistoryPage(
+            destination
+        );
+    }
+
+    updateButtons();
+}
+
+
+/*
+========================================
+OPEN HISTORY PAGE
+========================================
+*/
+
+function openHistoryPage(url) {
+
+    address.value = url;
+
+    tabTitle.textContent =
+        getTitle(url);
+
+    home.classList.add(
+        "hidden"
+    );
+
+    window.open(
+        url,
+        "_blank"
+    );
+}
+
+
+/*
+========================================
+REFRESH
+========================================
+*/
+
+function refreshPage() {
 
     location.reload();
 }
 
-function goBack() {
 
-    history.back();
+/*
+========================================
+HOME
+========================================
+*/
+
+function goHome() {
+
+    /*
+       Add home to browser history.
+    */
+
+    historyStack =
+        historyStack.slice(
+            0,
+            historyPosition + 1
+        );
+
+    historyStack.push("home");
+
+    historyPosition++;
+
+    goHomeDisplay();
+
+    updateButtons();
 }
 
-function goForward() {
 
-    history.forward();
+function goHomeDisplay() {
+
+    home.classList.remove(
+        "hidden"
+    );
+
+    address.value = "";
+
+    search.value = "";
+
+    tabTitle.textContent =
+        "New Tab";
 }
+
+
+/*
+========================================
+NEW TAB
+========================================
+*/
 
 function newTab() {
 
@@ -331,27 +711,113 @@ function newTab() {
     );
 }
 
+
+/*
+========================================
+CLOSE TAB
+========================================
+*/
+
+function closeTab() {
+
+    /*
+       Browsers generally prevent
+       JavaScript from closing a tab
+       that wasn't opened by JavaScript.
+
+       So return to Nova instead.
+    */
+
+    goHome();
+
+    showNotice(
+        "Returned to New Tab."
+    );
+}
+
+
+/*
+========================================
+BUTTON STATE
+========================================
+*/
+
+function updateButtons() {
+
+    backButton.disabled =
+        historyPosition <= 0;
+
+    forwardButton.disabled =
+        historyPosition >=
+        historyStack.length - 1;
+}
+
+
+/*
+========================================
+TITLE
+========================================
+*/
+
+function getTitle(url) {
+
+    try {
+
+        const parsed =
+            new URL(url);
+
+        return parsed.hostname;
+
+    } catch {
+
+        return "New Tab";
+    }
+}
+
+
+/*
+========================================
+ENTER KEY
+========================================
+*/
+
 address.addEventListener(
     "keydown",
     function(event) {
 
-        if (event.key === "Enter") {
+        if (
+            event.key === "Enter"
+        ) {
+
             navigate();
         }
 
     }
 );
 
+
 search.addEventListener(
     "keydown",
     function(event) {
 
-        if (event.key === "Enter") {
+        if (
+            event.key === "Enter"
+        ) {
+
             searchGoogle();
         }
 
     }
 );
+
+
+/*
+========================================
+INITIAL STATE
+========================================
+*/
+
+updateButtons();
 
 </script>
 
