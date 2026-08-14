@@ -3,24 +3,16 @@
 
 <head>
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nova</title>
 
 <style>
-
-/* =========================
-   NOVA THEME
-========================= */
 
 :root {
     --purple: #8b5cf6;
     --purple-light: #a78bfa;
     --background: #080810;
-    --panel: rgba(18,18,30,.78);
+    --panel: rgba(18,18,30,.82);
     --text: #ffffff;
     --muted: rgba(255,255,255,.6);
 }
@@ -38,13 +30,8 @@ body {
 
 body {
     overflow: hidden;
-
     color: var(--text);
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 
     background:
         radial-gradient(
@@ -68,7 +55,6 @@ body {
 .app {
     width: 100%;
     height: 100%;
-
     display: flex;
 }
 
@@ -78,149 +64,99 @@ body {
 ========================= */
 
 .sidebar {
-
     width: 78px;
-
-    height:
-        calc(100% - 28px);
-
+    height: calc(100% - 28px);
     margin: 14px;
-
     padding: 12px 8px;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
 
-    background:
-        rgba(12,12,22,.82);
+    background: rgba(12,12,22,.82);
 
-    border:
-        1px solid
-        rgba(255,255,255,.09);
-
+    border: 1px solid rgba(255,255,255,.09);
     border-radius: 23px;
 
-    backdrop-filter:
-        blur(18px);
+    backdrop-filter: blur(18px);
 
     box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.25);
+        0 20px 60px rgba(0,0,0,.25);
 }
 
-
-/* =========================
-   SIDEBAR BUTTONS
-========================= */
-
 .sidebar-buttons {
-
     width: 100%;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
 
     gap: 10px;
 }
 
-
 .sidebar-button {
-
     position: relative;
 
     width: 50px;
     height: 50px;
 
     border: 0;
-
     border-radius: 16px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
-    background:
-        rgba(255,255,255,.07);
-
+    background: rgba(255,255,255,.07);
     color: white;
 
     font-size: 22px;
 
     cursor: pointer;
 
-    transition:
-        .2s ease;
+    transition: .2s ease;
 }
 
-
 .sidebar-button:hover {
-
-    transform:
-        scale(1.08);
-
-    background:
-        rgba(255,255,255,.14);
+    transform: scale(1.08);
+    background: rgba(255,255,255,.14);
 }
 
 
 /* TOOLTIP */
 
 .sidebar-button::after {
-
-    content:
-        attr(data-label);
+    content: attr(data-label);
 
     position: absolute;
 
     left: 62px;
-
     top: 50%;
 
     transform:
         translateY(-50%)
         translateX(-5px);
 
-    padding:
-        7px 10px;
+    padding: 7px 10px;
 
-    border-radius:
-        9px;
+    border-radius: 9px;
 
-    background:
-        rgba(5,5,10,.96);
+    background: rgba(5,5,10,.96);
+    color: white;
 
-    color:
-        white;
+    font-size: 12px;
+    white-space: nowrap;
 
-    font-size:
-        12px;
+    opacity: 0;
+    pointer-events: none;
 
-    white-space:
-        nowrap;
+    transition: .2s ease;
 
-    opacity:
-        0;
-
-    pointer-events:
-        none;
-
-    transition:
-        .2s ease;
+    z-index: 100;
 }
 
-
 .sidebar-button:hover::after {
-
-    opacity:
-        1;
+    opacity: 1;
 
     transform:
         translateY(-50%)
@@ -228,12 +164,9 @@ body {
 }
 
 
-/* =========================
-   NOVA AI BUTTON
-========================= */
+/* NOVA AI */
 
 .ai-button {
-
     background:
         linear-gradient(
             135deg,
@@ -251,29 +184,40 @@ body {
 }
 
 
-.ai-button:hover {
+/* GOOGLE BUTTON */
+
+.google-button {
+    font-weight: bold;
+    font-size: 25px;
+
+    background: rgba(255,255,255,.09);
+}
+
+.google-button span {
+    font-family: Arial, sans-serif;
+    font-weight: 700;
 
     background:
         linear-gradient(
-            135deg,
-            rgba(139,92,246,.62),
-            rgba(167,139,250,.38)
+            90deg,
+            #4285F4 0%,
+            #4285F4 25%,
+            #34A853 25%,
+            #34A853 50%,
+            #FBBC05 50%,
+            #FBBC05 75%,
+            #EA4335 75%
         );
 
-    box-shadow:
-        0 0 25px
-        rgba(139,92,246,.3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 
-/* =========================
-   SETTINGS AREA
-========================= */
+/* SETTINGS */
 
 .sidebar-bottom {
-
-    margin-top:
-        auto;
+    margin-top: auto;
 }
 
 
@@ -282,15 +226,12 @@ body {
 ========================= */
 
 .main {
-
     flex: 1;
-
     height: 100%;
 
     overflow-y: auto;
 
-    padding:
-        35px 45px;
+    padding: 35px 45px;
 }
 
 
@@ -299,18 +240,11 @@ body {
 ========================= */
 
 .home {
+    min-height: 100%;
 
-    min-height:
-        100%;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -319,48 +253,29 @@ body {
 ========================= */
 
 .welcome {
-
-    margin-top:
-        30px;
-
-    text-align:
-        center;
+    margin-top: 30px;
+    text-align: center;
 }
 
-
 .welcome h1 {
-
-    margin:
-        0;
+    margin: 0;
 
     font-size:
         clamp(45px,7vw,80px);
 
-    letter-spacing:
-        -4px;
-
-    font-weight:
-        700;
+    letter-spacing: -4px;
+    font-weight: 700;
 }
-
 
 .welcome h1 span {
-
-    color:
-        var(--purple-light);
+    color: var(--purple-light);
 }
 
-
 .welcome p {
+    margin: 10px 0 0;
 
-    margin:
-        10px 0 0;
-
-    color:
-        var(--muted);
-
-    font-size:
-        14px;
+    color: var(--muted);
+    font-size: 14px;
 }
 
 
@@ -369,35 +284,22 @@ body {
 ========================= */
 
 .clock {
-
-    margin-top:
-        18px;
-
-    text-align:
-        center;
+    margin-top: 18px;
+    text-align: center;
 }
 
-
 .clock-time {
-
     font-size:
         clamp(32px,5vw,55px);
 
-    font-weight:
-        500;
+    font-weight: 500;
 }
 
-
 .clock-date {
+    margin-top: 3px;
 
-    margin-top:
-        3px;
-
-    color:
-        var(--muted);
-
-    font-size:
-        12px;
+    color: var(--muted);
+    font-size: 12px;
 }
 
 
@@ -406,15 +308,11 @@ body {
 ========================= */
 
 .cards {
+    width: min(900px,100%);
 
-    width:
-        min(900px,100%);
+    margin-top: 45px;
 
-    margin-top:
-        45px;
-
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         repeat(
@@ -422,18 +320,13 @@ body {
             minmax(180px,1fr)
         );
 
-    gap:
-        15px;
+    gap: 15px;
 }
 
-
 .card {
+    padding: 22px;
 
-    padding:
-        22px;
-
-    border-radius:
-        20px;
+    border-radius: 20px;
 
     background:
         rgba(255,255,255,.055);
@@ -442,44 +335,247 @@ body {
         1px solid
         rgba(255,255,255,.08);
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
-    transition:
-        .25s ease;
+    transition: .25s ease;
 }
 
-
 .card:hover {
-
-    transform:
-        translateY(-5px);
+    transform: translateY(-5px);
 
     background:
         rgba(255,255,255,.095);
 }
 
-
 .card h3 {
+    margin: 0 0 7px;
+    font-size: 16px;
+}
 
-    margin:
-        0 0 7px;
+.card p {
+    margin: 0;
 
-    font-size:
-        16px;
+    color: var(--muted);
+    font-size: 12px;
 }
 
 
-.card p {
+/* =========================
+   PAGES
+========================= */
 
-    margin:
-        0;
+.page {
+    display: none;
+}
 
-    color:
-        var(--muted);
+.page.active {
+    display: block;
+}
 
-    font-size:
-        12px;
+.page-title {
+    font-size: 35px;
+    margin: 10px 0 5px;
+}
+
+.page-subtitle {
+    color: var(--muted);
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   GAMES
+========================= */
+
+.game-search {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border: 1px solid
+        rgba(255,255,255,.1);
+
+    border-radius: 15px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color: white;
+
+    font-size: 14px;
+
+    margin-bottom: 20px;
+}
+
+.game-search::placeholder {
+    color: var(--muted);
+}
+
+.game-category {
+    margin-top: 28px;
+}
+
+.game-category h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.game-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(180px,1fr)
+        );
+
+    gap: 12px;
+}
+
+.game-card {
+    padding: 18px;
+
+    border-radius: 17px;
+
+    border: 1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        rgba(255,255,255,.055);
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-3px);
+
+    background:
+        rgba(139,92,246,.16);
+
+    border-color:
+        rgba(167,139,250,.35);
+}
+
+.game-card h3 {
+    margin: 0 0 6px;
+    font-size: 14px;
+}
+
+.game-card p {
+    margin: 0;
+
+    color: var(--muted);
+    font-size: 11px;
+}
+
+
+/* GAME PLAYER */
+
+.game-player {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    background:
+        rgba(4,4,9,.94);
+
+    padding: 25px;
+}
+
+.game-player.active {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.game-top {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 12px;
+}
+
+.game-top h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.game-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.game-control {
+    border: 0;
+
+    border-radius: 10px;
+
+    padding: 9px 13px;
+
+    background:
+        rgba(255,255,255,.1);
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.game-control:hover {
+    background:
+        rgba(255,255,255,.18);
+}
+
+#gameFrame {
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+
+    border-radius: 18px;
+
+    background: black;
+}
+
+.game-note {
+    margin: 8px 0;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   SIMPLE PAGES
+========================= */
+
+.simple-panel {
+    max-width: 800px;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+.simple-panel p {
+    color: var(--muted);
 }
 
 
@@ -490,51 +586,40 @@ body {
 @media(max-width:700px) {
 
     .sidebar {
+        width: 65px;
 
-        width:
-            65px;
-
-        margin:
-            9px;
+        margin: 9px;
 
         height:
             calc(100% - 18px);
     }
 
-
     .sidebar-button {
+        width: 44px;
+        height: 44px;
 
-        width:
-            44px;
-
-        height:
-            44px;
-
-        font-size:
-            20px;
+        font-size: 20px;
     }
-
 
     .sidebar-button::after {
-
-        display:
-            none;
+        display: none;
     }
-
 
     .main {
-
-        padding:
-            25px 18px;
+        padding: 25px 18px;
     }
-
 
     .cards {
-
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
 
+    .game-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .game-player {
+        padding: 10px;
+    }
 }
 
 </style>
@@ -554,240 +639,696 @@ body {
 
 <aside class="sidebar">
 
-
-    <div class="sidebar-buttons">
-
-
-        <!-- HOME -->
-
-        <button
-            class="sidebar-button"
-            data-label="Home"
-            onclick="goHome()">
-
-            🏠
-
-        </button>
+<div class="sidebar-buttons">
 
 
-        <!-- GAMES -->
-
-        <button
-            class="sidebar-button"
-            data-label="Games"
-            onclick="openGames()">
-
-            🎮
-
-        </button>
+<button
+class="sidebar-button"
+data-label="Home"
+onclick="showPage('home')">
+🏠
+</button>
 
 
-        <!-- MUSIC -->
-
-        <button
-            class="sidebar-button"
-            data-label="Music"
-            onclick="openMusic()">
-
-            🎵
-
-        </button>
+<button
+class="sidebar-button"
+data-label="Games"
+onclick="showPage('games')">
+🎮
+</button>
 
 
-        <!-- CHAT -->
-
-        <button
-            class="sidebar-button"
-            data-label="Chat"
-            onclick="openChat()">
-
-            💬
-
-        </button>
+<button
+class="sidebar-button"
+data-label="Music"
+onclick="showPage('music')">
+🎵
+</button>
 
 
-        <!-- =====================
-             NOVA AI
-        ====================== -->
-
-        <button
-            class="sidebar-button ai-button"
-            data-label="Nova AI"
-            onclick="openNovaAI()">
-
-            🤖
-
-        </button>
+<button
+class="sidebar-button"
+data-label="Chat"
+onclick="showPage('chat')">
+💬
+</button>
 
 
-        <!-- BROWSER -->
-
-        <button
-            class="sidebar-button"
-            data-label="Browser"
-            onclick="openBrowser()">
-
-            🌐
-
-        </button>
+<button
+class="sidebar-button ai-button"
+data-label="Nova AI"
+onclick="openNovaAI()">
+🤖
+</button>
 
 
-    </div>
+<button
+class="sidebar-button google-button"
+data-label="Google"
+onclick="openGoogle()">
+<span>G</span>
+</button>
 
 
-    <!-- SETTINGS -->
+</div>
 
-    <div class="sidebar-bottom">
 
-        <button
-            class="sidebar-button"
-            data-label="Settings"
-            onclick="openSettings()">
+<div class="sidebar-bottom">
 
-            ⚙️
+<button
+class="sidebar-button"
+data-label="Settings"
+onclick="showPage('settings')">
+⚙️
+</button>
 
-        </button>
-
-    </div>
-
+</div>
 
 </aside>
 
 
 <!-- =========================
-     MAIN CONTENT
+     MAIN
 ========================= -->
 
 <main class="main">
 
 
-<section class="home">
+<!-- HOME -->
+
+<section
+id="home"
+class="page active home">
+
+<div class="welcome">
+
+<h1>
+Welcome to
+<span>Nova</span>
+</h1>
+
+<p>
+Your personal space on the web.
+</p>
+
+</div>
 
 
-    <div class="welcome">
+<div class="clock">
 
-        <h1>
-            Welcome to
-            <span>Nova</span>
-        </h1>
+<div
+class="clock-time"
+id="clock">
+12:00
+</div>
 
-        <p>
-            Your personal space on the web.
-        </p>
+<div
+class="clock-date"
+id="date">
+Loading...
+</div>
 
-    </div>
-
-
-    <!-- CLOCK -->
-
-    <div class="clock">
-
-        <div
-            class="clock-time"
-            id="clock">
-
-            12:00
-
-        </div>
-
-        <div
-            class="clock-date"
-            id="date">
-
-            Loading...
-
-        </div>
-
-    </div>
+</div>
 
 
-    <!-- QUICK LINKS -->
-
-    <div class="cards">
+<div class="cards">
 
 
-        <div
-            class="card"
-            onclick="openGames()">
+<div
+class="card"
+onclick="showPage('games')">
 
-            <h3>
-                🎮 Games
-            </h3>
+<h3>🎮 Games</h3>
 
-            <p>
-                Open your game hub.
-            </p>
+<p>
+Open your game hub.
+</p>
 
-        </div>
+</div>
 
 
-        <div
-            class="card"
-            onclick="openMusic()">
+<div
+class="card"
+onclick="showPage('music')">
 
-            <h3>
-                🎵 Music
-            </h3>
+<h3>🎵 Music</h3>
 
-            <p>
-                Open your music.
-            </p>
+<p>
+Open your music.
+</p>
 
-        </div>
+</div>
 
 
-        <div
-            class="card"
-            onclick="openChat()">
+<div
+class="card"
+onclick="showPage('chat')">
 
-            <h3>
-                💬 Chat
-            </h3>
+<h3>💬 Chat</h3>
 
-            <p>
-                Talk with other people.
-            </p>
+<p>
+Talk with other people.
+</p>
 
-        </div>
+</div>
 
 
-        <div
-            class="card"
-            onclick="openNovaAI()">
+<div
+class="card"
+onclick="openNovaAI()">
 
-            <h3>
-                🤖 Nova AI
-            </h3>
+<h3>🤖 Nova AI</h3>
 
-            <p>
-                Open your AI assistant.
-            </p>
+<p>
+Open your AI assistant.
+</p>
 
-        </div>
+</div>
 
 
-        <div
-            class="card"
-            onclick="openBrowser()">
+<div
+class="card"
+onclick="openGoogle()">
 
-            <h3>
-                🌐 Browser
-            </h3>
+<h3>🌐 Google</h3>
 
-            <p>
-                Browse the web.
-            </p>
+<p>
+Search the web.
+</p>
 
-        </div>
+</div>
 
 
-    </div>
+<div
+class="card"
+onclick="showPage('settings')">
 
+<h3>⚙️ Settings</h3>
+
+<p>
+Customize Nova.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     GAMES
+========================= -->
+
+<section
+id="games"
+class="page">
+
+<h1 class="page-title">
+🎮 Nova Games
+</h1>
+
+<p class="page-subtitle">
+Your game collection.
+</p>
+
+
+<input
+class="game-search"
+id="gameSearch"
+placeholder="Search games..."
+oninput="searchGames()">
+
+
+<div class="game-category">
+
+<h2>🎮 Games</h2>
+
+<div class="game-grid">
+
+
+<div class="game-card"
+data-game="Tung Tung Escape"
+onclick="playGame('Tung Tung Escape','')">
+<h3>🗿 Tung Tung Escape</h3>
+<p>Escape the chaos.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Bad Time Simulator"
+onclick="playGame('Bad Time Simulator','')">
+<h3>💀 Bad Time Simulator</h3>
+<p>Survive the battle.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Friday Night Funkin"
+onclick="playGame('Friday Night Funkin','')">
+<h3>🎤 Friday Night Funkin'</h3>
+<p>Rhythm battles.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Undertale Yellow"
+onclick="playGame('Undertale Yellow','')">
+<h3>💛 Undertale Yellow</h3>
+<p>Underground adventure.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Deltarune"
+onclick="playGame('Deltarune','')">
+<h3>♟️ Deltarune</h3>
+<p>Another adventure.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Baldis Basics"
+onclick="playGame('Baldi’s Basics','')">
+<h3>📚 Baldi's Basics</h3>
+<p>Escape the school.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Getting Over It"
+onclick="playGame('Getting Over It','')">
+<h3>⛰️ Getting Over It</h3>
+<p>Climb your way up.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Worlds Hardest Game"
+onclick="playGame('The World’s Hardest Game','')">
+<h3>🟥 World's Hardest Game</h3>
+<p>Test your patience.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Slope"
+onclick="playGame('Slope','https://slope-game.github.io/')">
+<h3>🟢 Slope</h3>
+<p>Roll down the track.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Run 3"
+onclick="playGame('Run 3','https://run3.io/')">
+<h3>🏃 Run 3</h3>
+<p>Run through space.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Fireboy Watergirl"
+onclick="playGame('Fireboy and Watergirl','')">
+<h3>🔥 Fireboy & Watergirl</h3>
+<p>Teamwork platforming.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Duck Life 4"
+onclick="playGame('Duck Life 4','')">
+<h3>🦆 Duck Life 4</h3>
+<p>Train your duck.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Fancy Pants"
+onclick="playGame('Fancy Pants Adventures','')">
+<h3>🖊️ Fancy Pants</h3>
+<p>Stickman platforming.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Stickman Hook"
+onclick="playGame('Stickman Hook','')">
+<h3>🪝 Stickman Hook</h3>
+<p>Swing through levels.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Shell Shockers"
+onclick="playGame('Shell Shockers','https://shellshock.io/')">
+<h3>🥚 Shell Shockers</h3>
+<p>Egg battle royale.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Bloons TD 5"
+onclick="playGame('Bloons TD 5','')">
+<h3>🎈 Bloons TD 5</h3>
+<p>Defend against bloons.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Plants vs Zombies"
+onclick="playGame('Plants vs. Zombies','')">
+<h3>🌻 Plants vs. Zombies</h3>
+<p>Defend your house.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Papas Freezeria"
+onclick="playGame('Papa’s Freezeria','')">
+<h3>🍦 Papa's Freezeria</h3>
+<p>Run the shop.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Super Mario 63"
+onclick="playGame('Super Mario 63','')">
+<h3>🍄 Super Mario 63</h3>
+<p>Mario adventure.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Sonic"
+onclick="playGame('Sonic','')">
+<h3>💨 Sonic</h3>
+<p>Gotta go fast.</p>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- HORROR -->
+
+<div class="game-category">
+
+<h2>👻 Horror</h2>
+
+<div class="game-grid">
+
+
+<div class="game-card"
+data-game="FNAF"
+onclick="playGame('FNAF Fan Games','')">
+<h3>🐻 FNAF Fan Games</h3>
+<p>Survive the night.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Backrooms"
+onclick="playGame('The Backrooms','')">
+<h3>🟨 The Backrooms</h3>
+<p>Find your way out.</p>
+</div>
+
+
+<div class="game-card"
+data-game="SCP"
+onclick="playGame('SCP Games','')">
+<h3>👁️ SCP Games</h3>
+<p>Containment breached.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Granny"
+onclick="playGame('Granny','')">
+<h3>👵 Granny</h3>
+<p>Escape the house.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Slender"
+onclick="playGame('Slender-style Games','')">
+<h3>🌲 Slender-style Games</h3>
+<p>Don't let him find you.</p>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- WEIRD -->
+
+<div class="game-category">
+
+<h2>🤪 Weird / Funny</h2>
+
+<div class="game-grid">
+
+
+<div class="game-card"
+data-game="We Become What We Behold"
+onclick="playGame('We Become What We Behold','')">
+<h3>📺 We Become What We Behold</h3>
+<p>A strange little game.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Sort the Court"
+onclick="playGame('Sort the Court!','')">
+<h3>👑 Sort the Court!</h3>
+<p>Rule your kingdom.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Goat Games"
+onclick="playGame('Goat Games','')">
+<h3>🐐 Goat Games</h3>
+<p>Maximum goat energy.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Stickman Games"
+onclick="playGame('Stickman Games','')">
+<h3>🕴️ Stickman Games</h3>
+<p>Classic stickman chaos.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Ragdoll Games"
+onclick="playGame('Ragdoll Games','')">
+<h3>🧍 Ragdoll Games</h3>
+<p>Physics chaos.</p>
+</div>
+
+
+<div class="game-card"
+data-game="People Playground"
+onclick="playGame('People Playground-style Games','')">
+<h3>🧪 People Playground-style</h3>
+<p>Physics sandbox games.</p>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- MULTIPLAYER -->
+
+<div class="game-category">
+
+<h2>🧠 Multiplayer</h2>
+
+<div class="game-grid">
+
+
+<div class="game-card"
+data-game="Krunker"
+onclick="playGame('Krunker','https://krunker.io/')">
+<h3>🔫 Krunker</h3>
+<p>Browser FPS.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Agar.io"
+onclick="playGame('Agar.io','https://agar.io/')">
+<h3>🟢 Agar.io</h3>
+<p>Grow and survive.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Slither.io"
+onclick="playGame('Slither.io','https://slither.io/')">
+<h3>🐍 Slither.io</h3>
+<p>Become the biggest snake.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Diep.io"
+onclick="playGame('Diep.io','https://diep.io/')">
+<h3>🔵 Diep.io</h3>
+<p>Tank battles.</p>
+</div>
+
+
+<div class="game-card"
+data-game="Paper.io"
+onclick="playGame('Paper.io','https://paper-io.com/')">
+<h3>📄 Paper.io</h3>
+<p>Take over territory.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MUSIC -->
+
+<section
+id="music"
+class="page">
+
+<h1 class="page-title">
+🎵 Music
+</h1>
+
+<p class="page-subtitle">
+Your music area.
+</p>
+
+<div class="simple-panel">
+
+<p>
+Music tools can be added here later.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- CHAT -->
+
+<section
+id="chat"
+class="page">
+
+<h1 class="page-title">
+💬 Chat
+</h1>
+
+<p class="page-subtitle">
+Talk with other people.
+</p>
+
+<div class="simple-panel">
+
+<p>
+Your chat system can be connected here.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section
+id="settings"
+class="page">
+
+<h1 class="page-title">
+⚙️ Settings
+</h1>
+
+<p class="page-subtitle">
+Nova settings.
+</p>
+
+<div class="simple-panel">
+
+<p>
+Settings controls can be added here.
+</p>
+
+</div>
 
 </section>
 
 
 </main>
+
+</div>
+
+
+<!-- =========================
+     GAME PLAYER
+========================= -->
+
+<div
+class="game-player"
+id="gamePlayer">
+
+<div class="game-top">
+
+<h2 id="gameTitle">
+Game
+</h2>
+
+<div class="game-controls">
+
+<button
+class="game-control"
+onclick="openExternalGame()">
+↗ Open Game
+</button>
+
+<button
+class="game-control"
+onclick="closeGame()">
+✕ Close
+</button>
+
+</div>
+
+</div>
+
+
+<p
+class="game-note"
+id="gameNote">
+If the game does not load inside Nova, use "Open Game".
+</p>
+
+
+<iframe
+id="gameFrame"
+src=""
+allow="fullscreen"
+allowfullscreen>
+</iframe>
+
+</div>
 
 
 <script>
@@ -799,13 +1340,9 @@ body {
 
 function updateClock() {
 
-    const now =
-        new Date();
+    const now = new Date();
 
-
-    document.getElementById(
-        "clock"
-    ).textContent =
+    document.getElementById("clock").textContent =
         now.toLocaleTimeString(
             [],
             {
@@ -815,10 +1352,7 @@ function updateClock() {
             }
         );
 
-
-    document.getElementById(
-        "date"
-    ).textContent =
+    document.getElementById("date").textContent =
         now.toLocaleDateString(
             [],
             {
@@ -828,17 +1362,31 @@ function updateClock() {
                 year: "numeric"
             }
         );
-
 }
-
 
 updateClock();
 
+setInterval(updateClock, 1000);
 
-setInterval(
-    updateClock,
-    1000
-);
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(page) {
+
+    document.querySelectorAll(".page")
+        .forEach(section => {
+            section.classList.remove("active");
+        });
+
+    const selected =
+        document.getElementById(page);
+
+    if (selected) {
+        selected.classList.add("active");
+    }
+}
 
 
 /* =========================
@@ -854,59 +1402,134 @@ function openNovaAI() {
 
 
 /* =========================
-   OTHER PAGES
+   GOOGLE
 ========================= */
 
-function goHome() {
+function openGoogle() {
 
-    window.location.href =
-        "index.html";
-
-}
-
-
-function openGames() {
-
-    window.location.href =
-        "games.html";
+    window.open(
+        "https://www.google.com/",
+        "_blank"
+    );
 
 }
 
 
-function openMusic() {
+/* =========================
+   GAME SYSTEM
+========================= */
 
-    window.location.href =
-        "music.html";
+let currentGameURL = "";
+
+
+function playGame(name, url) {
+
+    document.getElementById("gameTitle")
+        .textContent = name;
+
+    currentGameURL = url || "";
+
+    const frame =
+        document.getElementById("gameFrame");
+
+    if (url) {
+
+        frame.src = url;
+
+        document.getElementById("gameNote")
+            .textContent =
+            "Loading " + name +
+            ". If it doesn't load, use Open Game.";
+
+    } else {
+
+        frame.src = "about:blank";
+
+        document.getElementById("gameNote")
+            .textContent =
+            name +
+            " needs its verified game URL added before it can be embedded.";
+
+    }
+
+    document.getElementById("gamePlayer")
+        .classList.add("active");
+}
+
+
+function closeGame() {
+
+    document.getElementById("gamePlayer")
+        .classList.remove("active");
+
+    document.getElementById("gameFrame")
+        .src = "";
 
 }
 
 
-function openChat() {
+function openExternalGame() {
 
-    window.location.href =
-        "chat.html";
+    if (!currentGameURL) {
 
+        alert(
+            "This game needs its actual web-game URL added first."
+        );
+
+        return;
+    }
+
+    window.open(
+        currentGameURL,
+        "_blank"
+    );
 }
 
 
-function openBrowser() {
+/* =========================
+   GAME SEARCH
+========================= */
 
-    window.location.href =
-        "browser.html";
+function searchGames() {
 
+    const search =
+        document.getElementById("gameSearch")
+            .value
+            .toLowerCase();
+
+    document.querySelectorAll(".game-card")
+        .forEach(card => {
+
+            const name =
+                card.dataset.game
+                    .toLowerCase();
+
+            if (name.includes(search)) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+
+        });
 }
 
 
-function openSettings() {
+/* =========================
+   ESCAPE CLOSES GAME
+========================= */
 
-    window.location.href =
-        "settings.html";
+document.addEventListener(
+    "keydown",
+    function(event) {
 
-}
+        if (event.key === "Escape") {
+            closeGame();
+        }
+
+    }
+);
 
 </script>
 
-
 </body>
-
 </html>
