@@ -1,3 +1,6 @@
+
+
+On Fri, Aug 14, 2026 at 1:23 AM The Funni <thefunni11@gmail.com> wrote:
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1131,6 +1134,7 @@ All in one place.
 </p>
 
 
+
 <!-- CLOCK -->
 
 <div class="clock-card">
@@ -1149,18 +1153,191 @@ Loading...
 </section>
 
 
+
 <!-- SEARCH -->
 
 <div class="search-wrap">
 
+<input
+class="search"
+id="search"
+placeholder="⌕  Search Nova..."
+onkeydown="handleSearch(event)"
+>
+
 </div>
 
 
-<!-- FEATURE GRID -->
+
+<!-- FEATURE CARDS -->
 
 <section class="feature-grid">
 
-<!-- Cards omitted for brevity in this update -->
+
+<!-- GAMES -->
+
+<div
+class="card card-large"
+onclick="openGames()">
+
+
+<div class="card-icon">
+🎮
+</div>
+
+
+<h2>
+Games
+</h2>
+
+
+<p>
+Your browser game collection.
+Open your games and start playing.
+</p>
+
+
+</div>
+
+
+
+<!-- AI -->
+
+<div
+class="card card-large ai-card"
+onclick="openNovaAI()">
+
+
+<div class="card-icon">
+🤖
+</div>
+
+
+<h2>
+Nova AI
+</h2>
+
+
+<p>
+Ask questions, get help,
+or just talk with Nova.
+</p>
+
+
+</div>
+
+
+
+<!-- CHAT -->
+
+<div
+class="card card-small"
+onclick="openChat()">
+
+
+<div class="card-icon">
+💬
+</div>
+
+
+<h2>
+Chat
+</h2>
+
+
+<p>
+Talk with other people.
+</p>
+
+
+</div>
+
+
+
+<!-- MUSIC -->
+
+<div
+class="card card-small"
+onclick="openMusic()">
+
+
+<div class="card-icon">
+🎵
+</div>
+
+
+<h2>
+Music
+</h2>
+
+
+<p>
+Listen to your music.
+</p>
+
+
+</div>
+
+
+
+<!-- GOOGLE -->
+
+<div
+class="card card-small"
+onclick="openGoogle()">
+
+
+<div class="card-icon">
+
+<span class="google-logo">
+G
+</span>
+
+</div>
+
+
+<h2>
+Google
+</h2>
+
+
+<p>
+Search the web.
+</p>
+
+
+</div>
+
+
+
+<!-- SETTINGS -->
+
+<div
+class="card card-small"
+onclick="openSettings()">
+
+
+<div class="card-icon">
+⚙️
+</div>
+
+
+<h2>
+Settings
+</h2>
+
+
+<p>
+Customize Nova.
+</p>
+
+
+</div>
+
+
+</section>
+
+
 
 <div class="footer">
 
@@ -1168,28 +1345,64 @@ Nova • Your personal web space
 
 </div>
 
+
 </main>
 
 
 </div>
 
 
+
 <script>
+
 
 /* =========================
 CLOCK
 ========================= */
 
 function updateClock() {
-  const now = new Date();
-  const clockEl = document.getElementById('clock');
-  const dateEl = document.getElementById('date');
-  if (clockEl) clockEl.textContent = now.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit', second: '2-digit'});
-  if (dateEl) dateEl.textContent = now.toLocaleDateString([], {weekday: 'long', month: 'long', day: 'numeric'});
+
+const now =
+new Date();
+
+
+document.getElementById(
+"clock"
+).textContent =
+
+now.toLocaleTimeString(
+[],
+{
+hour: "numeric",
+minute: "2-digit",
+second: "2-digit"
+}
+);
+
+
+document.getElementById(
+"date"
+).textContent =
+
+now.toLocaleDateString(
+[],
+{
+weekday: "long",
+month: "long",
+day: "numeric"
+}
+);
+
 }
 
+
 updateClock();
-setInterval(updateClock, 1000);
+
+setInterval(
+updateClock,
+1000
+);
+
 
 
 /* =========================
@@ -1197,36 +1410,60 @@ NAVIGATION
 ========================= */
 
 function goHome() {
-  location.href = 'index.html';
+
+location.href =
+"index.html";
+
 }
+
 
 function openGames() {
-  location.href = 'games.html';
+
+location.href =
+"games.html";
+
 }
+
 
 function openMusic() {
-  // Open Spotify web player in a new tab
-  try {
-    window.open('https://open.spotify.com', '_blank');
-  } catch (e) {
-    location.href = 'https://open.spotify.com';
-  }
+
+location.href =
+"music.html";
+
 }
+
 
 function openChat() {
-  location.href = 'chat.html';
+
+location.href =
+"chat.html";
+
 }
+
 
 function openNovaAI() {
-  location.href = 'Nova.html';
+
+location.href =
+"Nova.html";
+
 }
+
 
 function openSettings() {
-  location.href = 'settings.html';
+
+location.href =
+"settings.html";
+
 }
 
+
 function openGoogle() {
-  window.open('https://www.google.com', '_blank');
+
+window.open(
+"https://www.google.com",
+"_blank"
+);
+
 }
 
 
@@ -1235,23 +1472,65 @@ SEARCH
 ========================= */
 
 function handleSearch(event) {
-  if (event.key === 'Enter') {
-    const value = event.target.value.toLowerCase().trim();
-    if (value.includes('game')) openGames();
-    else if (value.includes('music')) openMusic();
-    else if (value.includes('chat')) openChat();
-    else if (value.includes('ai') || value.includes('nova')) openNovaAI();
-    else if (value.includes('google') || value.includes('search')) openGoogle();
-  }
+
+if (
+event.key === "Enter"
+) {
+
+const value =
+event.target.value
+.toLowerCase()
+.trim();
+
+
+if (
+value.includes("game")
+) {
+
+openGames();
+
 }
 
-// If there's a search input present, wire up the Enter key handler
-const searchInput = document.querySelector('.search');
-if (searchInput) {
-  searchInput.addEventListener('keydown', handleSearch);
+else if (
+value.includes("music")
+) {
+
+openMusic();
+
+}
+
+else if (
+value.includes("chat")
+) {
+
+openChat();
+
+}
+
+else if (
+value.includes("ai") ||
+value.includes("nova")
+) {
+
+openNovaAI();
+
+}
+
+else if (
+value.includes("google") ||
+value.includes("search")
+) {
+
+openGoogle();
+
+}
+
+}
+
 }
 
 </script>
+
 
 </body>
 
