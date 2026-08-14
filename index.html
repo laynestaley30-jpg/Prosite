@@ -2,624 +2,960 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>Nova</title>
 
 <style>
 
+/* =========================
+NOVA 2.0
+========================= */
+
 :root {
-    --purple: #8b5cf6;
-    --purple-light: #a78bfa;
-    --background: #080810;
-    --panel: rgba(18,18,30,.82);
-    --text: #ffffff;
-    --muted: rgba(255,255,255,.6);
+
+--purple: #8b5cf6;
+--purple2: #a78bfa;
+--purple3: #c4b5fd;
+
+--bg: #07070d;
+--panel: rgba(18,18,30,.72);
+
+--white: #ffffff;
+--muted: rgba(255,255,255,.58);
+
 }
 
 * {
-    box-sizing: border-box;
+box-sizing: border-box;
 }
 
 html,
 body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
+
+margin: 0;
+
+width: 100%;
+height: 100%;
+
 }
 
 body {
-    overflow: hidden;
-    color: var(--text);
-    font-family: Arial, Helvetica, sans-serif;
 
-    background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(139,92,246,.30),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(76,29,149,.25),
-            transparent 35%
-        ),
-        var(--background);
+overflow: hidden;
+
+font-family:
+Arial,
+Helvetica,
+sans-serif;
+
+color: var(--white);
+
+background:
+
+radial-gradient(
+circle at 10% 10%,
+rgba(139,92,246,.28),
+transparent 30%
+),
+
+radial-gradient(
+circle at 90% 90%,
+rgba(91,33,182,.22),
+transparent 35%
+),
+
+radial-gradient(
+circle at 50% 50%,
+rgba(139,92,246,.06),
+transparent 45%
+),
+
+var(--bg);
+
 }
 
 
 /* =========================
-   APP
+BACKGROUND ORBS
+========================= */
+
+.orb {
+
+position: fixed;
+
+border-radius: 50%;
+
+filter: blur(80px);
+
+pointer-events: none;
+
+opacity: .35;
+
+}
+
+.orb1 {
+
+width: 250px;
+height: 250px;
+
+background: var(--purple);
+
+top: -100px;
+right: 15%;
+
+animation: float1 9s infinite alternate ease-in-out;
+
+}
+
+.orb2 {
+
+width: 200px;
+height: 200px;
+
+background: #4c1d95;
+
+bottom: -80px;
+left: 25%;
+
+animation: float2 11s infinite alternate ease-in-out;
+
+}
+
+@keyframes float1 {
+
+from {
+transform: translate(0,0);
+}
+
+to {
+transform: translate(-40px,50px);
+}
+
+}
+
+@keyframes float2 {
+
+from {
+transform: translate(0,0);
+}
+
+to {
+transform: translate(50px,-30px);
+}
+
+}
+
+
+/* =========================
+APP
 ========================= */
 
 .app {
-    width: 100%;
-    height: 100%;
-    display: flex;
+
+display: flex;
+
+width: 100%;
+height: 100%;
+
 }
 
 
 /* =========================
-   SIDEBAR
+SIDEBAR
 ========================= */
 
 .sidebar {
-    width: 78px;
-    height: calc(100% - 28px);
-    margin: 14px;
-    padding: 12px 8px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+width: 78px;
 
-    background: rgba(12,12,22,.82);
+height:
+calc(100% - 28px);
 
-    border: 1px solid rgba(255,255,255,.09);
-    border-radius: 23px;
+margin: 14px;
 
-    backdrop-filter: blur(18px);
+padding: 12px 8px;
 
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.25);
+display: flex;
+
+flex-direction: column;
+
+align-items: center;
+
+background:
+rgba(12,12,22,.78);
+
+border:
+1px solid
+rgba(255,255,255,.09);
+
+border-radius: 24px;
+
+backdrop-filter:
+blur(22px);
+
+-webkit-backdrop-filter:
+blur(22px);
+
+box-shadow:
+0 15px 50px
+rgba(0,0,0,.25);
+
+z-index: 10;
+
 }
 
+
+/* =========================
+SIDEBAR BUTTONS
+========================= */
+
 .sidebar-buttons {
-    width: 100%;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+display: flex;
 
-    gap: 10px;
+flex-direction: column;
+
+align-items: center;
+
+gap: 10px;
+
+width: 100%;
+
 }
 
 .sidebar-button {
-    position: relative;
 
-    width: 50px;
-    height: 50px;
+position: relative;
 
-    border: 0;
-    border-radius: 16px;
+width: 50px;
+height: 50px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+border: 1px solid
+transparent;
 
-    background: rgba(255,255,255,.07);
-    color: white;
+border-radius: 16px;
 
-    font-size: 22px;
+display: flex;
 
-    cursor: pointer;
+align-items: center;
 
-    transition: .2s ease;
+justify-content: center;
+
+background:
+rgba(255,255,255,.055);
+
+color: white;
+
+font-size: 21px;
+
+cursor: pointer;
+
+transition:
+transform .2s,
+background .2s,
+border .2s,
+box-shadow .2s;
+
 }
 
 .sidebar-button:hover {
-    transform: scale(1.08);
-    background: rgba(255,255,255,.14);
+
+transform:
+translateY(-2px)
+scale(1.04);
+
+background:
+rgba(255,255,255,.11);
+
+border-color:
+rgba(255,255,255,.12);
+
 }
 
-
-/* TOOLTIP */
-
 .sidebar-button::after {
-    content: attr(data-label);
 
-    position: absolute;
+content:
+attr(data-label);
 
-    left: 62px;
-    top: 50%;
+position: absolute;
 
-    transform:
-        translateY(-50%)
-        translateX(-5px);
+left: 64px;
 
-    padding: 7px 10px;
+top: 50%;
 
-    border-radius: 9px;
+transform:
+translateY(-50%)
+translateX(-5px);
 
-    background: rgba(5,5,10,.96);
-    color: white;
+padding:
+7px 10px;
 
-    font-size: 12px;
-    white-space: nowrap;
+border-radius: 9px;
 
-    opacity: 0;
-    pointer-events: none;
+background:
+rgba(4,4,9,.96);
 
-    transition: .2s ease;
+border:
+1px solid
+rgba(255,255,255,.08);
 
-    z-index: 100;
+font-size: 12px;
+
+white-space: nowrap;
+
+opacity: 0;
+
+pointer-events: none;
+
+transition: .2s;
+
+z-index: 100;
+
 }
 
 .sidebar-button:hover::after {
-    opacity: 1;
 
-    transform:
-        translateY(-50%)
-        translateX(0);
+opacity: 1;
+
+transform:
+translateY(-50%)
+translateX(0);
+
 }
 
 
-/* NOVA AI */
+/* ACTIVE */
 
 .ai-button {
-    background:
-        linear-gradient(
-            135deg,
-            rgba(139,92,246,.38),
-            rgba(167,139,250,.20)
-        );
 
-    border:
-        1px solid
-        rgba(167,139,250,.35);
+background:
+linear-gradient(
+135deg,
+rgba(139,92,246,.5),
+rgba(167,139,250,.18)
+);
 
-    box-shadow:
-        0 0 18px
-        rgba(139,92,246,.12);
+border-color:
+rgba(167,139,250,.35);
+
+box-shadow:
+0 0 25px
+rgba(139,92,246,.12);
+
 }
 
 
-/* GOOGLE BUTTON */
+/* GOOGLE */
 
-.google-button {
-    font-weight: bold;
-    font-size: 25px;
+.google-logo {
 
-    background: rgba(255,255,255,.09);
-}
+font-weight: 800;
 
-.google-button span {
-    font-family: Arial, sans-serif;
-    font-weight: 700;
+font-size: 21px;
 
-    background:
-        linear-gradient(
-            90deg,
-            #4285F4 0%,
-            #4285F4 25%,
-            #34A853 25%,
-            #34A853 50%,
-            #FBBC05 50%,
-            #FBBC05 75%,
-            #EA4335 75%
-        );
+background:
+linear-gradient(
+90deg,
+#4285F4,
+#34A853,
+#FBBC05,
+#EA4335
+);
 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+-webkit-background-clip: text;
+
+-webkit-text-fill-color:
+transparent;
+
 }
 
 
 /* SETTINGS */
 
 .sidebar-bottom {
-    margin-top: auto;
+
+margin-top: auto;
+
 }
 
 
 /* =========================
-   MAIN
+MAIN
 ========================= */
 
 .main {
-    flex: 1;
-    height: 100%;
 
-    overflow-y: auto;
+flex: 1;
 
-    padding: 35px 45px;
+height: 100%;
+
+overflow-y: auto;
+
+padding:
+32px 42px;
+
+position: relative;
+
 }
 
 
 /* =========================
-   HOME
+TOP BAR
 ========================= */
 
-.home {
-    min-height: 100%;
+.topbar {
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+margin-bottom: 35px;
+
+}
+
+.logo {
+
+display: flex;
+
+align-items: center;
+
+gap: 10px;
+
+font-size: 19px;
+
+font-weight: 700;
+
+}
+
+.logo-icon {
+
+width: 37px;
+height: 37px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+border-radius: 12px;
+
+background:
+linear-gradient(
+135deg,
+var(--purple),
+var(--purple2)
+);
+
+box-shadow:
+0 0 25px
+rgba(139,92,246,.3);
+
+}
+
+.top-status {
+
+display: flex;
+
+align-items: center;
+
+gap: 8px;
+
+font-size: 11px;
+
+color: var(--muted);
+
+}
+
+.status-dot {
+
+width: 7px;
+height: 7px;
+
+border-radius: 50%;
+
+background: #86efac;
+
+box-shadow:
+0 0 10px
+#86efac;
+
 }
 
 
 /* =========================
-   WELCOME
+HERO
 ========================= */
 
-.welcome {
-    margin-top: 30px;
-    text-align: center;
+.hero {
+
+width:
+min(1050px,100%);
+
+margin:
+0 auto;
+
 }
 
-.welcome h1 {
-    margin: 0;
+.hero-label {
 
-    font-size:
-        clamp(45px,7vw,80px);
+font-size: 12px;
 
-    letter-spacing: -4px;
-    font-weight: 700;
+color:
+var(--purple3);
+
+letter-spacing: 2px;
+
+text-transform: uppercase;
+
+margin-bottom: 10px;
+
 }
 
-.welcome h1 span {
-    color: var(--purple-light);
+.hero h1 {
+
+font-size:
+clamp(45px,7vw,82px);
+
+letter-spacing: -5px;
+
+line-height: .95;
+
+margin: 0;
+
+font-weight: 750;
+
 }
 
-.welcome p {
-    margin: 10px 0 0;
+.hero h1 span {
 
-    color: var(--muted);
-    font-size: 14px;
+background:
+linear-gradient(
+135deg,
+#ffffff,
+var(--purple3)
+);
+
+-webkit-background-clip: text;
+
+-webkit-text-fill-color:
+transparent;
+
+}
+
+.hero p {
+
+color: var(--muted);
+
+font-size: 14px;
+
+margin:
+18px 0 0;
+
 }
 
 
 /* =========================
-   CLOCK
+CLOCK
 ========================= */
+
+.clock-card {
+
+margin-top: 25px;
+
+display: inline-flex;
+
+align-items: center;
+
+gap: 14px;
+
+padding:
+12px 17px;
+
+border-radius: 16px;
+
+background:
+rgba(255,255,255,.045);
+
+border:
+1px solid
+rgba(255,255,255,.08);
+
+backdrop-filter:
+blur(15px);
+
+}
 
 .clock {
-    margin-top: 18px;
-    text-align: center;
+
+font-size: 18px;
+
+font-weight: 600;
+
 }
 
-.clock-time {
-    font-size:
-        clamp(32px,5vw,55px);
+.date {
 
-    font-weight: 500;
-}
+font-size: 11px;
 
-.clock-date {
-    margin-top: 3px;
+color: var(--muted);
 
-    color: var(--muted);
-    font-size: 12px;
 }
 
 
 /* =========================
-   CARDS
+FEATURE GRID
 ========================= */
 
-.cards {
-    width: min(900px,100%);
+.feature-grid {
 
-    margin-top: 45px;
+width:
+min(1050px,100%);
 
-    display: grid;
+margin:
+42px auto 0;
 
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(180px,1fr)
-        );
+display: grid;
 
-    gap: 15px;
+grid-template-columns:
+repeat(12,1fr);
+
+gap: 15px;
+
 }
 
+
+/* =========================
+CARDS
+========================= */
+
 .card {
-    padding: 22px;
 
-    border-radius: 20px;
+position: relative;
 
-    background:
-        rgba(255,255,255,.055);
+min-height: 165px;
 
-    border:
-        1px solid
-        rgba(255,255,255,.08);
+padding: 24px;
 
-    cursor: pointer;
+border-radius: 22px;
 
-    transition: .25s ease;
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,.075),
+rgba(255,255,255,.025)
+);
+
+border:
+1px solid
+rgba(255,255,255,.09);
+
+backdrop-filter:
+blur(20px);
+
+-webkit-backdrop-filter:
+blur(20px);
+
+cursor: pointer;
+
+overflow: hidden;
+
+transition:
+transform .25s,
+border .25s,
+background .25s;
+
+}
+
+.card::before {
+
+content: "";
+
+position: absolute;
+
+width: 130px;
+height: 130px;
+
+border-radius: 50%;
+
+background:
+rgba(139,92,246,.16);
+
+filter: blur(45px);
+
+right: -50px;
+
+bottom: -50px;
+
 }
 
 .card:hover {
-    transform: translateY(-5px);
 
-    background:
-        rgba(255,255,255,.095);
+transform:
+translateY(-5px);
+
+border-color:
+rgba(167,139,250,.35);
+
+background:
+linear-gradient(
+145deg,
+rgba(139,92,246,.14),
+rgba(255,255,255,.035)
+);
+
 }
 
-.card h3 {
-    margin: 0 0 7px;
-    font-size: 16px;
+
+/* CARD SIZES */
+
+.card-large {
+
+grid-column:
+span 6;
+
+}
+
+.card-small {
+
+grid-column:
+span 3;
+
+}
+
+
+/* ICON */
+
+.card-icon {
+
+width: 48px;
+height: 48px;
+
+border-radius: 15px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+font-size: 24px;
+
+background:
+rgba(255,255,255,.07);
+
+margin-bottom: 20px;
+
+}
+
+.card h2 {
+
+margin: 0 0 7px;
+
+font-size: 18px;
+
 }
 
 .card p {
-    margin: 0;
 
-    color: var(--muted);
-    font-size: 12px;
+margin: 0;
+
+font-size: 12px;
+
+color: var(--muted);
+
+line-height: 1.5;
+
+}
+
+
+/* AI CARD */
+
+.ai-card {
+
+background:
+linear-gradient(
+135deg,
+rgba(139,92,246,.2),
+rgba(255,255,255,.035)
+);
+
 }
 
 
 /* =========================
-   PAGES
+SEARCH
 ========================= */
 
-.page {
-    display: none;
+.search-wrap {
+
+width:
+min(1050px,100%);
+
+margin:
+25px auto 0;
+
 }
 
-.page.active {
-    display: block;
+.search {
+
+width: 100%;
+
+padding:
+15px 18px;
+
+border:
+1px solid
+rgba(255,255,255,.09);
+
+border-radius: 15px;
+
+outline: none;
+
+background:
+rgba(255,255,255,.045);
+
+color: white;
+
+font-size: 13px;
+
+backdrop-filter: blur(15px);
+
 }
 
-.page-title {
-    font-size: 35px;
-    margin: 10px 0 5px;
+.search::placeholder {
+
+color:
+rgba(255,255,255,.42);
+
 }
 
-.page-subtitle {
-    color: var(--muted);
-    margin-bottom: 25px;
+.search:focus {
+
+border-color:
+rgba(167,139,250,.45);
+
+box-shadow:
+0 0 25px
+rgba(139,92,246,.08);
+
 }
 
 
 /* =========================
-   GAMES
+FOOTER
 ========================= */
 
-.game-search {
-    width: 100%;
+.footer {
 
-    padding: 14px 16px;
+width:
+min(1050px,100%);
 
-    border: 1px solid
-        rgba(255,255,255,.1);
+margin:
+35px auto 20px;
 
-    border-radius: 15px;
+font-size: 10px;
 
-    outline: none;
+color:
+rgba(255,255,255,.35);
 
-    background:
-        rgba(255,255,255,.06);
+text-align: center;
 
-    color: white;
-
-    font-size: 14px;
-
-    margin-bottom: 20px;
-}
-
-.game-search::placeholder {
-    color: var(--muted);
-}
-
-.game-category {
-    margin-top: 28px;
-}
-
-.game-category h2 {
-    font-size: 20px;
-    margin-bottom: 12px;
-}
-
-.game-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(180px,1fr)
-        );
-
-    gap: 12px;
-}
-
-.game-card {
-    padding: 18px;
-
-    border-radius: 17px;
-
-    border: 1px solid
-        rgba(255,255,255,.08);
-
-    background:
-        rgba(255,255,255,.055);
-
-    cursor: pointer;
-
-    transition: .2s ease;
-}
-
-.game-card:hover {
-    transform: translateY(-3px);
-
-    background:
-        rgba(139,92,246,.16);
-
-    border-color:
-        rgba(167,139,250,.35);
-}
-
-.game-card h3 {
-    margin: 0 0 6px;
-    font-size: 14px;
-}
-
-.game-card p {
-    margin: 0;
-
-    color: var(--muted);
-    font-size: 11px;
-}
-
-
-/* GAME PLAYER */
-
-.game-player {
-    display: none;
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 500;
-
-    background:
-        rgba(4,4,9,.94);
-
-    padding: 25px;
-}
-
-.game-player.active {
-    display: flex;
-
-    flex-direction: column;
-}
-
-.game-top {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 12px;
-}
-
-.game-top h2 {
-    margin: 0;
-    font-size: 18px;
-}
-
-.game-controls {
-    display: flex;
-    gap: 8px;
-}
-
-.game-control {
-    border: 0;
-
-    border-radius: 10px;
-
-    padding: 9px 13px;
-
-    background:
-        rgba(255,255,255,.1);
-
-    color: white;
-
-    cursor: pointer;
-}
-
-.game-control:hover {
-    background:
-        rgba(255,255,255,.18);
-}
-
-#gameFrame {
-    width: 100%;
-    height: 100%;
-
-    border: 0;
-
-    border-radius: 18px;
-
-    background: black;
-}
-
-.game-note {
-    margin: 8px 0;
-
-    color: var(--muted);
-
-    font-size: 11px;
 }
 
 
 /* =========================
-   SIMPLE PAGES
+MOBILE
 ========================= */
 
-.simple-panel {
-    max-width: 800px;
+@media(max-width:800px) {
 
-    padding: 25px;
+.main {
 
-    border-radius: 20px;
+padding:
+25px 18px;
 
-    background:
-        rgba(255,255,255,.055);
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
 }
 
-.simple-panel p {
-    color: var(--muted);
+.card-large {
+
+grid-column:
+span 12;
+
 }
 
+.card-small {
 
-/* =========================
-   MOBILE
-========================= */
+grid-column:
+span 6;
 
-@media(max-width:700px) {
+}
 
-    .sidebar {
-        width: 65px;
+}
 
-        margin: 9px;
+@media(max-width:600px) {
 
-        height:
-            calc(100% - 18px);
-    }
+.sidebar {
 
-    .sidebar-button {
-        width: 44px;
-        height: 44px;
+width: 62px;
 
-        font-size: 20px;
-    }
+margin: 9px;
 
-    .sidebar-button::after {
-        display: none;
-    }
+height:
+calc(100% - 18px);
 
-    .main {
-        padding: 25px 18px;
-    }
+}
 
-    .cards {
-        grid-template-columns: 1fr;
-    }
+.sidebar-button {
 
-    .game-grid {
-        grid-template-columns: 1fr;
-    }
+width: 44px;
+height: 44px;
 
-    .game-player {
-        padding: 10px;
-    }
+font-size: 19px;
+
+}
+
+.sidebar-button::after {
+
+display: none;
+
+}
+
+.main {
+
+padding:
+22px 15px;
+
+}
+
+.hero h1 {
+
+letter-spacing:
+-3px;
+
+}
+
+.card-small {
+
+grid-column:
+span 12;
+
+}
+
+.clock-card {
+
+display: flex;
+
+}
+
 }
 
 </style>
@@ -630,14 +966,22 @@ body {
 <body>
 
 
+<!-- BACKGROUND -->
+
+<div class="orb orb1"></div>
+
+<div class="orb orb2"></div>
+
+
 <div class="app">
 
 
 <!-- =========================
-     SIDEBAR
+SIDEBAR
 ========================= -->
 
 <aside class="sidebar">
+
 
 <div class="sidebar-buttons">
 
@@ -645,32 +989,40 @@ body {
 <button
 class="sidebar-button"
 data-label="Home"
-onclick="showPage('home')">
+onclick="goHome()">
+
 🏠
+
 </button>
 
 
 <button
 class="sidebar-button"
 data-label="Games"
-onclick="showPage('games')">
+onclick="openGames()">
+
 🎮
+
 </button>
 
 
 <button
 class="sidebar-button"
 data-label="Music"
-onclick="showPage('music')">
+onclick="openMusic()">
+
 🎵
+
 </button>
 
 
 <button
 class="sidebar-button"
 data-label="Chat"
-onclick="showPage('chat')">
+onclick="openChat()">
+
 💬
+
 </button>
 
 
@@ -678,15 +1030,21 @@ onclick="showPage('chat')">
 class="sidebar-button ai-button"
 data-label="Nova AI"
 onclick="openNovaAI()">
+
 🤖
+
 </button>
 
 
 <button
-class="sidebar-button google-button"
+class="sidebar-button"
 data-label="Google"
 onclick="openGoogle()">
-<span>G</span>
+
+<span class="google-logo">
+G
+</span>
+
 </button>
 
 
@@ -695,841 +1053,482 @@ onclick="openGoogle()">
 
 <div class="sidebar-bottom">
 
+
 <button
 class="sidebar-button"
 data-label="Settings"
-onclick="showPage('settings')">
+onclick="openSettings()">
+
 ⚙️
+
 </button>
 
+
 </div>
+
 
 </aside>
 
 
+
 <!-- =========================
-     MAIN
+MAIN
 ========================= -->
 
 <main class="main">
 
 
-<!-- HOME -->
+<!-- TOP -->
 
-<section
-id="home"
-class="page active home">
+<div class="topbar">
 
-<div class="welcome">
 
-<h1>
-Welcome to
-<span>Nova</span>
-</h1>
+<div class="logo">
 
-<p>
-Your personal space on the web.
-</p>
+<div class="logo-icon">
+✦
+</div>
+
+Nova
 
 </div>
 
 
-<div class="clock">
+<div class="top-status">
 
-<div
-class="clock-time"
-id="clock">
+<div class="status-dot"></div>
+
+Online
+
+</div>
+
+
+</div>
+
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+
+<div class="hero-label">
+Personal dashboard
+</div>
+
+
+<h1>
+
+Welcome to
+<span>Nova.</span>
+
+</h1>
+
+
+<p>
+Your games, music, chat and AI.
+All in one place.
+</p>
+
+
+
+<!-- CLOCK -->
+
+<div class="clock-card">
+
+<div class="clock" id="clock">
 12:00
 </div>
 
-<div
-class="clock-date"
-id="date">
+<div class="date" id="date">
 Loading...
 </div>
 
 </div>
 
 
-<div class="cards">
+</section>
 
 
-<div
-class="card"
-onclick="showPage('games')">
 
-<h3>🎮 Games</h3>
+<!-- SEARCH -->
 
-<p>
-Open your game hub.
-</p>
+<div class="search-wrap">
 
-</div>
-
-
-<div
-class="card"
-onclick="showPage('music')">
-
-<h3>🎵 Music</h3>
-
-<p>
-Open your music.
-</p>
+<input
+class="search"
+id="search"
+placeholder="⌕  Search Nova..."
+onkeydown="handleSearch(event)"
+>
 
 </div>
 
 
-<div
-class="card"
-onclick="showPage('chat')">
 
-<h3>💬 Chat</h3>
+<!-- FEATURE CARDS -->
+
+<section class="feature-grid">
+
+
+<!-- GAMES -->
+
+<div
+class="card card-large"
+onclick="openGames()">
+
+
+<div class="card-icon">
+🎮
+</div>
+
+
+<h2>
+Games
+</h2>
+
+
+<p>
+Your browser game collection.
+Open your games and start playing.
+</p>
+
+
+</div>
+
+
+
+<!-- AI -->
+
+<div
+class="card card-large ai-card"
+onclick="openNovaAI()">
+
+
+<div class="card-icon">
+🤖
+</div>
+
+
+<h2>
+Nova AI
+</h2>
+
+
+<p>
+Ask questions, get help,
+or just talk with Nova.
+</p>
+
+
+</div>
+
+
+
+<!-- CHAT -->
+
+<div
+class="card card-small"
+onclick="openChat()">
+
+
+<div class="card-icon">
+💬
+</div>
+
+
+<h2>
+Chat
+</h2>
+
 
 <p>
 Talk with other people.
 </p>
 
+
 </div>
 
 
-<div
-class="card"
-onclick="openNovaAI()">
 
-<h3>🤖 Nova AI</h3>
+<!-- MUSIC -->
+
+<div
+class="card card-small"
+onclick="openMusic()">
+
+
+<div class="card-icon">
+🎵
+</div>
+
+
+<h2>
+Music
+</h2>
+
 
 <p>
-Open your AI assistant.
+Listen to your music.
 </p>
+
 
 </div>
 
 
+
+<!-- GOOGLE -->
+
 <div
-class="card"
+class="card card-small"
 onclick="openGoogle()">
 
-<h3>🌐 Google</h3>
+
+<div class="card-icon">
+
+<span class="google-logo">
+G
+</span>
+
+</div>
+
+
+<h2>
+Google
+</h2>
+
 
 <p>
 Search the web.
 </p>
 
+
 </div>
 
 
-<div
-class="card"
-onclick="showPage('settings')">
 
-<h3>⚙️ Settings</h3>
+<!-- SETTINGS -->
+
+<div
+class="card card-small"
+onclick="openSettings()">
+
+
+<div class="card-icon">
+⚙️
+</div>
+
+
+<h2>
+Settings
+</h2>
+
 
 <p>
 Customize Nova.
 </p>
 
-</div>
-
 
 </div>
+
 
 </section>
 
 
-<!-- =========================
-     GAMES
-========================= -->
 
-<section
-id="games"
-class="page">
+<div class="footer">
 
-<h1 class="page-title">
-🎮 Nova Games
-</h1>
-
-<p class="page-subtitle">
-Your game collection.
-</p>
-
-
-<input
-class="game-search"
-id="gameSearch"
-placeholder="Search games..."
-oninput="searchGames()">
-
-
-<div class="game-category">
-
-<h2>🎮 Games</h2>
-
-<div class="game-grid">
-
-
-<div class="game-card"
-data-game="Tung Tung Escape"
-onclick="playGame('Tung Tung Escape','')">
-<h3>🗿 Tung Tung Escape</h3>
-<p>Escape the chaos.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Bad Time Simulator"
-onclick="playGame('Bad Time Simulator','')">
-<h3>💀 Bad Time Simulator</h3>
-<p>Survive the battle.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Friday Night Funkin"
-onclick="playGame('Friday Night Funkin','')">
-<h3>🎤 Friday Night Funkin'</h3>
-<p>Rhythm battles.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Undertale Yellow"
-onclick="playGame('Undertale Yellow','')">
-<h3>💛 Undertale Yellow</h3>
-<p>Underground adventure.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Deltarune"
-onclick="playGame('Deltarune','')">
-<h3>♟️ Deltarune</h3>
-<p>Another adventure.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Baldis Basics"
-onclick="playGame('Baldi’s Basics','')">
-<h3>📚 Baldi's Basics</h3>
-<p>Escape the school.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Getting Over It"
-onclick="playGame('Getting Over It','')">
-<h3>⛰️ Getting Over It</h3>
-<p>Climb your way up.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Worlds Hardest Game"
-onclick="playGame('The World’s Hardest Game','')">
-<h3>🟥 World's Hardest Game</h3>
-<p>Test your patience.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Slope"
-onclick="playGame('Slope','https://slope-game.github.io/')">
-<h3>🟢 Slope</h3>
-<p>Roll down the track.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Run 3"
-onclick="playGame('Run 3','https://run3.io/')">
-<h3>🏃 Run 3</h3>
-<p>Run through space.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Fireboy Watergirl"
-onclick="playGame('Fireboy and Watergirl','')">
-<h3>🔥 Fireboy & Watergirl</h3>
-<p>Teamwork platforming.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Duck Life 4"
-onclick="playGame('Duck Life 4','')">
-<h3>🦆 Duck Life 4</h3>
-<p>Train your duck.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Fancy Pants"
-onclick="playGame('Fancy Pants Adventures','')">
-<h3>🖊️ Fancy Pants</h3>
-<p>Stickman platforming.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Stickman Hook"
-onclick="playGame('Stickman Hook','')">
-<h3>🪝 Stickman Hook</h3>
-<p>Swing through levels.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Shell Shockers"
-onclick="playGame('Shell Shockers','https://shellshock.io/')">
-<h3>🥚 Shell Shockers</h3>
-<p>Egg battle royale.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Bloons TD 5"
-onclick="playGame('Bloons TD 5','')">
-<h3>🎈 Bloons TD 5</h3>
-<p>Defend against bloons.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Plants vs Zombies"
-onclick="playGame('Plants vs. Zombies','')">
-<h3>🌻 Plants vs. Zombies</h3>
-<p>Defend your house.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Papas Freezeria"
-onclick="playGame('Papa’s Freezeria','')">
-<h3>🍦 Papa's Freezeria</h3>
-<p>Run the shop.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Super Mario 63"
-onclick="playGame('Super Mario 63','')">
-<h3>🍄 Super Mario 63</h3>
-<p>Mario adventure.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Sonic"
-onclick="playGame('Sonic','')">
-<h3>💨 Sonic</h3>
-<p>Gotta go fast.</p>
-</div>
+Nova • Your personal web space
 
 </div>
-
-</div>
-
-
-<!-- HORROR -->
-
-<div class="game-category">
-
-<h2>👻 Horror</h2>
-
-<div class="game-grid">
-
-
-<div class="game-card"
-data-game="FNAF"
-onclick="playGame('FNAF Fan Games','')">
-<h3>🐻 FNAF Fan Games</h3>
-<p>Survive the night.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Backrooms"
-onclick="playGame('The Backrooms','')">
-<h3>🟨 The Backrooms</h3>
-<p>Find your way out.</p>
-</div>
-
-
-<div class="game-card"
-data-game="SCP"
-onclick="playGame('SCP Games','')">
-<h3>👁️ SCP Games</h3>
-<p>Containment breached.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Granny"
-onclick="playGame('Granny','')">
-<h3>👵 Granny</h3>
-<p>Escape the house.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Slender"
-onclick="playGame('Slender-style Games','')">
-<h3>🌲 Slender-style Games</h3>
-<p>Don't let him find you.</p>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- WEIRD -->
-
-<div class="game-category">
-
-<h2>🤪 Weird / Funny</h2>
-
-<div class="game-grid">
-
-
-<div class="game-card"
-data-game="We Become What We Behold"
-onclick="playGame('We Become What We Behold','')">
-<h3>📺 We Become What We Behold</h3>
-<p>A strange little game.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Sort the Court"
-onclick="playGame('Sort the Court!','')">
-<h3>👑 Sort the Court!</h3>
-<p>Rule your kingdom.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Goat Games"
-onclick="playGame('Goat Games','')">
-<h3>🐐 Goat Games</h3>
-<p>Maximum goat energy.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Stickman Games"
-onclick="playGame('Stickman Games','')">
-<h3>🕴️ Stickman Games</h3>
-<p>Classic stickman chaos.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Ragdoll Games"
-onclick="playGame('Ragdoll Games','')">
-<h3>🧍 Ragdoll Games</h3>
-<p>Physics chaos.</p>
-</div>
-
-
-<div class="game-card"
-data-game="People Playground"
-onclick="playGame('People Playground-style Games','')">
-<h3>🧪 People Playground-style</h3>
-<p>Physics sandbox games.</p>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- MULTIPLAYER -->
-
-<div class="game-category">
-
-<h2>🧠 Multiplayer</h2>
-
-<div class="game-grid">
-
-
-<div class="game-card"
-data-game="Krunker"
-onclick="playGame('Krunker','https://krunker.io/')">
-<h3>🔫 Krunker</h3>
-<p>Browser FPS.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Agar.io"
-onclick="playGame('Agar.io','https://agar.io/')">
-<h3>🟢 Agar.io</h3>
-<p>Grow and survive.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Slither.io"
-onclick="playGame('Slither.io','https://slither.io/')">
-<h3>🐍 Slither.io</h3>
-<p>Become the biggest snake.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Diep.io"
-onclick="playGame('Diep.io','https://diep.io/')">
-<h3>🔵 Diep.io</h3>
-<p>Tank battles.</p>
-</div>
-
-
-<div class="game-card"
-data-game="Paper.io"
-onclick="playGame('Paper.io','https://paper-io.com/')">
-<h3>📄 Paper.io</h3>
-<p>Take over territory.</p>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- MUSIC -->
-
-<section
-id="music"
-class="page">
-
-<h1 class="page-title">
-🎵 Music
-</h1>
-
-<p class="page-subtitle">
-Your music area.
-</p>
-
-<div class="simple-panel">
-
-<p>
-Music tools can be added here later.
-</p>
-
-</div>
-
-</section>
-
-
-<!-- CHAT -->
-
-<section
-id="chat"
-class="page">
-
-<h1 class="page-title">
-💬 Chat
-</h1>
-
-<p class="page-subtitle">
-Talk with other people.
-</p>
-
-<div class="simple-panel">
-
-<p>
-Your chat system can be connected here.
-</p>
-
-</div>
-
-</section>
-
-
-<!-- SETTINGS -->
-
-<section
-id="settings"
-class="page">
-
-<h1 class="page-title">
-⚙️ Settings
-</h1>
-
-<p class="page-subtitle">
-Nova settings.
-</p>
-
-<div class="simple-panel">
-
-<p>
-Settings controls can be added here.
-</p>
-
-</div>
-
-</section>
 
 
 </main>
 
-</div>
-
-
-<!-- =========================
-     GAME PLAYER
-========================= -->
-
-<div
-class="game-player"
-id="gamePlayer">
-
-<div class="game-top">
-
-<h2 id="gameTitle">
-Game
-</h2>
-
-<div class="game-controls">
-
-<button
-class="game-control"
-onclick="openExternalGame()">
-↗ Open Game
-</button>
-
-<button
-class="game-control"
-onclick="closeGame()">
-✕ Close
-</button>
 
 </div>
 
-</div>
-
-
-<p
-class="game-note"
-id="gameNote">
-If the game does not load inside Nova, use "Open Game".
-</p>
-
-
-<iframe
-id="gameFrame"
-src=""
-allow="fullscreen"
-allowfullscreen>
-</iframe>
-
-</div>
 
 
 <script>
 
 
 /* =========================
-   CLOCK
+CLOCK
 ========================= */
 
 function updateClock() {
 
-    const now = new Date();
+const now =
+new Date();
 
-    document.getElementById("clock").textContent =
-        now.toLocaleTimeString(
-            [],
-            {
-                hour: "numeric",
-                minute: "2-digit",
-                second: "2-digit"
-            }
-        );
 
-    document.getElementById("date").textContent =
-        now.toLocaleDateString(
-            [],
-            {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-                year: "numeric"
-            }
-        );
+document.getElementById(
+"clock"
+).textContent =
+
+now.toLocaleTimeString(
+[],
+{
+hour: "numeric",
+minute: "2-digit",
+second: "2-digit"
 }
+);
+
+
+document.getElementById(
+"date"
+).textContent =
+
+now.toLocaleDateString(
+[],
+{
+weekday: "long",
+month: "long",
+day: "numeric"
+}
+);
+
+}
+
 
 updateClock();
 
-setInterval(updateClock, 1000);
+setInterval(
+updateClock,
+1000
+);
+
 
 
 /* =========================
-   PAGE NAVIGATION
+NAVIGATION
 ========================= */
 
-function showPage(page) {
+function goHome() {
 
-    document.querySelectorAll(".page")
-        .forEach(section => {
-            section.classList.remove("active");
-        });
+location.href =
+"index.html";
 
-    const selected =
-        document.getElementById(page);
-
-    if (selected) {
-        selected.classList.add("active");
-    }
 }
 
 
-/* =========================
-   NOVA AI
-========================= */
+function openGames() {
+
+location.href =
+"games.html";
+
+}
+
+
+function openMusic() {
+
+location.href =
+"music.html";
+
+}
+
+
+function openChat() {
+
+location.href =
+"chat.html";
+
+}
+
 
 function openNovaAI() {
 
-    window.location.href =
-        "Nova.html";
+location.href =
+"Nova.html";
 
 }
 
 
-/* =========================
-   GOOGLE
-========================= */
+function openSettings() {
+
+location.href =
+"settings.html";
+
+}
+
 
 function openGoogle() {
 
-    window.open(
-        "https://www.google.com/",
-        "_blank"
-    );
-
-}
-
-
-/* =========================
-   GAME SYSTEM
-========================= */
-
-let currentGameURL = "";
-
-
-function playGame(name, url) {
-
-    document.getElementById("gameTitle")
-        .textContent = name;
-
-    currentGameURL = url || "";
-
-    const frame =
-        document.getElementById("gameFrame");
-
-    if (url) {
-
-        frame.src = url;
-
-        document.getElementById("gameNote")
-            .textContent =
-            "Loading " + name +
-            ". If it doesn't load, use Open Game.";
-
-    } else {
-
-        frame.src = "about:blank";
-
-        document.getElementById("gameNote")
-            .textContent =
-            name +
-            " needs its verified game URL added before it can be embedded.";
-
-    }
-
-    document.getElementById("gamePlayer")
-        .classList.add("active");
-}
-
-
-function closeGame() {
-
-    document.getElementById("gamePlayer")
-        .classList.remove("active");
-
-    document.getElementById("gameFrame")
-        .src = "";
-
-}
-
-
-function openExternalGame() {
-
-    if (!currentGameURL) {
-
-        alert(
-            "This game needs its actual web-game URL added first."
-        );
-
-        return;
-    }
-
-    window.open(
-        currentGameURL,
-        "_blank"
-    );
-}
-
-
-/* =========================
-   GAME SEARCH
-========================= */
-
-function searchGames() {
-
-    const search =
-        document.getElementById("gameSearch")
-            .value
-            .toLowerCase();
-
-    document.querySelectorAll(".game-card")
-        .forEach(card => {
-
-            const name =
-                card.dataset.game
-                    .toLowerCase();
-
-            if (name.includes(search)) {
-                card.style.display = "";
-            } else {
-                card.style.display = "none";
-            }
-
-        });
-}
-
-
-/* =========================
-   ESCAPE CLOSES GAME
-========================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (event.key === "Escape") {
-            closeGame();
-        }
-
-    }
+window.open(
+"https://www.google.com",
+"_blank"
 );
+
+}
+
+
+/* =========================
+SEARCH
+========================= */
+
+function handleSearch(event) {
+
+if (
+event.key === "Enter"
+) {
+
+const value =
+event.target.value
+.toLowerCase()
+.trim();
+
+
+if (
+value.includes("game")
+) {
+
+openGames();
+
+}
+
+else if (
+value.includes("music")
+) {
+
+openMusic();
+
+}
+
+else if (
+value.includes("chat")
+) {
+
+openChat();
+
+}
+
+else if (
+value.includes("ai") ||
+value.includes("nova")
+) {
+
+openNovaAI();
+
+}
+
+else if (
+value.includes("google") ||
+value.includes("search")
+) {
+
+openGoogle();
+
+}
+
+}
+
+}
 
 </script>
 
+
 </body>
+
 </html>
