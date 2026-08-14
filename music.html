@@ -22,7 +22,8 @@
     <p>Quick links to your music services. These are simple placeholders — replace with your player or playlists.</p>
 
     <div class="list">
-      <a class="source" href="https://open.spotify.com" target="_blank">
+      <!-- This link will try to open the Spotify desktop/mobile app via the spotify: URI scheme; if that fails, it falls back to the web player. -->
+      <a class="source" href="https://open.spotify.com" target="_blank" onclick="openSpotify(event)">
         <img src="Spotify.png" alt="Spotify">
         <div style="margin-top:8px">Open Spotify</div>
       </a>
@@ -35,5 +36,49 @@
 
     <a class="back" href="index.html">← Back to Nova</a>
   </div>
+
+  <script>
+    // Try to open the Spotify app using the URI scheme. If it fails (app not installed), fall back to the web player.
+    function openSpotify(e) {
+      // Prevent the default anchor navigation so we can attempt the app first.
+      e.preventDefault();
+
+      var appUri = 'spotify:'; // generic spotify URI to open the app
+      var webUrl = 'https://open.spotify.com';
+      var opened = false;
+
+      // Method 1: try using window.location (works in some browsers)
+      try {
+        // Start a timer and then attempt to open the app URI. If after a short delay the page is still visible,
+        // we assume the app wasn't opened and open the web URL instead.
+        var start = Date.now();
+        window.location = appUri;
+
+        setTimeout(function() {
+          // If the browser didn't switch away (time elapsed small), open web
+          if (Date.now() - start < 2000) {
+            window.open(webUrl, '_blank');
+          }
+        }, 1500);
+
+        opened = true;
+      } catch (err) {
+        opened = false;
+      }
+
+      // Fallback: try creating a hidden iframe (older approach, may be blocked by some browsers)
+      if (!opened) {
+        var iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = appUri;
+        document.body.appendChild(iframe);
+
+        setTimeout(function() {
+          document.body.removeChild(iframe);
+          window.open(webUrl, '_blank');
+        }, 1500);
+      }
+    }
+  </script>
 </body>
 </html>
