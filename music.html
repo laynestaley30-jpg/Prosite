@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nova Music</title>
+  <style>
+    :root{--bg:#090912;--text:#fff;--muted:rgba(255,255,255,.6);--card:rgba(255,255,255,.03)}
+    html,body{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+    .wrap{max-width:900px;margin:28px auto;padding:18px;background:var(--card);border-radius:14px;border:1px solid rgba(255,255,255,.06)}
+    h1{margin:0 0 8px}
+    p{color:var(--muted)}
+    .list{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px}
+    .source{width:160px;padding:12px;border-radius:10px;background:rgba(255,255,255,.03);text-align:center;cursor:pointer}
+    .source img{max-width:100%;height:96px;object-fit:contain}
+    .back{display:inline-block;margin-top:18px;padding:8px 12px;border-radius:8px;background:#8b5cf6;color:#fff;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Nova Music</h1>
+    <p>Quick links to your music services. These are simple placeholders — replace with your player or playlists.</p>
+
+    <div class="list">
+      <a class="source" href="https://open.spotify.com" target="_blank">
+        <img src="Spotify.png" alt="Spotify">
+        <div style="margin-top:8px">Open Spotify</div>
+      </a>
+
+      <a class="source" href="https://store.steampowered.com" target="_blank">
+        <img src="Steam.png" alt="Steam">
+        <div style="margin-top:8px">Open Steam</div>
+      </a>
+    </div>
+
+    <a class="back" href="index.html">← Back to Nova</a>
+  </div>
+</body>
+</html>
