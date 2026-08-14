@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nova AI</title>
+<title>Nova</title>
 
 <style>
-
 :root {
-    --purple: #8b5cf6;
-    --purple-light: #a78bfa;
-    --bg: #07070d;
-    --panel: rgba(18, 18, 30, 0.82);
+    --accent: #8b5cf6;
+    --accent2: #a78bfa;
+    --bg: #05050b;
     --text: #ffffff;
-    --muted: rgba(255,255,255,.6);
+    --muted: rgba(255,255,255,.55);
 }
 
 * {
@@ -30,23 +27,186 @@ body {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
     color: var(--text);
+
+    font-family:
+        "Trebuchet MS",
+        Arial,
+        sans-serif;
+
+    background: var(--bg);
+}
+
+/* =========================
+   MOVING BACKGROUND
+========================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -10;
 
     background:
         radial-gradient(
-            circle at 15% 20%,
-            rgba(139,92,246,.30),
-            transparent 35%
+            circle at 50% 50%,
+            rgba(139,92,246,.08),
+            transparent 55%
         ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(76,29,149,.25),
-            transparent 35%
-        ),
-        var(--bg);
+        #05050b;
 }
 
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .30;
+    pointer-events: none;
+}
+
+.orb1 {
+    width: 550px;
+    height: 550px;
+    left: -180px;
+    top: -180px;
+    background: var(--accent);
+
+    animation:
+        moveOne 18s ease-in-out infinite;
+}
+
+.orb2 {
+    width: 500px;
+    height: 500px;
+    right: -180px;
+    bottom: -180px;
+    background: var(--accent2);
+
+    animation:
+        moveTwo 22s ease-in-out infinite;
+}
+
+.orb3 {
+    width: 350px;
+    height: 350px;
+    left: 45%;
+    top: 15%;
+    background: #4c1d95;
+    opacity: .18;
+
+    animation:
+        moveThree 16s ease-in-out infinite;
+}
+
+.orb4 {
+    width: 280px;
+    height: 280px;
+    left: 20%;
+    bottom: -100px;
+    background: var(--accent);
+    opacity: .16;
+
+    animation:
+        moveFour 20s ease-in-out infinite;
+}
+
+.orb5 {
+    width: 260px;
+    height: 260px;
+    right: 20%;
+    top: -100px;
+    background: var(--accent2);
+    opacity: .12;
+
+    animation:
+        moveFive 25s ease-in-out infinite;
+}
+
+@keyframes moveOne {
+    0%,100% {
+        transform: translate(0,0) scale(1);
+    }
+
+    50% {
+        transform: translate(180px,120px) scale(1.25);
+    }
+}
+
+@keyframes moveTwo {
+    0%,100% {
+        transform: translate(0,0) scale(1);
+    }
+
+    50% {
+        transform: translate(-180px,-130px) scale(1.2);
+    }
+}
+
+@keyframes moveThree {
+    0%,100% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform: translate(150px,180px) scale(1.25);
+    }
+}
+
+@keyframes moveFour {
+    0%,100% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform: translate(220px,-180px) scale(1.3);
+    }
+}
+
+@keyframes moveFive {
+    0%,100% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform: translate(-200px,180px) scale(1.2);
+    }
+}
+
+/* =========================
+   PARTICLES
+========================= */
+
+.particles {
+    position: absolute;
+    inset: 0;
+}
+
+.particle {
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: var(--accent2);
+
+    opacity: .35;
+
+    animation:
+        particleMove linear infinite;
+}
+
+@keyframes particleMove {
+    from {
+        transform: translateY(110vh);
+    }
+
+    to {
+        transform: translateY(-20vh);
+    }
+}
 
 /* =========================
    APP
@@ -54,685 +214,873 @@ body {
 
 .app {
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    display: flex;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 82px;
+
+    height:
+        calc(100% - 28px);
+
+    margin: 14px;
+
+    padding: 12px 9px;
 
     display: flex;
     flex-direction: column;
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-.header {
-    height: 72px;
-
-    display: flex;
     align-items: center;
 
-    padding: 0 18px;
-
     background:
-        rgba(10,10,18,.82);
+        rgba(10,10,20,.42);
 
-    border-bottom:
-        1px solid rgba(255,255,255,.08);
+    border:
+        1px solid
+        rgba(255,255,255,.10);
 
-    backdrop-filter: blur(20px);
+    border-radius: 25px;
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 20px 70px
+        rgba(0,0,0,.35);
 }
 
+/* =========================
+   LOGO
+========================= */
 
-.back-button {
-    width: 42px;
-    height: 42px;
-
-    margin-right: 12px;
-
-    border: 0;
-    border-radius: 13px;
-
-    background:
-        rgba(255,255,255,.07);
-
-    color: white;
-
-    font-size: 20px;
-
-    cursor: pointer;
-
-    transition: .2s;
-}
-
-.back-button:hover {
-    background:
-        rgba(139,92,246,.35);
-
-    transform: scale(1.05);
-}
-
-
-.avatar {
-    width: 44px;
-    height: 44px;
-
-    margin-right: 12px;
+.logo {
+    width: 50px;
+    height: 50px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 14px;
+    border-radius: 17px;
 
     background:
         linear-gradient(
             135deg,
-            var(--purple),
-            var(--purple-light)
+            var(--accent),
+            var(--accent2)
         );
 
     box-shadow:
-        0 0 25px
-        rgba(139,92,246,.25);
+        0 0 28px
+        rgba(139,92,246,.35);
 
-    font-size: 21px;
+    font-size: 24px;
+
+    margin-bottom: 12px;
 }
-
-
-.title {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-
-.status {
-    margin-top: 3px;
-
-    color: #86efac;
-
-    font-size: 11px;
-}
-
 
 /* =========================
-   CHAT
+   SIDEBAR CLOCK
 ========================= */
 
-.chat {
-    flex: 1;
+.side-clock {
+    text-align: center;
+    margin-bottom: 16px;
 
-    overflow-y: auto;
+    font-family:
+        "Courier New",
+        monospace;
+}
 
-    padding: 25px;
+.side-time {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: var(--accent2);
+}
+
+.side-ampm {
+    font-size: 8px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+/* =========================
+   SIDEBAR BUTTONS
+========================= */
+
+.sidebar-buttons {
+    width: 100%;
 
     display: flex;
     flex-direction: column;
+    align-items: center;
 
-    gap: 14px;
+    gap: 9px;
 }
 
+.sidebar-button {
+    position: relative;
 
-/* MESSAGE */
+    width: 50px;
+    height: 50px;
 
-.message {
-    max-width: min(78%, 700px);
-
-    padding:
-        13px 16px;
-
-    border-radius: 17px;
-
-    line-height: 1.5;
-
-    font-size: 14px;
-
-    white-space: pre-wrap;
-
-    word-wrap: break-word;
-}
-
-
-/* AI */
-
-.message.ai {
-    align-self: flex-start;
-
-    background:
-        rgba(255,255,255,.065);
-
-    border:
-        1px solid rgba(255,255,255,.08);
-}
-
-
-/* USER */
-
-.message.user {
-    align-self: flex-end;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--purple),
-            var(--purple-light)
-        );
-
-    box-shadow:
-        0 5px 20px
-        rgba(139,92,246,.15);
-}
-
-
-/* THINKING */
-
-.thinking {
-    opacity: .65;
-}
-
-
-/* =========================
-   INPUT AREA
-========================= */
-
-.input-area {
-    padding: 15px;
+    border: 0;
+    border-radius: 16px;
 
     display: flex;
-
-    gap: 10px;
-
-    background:
-        rgba(10,10,18,.88);
-
-    border-top:
-        1px solid rgba(255,255,255,.08);
-
-    backdrop-filter:
-        blur(20px);
-}
-
-
-/* INPUT */
-
-#messageInput {
-    flex: 1;
-
-    min-width: 0;
-
-    padding:
-        14px 16px;
-
-    border:
-        1px solid rgba(255,255,255,.1);
-
-    border-radius: 15px;
-
-    outline: none;
+    align-items: center;
+    justify-content: center;
 
     background:
         rgba(255,255,255,.055);
 
     color: white;
 
-    font-size: 14px;
+    cursor: pointer;
 
-    transition: .2s;
+    transition: .22s ease;
+
+    font-size: 20px;
 }
 
-
-#messageInput:focus {
-    border-color:
-        rgba(167,139,250,.55);
-
-    box-shadow:
-        0 0 20px
-        rgba(139,92,246,.08);
-}
-
-
-#messageInput::placeholder {
-    color:
-        rgba(255,255,255,.4);
-}
-
-
-/* SEND */
-
-#sendButton {
-    width: 52px;
-
-    border: 0;
-
-    border-radius: 15px;
+.sidebar-button:hover {
+    transform:
+        translateY(-2px)
+        scale(1.06);
 
     background:
-        linear-gradient(
-            135deg,
-            var(--purple),
-            var(--purple-light)
-        );
+        rgba(139,92,246,.25);
+}
+
+.sidebar-button.active {
+    background:
+        rgba(139,92,246,.35);
+
+    box-shadow:
+        0 0 18px
+        rgba(139,92,246,.20);
+}
+
+/* =========================
+   TOOLTIP
+========================= */
+
+.sidebar-button::after {
+    content: attr(data-label);
+
+    position: absolute;
+
+    left: 64px;
+    top: 50%;
+
+    transform:
+        translateY(-50%)
+        translateX(-5px);
+
+    padding: 7px 10px;
+
+    border-radius: 8px;
+
+    background:
+        rgba(4,4,9,.95);
 
     color: white;
 
-    font-size: 19px;
+    font-size: 11px;
 
-    cursor: pointer;
+    white-space: nowrap;
 
-    transition: .2s;
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: .18s ease;
+
+    z-index: 100;
 }
 
+.sidebar-button:hover::after {
+    opacity: 1;
 
-#sendButton:hover {
-    transform: scale(1.04);
+    transform:
+        translateY(-50%)
+        translateX(0);
+}
 
-    box-shadow:
+/* =========================
+   DIVIDER
+========================= */
+
+.sidebar-divider {
+    width: 45px;
+    height: 1px;
+
+    margin:
+        auto 0 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.25),
+            transparent
+        );
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    flex: 1;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+/* =========================
+   CENTER
+========================= */
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================
+   WELCOME
+========================= */
+
+.welcome-small {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 10px;
+}
+
+.welcome {
+    margin: 0;
+
+    font-size:
+        clamp(52px,9vw,105px);
+
+    font-weight: 700;
+
+    letter-spacing: -5px;
+
+    line-height: .95;
+}
+
+#welcomeWord {
+    display: inline-block;
+
+    color: var(--accent2);
+
+    text-shadow:
+        0 0 35px
+        rgba(139,92,246,.40);
+
+    transition:
+        opacity .5s ease,
+        transform .5s ease;
+}
+
+#welcomeWord.fade-out {
+    opacity: 0;
+    transform: translateY(8px);
+}
+
+#welcomeWord.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   DIGITAL CLOCK
+========================= */
+
+.big-clock {
+    margin-top: 30px;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size:
+        clamp(38px,6vw,68px);
+
+    font-weight: bold;
+
+    letter-spacing: 6px;
+
+    color: white;
+
+    text-shadow:
         0 0 20px
-        rgba(139,92,246,.3);
+        rgba(139,92,246,.45);
 }
 
+.big-date {
+    margin-top: 8px;
 
-#sendButton:disabled {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+}
+
+/* =========================
+   LINE
+========================= */
+
+.center-line {
+    width:
+        min(330px,70vw);
+
+    height: 1px;
+
+    margin-top: 30px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--accent),
+            transparent
+        );
+
     opacity: .5;
-
-    cursor: not-allowed;
-
-    transform: none;
-
-    box-shadow: none;
 }
 
+/* =========================
+   NO ANIMATION
+========================= */
+
+.no-animation .orb,
+.no-animation .particle {
+    animation: none !important;
+}
 
 /* =========================
    MOBILE
 ========================= */
 
-@media(max-width:600px) {
+@media(max-width:700px) {
 
-    .header {
-        height: 65px;
+    .sidebar {
+        width: 65px;
+        margin: 9px;
 
-        padding: 0 12px;
+        height:
+            calc(100% - 18px);
     }
 
-    .avatar {
-        width: 40px;
-        height: 40px;
+    .logo {
+        width: 43px;
+        height: 43px;
+        font-size: 20px;
     }
 
-    .chat {
-        padding: 18px;
+    .sidebar-button {
+        width: 43px;
+        height: 43px;
+        font-size: 18px;
     }
 
-    .message {
-        max-width: 88%;
+    .sidebar-button::after {
+        display: none;
     }
 
-    .input-area {
-        padding: 10px;
+    .side-clock {
+        margin-bottom: 12px;
     }
 
-    #messageInput {
-        padding: 13px;
+    .side-time {
+        font-size: 9px;
     }
 
-    #sendButton {
-        width: 48px;
+    .welcome-small {
+        font-size: 10px;
+        letter-spacing: 3px;
     }
 
+    .welcome {
+        font-size: 53px;
+        letter-spacing: -3px;
+    }
+
+    .big-clock {
+        font-size: 30px;
+        letter-spacing: 3px;
+    }
+
+    .big-date {
+        font-size: 10px;
+    }
 }
 
 </style>
-
 </head>
-
 
 <body>
 
+<!-- =========================
+     BACKGROUND
+========================= -->
+
+<div class="background">
+
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="orb orb4"></div>
+    <div class="orb orb5"></div>
+
+    <div
+        class="particles"
+        id="particles">
+    </div>
+
+</div>
+
+<!-- =========================
+     APP
+========================= -->
 
 <div class="app">
 
-
 <!-- =========================
-     HEADER
+     SIDEBAR
 ========================= -->
 
-<header class="header">
+<aside class="sidebar">
 
-<button
-    class="back-button"
-    onclick="goHome()">
+    <div class="logo">
+        ✦
+    </div>
 
-    ←
+    <div class="side-clock">
 
-</button>
+        <div
+            class="side-time"
+            id="sideTime">
+            00:00
+        </div>
 
+        <div
+            class="side-ampm"
+            id="sideAmpm">
+            AM
+        </div>
 
-<div class="avatar">
-    🤖
-</div>
+    </div>
 
+    <div class="sidebar-buttons">
 
-<div>
+        <button
+            class="sidebar-button active"
+            data-label="Home"
+            onclick="location.href='index.html'">
+            🏠
+        </button>
 
-<div class="title">
-    Nova AI
-</div>
+        <button
+            class="sidebar-button"
+            data-label="Games"
+            onclick="location.href='games.html'">
+            🎮
+        </button>
 
-<div class="status">
-    ● Online
-</div>
+        <button
+            class="sidebar-button"
+            data-label="Music"
+            onclick="location.href='music.html'">
+            🎵
+        </button>
 
-</div>
+        <button
+            class="sidebar-button"
+            data-label="Chat"
+            onclick="location.href='chat.html'">
+            💬
+        </button>
 
-</header>
+        <button
+            class="sidebar-button"
+            data-label="Nova AI"
+            onclick="location.href='Nova.html'">
+            🤖
+        </button>
 
+        <button
+            class="sidebar-button"
+            data-label="Google"
+            onclick="window.open('https://www.google.com','_blank')">
+            G
+        </button>
 
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <button
+        class="sidebar-button"
+        data-label="Settings"
+        onclick="location.href='settings.html'">
+        ⚙️
+    </button>
+
+</aside>
 
 <!-- =========================
-     CHAT
+     MAIN
 ========================= -->
 
-<main
-    class="chat"
-    id="chat">
+<main class="main">
 
-<div class="message ai">
+    <div class="center">
 
-Hey! I'm Nova AI 🤖
+        <div class="welcome-small">
+            Welcome to
+        </div>
 
-What can I help you with today?
+        <h1 class="welcome">
+            <span id="welcomeWord">
+                Nova
+            </span>
+        </h1>
 
-</div>
+        <div
+            class="big-clock"
+            id="bigClock">
+            00:00:00
+        </div>
+
+        <div
+            class="big-date"
+            id="bigDate">
+            Loading...
+        </div>
+
+        <div class="center-line"></div>
+
+    </div>
 
 </main>
 
-
-
-<!-- =========================
-     INPUT
-========================= -->
-
-<div class="input-area">
-
-<input
-    id="messageInput"
-    type="text"
-    placeholder="Ask Nova anything..."
-    autocomplete="off"
->
-
-
-<button
-    id="sendButton">
-
-    ➤
-
-</button>
-
 </div>
-
-
-</div>
-
-
-
-<!-- =========================
-     JAVASCRIPT
-========================= -->
 
 <script>
 
-/*
-=================================
-NOVA AI JAVASCRIPT
-=================================
-*/
-
-
 /* =========================
-   ELEMENTS
+   CLOCK
 ========================= */
 
-const chatInput =
-    document.getElementById("messageInput");
+function updateClock() {
 
-const sendButton =
-    document.getElementById("sendButton");
+    const now = new Date();
 
-const chat =
-    document.getElementById("chat");
+    let hours = now.getHours();
 
+    const minutes =
+        String(
+            now.getMinutes()
+        ).padStart(2,"0");
 
-/* =========================
-   ADD MESSAGE
-========================= */
+    const seconds =
+        String(
+            now.getSeconds()
+        ).padStart(2,"0");
 
-function addMessage(text, type) {
+    const ampm =
+        hours >= 12
+            ? "PM"
+            : "AM";
 
-    const message =
-        document.createElement("div");
+    hours =
+        hours % 12 || 12;
 
-    message.className =
-        "message " + type;
+    hours =
+        String(hours)
+        .padStart(2,"0");
 
-    message.textContent =
-        text;
+    document.getElementById(
+        "bigClock"
+    ).textContent =
+        `${hours}:${minutes}:${seconds}`;
 
-    chat.appendChild(message);
+    document.getElementById(
+        "sideTime"
+    ).textContent =
+        `${hours}:${minutes}`;
 
-    chat.scrollTop =
-        chat.scrollHeight;
+    document.getElementById(
+        "sideAmpm"
+    ).textContent =
+        ampm;
 
+    document.getElementById(
+        "bigDate"
+    ).textContent =
+        now.toLocaleDateString(
+            [],
+            {
+                weekday:"long",
+                month:"long",
+                day:"numeric",
+                year:"numeric"
+            }
+        );
 }
 
+updateClock();
+
+setInterval(
+    updateClock,
+    1000
+);
+
 
 /* =========================
-   SEND MESSAGE
+   WELCOME WORDS
 ========================= */
 
-async function sendMessage() {
+const welcomeWords = [
 
-    const message =
-        chatInput.value.trim();
+    "Nova",
+    "Home",
+    "Happiness",
+    "Freedom",
+    "Peace",
+    "Adventure",
+    "Possibility",
+    "Creativity",
+    "Dreams",
+    "Discovery",
+    "Joy",
+    "Wonder"
 
+];
 
-    /* Don't send empty messages */
+let welcomeIndex = 0;
 
-    if (!message) {
-        return;
-    }
-
-
-    /* Show user's message */
-
-    addMessage(
-        message,
-        "user"
+const welcomeWord =
+    document.getElementById(
+        "welcomeWord"
     );
 
 
-    /* Clear input */
+function changeWelcomeWord() {
 
-    chatInput.value = "";
+    welcomeWord.classList.add(
+        "fade-out"
+    );
 
+    setTimeout(() => {
 
-    /* Disable button */
+        welcomeIndex =
+            (welcomeIndex + 1)
+            % welcomeWords.length;
 
-    sendButton.disabled = true;
+        welcomeWord.textContent =
+            welcomeWords[
+                welcomeIndex
+            ];
 
-
-    /* Create thinking message */
-
-    const thinking =
-        document.createElement("div");
-
-    thinking.className =
-        "message ai thinking";
-
-    thinking.textContent =
-        "Nova is thinking...";
-
-    chat.appendChild(thinking);
-
-    chat.scrollTop =
-        chat.scrollHeight;
-
-
-    try {
-
-        /*
-        =================================
-        RENDER AI SERVER
-        =================================
-        */
-
-        const response =
-            await fetch(
-                "https://nova-ai-cbq2.onrender.com/chat",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-                            message: message
-                        })
-                }
-            );
-
-
-        /*
-        =================================
-        CHECK RESPONSE
-        =================================
-        */
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Server returned " +
-                response.status
-            );
-
-        }
-
-
-        /*
-        =================================
-        GET AI RESPONSE
-        =================================
-        */
-
-        const data =
-            await response.json();
-
-
-        /*
-        =================================
-        DISPLAY AI RESPONSE
-        =================================
-        */
-
-        thinking.className =
-            "message ai";
-
-        thinking.textContent =
-            data.reply ||
-            "Nova couldn't generate a response.";
-
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Nova AI error:",
-            error
+        welcomeWord.classList.remove(
+            "fade-out"
         );
 
+        welcomeWord.classList.add(
+            "fade-in"
+        );
 
-        thinking.className =
-            "message ai";
+        setTimeout(() => {
 
+            welcomeWord.classList.remove(
+                "fade-in"
+            );
 
-        thinking.textContent =
-            "I couldn't connect to Nova's AI server. 🤖";
+        },500);
 
-
-    }
-
-
-    /* Re-enable button */
-
-    sendButton.disabled = false;
-
-
-    /* Scroll down */
-
-    chat.scrollTop =
-        chat.scrollHeight;
-
+    },500);
 }
 
 
-/* =========================
-   SEND BUTTON
-========================= */
-
-sendButton.addEventListener(
-    "click",
-    sendMessage
+setInterval(
+    changeWelcomeWord,
+    3500
 );
 
 
 /* =========================
-   ENTER KEY
+   PARTICLES
 ========================= */
 
-chatInput.addEventListener(
-    "keydown",
-    function(event) {
+function createParticles() {
 
-        if (
-            event.key === "Enter" &&
-            !event.shiftKey
-        ) {
+    const container =
+        document.getElementById(
+            "particles"
+        );
 
-            event.preventDefault();
+    for (
+        let i = 0;
+        i < 45;
+        i++
+    ) {
 
-            sendMessage();
+        const particle =
+            document.createElement(
+                "div"
+            );
 
-        }
+        particle.className =
+            "particle";
 
+        particle.style.left =
+            Math.random() * 100 + "%";
+
+        particle.style.animationDuration =
+            (
+                8 +
+                Math.random() * 18
+            ) + "s";
+
+        particle.style.animationDelay =
+            (
+                -Math.random() * 20
+            ) + "s";
+
+        particle.style.opacity =
+            .1 +
+            Math.random() * .4;
+
+        container.appendChild(
+            particle
+        );
     }
-);
-
-
-/* =========================
-   HOME BUTTON
-========================= */
-
-function goHome() {
-
-    window.location.href =
-        "index.html";
-
 }
 
 
 /* =========================
-   FOCUS INPUT
+   SETTINGS
 ========================= */
 
-chatInput.focus();
+function loadSettings() {
+
+    const accent =
+        localStorage.getItem(
+            "novaAccent"
+        );
+
+    const animation =
+        localStorage.getItem(
+            "novaAnimations"
+        );
+
+    if (accent) {
+        applyAccent(accent);
+    }
+
+    if (
+        animation === "off"
+    ) {
+
+        document.body.classList.add(
+            "no-animation"
+        );
+    }
+}
+
+
+function applyAccent(color) {
+
+    const colors = {
+
+        purple: [
+            "#8b5cf6",
+            "#a78bfa"
+        ],
+
+        blue: [
+            "#3b82f6",
+            "#60a5fa"
+        ],
+
+        cyan: [
+            "#06b6d4",
+            "#67e8f9"
+        ],
+
+        pink: [
+            "#ec4899",
+            "#f472b6"
+        ],
+
+        green: [
+            "#10b981",
+            "#34d399"
+        ],
+
+        orange: [
+            "#f97316",
+            "#fb923c"
+        ],
+
+        red: [
+            "#ef4444",
+            "#f87171"
+        ]
+
+    };
+
+    const selected =
+        colors[color] ||
+        colors.purple;
+
+    document.documentElement.style
+        .setProperty(
+            "--accent",
+            selected[0]
+        );
+
+    document.documentElement.style
+        .setProperty(
+            "--accent2",
+            selected[1]
+        );
+}
+
+
+/* =========================
+   START
+========================= */
+
+createParticles();
+
+loadSettings();
 
 </script>
 
-
 </body>
-
 </html>
