@@ -14,932 +14,816 @@
 <style>
 
 :root {
-    --theme: #8b5cf6;
-    --theme2: #a78bfa;
-    --background: #090912;
-    --panel: rgba(15,15,25,.72);
-    --text: #ffffff;
-    --muted: rgba(255,255,255,.62);
-    --blur: 18px;
-    --opacity: .72;
-    --sidebar-width: 76px;
+--theme:#8b5cf6;
+--theme2:#a78bfa;
+--background:#090912;
+--panel:rgba(15,15,25,.72);
+--text:#ffffff;
+--muted:rgba(255,255,255,.62);
+--blur:18px;
+--opacity:.72;
+--sidebar-width:76px;
 }
 
 * {
-    box-sizing: border-box;
+box-sizing:border-box;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
+width:100%;
+height:100%;
+margin:0;
 }
 
 body {
-    overflow: hidden;
-    color: var(--text);
-    background: var(--background);
-    font-family: "Space Grotesk", sans-serif;
+overflow:hidden;
+color:var(--text);
+background:var(--background);
+font-family:"Space Grotesk",sans-serif;
 }
 
 /* =========================
-   BACKGROUND
+BACKGROUND
 ========================= */
 
 .background {
-    position: fixed;
-    inset: 0;
-    z-index: -10;
-    background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(139,92,246,.35),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(76,29,149,.30),
-            transparent 35%
-        ),
-        #090912;
-    overflow: hidden;
+position:fixed;
+inset:0;
+z-index:-10;
+background:
+radial-gradient(
+circle at 15% 20%,
+rgba(139,92,246,.35),
+transparent 35%
+),
+radial-gradient(
+circle at 85% 80%,
+rgba(76,29,149,.30),
+transparent 35%
+),
+#090912;
+overflow:hidden;
 }
 
 .background::before,
 .background::after {
-    content: "";
-    position: absolute;
-
-    width: 55vw;
-    height: 55vw;
-
-    border-radius: 50%;
-
-    filter: blur(80px);
-
-    opacity: .22;
-
-    animation: float 15s ease-in-out infinite alternate;
+content:"";
+position:absolute;
+width:55vw;
+height:55vw;
+border-radius:50%;
+filter:blur(80px);
+opacity:.22;
+animation:float 15s ease-in-out infinite alternate;
 }
 
 .background::before {
-    background: var(--theme);
-
-    left: -25vw;
-    top: -25vw;
+background:var(--theme);
+left:-25vw;
+top:-25vw;
 }
 
 .background::after {
-    background: var(--theme2);
-
-    right: -25vw;
-    bottom: -25vw;
-
-    animation-delay: -6s;
+background:var(--theme2);
+right:-25vw;
+bottom:-25vw;
+animation-delay:-6s;
 }
 
 @keyframes float {
+0% {
+transform:translate(0,0) scale(1);
+}
 
-    0% {
-        transform: translate(0,0) scale(1);
-    }
-
-    100% {
-        transform: translate(90px,60px) scale(1.18);
-    }
+100% {
+transform:translate(90px,60px) scale(1.18);
+}
 }
 
 /* =========================
-   APP
+APP
 ========================= */
 
 .app {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
+width:100%;
+height:100%;
+display:flex;
 }
 
 /* =========================
-   SIDEBAR
+SIDEBAR
 ========================= */
 
 .sidebar {
-    width: var(--sidebar-width);
-    height: calc(100% - 28px);
-
-    margin: 14px;
-
-    padding: 10px 8px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    background: rgba(10,10,20,var(--opacity));
-
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
-
-    border: 1px solid rgba(255,255,255,.09);
-
-    border-radius: 23px;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.28);
+width:var(--sidebar-width);
+height:calc(100% - 28px);
+margin:14px;
+padding:10px 8px;
+display:flex;
+flex-direction:column;
+align-items:center;
+background:rgba(10,10,20,var(--opacity));
+backdrop-filter:blur(var(--blur));
+-webkit-backdrop-filter:blur(var(--blur));
+border:1px solid rgba(255,255,255,.09);
+border-radius:23px;
+box-shadow:0 20px 60px rgba(0,0,0,.28);
 }
 
 .sidebar-clock {
-    width: 100%;
-
-    text-align: center;
-
-    margin: 5px 0 15px;
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-    font-weight: 600;
+width:100%;
+text-align:center;
+margin:5px 0 15px;
+color:var(--muted);
+font-size:11px;
+font-weight:600;
 }
 
 .sidebar-buttons {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 10px;
-
-    width: 100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:10px;
+width:100%;
 }
 
 /* =========================
-   BUTTONS
+BUTTONS
 ========================= */
 
 .sidebar-button {
-    position: relative;
-
-    width: 50px;
-    height: 50px;
-
-    border: 0;
-
-    border-radius: 16px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: rgba(255,255,255,.07);
-
-    color: white;
-
-    text-decoration: none;
-
-    cursor: pointer;
-
-    transition:
-        transform .25s ease,
-        background .25s ease;
+position:relative;
+width:50px;
+height:50px;
+border:0;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(255,255,255,.07);
+color:white;
+text-decoration:none;
+cursor:pointer;
+transition:
+transform .25s ease,
+background .25s ease;
 }
 
 .sidebar-button:hover {
-    transform: scale(1.08);
-
-    background: rgba(255,255,255,.14);
+transform:scale(1.08);
+background:rgba(255,255,255,.14);
 }
 
 .sidebar-button::after {
-    content: attr(data-label);
-
-    position: absolute;
-
-    left: 62px;
-    top: 50%;
-
-    transform:
-        translateY(-50%)
-        translateX(-6px);
-
-    padding: 7px 10px;
-
-    border-radius: 9px;
-
-    background: rgba(8,8,15,.95);
-
-    border: 1px solid rgba(255,255,255,.1);
-
-    color: white;
-
-    font-size: 12px;
-
-    white-space: nowrap;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition: .2s ease .35s;
+content:attr(data-label);
+position:absolute;
+left:62px;
+top:50%;
+transform:
+translateY(-50%)
+translateX(-6px);
+padding:7px 10px;
+border-radius:9px;
+background:rgba(8,8,15,.95);
+border:1px solid rgba(255,255,255,.1);
+color:white;
+font-size:12px;
+white-space:nowrap;
+opacity:0;
+pointer-events:none;
+transition:.2s ease .35s;
 }
 
 .sidebar-button:hover::after {
-    opacity: 1;
-
-    transform:
-        translateY(-50%)
-        translateX(0);
+opacity:1;
+transform:
+translateY(-50%)
+translateX(0);
 }
 
 /* =========================
-   HOME ICON
+HOME
 ========================= */
 
 .home-button svg {
-    width: 27px;
-    height: 27px;
-
-    fill: var(--theme);
-
-    transition: .25s ease;
+width:27px;
+height:27px;
+fill:var(--theme);
+transition:.25s ease;
 }
 
 .home-button:hover svg {
-    fill: var(--theme2);
+fill:var(--theme2);
 }
 
 /* =========================
-   IMAGE LOGOS
+IMAGE LOGOS
 ========================= */
 
 .logo-button {
-    overflow: hidden;
+overflow:hidden;
 }
 
 .logo-button img {
-    width: 30px;
-    height: 30px;
-
-    object-fit: contain;
-
-    display: block;
-
-    border-radius: 9px;
+width:30px;
+height:30px;
+object-fit:contain;
+display:block;
+border-radius:9px;
 }
 
-/*
-   Steam gets a white rounded
-   container because your Steam
-   image is being used as a logo.
-*/
-
 .steam-button {
-    background: white;
+background:white;
 }
 
 .steam-button:hover {
-    background: white;
+background:white;
 }
 
 .steam-button img {
-    width: 31px;
-    height: 31px;
-
-    border-radius: 9px;
+width:31px;
+height:31px;
+border-radius:9px;
 }
-
-/*
-   Spotify and Discord stay
-   transparent.
-*/
 
 .spotify-button,
 .discord-button {
-    background: rgba(255,255,255,.07);
+background:rgba(255,255,255,.07);
 }
 
 /* =========================
-   SETTINGS
+GOOGLE LOGO
+========================= */
+
+.google-button {
+background:white;
+}
+
+.google-button:hover {
+background:white;
+}
+
+.google-logo {
+width:29px;
+height:29px;
+display:block;
+}
+
+/* =========================
+SETTINGS
 ========================= */
 
 .bottom {
-    margin-top: auto;
+margin-top:auto;
 }
 
 .settings-button svg {
-    width: 27px;
-    height: 27px;
-
-    fill: var(--theme);
-
-    transition: transform .35s ease;
+width:27px;
+height:27px;
+fill:var(--theme);
+transition:transform .35s ease;
 }
 
 .settings-button:hover svg {
-    transform: rotate(35deg);
+transform:rotate(35deg);
 }
 
 /* =========================
-   MAIN
+MAIN
 ========================= */
 
 .main {
-    flex: 1;
-
-    height: 100%;
-
-    overflow-y: auto;
-
-    padding: 35px 50px;
+flex:1;
+height:100%;
+overflow-y:auto;
+padding:35px 50px;
 }
 
 .home {
-    min-height: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
+min-height:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
 }
 
 /* =========================
-   WELCOME
+WELCOME
 ========================= */
 
 .welcome {
-    text-align: center;
-
-    margin-top: 25px;
+text-align:center;
+margin-top:25px;
 }
 
 .welcome h1 {
-    margin: 0;
-
-    font-size:
-        clamp(42px,6vw,72px);
-
-    font-weight: 600;
-
-    letter-spacing: -3px;
+margin:0;
+font-size:clamp(42px,6vw,72px);
+font-weight:600;
+letter-spacing:-3px;
 }
 
 .welcome h1 span {
-    color: var(--theme2);
+color:var(--theme2);
 }
 
 .welcome p {
-    margin: 8px 0 0;
-
-    color: var(--muted);
-
-    font-size: 14px;
+margin:8px 0 0;
+color:var(--muted);
+font-size:14px;
 }
 
 /* =========================
-   CLOCK
+CLOCK
 ========================= */
 
 .clock {
-    margin-top: 12px;
-
-    text-align: center;
+margin-top:12px;
+text-align:center;
 }
 
 .clock-time {
-    font-size:
-        clamp(30px,4vw,48px);
-
-    letter-spacing: -1px;
-
-    font-weight: 500;
+font-size:clamp(30px,4vw,48px);
+letter-spacing:-1px;
+font-weight:500;
 }
 
 .clock-date {
-    margin-top: 2px;
-
-    color: var(--muted);
-
-    font-size: 12px;
+margin-top:2px;
+color:var(--muted);
+font-size:12px;
 }
 
 /* =========================
-   QUICK CARDS
+QUICK CARDS
 ========================= */
 
 .quick-links {
-    width: min(900px,100%);
-
-    margin-top: 42px;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(190px,1fr)
-        );
-
-    gap: 15px;
+width:min(900px,100%);
+margin-top:42px;
+display:grid;
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(190px,1fr)
+);
+gap:15px;
 }
 
 .card {
-    padding: 21px;
-
-    border-radius: 19px;
-
-    background: rgba(255,255,255,.055);
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    transition: .25s ease;
-
-    cursor: pointer;
+padding:21px;
+border-radius:19px;
+background:rgba(255,255,255,.055);
+border:1px solid rgba(255,255,255,.08);
+transition:.25s ease;
+cursor:pointer;
 }
 
 .card:hover {
-    transform: translateY(-4px);
-
-    background:
-        rgba(255,255,255,.095);
+transform:translateY(-4px);
+background:rgba(255,255,255,.095);
 }
 
 .card h3 {
-    margin: 0 0 6px;
-
-    font-size: 16px;
+margin:0 0 6px;
+font-size:16px;
 }
 
 .card p {
-    margin: 0;
-
-    color: var(--muted);
-
-    font-size: 12px;
+margin:0;
+color:var(--muted);
+font-size:12px;
 }
 
 /* =========================
-   SETTINGS WINDOW
+SETTINGS WINDOW
 ========================= */
 
 .overlay {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 100;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    background:
-        rgba(0,0,0,.58);
-
-    backdrop-filter: blur(8px);
+position:fixed;
+inset:0;
+z-index:100;
+display:none;
+align-items:center;
+justify-content:center;
+background:rgba(0,0,0,.58);
+backdrop-filter:blur(8px);
 }
 
 .overlay.show {
-    display: flex;
+display:flex;
 }
 
 .settings {
-    width:
-        min(650px,calc(100% - 30px));
-
-    max-height: 85vh;
-
-    overflow-y: auto;
-
-    padding: 25px;
-
-    border-radius: 24px;
-
-    background:
-        rgba(15,15,27,.96);
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
+width:min(650px,calc(100% - 30px));
+max-height:85vh;
+overflow-y:auto;
+padding:25px;
+border-radius:24px;
+background:rgba(15,15,27,.96);
+border:1px solid rgba(255,255,255,.1);
 }
 
 .settings-header {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 20px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:20px;
 }
 
 .settings-header h2 {
-    margin: 0;
+margin:0;
 }
 
 .close {
-    width: 36px;
-    height: 36px;
-
-    border: 0;
-
-    border-radius: 10px;
-
-    background:
-        rgba(255,255,255,.07);
-
-    color: white;
-
-    font-size: 18px;
-
-    cursor: pointer;
+width:36px;
+height:36px;
+border:0;
+border-radius:10px;
+background:rgba(255,255,255,.07);
+color:white;
+font-size:18px;
+cursor:pointer;
 }
 
 .section {
-    padding: 17px 0;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.08);
+padding:17px 0;
+border-top:1px solid rgba(255,255,255,.08);
 }
 
 .section h3 {
-    margin: 0 0 13px;
-
-    font-size: 14px;
+margin:0 0 13px;
+font-size:14px;
 }
 
 .row {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    margin: 12px 0;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+margin:12px 0;
 }
 
 .row label {
-    color: var(--muted);
-
-    font-size: 13px;
+color:var(--muted);
+font-size:13px;
 }
 
 select {
-    min-width: 170px;
-
-    padding: 9px 11px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    border-radius: 10px;
-
-    background: #171722;
-
-    color: white;
-
-    font-family: inherit;
+min-width:170px;
+padding:9px 11px;
+border:1px solid rgba(255,255,255,.1);
+border-radius:10px;
+background:#171722;
+color:white;
+font-family:inherit;
 }
 
 input[type="color"] {
-    width: 55px;
-    height: 35px;
-
-    border: 0;
-
-    background: transparent;
+width:55px;
+height:35px;
+border:0;
+background:transparent;
 }
 
 input[type="range"] {
-    width: 170px;
-
-    accent-color: var(--theme);
+width:170px;
+accent-color:var(--theme);
 }
 
 .option-buttons {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 8px;
+display:flex;
+flex-wrap:wrap;
+gap:8px;
 }
 
 .option-buttons button {
-    padding: 9px 13px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
-
-    border-radius: 10px;
-
-    background:
-        rgba(255,255,255,.06);
-
-    color: white;
-
-    font-family: inherit;
-
-    cursor: pointer;
+padding:9px 13px;
+border:1px solid rgba(255,255,255,.1);
+border-radius:10px;
+background:rgba(255,255,255,.06);
+color:white;
+font-family:inherit;
+cursor:pointer;
 }
 
 .option-buttons button:hover {
-    background:
-        rgba(255,255,255,.14);
+background:rgba(255,255,255,.14);
 }
 
 /* =========================
-   LAYOUTS
+LAYOUTS
 ========================= */
 
 body.compact {
-    --sidebar-width: 67px;
+--sidebar-width:67px;
 }
 
 body.wide {
-    --sidebar-width: 90px;
+--sidebar-width:90px;
 }
 
 body.wide .main {
-    padding-left: 75px;
-    padding-right: 75px;
+padding-left:75px;
+padding-right:75px;
 }
 
 body.centered .main {
-    display: flex;
-
-    justify-content: center;
+display:flex;
+justify-content:center;
 }
 
 body.centered .home {
-    width: min(1050px,100%);
+width:min(1050px,100%);
 }
 
 body.minimal .quick-links {
-    display: none;
+display:none;
 }
 
 /* =========================
-   MOBILE
+MOBILE
 ========================= */
 
 @media(max-width:700px) {
 
-    .sidebar {
-        width: 66px;
+.sidebar {
+width:66px;
+margin:9px;
+height:calc(100% - 18px);
+}
 
-        margin: 9px;
+.sidebar-button {
+width:44px;
+height:44px;
+}
 
-        height: calc(100% - 18px);
-    }
+.sidebar-button::after {
+display:none;
+}
 
-    .sidebar-button {
-        width: 44px;
-        height: 44px;
-    }
+.main {
+padding:25px 18px;
+}
 
-    .sidebar-button::after {
-        display: none;
-    }
-
-    .main {
-        padding: 25px 18px;
-    }
-
-    .quick-links {
-        grid-template-columns: 1fr;
-    }
+.quick-links {
+grid-template-columns:1fr;
+}
 
 }
 
 </style>
 </head>
 
-
 <body>
 
 <div
-    class="background"
-    id="background">
+class="background"
+id="background">
 </div>
-
 
 <div class="app">
 
 <!-- =========================
-     SIDEBAR
+SIDEBAR
 ========================= -->
 
 <aside class="sidebar">
 
-    <div
-        class="sidebar-clock"
-        id="sidebarClock">
-        12:00
-    </div>
+<div
+class="sidebar-clock"
+id="sidebarClock">
+12:00
+</div>
+
+<div class="sidebar-buttons">
+
+<!-- HOME -->
+
+<button
+class="sidebar-button home-button"
+data-label="Home"
+onclick="goHome()">
+
+<svg viewBox="0 0 24 24">
+
+<path
+d="M12 3 3 10.5v9.2c0 .7.5 1.3 1.3 1.3h5.1v-6h5.2v6h5.1c.8 0 1.3-.6 1.3-1.3v-9.2L12 3z"/>
+
+</svg>
+
+</button>
 
 
-    <div class="sidebar-buttons">
+<!-- STEAM / GAMES -->
+
+<a
+href="https://store.steampowered.com/"
+target="_blank"
+rel="noopener noreferrer"
+class="sidebar-button logo-button steam-button"
+data-label="Games">
+
+<img
+src="Steam.png"
+alt="Steam">
+
+</a>
 
 
-        <!-- HOME -->
+<!-- SPOTIFY -->
 
-        <button
-            class="sidebar-button home-button"
-            data-label="Home"
-            onclick="goHome()">
+<a
+href="https://open.spotify.com/"
+target="_blank"
+rel="noopener noreferrer"
+class="sidebar-button logo-button spotify-button"
+data-label="Spotify">
 
-            <svg
-                viewBox="0 0 24 24">
+<img
+src="Spotify.png"
+alt="Spotify">
 
-                <path
-                    d="M12 3 3 10.5v9.2c0 .7.5 1.3 1.3 1.3h5.1v-6h5.2v6h5.1c.8 0 1.3-.6 1.3-1.3v-9.2L12 3z"/>
-
-            </svg>
-
-        </button>
+</a>
 
 
-        <!-- STEAM -->
+<!-- DISCORD -->
 
-        <a
-            href="#"
-            class="sidebar-button logo-button steam-button"
-            data-label="Games">
+<a
+href="https://discord.com/app"
+target="_blank"
+rel="noopener noreferrer"
+class="sidebar-button logo-button discord-button"
+data-label="Discord">
 
-            <img
-                src="Steam.png"
-                alt="Steam">
+<img
+src="Discord.png"
+alt="Discord">
 
-        </a>
-
-
-        <!-- SPOTIFY -->
-
-        <a
-            href="#"
-            class="sidebar-button logo-button spotify-button"
-            data-label="Spotify">
-
-            <img
-                src="Spotify.png"
-                alt="Spotify">
-
-        </a>
+</a>
 
 
-        <!-- DISCORD -->
+<!-- GOOGLE / BROWSER -->
 
-        <a
-            href="#"
-            class="sidebar-button logo-button discord-button"
-            data-label="Discord">
+<a
+href="./Browser.html"
+class="sidebar-button logo-button google-button"
+data-label="Browser">
 
-            <img
-                src="Discord.png"
-                alt="Discord">
+<svg
+class="google-logo"
+viewBox="0 0 48 48"
+aria-label="Google">
 
-        </a>
+<path
+fill="#4285F4"
+d="M47.5 24.5c0-1.6-.1-3.2-.4-4.7H24v9h13.2c-.6 3-2.3 5.5-4.9 7.2v6h7.9c4.6-4.2 7.3-10.4 7.3-17.5z"/>
+
+<path
+fill="#34A853"
+d="M24 48c6.5 0 12-2.2 16-6l-7.9-6c-2.2 1.5-4.9 2.4-8.1 2.4-6.2 0-11.5-4.2-13.4-9.9H2.4v6.2C6.5 42.1 14.5 48 24 48z"/>
+
+<path
+fill="#FBBC05"
+d="M10.6 28.5c-.5-1.5-.8-3-.8-4.5s.3-3.1.8-4.5v-6.2H2.4C.9 16.3 0 20 0 24s.9 7.7 2.4 10.8l8.2-6.3z"/>
+
+<path
+fill="#EA4335"
+d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C36 2.3 30.5 0 24 0 14.5 0 6.5 5.9 2.4 13.2l8.2 6.2C12.5 13.7 17.8 9.5 24 9.5z"/>
+
+</svg>
+
+</a>
+
+</div>
 
 
-        <!-- BROWSER -->
+<!-- SETTINGS -->
 
-        <a
-            href="./Browser.html"
-            class="sidebar-button logo-button"
-            data-label="Browser">
+<div class="bottom">
 
-            <img
-                src="https://cdn.simpleicons.org/google/4285F4"
-                alt="Google">
+<button
+class="sidebar-button settings-button"
+data-label="Settings"
+onclick="openSettings()">
 
-        </a>
+<svg viewBox="0 0 24 24">
 
-    </div>
+<path
+d="M19.4 13.5c.1-.5.1-1 0-1.5l2-1.5-2-3.4-2.4 1c-.4-.3-.9-.6-1.4-.8L15.3 4h-4l-.3 2.3c-.5.2-1 .5-1.4.8l-2.4-1-2 3.4 2 1.5c-.1.5-.1 1 0 1.5l-2 1.5 2 3.4 2.4-1c.4.3.9.6 1.4.8l.3 2.3h4l.3-2.3c.5-.2 1-.5 1.4-.8l2.4 1 2-3.4-2-1.5zM13.3 15.3a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
 
+</svg>
 
-    <!-- SETTINGS -->
+</button>
 
-    <div class="bottom">
-
-        <button
-            class="sidebar-button settings-button"
-            data-label="Settings"
-            onclick="openSettings()">
-
-            <svg
-                viewBox="0 0 24 24">
-
-                <path
-                    d="M19.4 13.5c.1-.5.1-1 0-1.5l2-1.5-2-3.4-2.4 1c-.4-.3-.9-.6-1.4-.8L15.3 4h-4l-.3 2.3c-.5.2-1 .5-1.4.8l-2.4-1-2 3.4 2 1.5c-.1.5-.1 1 0 1.5l-2 1.5 2 3.4 2.4-1c.4.3.9.6 1.4.8l.3 2.3h4l.3-2.3c.5-.2 1-.5 1.4-.8l2.4 1 2-3.4-2-1.5zM13.3 15.3a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-
-            </svg>
-
-        </button>
-
-    </div>
+</div>
 
 </aside>
 
 
 <!-- =========================
-     MAIN
+MAIN
 ========================= -->
 
 <main class="main">
 
 <section class="home">
 
+<div class="welcome">
 
-    <div class="welcome">
+<h1>
+Welcome to
+<span>Nova</span>
+</h1>
 
-        <h1>
-            Welcome to
-            <span>Nova</span>
-        </h1>
+<p>
+Your personal space on the web.
+</p>
 
-        <p>
-            Your personal space on the web.
-        </p>
-
-    </div>
-
-
-    <div class="clock">
-
-        <div
-            class="clock-time"
-            id="clock">
-            12:00
-        </div>
-
-        <div
-            class="clock-date"
-            id="date">
-            Loading...
-        </div>
-
-    </div>
+</div>
 
 
-    <div class="quick-links">
+<div class="clock">
+
+<div
+class="clock-time"
+id="clock">
+12:00
+</div>
+
+<div
+class="clock-date"
+id="date">
+Loading...
+</div>
+
+</div>
 
 
-        <div
-            class="card"
-            onclick="openBrowser()">
-
-            <h3>🌐 Browser</h3>
-
-            <p>
-                Open Nova Browser.
-            </p>
-
-        </div>
+<div class="quick-links">
 
 
-        <div class="card">
+<!-- BROWSER -->
 
-            <h3>🎮 Games</h3>
+<div
+class="card"
+onclick="openBrowser()">
 
-            <p>
-                Your game hub.
-            </p>
+<h3>🌐 Browser</h3>
 
-        </div>
+<p>
+Open Nova Browser.
+</p>
 
-
-        <div class="card">
-
-            <h3>🎵 Music</h3>
-
-            <p>
-                Your music.
-            </p>
-
-        </div>
+</div>
 
 
-        <div class="card">
+<!-- GAMES -->
 
-            <h3>💬 Social</h3>
+<div
+class="card"
+onclick="openGames()">
 
-            <p>
-                Your social apps.
-            </p>
+<h3>🎮 Games</h3>
 
-        </div>
+<p>
+Open your game hub.
+</p>
+
+</div>
 
 
-    </div>
+<!-- MUSIC -->
+
+<div
+class="card"
+onclick="openMusic()">
+
+<h3>🎵 Music</h3>
+
+<p>
+Open Spotify.
+</p>
+
+</div>
+
+
+<!-- SOCIAL -->
+
+<div
+class="card"
+onclick="openSocial()">
+
+<h3>💬 Social</h3>
+
+<p>
+Open Discord.
+</p>
+
+</div>
+
+
+</div>
 
 </section>
 
@@ -949,325 +833,299 @@ body.minimal .quick-links {
 
 
 <!-- =========================
-     SETTINGS
+SETTINGS
 ========================= -->
 
 <div
-    class="overlay"
-    id="settingsOverlay"
-    onclick="outsideSettings(event)">
-
+class="overlay"
+id="settingsOverlay"
+onclick="outsideSettings(event)">
 
 <div class="settings">
 
+<div class="settings-header">
 
-    <div class="settings-header">
+<h2>
+Nova Settings
+</h2>
 
-        <h2>
-            Nova Settings
-        </h2>
+<button
+class="close"
+onclick="closeSettings()">
+×
+</button>
 
-        <button
-            class="close"
-            onclick="closeSettings()">
-            ×
-        </button>
+</div>
 
-    </div>
 
+<!-- FONT -->
 
-    <!-- FONT -->
+<div class="section">
 
-    <div class="section">
+<h3>
+Font
+</h3>
 
-        <h3>
-            Font
-        </h3>
+<div class="row">
 
-        <div class="row">
+<label>
+Font
+</label>
 
-            <label>
-                Font
-            </label>
+<select
+id="fontSelect"
+onchange="setFont(this.value)">
 
-            <select
-                id="fontSelect"
-                onchange="setFont(this.value)">
+<option>Space Grotesk</option>
+<option>Inter</option>
+<option>Poppins</option>
+<option>Montserrat</option>
+<option>Roboto</option>
+<option>Lato</option>
+<option>Orbitron</option>
 
-                <option>
-                    Space Grotesk
-                </option>
+</select>
 
-                <option>
-                    Inter
-                </option>
+</div>
 
-                <option>
-                    Poppins
-                </option>
+</div>
 
-                <option>
-                    Montserrat
-                </option>
 
-                <option>
-                    Roboto
-                </option>
+<!-- THEMES -->
 
-                <option>
-                    Lato
-                </option>
+<div class="section">
 
-                <option>
-                    Orbitron
-                </option>
+<h3>
+Theme
+</h3>
 
-            </select>
+<div class="option-buttons">
 
-        </div>
+<button onclick="theme('#8b5cf6','#a78bfa')">
+Purple
+</button>
 
-    </div>
+<button onclick="theme('#3b82f6','#60a5fa')">
+Blue
+</button>
 
+<button onclick="theme('#22c55e','#86efac')">
+Green
+</button>
 
-    <!-- THEMES -->
+<button onclick="theme('#ef4444','#f87171')">
+Red
+</button>
 
-    <div class="section">
+<button onclick="theme('#f97316','#fb923c')">
+Orange
+</button>
 
-        <h3>
-            Theme
-        </h3>
+<button onclick="theme('#ec4899','#f472b6')">
+Pink
+</button>
 
-        <div class="option-buttons">
+<button onclick="theme('#06b6d4','#67e8f9')">
+Cyan
+</button>
 
-            <button onclick="theme('#8b5cf6','#a78bfa')">
-                Purple
-            </button>
+</div>
 
-            <button onclick="theme('#3b82f6','#60a5fa')">
-                Blue
-            </button>
+</div>
 
-            <button onclick="theme('#22c55e','#86efac')">
-                Green
-            </button>
 
-            <button onclick="theme('#ef4444','#f87171')">
-                Red
-            </button>
+<!-- CUSTOM COLOR -->
 
-            <button onclick="theme('#f97316','#fb923c')">
-                Orange
-            </button>
+<div class="section">
 
-            <button onclick="theme('#ec4899','#f472b6')">
-                Pink
-            </button>
+<h3>
+Custom Color
+</h3>
 
-            <button onclick="theme('#06b6d4','#67e8f9')">
-                Cyan
-            </button>
+<div class="row">
 
-        </div>
+<label>
+Choose color
+</label>
 
-    </div>
+<input
+id="colorPicker"
+type="color"
+value="#8b5cf6"
+onchange="customTheme(this.value)">
 
+</div>
 
-    <!-- CUSTOM COLOR -->
+</div>
 
-    <div class="section">
 
-        <h3>
-            Custom Color
-        </h3>
+<!-- BACKGROUNDS -->
 
-        <div class="row">
+<div class="section">
 
-            <label>
-                Choose color
-            </label>
+<h3>
+Moving Backgrounds
+</h3>
 
-            <input
-                id="colorPicker"
-                type="color"
-                value="#8b5cf6"
-                onchange="customTheme(this.value)">
+<div class="option-buttons">
 
-        </div>
+<button onclick="backgroundType('nova')">
+Nova
+</button>
 
-    </div>
+<button onclick="backgroundType('ocean')">
+Ocean
+</button>
 
+<button onclick="backgroundType('emerald')">
+Emerald
+</button>
 
-    <!-- BACKGROUNDS -->
+<button onclick="backgroundType('crimson')">
+Crimson
+</button>
 
-    <div class="section">
+<button onclick="backgroundType('aurora')">
+Aurora
+</button>
 
-        <h3>
-            Moving Backgrounds
-        </h3>
+<button onclick="backgroundType('dark')">
+Dark
+</button>
 
-        <div class="option-buttons">
+</div>
 
-            <button onclick="backgroundType('nova')">
-                Nova
-            </button>
+</div>
 
-            <button onclick="backgroundType('ocean')">
-                Ocean
-            </button>
 
-            <button onclick="backgroundType('emerald')">
-                Emerald
-            </button>
+<!-- LAYOUT -->
 
-            <button onclick="backgroundType('crimson')">
-                Crimson
-            </button>
+<div class="section">
 
-            <button onclick="backgroundType('aurora')">
-                Aurora
-            </button>
+<h3>
+Layout
+</h3>
 
-            <button onclick="backgroundType('dark')">
-                Dark
-            </button>
+<div class="option-buttons">
 
-        </div>
+<button onclick="layout('classic')">
+Classic
+</button>
 
-    </div>
+<button onclick="layout('compact')">
+Compact
+</button>
 
+<button onclick="layout('wide')">
+Wide
+</button>
 
-    <!-- LAYOUT -->
+<button onclick="layout('centered')">
+Centered
+</button>
 
-    <div class="section">
+<button onclick="layout('minimal')">
+Minimal
+</button>
 
-        <h3>
-            Layout
-        </h3>
+</div>
 
-        <div class="option-buttons">
+</div>
 
-            <button onclick="layout('classic')">
-                Classic
-            </button>
 
-            <button onclick="layout('compact')">
-                Compact
-            </button>
+<!-- SIDEBAR -->
 
-            <button onclick="layout('wide')">
-                Wide
-            </button>
+<div class="section">
 
-            <button onclick="layout('centered')">
-                Centered
-            </button>
+<h3>
+Sidebar
+</h3>
 
-            <button onclick="layout('minimal')">
-                Minimal
-            </button>
+<div class="row">
 
-        </div>
+<label>
+Transparency
+</label>
 
-    </div>
+<input
+id="opacity"
+type="range"
+min="30"
+max="95"
+value="72"
+oninput="changeOpacity(this.value)">
 
+</div>
 
-    <!-- SIDEBAR -->
+<div class="row">
 
-    <div class="section">
+<label>
+Blur
+</label>
 
-        <h3>
-            Sidebar
-        </h3>
+<input
+id="blur"
+type="range"
+min="0"
+max="35"
+value="18"
+oninput="changeBlur(this.value)">
 
-        <div class="row">
+</div>
 
-            <label>
-                Transparency
-            </label>
+</div>
 
-            <input
-                id="opacity"
-                type="range"
-                min="30"
-                max="95"
-                value="72"
-                oninput="changeOpacity(this.value)">
 
-        </div>
+<!-- CLOCK -->
 
+<div class="section">
 
-        <div class="row">
+<h3>
+Clock
+</h3>
 
-            <label>
-                Blur
-            </label>
+<div class="row">
 
-            <input
-                id="blur"
-                type="range"
-                min="0"
-                max="35"
-                value="18"
-                oninput="changeBlur(this.value)">
+<label>
+24-hour clock
+</label>
 
-        </div>
+<input
+id="clock24"
+type="checkbox"
+onchange="saveClock()">
 
-    </div>
+</div>
 
+<div class="row">
 
-    <!-- CLOCK -->
+<label>
+Show seconds
+</label>
 
-    <div class="section">
+<input
+id="seconds"
+type="checkbox"
+checked
+onchange="saveClock()">
 
-        <h3>
-            Clock
-        </h3>
+</div>
 
-        <div class="row">
+<div class="row">
 
-            <label>
-                24-hour clock
-            </label>
+<label>
+Show date
+</label>
 
-            <input
-                id="clock24"
-                type="checkbox"
-                onchange="saveClock()">
+<input
+id="showDate"
+type="checkbox"
+checked
+onchange="saveClock()">
 
-        </div>
+</div>
 
-
-        <div class="row">
-
-            <label>
-                Show seconds
-            </label>
-
-            <input
-                id="seconds"
-                type="checkbox"
-                checked
-                onchange="saveClock()">
-
-        </div>
-
-
-        <div class="row">
-
-            <label>
-                Show date
-            </label>
-
-            <input
-                id="showDate"
-                type="checkbox"
-                checked
-                onchange="saveClock()">
-
-        </div>
-
-    </div>
-
+</div>
 
 </div>
 
@@ -1277,566 +1135,581 @@ body.minimal .quick-links {
 <script>
 
 /* =========================
-   CLOCK
+CLOCK
 ========================= */
 
 function updateClock() {
 
-    const now =
-        new Date();
+const now = new Date();
 
-    const is24 =
-        document.getElementById(
-            "clock24"
-        ).checked;
+const is24 =
+document.getElementById("clock24").checked;
 
-    const seconds =
-        document.getElementById(
-            "seconds"
-        ).checked;
+const seconds =
+document.getElementById("seconds").checked;
 
-    const options = {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: !is24
-    };
+const options = {
+hour:"numeric",
+minute:"2-digit",
+hour12:!is24
+};
 
-    if (seconds) {
-        options.second = "2-digit";
-    }
-
-    document.getElementById(
-        "clock"
-    ).textContent =
-        now.toLocaleTimeString(
-            [],
-            options
-        );
-
-    document.getElementById(
-        "sidebarClock"
-    ).textContent =
-        now.toLocaleTimeString(
-            [],
-            {
-                hour: "numeric",
-                minute: "2-digit",
-                hour12: !is24
-            }
-        );
-
-    document.getElementById(
-        "date"
-    ).textContent =
-        now.toLocaleDateString(
-            [],
-            {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-                year: "numeric"
-            }
-        );
+if (seconds) {
+options.second = "2-digit";
 }
 
-setInterval(
-    updateClock,
-    1000
-);
+document.getElementById("clock").textContent =
+now.toLocaleTimeString([], options);
+
+document.getElementById("sidebarClock").textContent =
+now.toLocaleTimeString([], {
+hour:"numeric",
+minute:"2-digit",
+hour12:!is24
+});
+
+document.getElementById("date").textContent =
+now.toLocaleDateString([], {
+weekday:"long",
+month:"long",
+day:"numeric",
+year:"numeric"
+});
+}
+
+setInterval(updateClock,1000);
 
 updateClock();
 
 
 /* =========================
-   BROWSER
+BROWSER
 ========================= */
 
 function openBrowser() {
 
-    window.location.href =
-        "./Browser.html";
+window.location.href =
+"./Browser.html";
+
 }
 
 
 /* =========================
-   HOME
+GAMES
+========================= */
+
+function openGames() {
+
+window.open(
+"https://store.steampowered.com/",
+"_blank",
+"noopener,noreferrer"
+);
+
+}
+
+
+/* =========================
+MUSIC
+========================= */
+
+function openMusic() {
+
+window.open(
+"https://open.spotify.com/",
+"_blank",
+"noopener,noreferrer"
+);
+
+}
+
+
+/* =========================
+SOCIAL
+========================= */
+
+function openSocial() {
+
+window.open(
+"https://discord.com/app",
+"_blank",
+"noopener,noreferrer"
+);
+
+}
+
+
+/* =========================
+HOME
 ========================= */
 
 function goHome() {
 
-    window.location.href =
-        "./index.html";
+window.location.href =
+"./index.html";
+
 }
 
 
 /* =========================
-   SETTINGS
+SETTINGS
 ========================= */
 
 function openSettings() {
 
-    document
-        .getElementById(
-            "settingsOverlay"
-        )
-        .classList.add("show");
+document
+.getElementById("settingsOverlay")
+.classList.add("show");
+
 }
+
 
 function closeSettings() {
 
-    document
-        .getElementById(
-            "settingsOverlay"
-        )
-        .classList.remove("show");
+document
+.getElementById("settingsOverlay")
+.classList.remove("show");
+
 }
+
 
 function outsideSettings(event) {
 
-    if (
-        event.target.id ===
-        "settingsOverlay"
-    ) {
-        closeSettings();
-    }
+if (
+event.target.id ===
+"settingsOverlay"
+) {
+
+closeSettings();
+
+}
+
 }
 
 
 /* =========================
-   FONT
+FONT
 ========================= */
 
 function setFont(font) {
 
-    document.body.style.fontFamily =
-        `"${font}", sans-serif`;
+document.body.style.fontFamily =
+`"${font}", sans-serif`;
 
-    localStorage.setItem(
-        "novaFont",
-        font
-    );
+localStorage.setItem(
+"novaFont",
+font
+);
+
 }
 
 
 /* =========================
-   THEME
+THEME
 ========================= */
 
 function theme(color,color2) {
 
-    document.documentElement
-        .style
-        .setProperty(
-            "--theme",
-            color
-        );
+document.documentElement
+.style
+.setProperty("--theme",color);
 
-    document.documentElement
-        .style
-        .setProperty(
-            "--theme2",
-            color2
-        );
+document.documentElement
+.style
+.setProperty("--theme2",color2);
 
-    document.getElementById(
-        "colorPicker"
-    ).value = color;
+document.getElementById(
+"colorPicker"
+).value = color;
 
-    localStorage.setItem(
-        "novaTheme",
-        color
-    );
+localStorage.setItem(
+"novaTheme",
+color
+);
 
-    localStorage.setItem(
-        "novaTheme2",
-        color2
-    );
+localStorage.setItem(
+"novaTheme2",
+color2
+);
+
 }
 
 
 /* =========================
-   CUSTOM THEME
+CUSTOM THEME
 ========================= */
 
 function customTheme(color) {
 
-    theme(
-        color,
-        color
-    );
+theme(color,color);
+
 }
 
 
 /* =========================
-   BACKGROUNDS
+BACKGROUNDS
 ========================= */
 
 function backgroundType(type) {
 
-    const bg =
-        document.getElementById(
-            "background"
-        );
-
-    if (type === "nova") {
-
-        bg.style.background =
-        `
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(139,92,246,.35),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(76,29,149,.30),
-            transparent 35%
-        ),
-        #090912
-        `;
-
-    }
+const bg =
+document.getElementById("background");
 
 
-    if (type === "ocean") {
+if (type === "nova") {
 
-        bg.style.background =
-        `
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(59,130,246,.38),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(6,182,212,.30),
-            transparent 35%
-        ),
-        #050b13
-        `;
+bg.style.background =
+`
+radial-gradient(
+circle at 15% 20%,
+rgba(139,92,246,.35),
+transparent 35%
+),
+radial-gradient(
+circle at 85% 80%,
+rgba(76,29,149,.30),
+transparent 35%
+),
+#090912
+`;
 
-    }
-
-
-    if (type === "emerald") {
-
-        bg.style.background =
-        `
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(34,197,94,.38),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(5,150,105,.30),
-            transparent 35%
-        ),
-        #050d0a
-        `;
-
-    }
+}
 
 
-    if (type === "crimson") {
+if (type === "ocean") {
 
-        bg.style.background =
-        `
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(239,68,68,.38),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(190,24,93,.30),
-            transparent 35%
-        ),
-        #120607
-        `;
+bg.style.background =
+`
+radial-gradient(
+circle at 15% 20%,
+rgba(59,130,246,.38),
+transparent 35%
+),
+radial-gradient(
+circle at 85% 80%,
+rgba(6,182,212,.30),
+transparent 35%
+),
+#050b13
+`;
 
-    }
-
-
-    if (type === "aurora") {
-
-        bg.style.background =
-        `
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(34,197,94,.35),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 80% 20%,
-            rgba(59,130,246,.35),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 50% 85%,
-            rgba(168,85,247,.35),
-            transparent 35%
-        ),
-        #070b12
-        `;
-
-    }
+}
 
 
-    if (type === "dark") {
+if (type === "emerald") {
 
-        bg.style.background =
-            "#08080d";
+bg.style.background =
+`
+radial-gradient(
+circle at 15% 20%,
+rgba(34,197,94,.38),
+transparent 35%
+),
+radial-gradient(
+circle at 85% 80%,
+rgba(5,150,105,.30),
+transparent 35%
+),
+#050d0a
+`;
 
-    }
+}
 
-    localStorage.setItem(
-        "novaBackground",
-        type
-    );
+
+if (type === "crimson") {
+
+bg.style.background =
+`
+radial-gradient(
+circle at 15% 20%,
+rgba(239,68,68,.38),
+transparent 35%
+),
+radial-gradient(
+circle at 85% 80%,
+rgba(190,24,93,.30),
+transparent 35%
+),
+#120607
+`;
+
+}
+
+
+if (type === "aurora") {
+
+bg.style.background =
+`
+radial-gradient(
+circle at 15% 20%,
+rgba(34,197,94,.35),
+transparent 30%
+),
+radial-gradient(
+circle at 80% 20%,
+rgba(59,130,246,.35),
+transparent 30%
+),
+radial-gradient(
+circle at 50% 85%,
+rgba(168,85,247,.35),
+transparent 35%
+),
+#070b12
+`;
+
+}
+
+
+if (type === "dark") {
+
+bg.style.background =
+"#08080d";
+
+}
+
+
+localStorage.setItem(
+"novaBackground",
+type
+);
+
 }
 
 
 /* =========================
-   LAYOUT
+LAYOUT
 ========================= */
 
 function layout(type) {
 
-    document.body.classList.remove(
-        "compact",
-        "wide",
-        "centered",
-        "minimal"
-    );
+document.body.classList.remove(
+"compact",
+"wide",
+"centered",
+"minimal"
+);
 
-    if (type !== "classic") {
+if (type !== "classic") {
 
-        document.body.classList.add(
-            type
-        );
-    }
+document.body.classList.add(type);
 
-    localStorage.setItem(
-        "novaLayout",
-        type
-    );
+}
+
+localStorage.setItem(
+"novaLayout",
+type
+);
+
 }
 
 
 /* =========================
-   SIDEBAR SETTINGS
+SIDEBAR SETTINGS
 ========================= */
 
 function changeOpacity(value) {
 
-    document.documentElement
-        .style
-        .setProperty(
-            "--opacity",
-            Number(value) / 100
-        );
+document.documentElement
+.style
+.setProperty(
+"--opacity",
+Number(value)/100
+);
 
-    localStorage.setItem(
-        "novaOpacity",
-        value
-    );
+localStorage.setItem(
+"novaOpacity",
+value
+);
+
 }
 
 
 function changeBlur(value) {
 
-    document.documentElement
-        .style
-        .setProperty(
-            "--blur",
-            value + "px"
-        );
+document.documentElement
+.style
+.setProperty(
+"--blur",
+value + "px"
+);
 
-    localStorage.setItem(
-        "novaBlur",
-        value
-    );
+localStorage.setItem(
+"novaBlur",
+value
+);
+
 }
 
 
 /* =========================
-   CLOCK SETTINGS
+CLOCK SETTINGS
 ========================= */
 
 function saveClock() {
 
-    localStorage.setItem(
-        "nova24",
-        document.getElementById(
-            "clock24"
-        ).checked
-    );
+localStorage.setItem(
+"nova24",
+document.getElementById(
+"clock24"
+).checked
+);
 
-    localStorage.setItem(
-        "novaSeconds",
-        document.getElementById(
-            "seconds"
-        ).checked
-    );
+localStorage.setItem(
+"novaSeconds",
+document.getElementById(
+"seconds"
+).checked
+);
 
-    localStorage.setItem(
-        "novaShowDate",
-        document.getElementById(
-            "showDate"
-        ).checked
-    );
+localStorage.setItem(
+"novaShowDate",
+document.getElementById(
+"showDate"
+).checked
+);
 
-    document.getElementById(
-        "date"
-    ).style.display =
-        document.getElementById(
-            "showDate"
-        ).checked
-        ? "block"
-        : "none";
+document.getElementById(
+"date"
+).style.display =
+document.getElementById(
+"showDate"
+).checked
+? "block"
+: "none";
 
-    updateClock();
+updateClock();
+
 }
 
 
 /* =========================
-   LOAD SAVED SETTINGS
+LOAD SETTINGS
 ========================= */
 
 function loadSettings() {
 
-    const font =
-        localStorage.getItem(
-            "novaFont"
-        );
+const font =
+localStorage.getItem("novaFont");
 
-    if (font) {
+if (font) {
 
-        setFont(font);
+setFont(font);
 
-        document.getElementById(
-            "fontSelect"
-        ).value = font;
-    }
+document.getElementById(
+"fontSelect"
+).value = font;
 
-
-    const savedTheme =
-        localStorage.getItem(
-            "novaTheme"
-        );
-
-    const savedTheme2 =
-        localStorage.getItem(
-            "novaTheme2"
-        );
-
-    if (savedTheme) {
-
-        theme(
-            savedTheme,
-            savedTheme2 || savedTheme
-        );
-    }
+}
 
 
-    const savedBackground =
-        localStorage.getItem(
-            "novaBackground"
-        );
+const savedTheme =
+localStorage.getItem("novaTheme");
 
-    if (savedBackground) {
+const savedTheme2 =
+localStorage.getItem("novaTheme2");
 
-        backgroundType(
-            savedBackground
-        );
-    }
+if (savedTheme) {
 
+theme(
+savedTheme,
+savedTheme2 || savedTheme
+);
 
-    const savedLayout =
-        localStorage.getItem(
-            "novaLayout"
-        );
-
-    if (savedLayout) {
-
-        layout(savedLayout);
-    }
+}
 
 
-    const opacity =
-        localStorage.getItem(
-            "novaOpacity"
-        );
+const savedBackground =
+localStorage.getItem("novaBackground");
 
-    if (opacity) {
+if (savedBackground) {
 
-        document.getElementById(
-            "opacity"
-        ).value = opacity;
+backgroundType(
+savedBackground
+);
 
-        changeOpacity(opacity);
-    }
+}
 
 
-    const blur =
-        localStorage.getItem(
-            "novaBlur"
-        );
+const savedLayout =
+localStorage.getItem("novaLayout");
 
-    if (blur) {
+if (savedLayout) {
 
-        document.getElementById(
-            "blur"
-        ).value = blur;
+layout(savedLayout);
 
-        changeBlur(blur);
-    }
+}
 
 
-    const is24 =
-        localStorage.getItem(
-            "nova24"
-        );
+const opacity =
+localStorage.getItem("novaOpacity");
 
-    if (is24 === "true") {
+if (opacity) {
 
-        document.getElementById(
-            "clock24"
-        ).checked = true;
-    }
+document.getElementById(
+"opacity"
+).value = opacity;
 
+changeOpacity(opacity);
 
-    const seconds =
-        localStorage.getItem(
-            "novaSeconds"
-        );
-
-    if (seconds === "false") {
-
-        document.getElementById(
-            "seconds"
-        ).checked = false;
-    }
+}
 
 
-    const showDate =
-        localStorage.getItem(
-            "novaShowDate"
-        );
+const blur =
+localStorage.getItem("novaBlur");
 
-    if (showDate === "false") {
+if (blur) {
 
-        document.getElementById(
-            "showDate"
-        ).checked = false;
+document.getElementById(
+"blur"
+).value = blur;
 
-        document.getElementById(
-            "date"
-        ).style.display = "none";
-    }
+changeBlur(blur);
 
-    updateClock();
+}
+
+
+const is24 =
+localStorage.getItem("nova24");
+
+if (is24 === "true") {
+
+document.getElementById(
+"clock24"
+).checked = true;
+
+}
+
+
+const seconds =
+localStorage.getItem("novaSeconds");
+
+if (seconds === "false") {
+
+document.getElementById(
+"seconds"
+).checked = false;
+
+}
+
+
+const showDate =
+localStorage.getItem("novaShowDate");
+
+if (showDate === "false") {
+
+document.getElementById(
+"showDate"
+).checked = false;
+
+document.getElementById(
+"date"
+).style.display = "none";
+
+}
+
+updateClock();
+
 }
 
 loadSettings();
