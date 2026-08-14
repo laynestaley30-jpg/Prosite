@@ -1,3 +1,6 @@
+
+
+On Thu, Aug 13, 2026 at 9:47 PM The Funni <thefunni11@gmail.com> wrote:
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -255,3 +258,668 @@ MESSAGE
 ========================= */
 
 .message {
+    margin-bottom: 17px;
+
+    animation: messageIn .2s ease;
+}
+
+@keyframes messageIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.message-name {
+    color: var(--theme2);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin-bottom: 4px;
+}
+
+.message-text {
+    display: inline-block;
+
+    max-width: 80%;
+
+    padding: 10px 13px;
+
+    border-radius: 13px;
+
+    background: rgba(255,255,255,.07);
+
+    font-size: 14px;
+
+    word-wrap: break-word;
+}
+
+.message-time {
+    display: inline-block;
+
+    margin-left: 7px;
+
+    color: rgba(255,255,255,.35);
+
+    font-size: 10px;
+}
+
+/* =========================
+INPUT
+========================= */
+
+.input-area {
+    padding: 14px;
+
+    display: flex;
+
+    gap: 9px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        rgba(0,0,0,.12);
+}
+
+.username {
+    width: 120px;
+
+    padding: 12px;
+
+    border: 1px solid
+        rgba(255,255,255,.1);
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color: white;
+
+    font-family: inherit;
+}
+
+.message-input {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 12px 14px;
+
+    border: 1px solid
+        rgba(255,255,255,.1);
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 14px;
+}
+
+.username:focus,
+.message-input:focus {
+    border-color:
+        rgba(167,139,250,.55);
+}
+
+.send {
+    padding: 0 19px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background: var(--theme);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.send:hover {
+    background: var(--theme2);
+    transform: scale(1.03);
+}
+
+/* =========================
+CLEAR BUTTON
+========================= */
+
+.clear {
+    position: absolute;
+
+    right: 25px;
+    top: 32px;
+
+    padding: 7px 10px;
+
+    border: 1px solid
+        rgba(255,255,255,.1);
+
+    border-radius: 9px;
+
+    background: rgba(255,255,255,.05);
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+.clear:hover {
+    color: white;
+    background: rgba(255,255,255,.1);
+}
+
+/* =========================
+MOBILE
+========================= */
+
+@media(max-width:650px) {
+
+    .topbar {
+        margin: 9px 9px 0;
+    }
+
+    .chat {
+        width: calc(100% - 18px);
+        margin: 9px auto;
+    }
+
+    .username {
+        width: 90px;
+    }
+
+    .send {
+        padding: 0 14px;
+    }
+
+    .message-text {
+        max-width: 90%;
+    }
+
+    .clear {
+        display: none;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="app">
+
+<!-- TOP BAR -->
+
+<div class="topbar">
+
+<button
+class="back"
+onclick="goHome()">
+←
+</button>
+
+<div class="title">
+
+<h1>💬 Nova Chat</h1>
+
+<p>Messages are saved on this device</p>
+
+</div>
+
+<button
+class="clear"
+onclick="clearChat()">
+Clear
+</button>
+
+</div>
+
+
+<!-- CHAT -->
+
+<div class="chat">
+
+<div
+class="messages"
+id="messages">
+
+</div>
+
+
+<!-- INPUT -->
+
+<div class="input-area">
+
+<input
+class="username"
+id="username"
+placeholder="Username"
+maxlength="20">
+
+<input
+class="message-input"
+id="messageInput"
+placeholder="Type a message..."
+maxlength="500">
+
+<button
+class="send"
+onclick="sendMessage()">
+Send
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+STORAGE KEY
+========================= */
+
+const CHAT_STORAGE =
+"novaChatMessages";
+
+
+/* =========================
+HOME
+========================= */
+
+function goHome() {
+
+    window.location.href =
+        "./index.html";
+
+}
+
+
+/* =========================
+LOAD CHAT
+========================= */
+
+function loadChat() {
+
+    const saved =
+        localStorage.getItem(
+            CHAT_STORAGE
+        );
+
+    if (!saved) {
+
+        showEmpty();
+
+        return;
+
+    }
+
+    try {
+
+        const messages =
+            JSON.parse(saved);
+
+        if (
+            !Array.isArray(messages) ||
+            messages.length === 0
+        ) {
+
+            showEmpty();
+
+            return;
+
+        }
+
+        messages.forEach(
+            addMessageToScreen
+        );
+
+    } catch {
+
+        showEmpty();
+
+    }
+
+}
+
+
+/* =========================
+EMPTY CHAT
+========================= */
+
+function showEmpty() {
+
+    const messages =
+        document.getElementById(
+            "messages"
+        );
+
+    messages.innerHTML = `
+        <div class="empty" id="empty">
+            <div class="empty-icon">💬</div>
+            <h2>Welcome to Nova Chat</h2>
+            <p>Send the first message.</p>
+        </div>
+    `;
+
+}
+
+
+/* =========================
+SEND MESSAGE
+========================= */
+
+function sendMessage() {
+
+    const username =
+        document.getElementById(
+            "username"
+        ).value.trim();
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+    const text =
+        input.value.trim();
+
+    if (!username) {
+
+        alert("Enter a username.");
+
+        return;
+
+    }
+
+    if (!text) {
+
+        return;
+
+    }
+
+    const message = {
+
+        username: username,
+
+        text: text,
+
+        time:
+            new Date().toLocaleTimeString(
+                [],
+                {
+                    hour: "numeric",
+                    minute: "2-digit"
+                }
+            )
+
+    };
+
+
+    /* SAVE MESSAGE */
+
+    let messages = [];
+
+    try {
+
+        messages =
+            JSON.parse(
+                localStorage.getItem(
+                    CHAT_STORAGE
+                )
+            ) || [];
+
+    } catch {
+
+        messages = [];
+
+    }
+
+
+    messages.push(message);
+
+
+    /*
+    Prevent the chat from
+    becoming enormous.
+    */
+
+    if (messages.length > 500) {
+
+        messages =
+            messages.slice(
+                messages.length - 500
+            );
+
+    }
+
+
+    localStorage.setItem(
+        CHAT_STORAGE,
+        JSON.stringify(messages)
+    );
+
+
+    /* DISPLAY */
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+    if (empty) {
+
+        empty.remove();
+
+    }
+
+    addMessageToScreen(message);
+
+    input.value = "";
+
+    input.focus();
+
+}
+
+
+/* =========================
+DISPLAY MESSAGE
+========================= */
+
+function addMessageToScreen(message) {
+
+    const messages =
+        document.getElementById(
+            "messages"
+        );
+
+
+    const element =
+        document.createElement(
+            "div"
+        );
+
+    element.className =
+        "message";
+
+
+    const name =
+        document.createElement(
+            "div"
+        );
+
+    name.className =
+        "message-name";
+
+    name.textContent =
+        message.username;
+
+
+    const bubble =
+        document.createElement(
+            "span"
+        );
+
+    bubble.className =
+        "message-text";
+
+    bubble.textContent =
+        message.text;
+
+
+    const time =
+        document.createElement(
+            "span"
+        );
+
+    time.className =
+        "message-time";
+
+    time.textContent =
+        message.time;
+
+
+    element.appendChild(name);
+
+    element.appendChild(bubble);
+
+    element.appendChild(time);
+
+    messages.appendChild(element);
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+}
+
+
+/* =========================
+CLEAR CHAT
+========================= */
+
+function clearChat() {
+
+    const confirmed =
+        confirm(
+            "Delete all saved Nova Chat messages?"
+        );
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+    localStorage.removeItem(
+        CHAT_STORAGE
+    );
+
+    showEmpty();
+
+}
+
+
+/* =========================
+ENTER TO SEND
+========================= */
+
+document
+.getElementById("messageInput")
+.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+
+/* =========================
+SAVE USERNAME
+========================= */
+
+const savedUsername =
+localStorage.getItem(
+    "novaUsername"
+);
+
+if (savedUsername) {
+
+    document.getElementById(
+        "username"
+    ).value =
+        savedUsername;
+
+}
+
+
+document
+.getElementById("username")
+.addEventListener(
+    "input",
+    function() {
+
+        localStorage.setItem(
+            "novaUsername",
+            this.value
+        );
+
+    }
+);
+
+
+/* =========================
+START
+========================= */
+
+loadChat();
+
+</script>
+
+</body>
+</html>
