@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Case Clicker</title>
+
+<style>
+:root {
+    --bg: #07090f;
+    --panel: rgba(17, 21, 31, .82);
+    --panel2: rgba(25, 30, 43, .9);
+    --border: rgba(255,255,255,.09);
+    --text: #f5f7fb;
+    --muted: #8e98aa;
+    --accent: #8b5cf6;
+    --gold: #f5c542;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    font-family: Inter, Arial, sans-serif;
+    background:
+        radial-gradient(circle at 20% 10%, rgba(139,92,246,.16), transparent 30%),
+        radial-gradient(circle at 80% 90%, rgba(0,180,255,.10), transparent 30%),
+        var(--bg);
+    overflow-x: hidden;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.glow {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: .15;
+    animation: float 14s ease-in-out infinite;
+}
+
+.glow.one {
+    background: #8b5cf6;
+    left: -100px;
+    top: -100px;
+}
+
+.glow.two {
+    background: #00aaff;
+    right: -100px;
+    bottom: -100px;
+    animation-delay: -5s;
+}
+
+@keyframes float {
+    50% {
+        transform: translate(100px, 80px) scale(1.2);
+    }
+}
+
+.app {
+    max-width: 1250px;
+    margin: auto;
+    padding: 25px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent), #5b21b6);
+    font-size: 22px;
+    box-shadow: 0 0 30px rgba(139,92,246,.25);
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.brand span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.balance {
+    padding: 12px 18px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    border-radius: 14px;
+    font-weight: bold;
+}
+
+.balance span {
+    color: var(--gold);
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 330px;
+    gap: 20px;
+}
+
+.panel {
+    border: 1px solid var(--border);
+    background: var(--panel);
+    backdrop-filter: blur(20px);
+    border-radius: 22px;
+    padding: 22px;
+}
+
+.case-section {
+    min-height: 650px;
+    display: flex;
+    flex-direction: column;
+}
+
+.case-title {
+    text-align: center;
+}
+
+.case-title h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.case-title p {
+    color: var(--muted);
+    margin-top: 7px;
+}
+
+.case-box {
+    width: 210px;
+    height: 210px;
+    margin: 50px auto 35px;
+    border-radius: 25px;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 80px;
+
+    background:
+        linear-gradient(145deg, #252b3b, #10131d);
+
+    border: 2px solid rgba(255,255,255,.12);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.5),
+        inset 0 0 50px rgba(139,92,246,.08);
+
+    cursor: pointer;
+
+    transition: transform .15s ease;
+}
+
+.case-box:hover {
+    transform: scale(1.04);
+}
+
+.case-box:active {
+    transform: scale(.94);
+}
+
+.case-box.opening {
+    animation: shake .5s ease;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0); }
+    20% { transform: rotate(-7deg) scale(1.05); }
+    40% { transform: rotate(7deg) scale(1.1); }
+    60% { transform: rotate(-5deg) scale(1.06); }
+    80% { transform: rotate(5deg); }
+    100% { transform: rotate(0); }
+}
+
+.open-button {
+    width: 100%;
+    max-width: 320px;
+    margin: auto auto 0;
+
+    padding: 16px;
+
+    border: 0;
+    border-radius: 15px;
+
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(135deg, var(--accent), #6d28d9);
+
+    box-shadow:
+        0 12px 30px rgba(139,92,246,.2);
+
+    transition: .2s;
+}
+
+.open-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+}
+
+.open-button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.stat {
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.04);
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    font-size: 18px;
+}
+
+.stat small {
+    color: var(--muted);
+}
+
+.sidebar-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.sidebar-title h3 {
+    margin: 0;
+}
+
+.inventory {
+    max-height: 590px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px;
+    margin-bottom: 9px;
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.045);
+
+    border-left: 3px solid var(--rarity);
+
+    cursor: pointer;
+}
+
+.item-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: rgba(255,255,255,.06);
+    font-size: 25px;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-info strong {
+    display: block;
+    font-size: 13px;
+}
+
+.item-info small {
+    color: var(--rarity);
+}
+
+.item-price {
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 70px 10px;
+}
+
+.sell-all {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(255,255,255,.05);
+    color: white;
+    cursor: pointer;
+}
+
+.sell-all:hover {
+    background: rgba(255,255,255,.1);
+}
+
+.result-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0,0,0,.78);
+    backdrop-filter: blur(12px);
+
+    z-index: 50;
+}
+
+.result {
+    width: min(90vw, 500px);
+    padding: 30px;
+    text-align: center;
+
+    border-radius: 25px;
+
+    background: #111520;
+
+    border: 1px solid var(--border);
+
+    box-shadow: 0 30px 100px rgba(0,0,0,.65);
+
+    animation: resultIn .35s ease;
+}
+
+@keyframes resultIn {
+    from {
+        opacity: 0;
+        transform: scale(.75);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.result-icon {
+    font-size: 90px;
+    margin: 15px;
+}
+
+.result h2 {
+    margin: 5px;
+}
+
+.result-rarity {
+    font-weight: bold;
+    margin: 8px;
+}
+
+.result-price {
+    color: var(--gold);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.result button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 13px;
+    border: 0;
+    border-radius: 12px;
+    color: white;
+    background: var(--accent);
+    cursor: pointer;
+}
+
+.roulette {
+    display: none;
+    height: 100px;
+    margin: 30px 0;
+    overflow: hidden;
+    border-radius: 15px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+}
+
+.roulette-track {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+}
+
+.roulette-item {
+    min-width: 85px;
+    height: 80px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: rgba(255,255,255,.06);
+    font-size: 30px;
+}
+
+.toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+
+    padding: 12px 18px;
+
+    border-radius: 12px;
+
+    background: rgba(15,18,28,.95);
+    border: 1px solid var(--border);
+
+    transition: .3s;
+
+    z-index: 100;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+@media(max-width:850px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .case-section {
+        min-height: 600px;
+    }
+}
+
+@media(max-width:500px) {
+    .app {
+        padding: 12px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .case-box {
+        width: 170px;
+        height: 170px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+</div>
+
+<div class="app">
+
+    <div class="topbar">
+
+        <div class="brand">
+            <div class="logo">✦</div>
+
+            <div>
+                <h1>Nova Case Clicker</h1>
+                <span>Original case-opening game</span>
+            </div>
+        </div>
+
+        <div class="balance">
+            💰 $<span id="money">1000</span>
+        </div>
+
+    </div>
+
+
+    <div class="layout">
+
+
+        <section class="panel case-section">
+
+            <div class="case-title">
+
+                <h2>Nova Weapon Case</h2>
+
+                <p>
+                    Open a case and discover your drop.
+                </p>
+
+            </div>
+
+
+            <div
+                class="case-box"
+                id="caseBox"
+                onclick="openCase()">
+
+                📦
+
+            </div>
+
+
+            <div
+                class="roulette"
+                id="roulette">
+
+                <div
+                    class="roulette-track"
+                    id="rouletteTrack">
+                </div>
+
+            </div>
+
+
+            <button
+                class="open-button"
+                id="openButton"
+                onclick="openCase()">
+
+                OPEN CASE · $100
+
+            </button>
+
+
+            <div class="stats">
+
+                <div class="stat">
+                    <strong id="opened">0</strong>
+                    <small>Cases Opened</small>
+                </div>
+
+                <div class="stat">
+                    <strong id="best">$0</strong>
+                    <small>Best Drop</small>
+                </div>
+
+                <div class="stat">
+                    <strong id="items">0</strong>
+                    <small>Items</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <aside class="panel">
+
+            <div class="sidebar-title">
+
+                <h3>Inventory</h3>
+
+                <span id="inventoryCount">
+                    0
+                </span>
+
+            </div>
+
+
+            <button
+                class="sell-all"
+                onclick="sellAll()">
+
+                💰 Sell Everything
+
+            </button>
+
+
+            <div
+                class="inventory"
+                id="inventory">
+
+                <div class="empty">
+                    Your inventory is empty.<br><br>
+                    Open your first case!
+                </div>
+
+            </div>
+
+        </aside>
+
+
+    </div>
+
+</div>
+
+
+<div
+    class="result-overlay"
+    id="resultOverlay">
+
+    <div class="result">
+
+        <div
+            class="result-icon"
+            id="resultIcon">
+            🔫
+        </div>
+
+        <h2 id="resultName">
+            Weapon
+        </h2>
+
+        <div
+            class="result-rarity"
+            id="resultRarity">
+            Rare
+        </div>
+
+        <div
+            class="result-price"
+            id="resultPrice">
+            $100
+        </div>
+
+        <button onclick="closeResult()">
+            Continue
+        </button>
+
+    </div>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<script>
+
+const CASE_PRICE = 100;
+
+
+/* =========================
+   WEAPONS
+========================= */
+
+const weapons = [
+
+    {
+        name: "Nova Pistol",
+        rarity: "Common",
+        price: 45,
+        icon: "🔫",
+        color: "#9ca3af",
+        chance: 45
+    },
+
+    {
+        name: "Crimson SMG",
+        rarity: "Common",
+        price: 70,
+        icon: "🔴",
+        color: "#9ca3af",
+        chance: 25
+    },
+
+    {
+        name: "Neon Rifle",
+        rarity: "Uncommon",
+        price: 160,
+        icon: "🔫",
+        color: "#22c55e",
+        chance: 15
+    },
+
+    {
+        name: "Cyber Shotgun",
+        rarity: "Uncommon",
+        price: 220,
+        icon: "💥",
+        color: "#22c55e",
+        chance: 8
+    },
+
+    {
+        name: "Phantom Rifle",
+        rarity: "Rare",
+        price: 450,
+        icon: "🟣",
+        color: "#3b82f6",
+        chance: 4
+    },
+
+    {
+        name: "Void Sniper",
+        rarity: "Epic",
+        price: 1100,
+        icon: "🎯",
+        color: "#a855f7",
+        chance: 2
+    },
+
+    {
+        name: "Golden Dragon",
+        rarity: "Legendary",
+        price: 5000,
+        icon: "🐉",
+        color: "#f59e0b",
+        chance: .8
+    },
+
+    {
+        name: "Nova Crown",
+        rarity: "Mythic",
+        price: 15000,
+        icon: "👑",
+        color: "#ec4899",
+        chance: .2
+    }
+
+];
+
+
+/* =========================
+   GAME STATE
+========================= */
+
+let game = JSON.parse(
+    localStorage.getItem("novaCaseClicker")
+) || {
+
+    money: 1000,
+
+    opened: 0,
+
+    best: 0,
+
+    inventory: []
+
+};
+
+
+/* =========================
+   SAVE
+========================= */
+
+function save() {
+
+    localStorage.setItem(
+        "novaCaseClicker",
+        JSON.stringify(game)
+    );
+
+}
+
+
+/* =========================
+   UI
+========================= */
+
+function updateUI() {
+
+    document.getElementById(
+        "money"
+    ).textContent =
+        Math.floor(game.money).toLocaleString();
+
+
+    document.getElementById(
+        "opened"
+    ).textContent =
+        game.opened;
+
+
+    document.getElementById(
+        "best"
+    ).textContent =
+        "$" + game.best.toLocaleString();
+
+
+    document.getElementById(
+        "items"
+    ).textContent =
+        game.inventory.length;
+
+
+    document.getElementById(
+        "inventoryCount"
+    ).textContent =
+        game.inventory.length;
+
+
+    renderInventory();
+
+}
+
+
+/* =========================
+   RANDOM DROP
+========================= */
+
+function getDrop() {
+
+    const total =
+        weapons.reduce(
+            (sum, weapon) =>
+                sum + weapon.chance,
+            0
+        );
+
+    let random =
+        Math.random() * total;
+
+
+    for (
+        const weapon of weapons
+    ) {
+
+        random -= weapon.chance;
+
+        if (random <= 0) {
+            return weapon;
+        }
+
+    }
+
+    return weapons[0];
+
+}
+
+
+/* =========================
+   OPEN CASE
+========================= */
+
+let opening = false;
+
+
+function openCase() {
+
+    if (opening) return;
+
+
+    if (game.money < CASE_PRICE) {
+
+        showToast(
+            "Not enough money!"
+        );
+
+        return;
+
+    }
+
+
+    opening = true;
+
+
+    game.money -= CASE_PRICE;
+
+
+    const box =
+        document.getElementById(
+            "caseBox"
+        );
+
+
+    const button =
+        document.getElementById(
+            "openButton"
+        );
+
+
+    box.classList.add(
+        "opening"
+    );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "OPENING...";
+
+
+    showRoulette();
+
+
+    setTimeout(
+        () => {
+
+            const drop =
+                getDrop();
+
+
+            game.inventory.push(
+                drop
+            );
+
+
+            game.opened++;
+
+
+            if (
+                drop.price >
+                game.best
+            ) {
+
+                game.best =
+                    drop.price;
+
+            }
+
+
+            box.classList.remove(
+                "opening"
+            );
+
+
+            button.disabled =
+                false;
+
+
+            button.textContent =
+                "OPEN CASE · $100";
+
+
+            hideRoulette();
+
+
+            showResult(
+                drop
+            );
+
+
+            save();
+
+            updateUI();
+
+            opening = false;
+
+        },
+        1700
+    );
+
+}
+
+
+/* =========================
+   ROULETTE
+========================= */
+
+function showRoulette() {
+
+    const roulette =
+        document.getElementById(
+            "roulette"
+        );
+
+
+    const track =
+        document.getElementById(
+            "rouletteTrack"
+        );
+
+
+    track.innerHTML = "";
+
+
+    for (
+        let i = 0;
+        i < 16;
+        i++
+    ) {
+
+        const weapon =
+            weapons[
+                Math.floor(
+                    Math.random() *
+                    weapons.length
+                )
+            ];
+
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+
+        item.className =
+            "roulette-item";
+
+
+        item.textContent =
+            weapon.icon;
+
+
+        item.style.borderBottom =
+            `3px solid ${weapon.color}`;
+
+
+        track.appendChild(
+            item
+        );
+
+    }
+
+
+    roulette.style.display =
+        "block";
+
+}
+
+
+function hideRoulette() {
+
+    document.getElementById(
+        "roulette"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+function showResult(
+    weapon
+) {
+
+    document.getElementById(
+        "resultIcon"
+    ).textContent =
+        weapon.icon;
+
+
+    document.getElementById(
+        "resultName"
+    ).textContent =
+        weapon.name;
+
+
+    const rarity =
+        document.getElementById(
+            "resultRarity"
+        );
+
+
+    rarity.textContent =
+        weapon.rarity;
+
+
+    rarity.style.color =
+        weapon.color;
+
+
+    document.getElementById(
+        "resultPrice"
+    ).textContent =
+        "$" +
+        weapon.price.toLocaleString();
+
+
+    document.getElementById(
+        "resultOverlay"
+    ).style.display =
+        "flex";
+
+}
+
+
+function closeResult() {
+
+    document.getElementById(
+        "resultOverlay"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =========================
+   INVENTORY
+========================= */
+
+function renderInventory() {
+
+    const inventory =
+        document.getElementById(
+            "inventory"
+        );
+
+
+    if (
+        game.inventory.length === 0
+    ) {
+
+        inventory.innerHTML =
+            `
+            <div class="empty">
+                Your inventory is empty.<br><br>
+                Open your first case!
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    inventory.innerHTML = "";
+
+
+    game.inventory
+        .slice()
+        .reverse()
+        .forEach(
+            (weapon, index) => {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "item";
+
+
+                item.style.setProperty(
+                    "--rarity",
+                    weapon.color
+                );
+
+
+                item.innerHTML = `
+
+                    <div class="item-icon">
+                        ${weapon.icon}
+                    </div>
+
+                    <div class="item-info">
+
+                        <strong>
+                            ${weapon.name}
+                        </strong>
+
+                        <small>
+                            ${weapon.rarity}
+                        </small>
+
+                    </div>
+
+                    <div class="item-price">
+                        $${weapon.price.toLocaleString()}
+                    </div>
+
+                `;
+
+
+                item.onclick =
+                    () => sellItem(
+                        game.inventory.length -
+                        1 -
+                        index
+                    );
+
+
+                inventory.appendChild(
+                    item
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================
+   SELL ITEM
+========================= */
+
+function sellItem(index) {
+
+    const item =
+        game.inventory[index];
+
+
+    if (!item) return;
+
+
+    game.money +=
+        item.price;
+
+
+    game.inventory.splice(
+        index,
+        1
+    );
+
+
+    showToast(
+        `Sold ${item.name} for $${item.price}!`
+    );
+
+
+    save();
+
+    updateUI();
+
+}
+
+
+/* =========================
+   SELL ALL
+========================= */
+
+function sellAll() {
+
+    if (
+        game.inventory.length === 0
+    ) {
+
+        showToast(
+            "Your inventory is empty."
+        );
+
+        return;
+
+    }
+
+
+    const total =
+        game.inventory.reduce(
+            (sum, item) =>
+                sum + item.price,
+            0
+        );
+
+
+    game.money +=
+        total;
+
+
+    game.inventory = [];
+
+
+    showToast(
+        `Sold everything for $${total.toLocaleString()}!`
+    );
+
+
+    save();
+
+    updateUI();
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2500
+        );
+
+}
+
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.code === "Space"
+        ) {
+
+            event.preventDefault();
+
+            openCase();
+
+        }
+
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeResult();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   START
+========================= */
+
+updateUI();
+
+</script>
+
+</body>
+</html>
