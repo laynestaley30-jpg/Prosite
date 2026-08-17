@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,325 +9,664 @@
 <style>
 
 :root {
---purple:#8b5cf6;
---light:#a78bfa;
---bg:#080810;
---text:#fff;
---muted:rgba(255,255,255,.6);
+    --accent: #8b5cf6;
+    --accent2: #a78bfa;
+    --bg: #05050b;
+    --text: #ffffff;
+    --muted: rgba(255,255,255,.55);
 }
 
 * {
-box-sizing:border-box;
+    box-sizing: border-box;
 }
 
-html,body {
-margin:0;
-width:100%;
-height:100%;
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
 }
 
 body {
-font-family:Arial,Helvetica,sans-serif;
-color:var(--text);
-
-background:
-radial-gradient(
-circle at 15% 20%,
-rgba(139,92,246,.30),
-transparent 35%
-),
-radial-gradient(
-circle at 85% 80%,
-rgba(76,29,149,.25),
-transparent 35%
-),
-var(--bg);
+    overflow: hidden;
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
 }
+
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -10;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(139,92,246,.25),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(76,29,149,.20),
+            transparent 35%
+        ),
+        #05050b;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+}
+
+.orb1 {
+    width: 500px;
+    height: 500px;
+    left: -150px;
+    top: -150px;
+    background: var(--accent);
+    opacity: .28;
+    animation: move1 18s ease-in-out infinite;
+}
+
+.orb2 {
+    width: 450px;
+    height: 450px;
+    right: -150px;
+    bottom: -150px;
+    background: var(--accent2);
+    opacity: .22;
+    animation: move2 22s ease-in-out infinite;
+}
+
+.orb3 {
+    width: 320px;
+    height: 320px;
+    left: 45%;
+    top: 20%;
+    background: #4c1d95;
+    opacity: .18;
+    animation: move3 16s ease-in-out infinite;
+}
+
+@keyframes move1 {
+    0%,100% {
+        transform: translate(0,0) scale(1);
+    }
+
+    50% {
+        transform: translate(180px,120px) scale(1.25);
+    }
+}
+
+@keyframes move2 {
+    0%,100% {
+        transform: translate(0,0) scale(1);
+    }
+
+    50% {
+        transform: translate(-180px,-130px) scale(1.2);
+    }
+}
+
+@keyframes move3 {
+    0%,100% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform: translate(150px,160px) scale(1.2);
+    }
+}
+
+
+/* =========================
+   APP
+========================= */
 
 .app {
-display:flex;
-width:100%;
-height:100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
 }
 
 
-/* SIDEBAR */
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar {
-width:78px;
-height:calc(100% - 28px);
-margin:14px;
-padding:12px 8px;
+    width: 82px;
+    height: calc(100% - 28px);
+    margin: 14px;
+    padding: 12px 9px;
 
-display:flex;
-flex-direction:column;
-align-items:center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-background:rgba(12,12,22,.82);
+    background: rgba(10,10,20,.42);
 
-border:1px solid rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 25px;
 
-border-radius:23px;
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
 
-backdrop-filter:blur(18px);
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.35);
 }
 
+
+/* =========================
+   NOVA LOGO
+========================= */
+
+.logo {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
+
+    box-shadow:
+        0 0 28px rgba(139,92,246,.35);
+
+    font-size: 24px;
+    margin-bottom: 14px;
+}
+
+
+/* =========================
+   SIDEBAR CLOCK
+========================= */
+
+.side-clock {
+    text-align: center;
+    margin-bottom: 16px;
+    font-family: "Courier New", monospace;
+}
+
+.side-time {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: var(--accent2);
+}
+
+.side-ampm {
+    font-size: 8px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+
+/* =========================
+   SIDEBAR BUTTONS
+========================= */
+
 .sidebar-buttons {
-display:flex;
-flex-direction:column;
-gap:10px;
-align-items:center;
-width:100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 9px;
 }
 
 .sidebar-button {
-position:relative;
+    position: relative;
 
-width:50px;
-height:50px;
+    width: 50px;
+    height: 50px;
 
-border:0;
-border-radius:16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-background:rgba(255,255,255,.07);
+    border: 0;
+    border-radius: 16px;
 
-color:white;
+    background: rgba(255,255,255,.055);
 
-font-size:22px;
+    color: white;
+    text-decoration: none;
 
-cursor:pointer;
+    font-size: 20px;
 
-transition:.2s;
+    cursor: pointer;
+
+    transition: .2s ease;
 }
 
 .sidebar-button:hover {
-transform:scale(1.07);
-background:rgba(255,255,255,.15);
+    transform: scale(1.07);
+
+    background:
+        rgba(139,92,246,.25);
+
+    box-shadow:
+        0 0 18px rgba(139,92,246,.12);
 }
 
+
+/* =========================
+   TOOLTIP
+========================= */
+
 .sidebar-button::after {
-content:attr(data-label);
+    content: attr(data-label);
 
-position:absolute;
+    position: absolute;
 
-left:62px;
-top:50%;
+    left: 64px;
+    top: 50%;
 
-transform:translateY(-50%);
+    transform:
+        translateY(-50%)
+        translateX(-5px);
 
-padding:7px 10px;
+    padding: 7px 10px;
 
-border-radius:9px;
+    border-radius: 8px;
 
-background:#05050a;
+    background: rgba(4,4,9,.96);
 
-color:white;
+    color: white;
 
-font-size:12px;
+    font-size: 11px;
 
-white-space:nowrap;
+    white-space: nowrap;
 
-opacity:0;
+    opacity: 0;
+    pointer-events: none;
 
-pointer-events:none;
+    transition: .18s ease;
 
-z-index:50;
+    z-index: 10000;
 }
 
 .sidebar-button:hover::after {
-opacity:1;
-}
+    opacity: 1;
 
-.active {
-background:
-linear-gradient(
-135deg,
-rgba(139,92,246,.65),
-rgba(167,139,250,.25)
-);
-}
-
-.sidebar-bottom {
-margin-top:auto;
+    transform:
+        translateY(-50%)
+        translateX(0);
 }
 
 
-/* MAIN */
+/* =========================
+   DIVIDER
+========================= */
+
+.sidebar-divider {
+    width: 45px;
+    height: 1px;
+
+    margin: auto 0 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.25),
+            transparent
+        );
+}
+
+
+/* =========================
+   MAIN
+========================= */
 
 .main {
-flex:1;
+    flex: 1;
 
-height:100%;
+    height: 100%;
 
-overflow-y:auto;
+    overflow-y: auto;
 
-padding:35px 45px;
-}
-
-h1 {
-margin:0;
-
-font-size:
-clamp(40px,6vw,65px);
-
-letter-spacing:-3px;
-}
-
-h1 span {
-color:var(--light);
-}
-
-.subtitle {
-color:var(--muted);
-
-margin-top:8px;
-
-margin-bottom:25px;
+    padding: 40px;
 }
 
 
-/* SEARCH */
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    margin-bottom: 28px;
+}
+
+.header h1 {
+    margin: 0;
+
+    font-size: 42px;
+
+    letter-spacing: -2px;
+}
+
+.header h1 span {
+    color: var(--accent2);
+}
+
+.header p {
+    margin: 8px 0 0;
+
+    color: var(--muted);
+}
+
+
+/* =========================
+   SEARCH
+========================= */
 
 .search {
-width:100%;
+    width: 100%;
+    max-width: 600px;
 
-padding:14px 17px;
+    padding: 14px 17px;
 
-border:
-1px solid rgba(255,255,255,.1);
+    margin-bottom: 28px;
 
-border-radius:15px;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 15px;
 
-outline:none;
+    outline: none;
 
-background:
-rgba(255,255,255,.06);
+    background:
+        rgba(255,255,255,.06);
 
-color:white;
+    color: white;
 
-font-size:14px;
-
-margin-bottom:30px;
+    font-size: 14px;
 }
 
 .search::placeholder {
-color:var(--muted);
+    color: var(--muted);
+}
+
+.search:focus {
+    border-color:
+        rgba(167,139,250,.45);
+
+    box-shadow:
+        0 0 20px
+        rgba(139,92,246,.10);
 }
 
 
-/* CATEGORIES */
+/* =========================
+   GAME GRID
+========================= */
 
-.category {
-margin-bottom:35px;
+.games {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(190px, 1fr)
+        );
+
+    gap: 18px;
 }
 
-.category h2 {
-margin:0 0 14px;
 
-font-size:20px;
+/* =========================
+   GAME CARD
+========================= */
+
+.game-card {
+    min-height: 165px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    cursor: pointer;
+
+    transition: .25s ease;
 }
 
+.game-card:hover {
+    transform: translateY(-6px);
 
-/* GAMES */
+    background:
+        rgba(255,255,255,.095);
 
-.game-grid {
-display:grid;
+    border-color:
+        rgba(167,139,250,.35);
 
-grid-template-columns:
-repeat(
-auto-fit,
-minmax(190px,1fr)
-);
-
-gap:13px;
-}
-
-.game {
-padding:18px;
-
-border-radius:18px;
-
-background:
-rgba(255,255,255,.055);
-
-border:
-1px solid rgba(255,255,255,.08);
-
-cursor:pointer;
-
-transition:.2s;
-}
-
-.game:hover {
-transform:translateY(-4px);
-
-background:
-rgba(139,92,246,.16);
-
-border-color:
-rgba(167,139,250,.4);
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.25);
 }
 
 .game-icon {
-font-size:30px;
+    width: 55px;
+    height: 55px;
 
-margin-bottom:9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 15px;
+
+    border-radius: 17px;
+
+    background:
+        rgba(139,92,246,.18);
+
+    font-size: 28px;
 }
 
-.game h3 {
-margin:0 0 6px;
-
-font-size:14px;
+.game-card h3 {
+    margin: 0 0 7px;
+    font-size: 16px;
 }
 
-.game p {
-margin:0;
-
-font-size:11px;
-
-color:var(--muted);
+.game-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
 }
 
 
-/* MOBILE */
+/* =========================
+   GAME OVERLAY
+========================= */
+
+.game-overlay {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    z-index: 9999;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(0,0,0,.80);
+
+    backdrop-filter:
+        blur(12px);
+}
+
+
+/* =========================
+   GAME WINDOW
+========================= */
+
+.game-window {
+    width: 92vw;
+    height: 88vh;
+
+    max-width: 1500px;
+
+    background: #080810;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.70);
+}
+
+
+/* =========================
+   GAME HEADER
+========================= */
+
+.game-header {
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 15px;
+
+    background:
+        rgba(20,20,30,.96);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+.game-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.close-game {
+    width: 36px;
+    height: 36px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+.close-game:hover {
+    background:
+        rgba(239,68,68,.35);
+}
+
+
+/* =========================
+   IFRAME
+========================= */
+
+#gameFrame {
+    width: 100%;
+    height: calc(100% - 55px);
+
+    display: block;
+
+    border: 0;
+
+    background: black;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px) {
 
-.sidebar {
-width:65px;
+    .sidebar {
+        width: 65px;
+        margin: 9px;
+        height: calc(100% - 18px);
+    }
 
-margin:9px;
+    .sidebar-button {
+        width: 43px;
+        height: 43px;
+        font-size: 18px;
+    }
 
-height:calc(100% - 18px);
-}
+    .sidebar-button::after {
+        display: none;
+    }
 
-.sidebar-button {
-width:44px;
-height:44px;
+    .main {
+        padding: 25px 18px;
+    }
 
-font-size:20px;
-}
+    .header h1 {
+        font-size: 32px;
+    }
 
-.sidebar-button::after {
-display:none;
-}
+    .games {
+        grid-template-columns: 1fr;
+    }
 
-.main {
-padding:25px 18px;
-}
-
-.game-grid {
-grid-template-columns:1fr;
-}
-
+    .game-window {
+        width: 96vw;
+        height: 90vh;
+    }
 }
 
 </style>
-
 </head>
 
 
 <body>
+
+
+<!-- BACKGROUND -->
+
+<div class="background">
+
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+</div>
 
 
 <div class="app">
@@ -338,86 +676,111 @@ grid-template-columns:1fr;
 
 <aside class="sidebar">
 
-<div class="sidebar-buttons">
+
+    <div class="logo">
+        ✦
+    </div>
 
 
-<button
-class="sidebar-button"
-data-label="Home"
-onclick="location.href='index.html'">
+    <div class="side-clock">
 
-🏠
+        <div
+            class="side-time"
+            id="sideTime">
+            00:00
+        </div>
 
-</button>
+        <div
+            class="side-ampm"
+            id="sideAmpm">
+            AM
+        </div>
 
-
-<button
-class="sidebar-button active"
-data-label="Games">
-
-🎮
-
-</button>
+    </div>
 
 
-<button
-class="sidebar-button"
-data-label="Music"
-onclick="location.href='music.html'">
-
-🎵
-
-</button>
+    <div class="sidebar-buttons">
 
 
-<button
-class="sidebar-button"
-data-label="Chat"
-onclick="location.href='chat.html'">
+        <a
+            href="index.html"
+            class="sidebar-button"
+            data-label="Home">
 
-💬
+            🏠
 
-</button>
-
-
-<button
-class="sidebar-button"
-data-label="Nova AI"
-onclick="location.href='Nova.html'">
-
-🤖
-
-</button>
+        </a>
 
 
-<button
-class="sidebar-button"
-data-label="Google"
-onclick="window.open('https://www.google.com','_blank')">
+        <a
+            href="games.html"
+            class="sidebar-button"
+            data-label="Games">
 
-G
+            🎮
 
-</button>
-
-
-</div>
+        </a>
 
 
-<div class="sidebar-bottom">
+        <a
+            href="music.html"
+            class="sidebar-button"
+            data-label="Music">
 
-<button
-class="sidebar-button"
-data-label="Settings"
-onclick="location.href='settings.html'">
+            🎵
 
-⚙️
+        </a>
 
-</button>
 
-</div>
+        <a
+            href="chat.html"
+            class="sidebar-button"
+            data-label="Chat">
+
+            💬
+
+        </a>
+
+
+        <a
+            href="Nova.html"
+            class="sidebar-button"
+            data-label="Nova AI">
+
+            🤖
+
+        </a>
+
+
+        <a
+            href="https://www.google.com"
+            target="_blank"
+            rel="noopener"
+            class="sidebar-button"
+            data-label="Google">
+
+            G
+
+        </a>
+
+
+    </div>
+
+
+    <div class="sidebar-divider"></div>
+
+
+    <a
+        href="settings.html"
+        class="sidebar-button"
+        data-label="Settings">
+
+        ⚙️
+
+    </a>
+
 
 </aside>
-
 
 
 <!-- MAIN -->
@@ -425,428 +788,366 @@ onclick="location.href='settings.html'">
 <main class="main">
 
 
-<h1>
-Nova <span>Games</span>
-</h1>
+    <div class="header">
 
+        <h1>
+            Nova
+            <span>Games</span>
+        </h1>
 
-<div class="subtitle">
-Click a game to play it.
-</div>
+        <p>
+            Choose a game and start playing.
+        </p>
 
+    </div>
 
-<input
-id="search"
-class="search"
-placeholder="🔎 Search games..."
-oninput="searchGames()"
->
 
+    <input
+        class="search"
+        id="gameSearch"
+        type="text"
+        placeholder="Search games...">
 
 
-<!-- JS13KGAMES -->
+    <div
+        class="games"
+        id="games">
 
-<section class="category">
 
-<h2>🔥 Browser Games</h2>
+        <!-- CSGO CASE CLICKER -->
 
-<div class="game-grid">
+        <div
+            class="game-card"
+            data-name="CSGO Case Clicker"
+            onclick="openGame(
+                'CSGO Case Clicker',
+                '<iframe xmlns="http://www.w3.org/1999/xhtml" class="games-player-frame" src="https://a.luminsdk.com/g/1786934258-uJFtN0uFjEjkoeYa-vXnUNLnlY2jv6OAOJrxbLaIyts/selenite/csgoclicker/" allow="autoplay; fullscreen; pointer-lock; gamepad; clipboard-write" allowFullScreen="" title="CSGO Case Clicker"></iframe>'
+            )">
 
+            <div class="game-icon">
+                📦
+            </div>
 
-<div
-class="game"
-data-name="ASDF"
-onclick="playGame(
-'ASDF',
-'https://play.js13kgames.com/asdf/'
-)">
+            <h3>
+                CSGO Case Clicker
+            </h3>
 
-<div class="game-icon">🎮</div>
+            <p>
+                Open cases and collect skins.
+            </p>
 
-<h3>ASDF</h3>
+        </div>
 
-<p>Simon-style keyboard game.</p>
 
-</div>
+        <!-- COOKIE CLICKER -->
 
+        <div
+            class="game-card"
+            data-name="Cookie Clicker"
+            onclick="openGame(
+                'Cookie Clicker',
+                'PASTE_YOUR_COOKIE_CLICKER_URL_HERE'
+            )">
 
+            <div class="game-icon">
+                🍪
+            </div>
 
-<div
-class="game"
-data-name="13 Seconds to Midnight"
-onclick="playGame(
-'13 Seconds to Midnight',
-'https://play.js13kgames.com/13-seconds-to-midnight/'
-)">
+            <h3>
+                Cookie Clicker
+            </h3>
 
-<div class="game-icon">⏰</div>
+            <p>
+                Make cookies.
+            </p>
 
-<h3>13 Seconds to Midnight</h3>
+        </div>
 
-<p>Escape the forest.</p>
 
-</div>
+        <!-- ADD MORE GAMES HERE -->
 
-
-
-<div
-class="game"
-data-name="Ice-X"
-onclick="playGame(
-'Ice-X',
-'https://play.js13kgames.com/ice-x/'
-)">
-
-<div class="game-icon">🧊</div>
-
-<h3>Ice-X</h3>
-
-<p>Explore the network.</p>
-
-</div>
-
-
-
-<div
-class="game"
-data-name="Sub13"
-onclick="playGame(
-'Sub13',
-'https://play.js13kgames.com/sub13/'
-)">
-
-<div class="game-icon">🏎️</div>
-
-<h3>Sub13</h3>
-
-<p>Arcade racing game.</p>
-
-</div>
-
-
-
-<div
-class="game"
-data-name="Khan Westward Conquest"
-onclick="playGame(
-'Khan - Westward Conquest',
-'https://play.js13kgames.com/khan-westward-conquest/'
-)">
-
-<div class="game-icon">⚔️</div>
-
-<h3>Khan</h3>
-
-<p>Strategy card game.</p>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- MULTIPLAYER -->
-
-<section class="category">
-
-<h2>🌐 Multiplayer</h2>
-
-<div class="game-grid">
-
-
-<div
-class="game"
-data-name="Shell Shockers"
-onclick="playGame(
-'Shell Shockers',
-'https://shellshock.io/'
-)">
-
-<div class="game-icon">🥚</div>
-
-<h3>Shell Shockers</h3>
-
-<p>Multiplayer FPS.</p>
-
-</div>
-
-
-
-<div
-class="game"
-data-name="Agar.io"
-onclick="playGame(
-'Agar.io',
-'https://agar.io/'
-)">
-
-<div class="game-icon">🟢</div>
-
-<h3>Agar.io</h3>
-
-<p>Grow and survive.</p>
-
-</div>
-
-
-
-<div
-class="game"
-data-name="Slither.io"
-onclick="playGame(
-'Slither.io',
-'https://slither.io/'
-)">
-
-<div class="game-icon">🐍</div>
-
-<h3>Slither.io</h3>
-
-<p>Become the biggest snake.</p>
-
-</div>
-
-
-
-<div
-class="game"
-data-name="Diep.io"
-onclick="playGame(
-'Diep.io',
-'https://diep.io/'
-)">
-
-<div class="game-icon">🔵</div>
-
-<h3>Diep.io</h3>
-
-<p>Tank battles.</p>
-
-</div>
-
-
-
-<div
-class="game"
-data-name="Paper.io"
-onclick="playGame(
-'Paper.io',
-'https://paper-io.com/'
-)">
-
-<div class="game-icon">📄</div>
-
-<h3>Paper.io</h3>
-
-<p>Claim territory.</p>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- REQUESTED -->
-
-<section class="category">
-
-<h2>⭐ Your Games</h2>
-
-<div class="game-grid">
-
-
-<div
-class="game"
-data-name="Tung Tung Escape"
-onclick="comingSoon('Tung Tung Escape')">
-
-<div class="game-icon">🗿</div>
-
-<h3>Tung Tung Escape</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Bad Time Simulator"
-onclick="comingSoon('Bad Time Simulator')">
-
-<div class="game-icon">💀</div>
-
-<h3>Bad Time Simulator</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Friday Night Funkin"
-onclick="comingSoon('Friday Night Funkin')">
-
-<div class="game-icon">🎤</div>
-
-<h3>Friday Night Funkin'</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Undertale Yellow"
-onclick="comingSoon('Undertale Yellow')">
-
-<div class="game-icon">💛</div>
-
-<h3>Undertale Yellow</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Deltarune"
-onclick="comingSoon('Deltarune')">
-
-<div class="game-icon">♟️</div>
-
-<h3>Deltarune</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Baldi"
-onclick="comingSoon('Baldi’s Basics')">
-
-<div class="game-icon">📚</div>
-
-<h3>Baldi's Basics</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Getting Over It"
-onclick="comingSoon('Getting Over It')">
-
-<div class="game-icon">⛰️</div>
-
-<h3>Getting Over It</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-<div
-class="game"
-data-name="Granny"
-onclick="comingSoon('Granny')">
-
-<div class="game-icon">👵</div>
-
-<h3>Granny</h3>
-
-<p>Coming soon.</p>
-
-</div>
-
-
-</div>
-
-</section>
+    </div>
 
 
 </main>
 
+
 </div>
 
+
+<!-- GAME POPUP -->
+
+<div
+    class="game-overlay"
+    id="gameOverlay">
+
+
+    <div class="game-window">
+
+
+        <div class="game-header">
+
+            <div
+                class="game-title"
+                id="gameTitle">
+
+                Game
+
+            </div>
+
+
+            <button
+                class="close-game"
+                onclick="closeGame()">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <iframe
+            id="gameFrame"
+            src=""
+            allowfullscreen>
+        </iframe>
+
+
+    </div>
+
+</div>
 
 
 <script>
 
+/* =========================
+   CLOCK
+========================= */
 
-/* PLAY */
+function updateClock() {
 
-function playGame(name,url) {
+    const now = new Date();
 
-window.open(
-url,
-"_blank"
+    let hours = now.getHours();
+
+    const minutes =
+        String(
+            now.getMinutes()
+        ).padStart(2, "0");
+
+    const ampm =
+        hours >= 12
+            ? "PM"
+            : "AM";
+
+    hours =
+        hours % 12 || 12;
+
+    hours =
+        String(hours)
+        .padStart(2, "0");
+
+    document.getElementById(
+        "sideTime"
+    ).textContent =
+        `${hours}:${minutes}`;
+
+    document.getElementById(
+        "sideAmpm"
+    ).textContent =
+        ampm;
+}
+
+updateClock();
+
+setInterval(
+    updateClock,
+    1000
 );
 
+
+/* =========================
+   OPEN GAME
+========================= */
+
+function openGame(title, url) {
+
+    if (
+        !url ||
+        url.includes(
+            "PASTE_YOUR_"
+        )
+    ) {
+
+        alert(
+            "Add the game's iframe URL first."
+        );
+
+        return;
+    }
+
+    document.getElementById(
+        "gameTitle"
+    ).textContent =
+        title;
+
+    document.getElementById(
+        "gameFrame"
+    ).src =
+        url;
+
+    document.getElementById(
+        "gameOverlay"
+    ).style.display =
+        "flex";
 }
 
 
-/* COMING SOON */
+/* =========================
+   CLOSE GAME
+========================= */
 
-function comingSoon(name) {
+function closeGame() {
 
-alert(
-name +
-" doesn't have a verified web-game URL added yet."
-);
+    document.getElementById(
+        "gameFrame"
+    ).src = "";
 
+    document.getElementById(
+        "gameOverlay"
+    ).style.display =
+        "none";
 }
 
 
-/* SEARCH */
+/* =========================
+   ESCAPE TO CLOSE
+========================= */
 
-function searchGames() {
+document.addEventListener(
+    "keydown",
+    function(event) {
 
-const search =
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeGame();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   SEARCH
+========================= */
+
 document.getElementById(
-"search"
-).value.toLowerCase();
+    "gameSearch"
+).addEventListener(
+    "input",
+    function() {
+
+        const search =
+            this.value
+            .toLowerCase();
+
+        const cards =
+            document.querySelectorAll(
+                ".game-card"
+            );
+
+        cards.forEach(
+            card => {
+
+                const name =
+                    card.dataset.name
+                    .toLowerCase();
+
+                card.style.display =
+                    name.includes(search)
+                        ? ""
+                        : "none";
+
+            }
+        );
+
+    }
+);
 
 
-document
-.querySelectorAll(".game")
-.forEach(game => {
+/* =========================
+   ACCENT COLOR
+========================= */
 
-const name =
-game.dataset.name.toLowerCase();
+const savedAccent =
+    localStorage.getItem(
+        "novaAccent"
+    );
 
-if(name.includes(search)) {
+const colors = {
 
-game.style.display =
-"block";
+    purple: [
+        "#8b5cf6",
+        "#a78bfa"
+    ],
 
-} else {
+    blue: [
+        "#3b82f6",
+        "#60a5fa"
+    ],
 
-game.style.display =
-"none";
+    cyan: [
+        "#06b6d4",
+        "#67e8f9"
+    ],
 
-}
+    pink: [
+        "#ec4899",
+        "#f472b6"
+    ],
 
-});
+    green: [
+        "#10b981",
+        "#34d399"
+    ],
 
+    orange: [
+        "#f97316",
+        "#fb923c"
+    ],
+
+    red: [
+        "#ef4444",
+        "#f87171"
+    ]
+
+};
+
+if (
+    savedAccent &&
+    colors[savedAccent]
+) {
+
+    document.documentElement
+        .style
+        .setProperty(
+            "--accent",
+            colors[savedAccent][0]
+        );
+
+    document.documentElement
+        .style
+        .setProperty(
+            "--accent2",
+            colors[savedAccent][1]
+        );
 }
 
 </script>
 
-
 </body>
-
 </html>
